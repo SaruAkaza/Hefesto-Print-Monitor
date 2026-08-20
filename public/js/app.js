@@ -1476,6 +1476,7 @@ function setupEventListeners() {
     DOM.formLoginAdmin.style.display = 'none';
     DOM.adminUserInput.value = '';
     DOM.adminPasswordInput.value = '';
+    setLoginBackgroundMode('operator');
   });
 
   DOM.tabLoginAdmin.addEventListener('click', () => {
@@ -1485,6 +1486,7 @@ function setupEventListeners() {
     DOM.formLoginAdmin.style.display = 'block';
     DOM.adminUserInput.value = '';
     DOM.adminPasswordInput.value = '';
+    setLoginBackgroundMode('admin');
     setTimeout(() => DOM.adminUserInput.focus(), 100);
   });
 
@@ -1548,6 +1550,7 @@ function setupEventListeners() {
     if (DOM.formLoginAdmin) DOM.formLoginAdmin.style.display = 'none';
     if (DOM.loginOverlay) {
       DOM.loginOverlay.classList.add('active');
+      setLoginBackgroundMode('operator');
       startDnaMatrix();
     }
     showToast('Sessão encerrada com sucesso.', 'info');
@@ -1725,9 +1728,14 @@ function setupEventListeners() {
 }
 
 /* ==========================================================================
-   ESPIRAL DNA INFINITA & CHUVA BIO-MATRIX PREVENT SENIOR
+   ANIMAÇÃO DINÂMICA DE LOGIN (INSTITUCIONAL PREVENT SENIOR VS MATRIX TI)
    ========================================================================== */
 let dnaMatrixAnimId = null;
+let loginBackgroundMode = 'operator'; // 'operator' (Corporativo Prevent Senior) ou 'admin' (Matrix TI)
+
+function setLoginBackgroundMode(mode) {
+  loginBackgroundMode = mode;
+}
 
 function initDnaMatrixBackground() {
   const canvas = document.getElementById('dna-matrix-canvas');
@@ -1740,11 +1748,81 @@ function initDnaMatrixBackground() {
   let height = 0;
   let dpr = window.devicePixelRatio || 1;
 
-  // Caracteres da Chuva Matrix (Bases Nitrogenadas + Símbolos Médicos + Telemetria)
-  const matrixChars = ['A', 'T', 'C', 'G', '✚', '✦', '⌬', '⬡', '⚕', '◈', '⚡', '1', '0', 'SNMP', 'OID', 'IP', 'RX', 'TX'];
-  const fontSize = 14;
+  // --------------------------------------------------------------------------
+  // RECURSOS PARA O MODO 1: INSTITUCIONAL PREVENT SENIOR (VISUALIZAR UNIDADE)
+  // --------------------------------------------------------------------------
+  const corpNodes = [];
+  const corpNodeCount = 45;
+  const healthIcons = ['✦', '✚', '⬡', '◈', '⚕'];
+
+  // --------------------------------------------------------------------------
+  // RECURSOS PARA O MODO 2: TI MATRIX (ADMINISTRADOR)
+  // --------------------------------------------------------------------------
+  const codeTokens = [
+    'SNMPv2c', '1.3.6.1.2.1.43', 'hrPrinterStatus', 'sysDescr',
+    '10.1.152.x', '10.1.176.x', '10.5.104.x', 'UDP:161',
+    'Epson_M1180', 'Brother_TLV', 'Lexmark_XC', 'Xerox_A3',
+    'fetch("/api/status")', 'express()', 'Promise.allSettled',
+    'renderMyPrinters()', 'tonerLevel:98%', 'drumKit:OK', 'fuserUnit:100%',
+    'async/await', 'const { ip }', 'pageCount: 42890', 'ONLINE', 'OFFLINE',
+    'CRITICAL<10%', 'WARNING:20%', '01001100', '11010001', '0x1F', '0xFF',
+    'HTTP/1.1 200 OK', 'PreventSenior', 'TI_Prevent', 'Units_138_Taiti',
+    'Units_121_RioSul', 'Units_113_Havai', 'Units_103_Leblon', 'net-snmp',
+    '0', '1', '{}', '[]', '=>', '//', '✦', '⌬', '⬡', '⚡', '</>', '◈'
+  ];
+
+  const fontSize = 13;
   let columns = 0;
-  let drops = [];
+  let columnStreams = [];
+  const dustParticles = [];
+  const maxDustParticles = 240;
+
+  function createStream(colIndex) {
+    const x = colIndex * fontSize * 1.55;
+    const trailLength = 12 + Math.floor(Math.random() * 16);
+    const speed = 2.4 + Math.random() * 3.4;
+    const historyChars = [];
+    for (let i = 0; i < trailLength; i++) {
+      historyChars.push(getRandomChar());
+    }
+
+    return {
+      x,
+      y: -Math.random() * height * 0.9,
+      speed,
+      trailLength,
+      historyChars,
+      changeTimer: 0,
+      colorType: Math.random() > 0.35 ? 'cyan' : 'royal'
+    };
+  }
+
+  function getRandomChar() {
+    const token = codeTokens[Math.floor(Math.random() * codeTokens.length)];
+    return token[Math.floor(Math.random() * token.length)] || '0';
+  }
+
+  function spawnDust(x, groundY, colorType) {
+    const burstCount = 6 + Math.floor(Math.random() * 6);
+    for (let i = 0; i < burstCount; i++) {
+      if (dustParticles.length >= maxDustParticles) {
+        dustParticles.shift();
+      }
+      const angle = (Math.PI * 0.15) + Math.random() * (Math.PI * 0.7);
+      const speed = 1.2 + Math.random() * 3.2;
+      dustParticles.push({
+        x: x + (Math.random() - 0.5) * 8,
+        y: groundY - Math.random() * 4,
+        vx: (Math.random() - 0.5) * 3.2,
+        vy: -Math.sin(angle) * speed,
+        gravity: 0.08 + Math.random() * 0.08,
+        size: 0.8 + Math.random() * 1.8,
+        alpha: 0.9 + Math.random() * 0.1,
+        decay: 0.02 + Math.random() * 0.025,
+        colorType: Math.random() > 0.3 ? colorType : 'white'
+      });
+    }
+  }
 
   function resize() {
     width = canvas.parentElement ? canvas.parentElement.clientWidth : window.innerWidth;
@@ -1755,23 +1833,33 @@ function initDnaMatrixBackground() {
     canvas.height = height * dpr;
     ctx.scale(dpr, dpr);
 
-    columns = Math.floor(width / (fontSize * 1.6));
-    drops = [];
-    for (let i = 0; i < columns; i++) {
-      drops[i] = {
-        y: Math.random() * -height,
-        speed: 1.2 + Math.random() * 2.2,
-        char: matrixChars[Math.floor(Math.random() * matrixChars.length)],
-        changeTimer: Math.floor(Math.random() * 10),
-        colorType: Math.random() > 0.3 ? 'cyan' : 'blue'
-      };
+    // Inicializa nós da constelação institucional
+    corpNodes.length = 0;
+    for (let i = 0; i < corpNodeCount; i++) {
+      corpNodes.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        radius: 1.5 + Math.random() * 2.2,
+        alpha: 0.3 + Math.random() * 0.5,
+        icon: Math.random() > 0.75 ? healthIcons[Math.floor(Math.random() * healthIcons.length)] : null,
+        pulseOffset: Math.random() * Math.PI * 2
+      });
+    }
+
+    // Inicializa colunas matrix
+    columns = Math.floor(width / (fontSize * 1.55));
+    columnStreams = [];
+    for (let c = 0; c < columns; c++) {
+      columnStreams.push(createStream(c));
     }
   }
 
   window.addEventListener('resize', resize);
   resize();
 
-  let t = 0;
+  let time = 0;
 
   function draw() {
     if (!DOM.loginOverlay || !DOM.loginOverlay.classList.contains('active')) {
@@ -1779,117 +1867,188 @@ function initDnaMatrixBackground() {
       return;
     }
 
-    // Fundo semitransparente para criar o rastro cinematográfico
+    time += 0.015;
     const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-    ctx.fillStyle = isLight ? 'rgba(240, 249, 255, 0.18)' : 'rgba(2, 6, 23, 0.22)';
-    ctx.fillRect(0, 0, width, height);
 
-    // 1. DESENHO DA CHUVA BIO-MATRIX
-    ctx.font = `600 ${fontSize}px "JetBrains Mono", monospace`;
-    for (let i = 0; i < columns; i++) {
-      const drop = drops[i];
-      const x = i * fontSize * 1.6;
-      const y = drop.y;
+    // ==========================================================================
+    // MODO 1: APRESENTAÇÃO CORPORATIVA / PREVENT SENIOR (VISUALIZAR UNIDADE)
+    // ==========================================================================
+    if (loginBackgroundMode === 'operator') {
+      ctx.clearRect(0, 0, width, height);
 
-      drop.changeTimer++;
-      if (drop.changeTimer > 8) {
-        drop.char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
-        drop.changeTimer = 0;
-      }
-
-      // Efeito de brilho na cabeça da gota
+      // Gradiente de aura suave da Prevent Senior
+      const grad = ctx.createRadialGradient(width * 0.5, height * 0.45, 50, width * 0.5, height * 0.45, Math.max(width, height) * 0.7);
       if (isLight) {
-        ctx.fillStyle = drop.colorType === 'cyan' ? '#0288d1' : '#0097a7';
+        grad.addColorStop(0, 'rgba(224, 242, 254, 0.4)');
+        grad.addColorStop(1, 'rgba(240, 249, 255, 0.95)');
       } else {
-        ctx.shadowBlur = 8;
-        ctx.shadowColor = drop.colorType === 'cyan' ? '#00e5ff' : '#38bdf8';
-        ctx.fillStyle = drop.colorType === 'cyan' ? '#38bdf8' : '#818cf8';
+        grad.addColorStop(0, 'rgba(2, 136, 209, 0.12)');
+        grad.addColorStop(0.5, 'rgba(15, 23, 42, 0.45)');
+        grad.addColorStop(1, 'rgba(2, 6, 23, 0.95)');
       }
-      ctx.fillText(drop.char, x, y);
-      ctx.shadowBlur = 0;
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
 
-      drop.y += drop.speed;
-      if (drop.y > height + 50) {
-        drop.y = -20 - Math.random() * 80;
-        drop.speed = 1.2 + Math.random() * 2.2;
+      // Pulso de Onda Circular Biomédica Suave
+      const pulseRadius = (time * 35) % (Math.min(width, height) * 0.65);
+      const pulseAlpha = Math.max(0, 1 - (pulseRadius / (Math.min(width, height) * 0.65))) * 0.25;
+      ctx.beginPath();
+      ctx.arc(width * 0.5, height * 0.45, pulseRadius, 0, Math.PI * 2);
+      ctx.strokeStyle = isLight ? `rgba(2, 136, 209, ${pulseAlpha})` : `rgba(0, 188, 212, ${pulseAlpha})`;
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // Conexões Translúcidas entre Nós
+      const maxConnectDist = Math.min(width * 0.18, 140);
+      ctx.lineWidth = 0.9;
+      for (let i = 0; i < corpNodes.length; i++) {
+        for (let j = i + 1; j < corpNodes.length; j++) {
+          const n1 = corpNodes[i];
+          const n2 = corpNodes[j];
+          const dx = n1.x - n2.x;
+          const dy = n1.y - n2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < maxConnectDist) {
+            const edgeAlpha = (1 - dist / maxConnectDist) * 0.28;
+            ctx.beginPath();
+            ctx.moveTo(n1.x, n1.y);
+            ctx.lineTo(n2.x, n2.y);
+            ctx.strokeStyle = isLight ? `rgba(2, 136, 209, ${edgeAlpha})` : `rgba(56, 189, 248, ${edgeAlpha})`;
+            ctx.stroke();
+          }
+        }
       }
-    }
 
-    // 2. DESENHO DA DUPLA HÉLICE 3D INFINITA DE DNA (PREVENT SENIOR)
-    t += 0.022;
+      // Desenho dos Nós Estelares / Médicos
+      ctx.font = '600 12px "JetBrains Mono", monospace';
+      corpNodes.forEach(node => {
+        node.x += node.vx;
+        node.y += node.vy;
 
-    // Duas espirais harmônicas: lateral esquerda e lateral direita
-    const helixConfigs = [
-      { centerX: width * 0.16, radius: Math.min(width * 0.08, 90), waveFreq: 0.015 },
-      { centerX: width * 0.84, radius: Math.min(width * 0.08, 90), waveFreq: 0.015 }
-    ];
+        if (node.x < 0) node.x = width;
+        if (node.x > width) node.x = 0;
+        if (node.y < 0) node.y = height;
+        if (node.y > height) node.y = 0;
 
-    helixConfigs.forEach(helix => {
-      const { centerX, radius, waveFreq } = helix;
-      const nodeStep = 22;
-      const totalNodes = Math.ceil(height / nodeStep) + 4;
+        const pulse = Math.sin(time * 2 + node.pulseOffset);
+        const currentRadius = node.radius + pulse * 0.6;
+        const currentAlpha = node.alpha + pulse * 0.15;
 
-      for (let n = -2; n < totalNodes; n++) {
-        const y = n * nodeStep;
-        const angle = y * waveFreq + t;
-
-        // Projeção 3D com profundidade Z
-        const sinA = Math.sin(angle);
-        const cosA = Math.cos(angle);
-
-        // Ponto A (Fita 1 - Ciano Prevent)
-        const xA = centerX + cosA * radius;
-        const zA = sinA; // -1 (fundo) a +1 (frente)
-        const sizeA = (zA + 1.6) * 2.5;
-
-        // Ponto B (Fita 2 - Azul Royal Prevent)
-        const xB = centerX - cosA * radius;
-        const zB = -sinA;
-        const sizeB = (zB + 1.6) * 2.5;
-
-        // Ponte de Hidrogênio / Ligação Molecular entre as bases A e B
-        const bridgeAlpha = Math.max(0.15, (zA + 1) * 0.35);
         ctx.beginPath();
-        ctx.moveTo(xA, y);
-        ctx.lineTo(xB, y);
-        const gradBridge = ctx.createLinearGradient(xA, y, xB, y);
-        gradBridge.addColorStop(0, `rgba(0, 229, 255, ${bridgeAlpha})`);
-        gradBridge.addColorStop(0.5, `rgba(99, 102, 241, ${bridgeAlpha * 0.8})`);
-        gradBridge.addColorStop(1, `rgba(2, 136, 209, ${bridgeAlpha})`);
-        ctx.strokeStyle = gradBridge;
-        ctx.lineWidth = Math.max(1, (zA + 1.2) * 1.2);
-        ctx.stroke();
-
-        // Par de Bases no centro da ponte (Ponto de Ligação A-T / C-G)
-        const midX = (xA + xB) / 2;
-        ctx.beginPath();
-        ctx.arc(midX, y, sizeA * 0.35, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${bridgeAlpha * 0.9})`;
-        ctx.fill();
-
-        // Nó da Fita 1 (Ciano / Prevent Senior)
-        ctx.beginPath();
-        ctx.arc(xA, y, Math.max(2, sizeA), 0, Math.PI * 2);
+        ctx.arc(node.x, node.y, currentRadius, 0, Math.PI * 2);
         if (!isLight) {
-          ctx.shadowBlur = zA > 0 ? 12 : 4;
+          ctx.shadowBlur = 8;
           ctx.shadowColor = '#00e5ff';
         }
-        ctx.fillStyle = zA > 0 ? '#38bdf8' : '#0284c7';
+        ctx.fillStyle = isLight ? `rgba(2, 136, 209, ${currentAlpha})` : `rgba(0, 229, 255, ${currentAlpha})`;
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        // Nó da Fita 2 (Azul Royal / Prevent Senior)
-        ctx.beginPath();
-        ctx.arc(xB, y, Math.max(2, sizeB), 0, Math.PI * 2);
-        if (!isLight) {
-          ctx.shadowBlur = zB > 0 ? 12 : 4;
-          ctx.shadowColor = '#818cf8';
+        if (node.icon) {
+          ctx.fillStyle = isLight ? `rgba(1, 87, 155, ${currentAlpha * 0.85})` : `rgba(255, 255, 255, ${currentAlpha * 0.75})`;
+          ctx.fillText(node.icon, node.x + 6, node.y + 4);
         }
-        ctx.fillStyle = zB > 0 ? '#818cf8' : '#4338ca';
+      });
+
+    } 
+    // ==========================================================================
+    // MODO 2: TI MATRIX COM PÓ NO SOLO (ADMINISTRADOR)
+    // ==========================================================================
+    else {
+      // Rastro cinematográfico
+      ctx.fillStyle = isLight ? 'rgba(240, 249, 255, 0.24)' : 'rgba(2, 6, 23, 0.26)';
+      ctx.fillRect(0, 0, width, height);
+
+      const groundY = height - 8;
+
+      ctx.font = `600 ${fontSize}px "JetBrains Mono", monospace`;
+
+      columnStreams.forEach((stream) => {
+        stream.y += stream.speed;
+        stream.changeTimer++;
+
+        if (stream.changeTimer > 4) {
+          stream.historyChars.pop();
+          stream.historyChars.unshift(getRandomChar());
+          stream.changeTimer = 0;
+        }
+
+        for (let i = 0; i < stream.trailLength; i++) {
+          const charY = stream.y - i * (fontSize + 3);
+          if (charY < -20 || charY > height + 20) continue;
+
+          const char = stream.historyChars[i] || '0';
+          const progress = 1 - (i / stream.trailLength);
+
+          if (i === 0) {
+            if (!isLight) {
+              ctx.shadowBlur = 10;
+              ctx.shadowColor = '#00e5ff';
+            }
+            ctx.fillStyle = isLight ? '#0288d1' : '#ffffff';
+            ctx.fillText(char, stream.x, charY);
+            ctx.shadowBlur = 0;
+          } else {
+            const alpha = progress * (isLight ? 0.75 : 0.85);
+            if (stream.colorType === 'cyan') {
+              ctx.fillStyle = isLight ? `rgba(2, 136, 209, ${alpha})` : `rgba(56, 189, 248, ${alpha})`;
+            } else {
+              ctx.fillStyle = isLight ? `rgba(14, 116, 144, ${alpha})` : `rgba(0, 229, 255, ${alpha})`;
+            }
+            ctx.fillText(char, stream.x, charY);
+          }
+        }
+
+        // Colisão no chão e virada em pó
+        if (stream.y >= groundY) {
+          spawnDust(stream.x, groundY, stream.colorType);
+          stream.y = -20 - Math.random() * 220;
+          stream.speed = 2.4 + Math.random() * 3.4;
+        }
+      });
+
+      // Partículas de Pó Luminoso
+      for (let i = dustParticles.length - 1; i >= 0; i--) {
+        const p = dustParticles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.vx *= 0.96;
+        p.alpha -= p.decay;
+
+        if (p.alpha <= 0 || p.y > height + 20) {
+          dustParticles.splice(i, 1);
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        if (!isLight) {
+          ctx.shadowBlur = 6;
+          ctx.shadowColor = p.colorType === 'white' ? '#ffffff' : '#00e5ff';
+        }
+        if (p.colorType === 'white') {
+          ctx.fillStyle = isLight ? `rgba(2, 136, 209, ${p.alpha})` : `rgba(255, 255, 255, ${p.alpha})`;
+        } else {
+          ctx.fillStyle = isLight ? `rgba(0, 188, 212, ${p.alpha})` : `rgba(0, 229, 255, ${p.alpha})`;
+        }
         ctx.fill();
         ctx.shadowBlur = 0;
       }
-    });
+
+      // Linha sutil de energia no chão
+      const groundGrad = ctx.createLinearGradient(0, groundY, width, groundY);
+      groundGrad.addColorStop(0, 'rgba(0, 229, 255, 0)');
+      groundGrad.addColorStop(0.5, isLight ? 'rgba(2, 136, 209, 0.25)' : 'rgba(0, 229, 255, 0.35)');
+      groundGrad.addColorStop(1, 'rgba(0, 229, 255, 0)');
+      ctx.strokeStyle = groundGrad;
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, groundY + 2);
+      ctx.lineTo(width, groundY + 2);
+      ctx.stroke();
+    }
 
     dnaMatrixAnimId = requestAnimationFrame(draw);
   }
