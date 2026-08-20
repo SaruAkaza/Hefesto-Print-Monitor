@@ -1,0 +1,16 @@
+[
+  {
+    "id": "56d55492-6331-4f6c-8199-9a8aed4ab770",
+    "printerId": "20c34f34-155d-4fda-953b-45e495f033e3",
+    "printerName": "7529826140D50",
+    "location": "Unidade São Francisco - Oncologia",
+    "supplyName": "Magenta Cartridge",
+    "supplyType": "other",
+    "percentage": 14,
+    "orderStatus": "pending",
+    "modelPart": "",
+    "notes": "",
+    "createdAt": "2026-08-19T12:52:59.478Z",
+    "updatedAt": "2026-08-19T12:52:59.478Z"
+  }
+]

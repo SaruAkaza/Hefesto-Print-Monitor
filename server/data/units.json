@@ -1,0 +1,26 @@
+[
+  {
+    "id": "unit-103-sede-leblon",
+    "name": "103 - Sede Leblon",
+    "description": "Sede Corporativa e Atendimento 7º Andar",
+    "createdAt": "2026-08-19T13:42:00.000Z"
+  },
+  {
+    "id": "unit-113-havai",
+    "name": "113 - Havaí",
+    "description": "Atendimento e Procedimentos - Subsolo ao 4º Andar",
+    "createdAt": "2026-08-19T13:48:00.000Z"
+  },
+  {
+    "id": "unit-rio-sul",
+    "name": "121 - Rio Sul",
+    "description": "Filial Rio Sul - Consultórios e Atendimento 13º Andar",
+    "createdAt": "2026-08-19T14:55:00.000Z"
+  },
+  {
+    "id": "unit-138-taiti",
+    "name": "138 - Taiti",
+    "description": "Atendimento e Consultórios - Térreo e 1º Andar",
+    "createdAt": "2026-08-20T09:55:00.000Z"
+  }
+]
