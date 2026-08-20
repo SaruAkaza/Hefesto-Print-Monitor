@@ -83,9 +83,6 @@ const DOM = {
   countWarning: document.getElementById('count-warning'),
   countOffline: document.getElementById('count-offline'),
 
-  // Fila "Requer Ação"
-  alertQueueList: document.getElementById('alert-queue-list'),
-
   // Seção "Minhas Impressoras"
   overviewFilterPills: document.getElementById('overview-filter-pills'),
   countAll: document.getElementById('count-all'),
@@ -573,150 +570,7 @@ function renderOverviewTab() {
     c.classList.toggle('active-card', c.dataset.filter === AppState.overviewFilter);
   });
 
-  renderActionQueue(scopedPrinters);
   renderMyPrinters(scopedPrinters);
-}
-
-function renderActionQueue(printers) {
-  const queueItems = [];
-
-  printers.forEach(printer => {
-    const status = AppState.statusData.get(printer.id);
-    
-    if (!status || !status.online) {
-      queueItems.push({
-        printer,
-        severity: 3,
-        severityType: 'offline',
-        supplyName: 'Comunicação Offline',
-        percentageText: 'Sem conexão',
-        percentageNum: -999,
-        actionLabel: 'Verificar conectividade',
-        actionClass: 'offline'
-      });
-      return;
-    }
-
-    const validSupplies = (status.supplies || []).filter(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 0);
-    if (validSupplies.length === 0) return;
-
-    validSupplies.sort((a, b) => normalizeSupplyPercentage(a) - normalizeSupplyPercentage(b));
-    const lowest = validSupplies[0];
-    const lowestPct = normalizeSupplyPercentage(lowest);
-
-    if (lowestPct < 10) {
-      const isZero = lowestPct === 0;
-      queueItems.push({
-        printer,
-        severity: 1,
-        severityType: 'critical',
-        supplyName: translateSupplyName(lowest.name),
-        percentageText: isZero ? '0% (Esgotado)' : `${lowestPct}%`,
-        percentageNum: lowestPct,
-        actionLabel: isZero ? 'Trocar imediatamente' : 'Trocar imediatamente',
-        actionClass: 'critical'
-      });
-    }
-    else if (lowestPct <= 30) {
-      queueItems.push({
-        printer,
-        severity: 2,
-        severityType: 'warning',
-        supplyName: translateSupplyName(lowest.name),
-        percentageText: `${lowestPct}%`,
-        percentageNum: lowestPct,
-        actionLabel: 'Pedir estoque',
-        actionClass: 'warning'
-      });
-    }
-  });
-
-  queueItems.sort((a, b) => {
-    if (a.severity !== b.severity) return a.severity - b.severity;
-    return a.percentageNum - b.percentageNum;
-  });
-
-  // Filtragem dinâmica da fila de ação pelo status selecionado no card ou pill
-  let filteredQueue = queueItems;
-  if (AppState.overviewFilter === 'critical') {
-    filteredQueue = queueItems.filter(i => i.severityType === 'critical');
-  } else if (AppState.overviewFilter === 'warning') {
-    filteredQueue = queueItems.filter(i => i.severityType === 'warning');
-  } else if (AppState.overviewFilter === 'offline') {
-    filteredQueue = queueItems.filter(i => i.severityType === 'offline');
-  } else if (AppState.overviewFilter === 'online') {
-    filteredQueue = queueItems.filter(i => i.severityType !== 'offline');
-  }
-
-  if (filteredQueue.length === 0) {
-    const emptyMessages = {
-      critical: 'Nenhum equipamento em nível crítico no momento.',
-      warning: 'Nenhum equipamento em nível de atenção no momento.',
-      offline: 'Nenhum equipamento offline no momento.',
-      online: 'Nenhum alerta pendente para equipamentos online.'
-    };
-    const subText = emptyMessages[AppState.overviewFilter] || 'Todos os suprimentos estão em nível seguro e os equipamentos estão operando normalmente.';
-
-    DOM.alertQueueList.innerHTML = `
-      <div class="action-queue-empty-state">
-        <div style="font-size: 1.5rem;">${Icons.checkCircle}</div>
-        <div>
-          <div class="action-queue-empty-title">Nenhuma ação pendente</div>
-          <div class="action-queue-empty-sub">${subText}</div>
-        </div>
-      </div>
-    `;
-    return;
-  }
-
-  DOM.alertQueueList.innerHTML = filteredQueue.map(item => {
-    const p = item.printer;
-    const isOffline = item.severityType === 'offline';
-    const status = AppState.statusData.get(p.id);
-    const locationTitle = getPrinterLocationTitle(p);
-    const modelSubtitle = getPrinterModelSubtitle(p, status);
-
-    return `
-      <div class="action-queue-item ${item.severityType}">
-        <div class="action-item-identity">
-          <div class="action-item-name">${escapeHtml(locationTitle)}</div>
-          <div class="action-item-location">
-            <span>${Icons.printer} <span>${escapeHtml(modelSubtitle)}</span></span>
-            <span>•</span>
-            <code style="font-family: var(--font-mono); color: var(--text-muted);">${p.ip}</code>
-          </div>
-        </div>
-
-        <div class="action-item-supply-box">
-          <div class="action-item-supply-row">
-            <span style="color: var(--text-primary); font-weight: 600;">${escapeHtml(item.supplyName)}</span>
-            <strong class="supply-percentage ${item.severityType}" style="font-family: var(--font-mono); font-weight: 700;">
-              ${item.percentageText}
-            </strong>
-          </div>
-          ${!isOffline ? `
-            <div class="progress-track">
-              <div class="progress-fill ${item.severityType}" style="width: ${Math.max(5, item.percentageNum)}%"></div>
-            </div>
-          ` : `
-            <div style="font-size: 0.725rem; color: var(--text-muted);">Equipamento não responde na rede local</div>
-          `}
-        </div>
-
-        <div class="action-item-actions-box">
-          <span class="action-recommended-badge ${item.actionClass}">
-            ${item.severityType === 'critical' ? Icons.alertOctagon : item.severityType === 'warning' ? Icons.alertTriangle : Icons.wifiOff}
-            <span>${item.actionLabel}</span>
-          </span>
-
-          <button class="btn btn-secondary btn-sm" onclick="openPrinterDetailDrawer('${p.id}')">
-            ${Icons.eye}
-            <span>Raio-X</span>
-          </button>
-        </div>
-      </div>
-    `;
-  }).join('');
 }
 
 function renderMyPrinters(scopedPrinters) {
@@ -1735,15 +1589,14 @@ function setupEventListeners() {
         c.classList.toggle('active-card', c.dataset.filter === AppState.overviewFilter);
       });
 
-      // Atualiza a fila Requer Ação Imediata E a lista de impressoras
+      // Atualiza a lista de impressoras filtrada
       const scoped = getScopedPrinters();
-      renderActionQueue(scoped);
       renderMyPrinters(scoped);
 
-      // Rolagem suave até a seção de ação imediata ou lista
-      const actionSection = document.querySelector('.action-queue-card');
-      if (actionSection) {
-        actionSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // Rolagem suave até a tabela de impressoras
+      const tableSection = document.querySelector('.my-printers-section');
+      if (tableSection) {
+        tableSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });
   });

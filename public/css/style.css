@@ -807,107 +807,8 @@ body {
 }
 
 /* ==========================================================================
-   3. FILA "REQUER AÇÃO" (ORDENAÇÃO PRIORITÁRIA)
+   3. BADGES DE STATUS & AÇÃO
    ========================================================================== */
-.action-queue-card {
-  margin-bottom: 1.5rem;
-}
-
-.action-queue-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  margin-top: 0.85rem;
-}
-
-.action-queue-item {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 0.9rem 1.25rem;
-  background: var(--bg-surface-light);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-lg);
-  transition: all var(--transition-fast);
-}
-
-.action-queue-item.critical {
-  border-left: 4px solid var(--color-danger);
-  background: rgba(244, 63, 94, 0.04);
-}
-
-.action-queue-item.warning {
-  border-left: 4px solid var(--color-warning);
-  background: rgba(245, 158, 11, 0.04);
-}
-
-.action-queue-item.offline {
-  border-left: 4px solid var(--color-offline);
-  background: rgba(100, 116, 139, 0.04);
-}
-
-.action-queue-item:hover {
-  background: var(--bg-card-hover);
-  box-shadow: var(--shadow-sm);
-}
-
-.action-item-identity {
-  width: 280px;
-  min-width: 280px;
-  max-width: 280px;
-  flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  overflow: hidden;
-}
-
-.action-item-name {
-  font-size: 0.925rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.action-item-location {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.action-item-supply-box {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
-
-.action-item-supply-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.775rem;
-}
-
-.action-item-actions-box {
-  width: 310px;
-  min-width: 310px;
-  max-width: 310px;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 0.6rem;
-}
-
 .action-recommended-badge {
   display: inline-flex;
   align-items: center;
@@ -936,29 +837,6 @@ body {
   background: var(--color-offline-bg);
   color: var(--text-secondary);
   border: 1px solid var(--color-offline-border);
-}
-
-/* Estado Positivo (Zero Alertas) */
-.action-queue-empty-state {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  padding: 1.25rem 1.5rem;
-  background: var(--color-success-bg);
-  border: 1px solid var(--color-success-border);
-  border-radius: var(--radius-lg);
-  color: var(--color-success);
-}
-
-.action-queue-empty-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-}
-
-.action-queue-empty-sub {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
-  margin-top: 0.1rem;
 }
 
 /* ==========================================================================
