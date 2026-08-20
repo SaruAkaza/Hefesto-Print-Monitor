@@ -237,13 +237,14 @@ body {
 .brand-logo {
   width: 40px;
   height: 40px;
-  background: linear-gradient(135deg, var(--color-primary), #3b82f6);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.3);
   border-radius: var(--radius-md);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.35);
+  padding: 4px;
+  box-shadow: 0 4px 14px rgba(2, 136, 209, 0.25);
 }
 
 .brand-info h1 {
@@ -1658,16 +1659,29 @@ body {
 }
 
 .login-brand-icon {
-  width: 58px;
-  height: 58px;
-  background: linear-gradient(135deg, var(--color-primary), #3b82f6);
-  border-radius: var(--radius-lg);
+  width: 68px;
+  height: 68px;
+  background: rgba(255, 255, 255, 0.96);
+  border: 1.5px solid rgba(56, 189, 248, 0.45);
+  border-radius: var(--radius-xl);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
   margin: 0 auto 1.25rem;
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.35);
+  padding: 8px;
+  box-shadow: 0 12px 30px rgba(2, 136, 209, 0.4), 0 0 25px rgba(0, 188, 212, 0.25);
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.login-brand-icon:hover {
+  transform: scale(1.06);
+  box-shadow: 0 14px 36px rgba(2, 136, 209, 0.55), 0 0 30px rgba(0, 229, 255, 0.4);
+}
+
+.login-brand-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .login-title {
