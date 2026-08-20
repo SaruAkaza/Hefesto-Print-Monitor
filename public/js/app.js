@@ -1503,6 +1503,7 @@ function setupEventListeners() {
     sessionStorage.setItem('printer_monitor_unit', selectedUnit);
     
     DOM.loginOverlay.classList.remove('active');
+    stopDnaMatrix();
     renderAllViews();
     showToast('Acesso de Operador iniciado!', 'success');
   });
@@ -1524,6 +1525,7 @@ function setupEventListeners() {
       DOM.adminPasswordInput.value = '';
 
       DOM.loginOverlay.classList.remove('active');
+      stopDnaMatrix();
       renderAllViews();
       showToast('Bem-vindo ao Painel do Administrador!', 'success');
     } else {
@@ -1544,7 +1546,10 @@ function setupEventListeners() {
     if (DOM.tabLoginAdmin) DOM.tabLoginAdmin.classList.remove('active');
     if (DOM.formLoginUnit) DOM.formLoginUnit.style.display = 'block';
     if (DOM.formLoginAdmin) DOM.formLoginAdmin.style.display = 'none';
-    if (DOM.loginOverlay) DOM.loginOverlay.classList.add('active');
+    if (DOM.loginOverlay) {
+      DOM.loginOverlay.classList.add('active');
+      startDnaMatrix();
+    }
     showToast('Sessão encerrada com sucesso.', 'info');
   };
 
@@ -1719,6 +1724,195 @@ function setupEventListeners() {
   });
 }
 
+/* ==========================================================================
+   ESPIRAL DNA INFINITA & CHUVA BIO-MATRIX PREVENT SENIOR
+   ========================================================================== */
+let dnaMatrixAnimId = null;
+
+function initDnaMatrixBackground() {
+  const canvas = document.getElementById('dna-matrix-canvas');
+  if (!canvas) return;
+
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  let width = 0;
+  let height = 0;
+  let dpr = window.devicePixelRatio || 1;
+
+  // Caracteres da Chuva Matrix (Bases Nitrogenadas + Símbolos Médicos + Telemetria)
+  const matrixChars = ['A', 'T', 'C', 'G', '✚', '✦', '⌬', '⬡', '⚕', '◈', '⚡', '1', '0', 'SNMP', 'OID', 'IP', 'RX', 'TX'];
+  const fontSize = 14;
+  let columns = 0;
+  let drops = [];
+
+  function resize() {
+    width = canvas.parentElement ? canvas.parentElement.clientWidth : window.innerWidth;
+    height = canvas.parentElement ? canvas.parentElement.clientHeight : window.innerHeight;
+    dpr = window.devicePixelRatio || 1;
+
+    canvas.width = width * dpr;
+    canvas.height = height * dpr;
+    ctx.scale(dpr, dpr);
+
+    columns = Math.floor(width / (fontSize * 1.6));
+    drops = [];
+    for (let i = 0; i < columns; i++) {
+      drops[i] = {
+        y: Math.random() * -height,
+        speed: 1.2 + Math.random() * 2.2,
+        char: matrixChars[Math.floor(Math.random() * matrixChars.length)],
+        changeTimer: Math.floor(Math.random() * 10),
+        colorType: Math.random() > 0.3 ? 'cyan' : 'blue'
+      };
+    }
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+
+  let t = 0;
+
+  function draw() {
+    if (!DOM.loginOverlay || !DOM.loginOverlay.classList.contains('active')) {
+      dnaMatrixAnimId = null;
+      return;
+    }
+
+    // Fundo semitransparente para criar o rastro cinematográfico
+    const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    ctx.fillStyle = isLight ? 'rgba(240, 249, 255, 0.18)' : 'rgba(2, 6, 23, 0.22)';
+    ctx.fillRect(0, 0, width, height);
+
+    // 1. DESENHO DA CHUVA BIO-MATRIX
+    ctx.font = `600 ${fontSize}px "JetBrains Mono", monospace`;
+    for (let i = 0; i < columns; i++) {
+      const drop = drops[i];
+      const x = i * fontSize * 1.6;
+      const y = drop.y;
+
+      drop.changeTimer++;
+      if (drop.changeTimer > 8) {
+        drop.char = matrixChars[Math.floor(Math.random() * matrixChars.length)];
+        drop.changeTimer = 0;
+      }
+
+      // Efeito de brilho na cabeça da gota
+      if (isLight) {
+        ctx.fillStyle = drop.colorType === 'cyan' ? '#0288d1' : '#0097a7';
+      } else {
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = drop.colorType === 'cyan' ? '#00e5ff' : '#38bdf8';
+        ctx.fillStyle = drop.colorType === 'cyan' ? '#38bdf8' : '#818cf8';
+      }
+      ctx.fillText(drop.char, x, y);
+      ctx.shadowBlur = 0;
+
+      drop.y += drop.speed;
+      if (drop.y > height + 50) {
+        drop.y = -20 - Math.random() * 80;
+        drop.speed = 1.2 + Math.random() * 2.2;
+      }
+    }
+
+    // 2. DESENHO DA DUPLA HÉLICE 3D INFINITA DE DNA (PREVENT SENIOR)
+    t += 0.022;
+
+    // Duas espirais harmônicas: lateral esquerda e lateral direita
+    const helixConfigs = [
+      { centerX: width * 0.16, radius: Math.min(width * 0.08, 90), waveFreq: 0.015 },
+      { centerX: width * 0.84, radius: Math.min(width * 0.08, 90), waveFreq: 0.015 }
+    ];
+
+    helixConfigs.forEach(helix => {
+      const { centerX, radius, waveFreq } = helix;
+      const nodeStep = 22;
+      const totalNodes = Math.ceil(height / nodeStep) + 4;
+
+      for (let n = -2; n < totalNodes; n++) {
+        const y = n * nodeStep;
+        const angle = y * waveFreq + t;
+
+        // Projeção 3D com profundidade Z
+        const sinA = Math.sin(angle);
+        const cosA = Math.cos(angle);
+
+        // Ponto A (Fita 1 - Ciano Prevent)
+        const xA = centerX + cosA * radius;
+        const zA = sinA; // -1 (fundo) a +1 (frente)
+        const sizeA = (zA + 1.6) * 2.5;
+
+        // Ponto B (Fita 2 - Azul Royal Prevent)
+        const xB = centerX - cosA * radius;
+        const zB = -sinA;
+        const sizeB = (zB + 1.6) * 2.5;
+
+        // Ponte de Hidrogênio / Ligação Molecular entre as bases A e B
+        const bridgeAlpha = Math.max(0.15, (zA + 1) * 0.35);
+        ctx.beginPath();
+        ctx.moveTo(xA, y);
+        ctx.lineTo(xB, y);
+        const gradBridge = ctx.createLinearGradient(xA, y, xB, y);
+        gradBridge.addColorStop(0, `rgba(0, 229, 255, ${bridgeAlpha})`);
+        gradBridge.addColorStop(0.5, `rgba(99, 102, 241, ${bridgeAlpha * 0.8})`);
+        gradBridge.addColorStop(1, `rgba(2, 136, 209, ${bridgeAlpha})`);
+        ctx.strokeStyle = gradBridge;
+        ctx.lineWidth = Math.max(1, (zA + 1.2) * 1.2);
+        ctx.stroke();
+
+        // Par de Bases no centro da ponte (Ponto de Ligação A-T / C-G)
+        const midX = (xA + xB) / 2;
+        ctx.beginPath();
+        ctx.arc(midX, y, sizeA * 0.35, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 255, 255, ${bridgeAlpha * 0.9})`;
+        ctx.fill();
+
+        // Nó da Fita 1 (Ciano / Prevent Senior)
+        ctx.beginPath();
+        ctx.arc(xA, y, Math.max(2, sizeA), 0, Math.PI * 2);
+        if (!isLight) {
+          ctx.shadowBlur = zA > 0 ? 12 : 4;
+          ctx.shadowColor = '#00e5ff';
+        }
+        ctx.fillStyle = zA > 0 ? '#38bdf8' : '#0284c7';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Nó da Fita 2 (Azul Royal / Prevent Senior)
+        ctx.beginPath();
+        ctx.arc(xB, y, Math.max(2, sizeB), 0, Math.PI * 2);
+        if (!isLight) {
+          ctx.shadowBlur = zB > 0 ? 12 : 4;
+          ctx.shadowColor = '#818cf8';
+        }
+        ctx.fillStyle = zB > 0 ? '#818cf8' : '#4338ca';
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    });
+
+    dnaMatrixAnimId = requestAnimationFrame(draw);
+  }
+
+  if (dnaMatrixAnimId) {
+    cancelAnimationFrame(dnaMatrixAnimId);
+  }
+  dnaMatrixAnimId = requestAnimationFrame(draw);
+}
+
+function startDnaMatrix() {
+  if (!dnaMatrixAnimId) {
+    initDnaMatrixBackground();
+  }
+}
+
+function stopDnaMatrix() {
+  if (dnaMatrixAnimId) {
+    cancelAnimationFrame(dnaMatrixAnimId);
+    dnaMatrixAnimId = null;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   setupEventListeners();
@@ -1735,12 +1929,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     AppState.userRole = 'operator';
     AppState.activeUnitFilter = savedUnit;
     DOM.loginOverlay.classList.remove('active');
+    stopDnaMatrix();
   } else {
     // Para Administrador ou primeiro acesso, sempre abre a tela inicial exigindo credenciais
     sessionStorage.clear();
     AppState.userRole = 'operator';
     AppState.activeUnitFilter = '';
     DOM.loginOverlay.classList.add('active');
+    startDnaMatrix();
   }
 
   await loadDashboardData(true);
