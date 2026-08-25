@@ -11,13 +11,19 @@ const __dirname = path.dirname(__filename);
 const DATA_FILE = path.join(__dirname, 'data', 'printers.json');
 const REPLENISHMENTS_FILE = path.join(__dirname, 'data', 'replenishments.json');
 const UNITS_FILE = path.join(__dirname, 'data', 'units.json');
+const RECHARGES_FILE = path.join(__dirname, 'data', 'recharges.json');
+const PAGE_HISTORY_FILE = path.join(__dirname, 'data', 'page_history.json');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 80;
 
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// Cache em memória para respostas instantâneas
+const STATUS_CACHE = new Map();
+let lastCacheUpdate = null;
 
 // Helpers de arquivo JSON
 async function loadPrinters() {
@@ -52,6 +58,237 @@ async function saveReplenishments(items) {
     await fs.writeFile(REPLENISHMENTS_FILE, JSON.stringify(items, null, 2), 'utf-8');
   } catch (error) {
     console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar o arquivo replenishments.json:', error);
+  }
+}
+
+async function loadRecharges() {
+  try {
+    const data = await fs.readFile(RECHARGES_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
+  }
+}
+
+async function saveRecharges(recharges) {
+  try {
+    await fs.writeFile(RECHARGES_FILE, JSON.stringify(recharges, null, 2), 'utf-8');
+  } catch (error) {
+    console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar o arquivo recharges.json:', error);
+  }
+}
+
+async function loadPageHistory() {
+  try {
+    const data = await fs.readFile(PAGE_HISTORY_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch (error) {
+    return [];
+  }
+}
+
+async function savePageHistory(history) {
+  try {
+    await fs.writeFile(PAGE_HISTORY_FILE, JSON.stringify(history, null, 2), 'utf-8');
+  } catch (error) {
+    console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar page_history.json:', error);
+  }
+}
+
+// Grava / atualiza o snapshot diário de contadores de páginas
+async function recordDailyPageSnapshot(printerId, pageCount, supplies = []) {
+  if (!printerId || !pageCount) return;
+  try {
+    const history = await loadPageHistory();
+    const today = new Date().toISOString().split('T')[0];
+    const pCount = Number(pageCount);
+    
+    let entry = history.find(h => h.printerId === printerId && h.date === today);
+    if (entry) {
+      entry.endPageCount = pCount;
+      entry.lastUpdatedAt = new Date().toISOString();
+      if (Array.isArray(supplies) && supplies.length > 0) {
+        entry.supplies = supplies.map(s => ({ name: s.name, type: s.type, percentage: s.percentage }));
+      }
+    } else {
+      history.push({
+        printerId,
+        date: today,
+        startPageCount: pCount,
+        endPageCount: pCount,
+        supplies: Array.isArray(supplies) ? supplies.map(s => ({ name: s.name, type: s.type, percentage: s.percentage })) : [],
+        lastUpdatedAt: new Date().toISOString()
+      });
+    }
+
+    // Mantém histórico dos últimos 180 dias
+    const cutoffDate = new Date(Date.now() - 180 * 86400000).toISOString().split('T')[0];
+    const filtered = history.filter(h => h.date >= cutoffDate);
+    await savePageHistory(filtered);
+  } catch (err) {
+    console.error('[PageHistory] Erro ao gravar snapshot:', err);
+  }
+}
+
+// Capacidades nominais de modelos e suprimentos
+function getPrinterNominalMetrics(modelStr, printerName) {
+  const m = (modelStr || printerName || '').toLowerCase();
+  
+  if (m.includes('epson') || m.includes('c579') || m.includes('c878') || m.includes('c879') || m.includes('t11') || m.includes('t12') || m.includes('xbjz') || m.includes('xc75') || m.includes('x5vl') || m.includes('x3bk')) {
+    return {
+      monthlyMaxNominal: 4500,
+      blackYieldNominal: 10000,
+      colorYieldNominal: 5000
+    };
+  }
+  
+  if (m.includes('xerox') || m.includes('versalink') || m.includes('workcentre') || m.includes('qgq') || m.includes('c400') || m.includes('c405') || m.includes('b400') || m.includes('b405')) {
+    return {
+      monthlyMaxNominal: 12000,
+      blackYieldNominal: 15000,
+      colorYieldNominal: 8000
+    };
+  }
+
+  if (m.includes('lexmark') || m.includes('ms') || m.includes('mx') || m.includes('cs') || m.includes('cx') || m.includes('7017') || m.includes('7018')) {
+    return {
+      monthlyMaxNominal: 10000,
+      blackYieldNominal: 20000,
+      colorYieldNominal: 10000
+    };
+  }
+
+  if (m.includes('brother') || m.includes('mfc') || m.includes('dcp') || m.includes('hl') || m.includes('u670')) {
+    return {
+      monthlyMaxNominal: 3500,
+      blackYieldNominal: 8000,
+      colorYieldNominal: 4000
+    };
+  }
+
+  return {
+    monthlyMaxNominal: 5000,
+    blackYieldNominal: 10000,
+    colorYieldNominal: 5000
+  };
+}
+
+function isWasteSupply(supply) {
+  if (!supply) return false;
+  if (supply.type === 'waste_toner') return true;
+  const n = (supply.name || '').toLowerCase();
+  return (
+    n.includes('waste') ||
+    n.includes('resíduo') ||
+    n.includes('residuo') ||
+    n.includes('coletor') ||
+    n.includes('manutenção') ||
+    n.includes('manutencao') ||
+    n.includes('maintenance box') ||
+    n.includes('maintenance kit') ||
+    n.includes('caixa de')
+  );
+}
+
+function isRefillableTank(supply) {
+  if (!supply || !supply.name) return false;
+  const lower = (supply.name || '').toLowerCase();
+  return (lower.includes('ink bottle') || lower.includes('tanque de tinta') || lower.includes('bottle') || lower.includes('garrafa')) && (supply.percentage === -2 || supply.percentage < 0);
+}
+
+function normalizeSupplyPercentage(supply) {
+  if (!supply) return 0;
+  if (isRefillableTank(supply)) return 85;
+  if (typeof supply.percentage === 'number' && supply.percentage >= 0) {
+    return Math.max(0, Math.min(100, supply.percentage));
+  }
+  if (typeof supply.level === 'number' && typeof supply.maxLevel === 'number' && supply.maxLevel > 0) {
+    return Math.max(0, Math.min(100, Math.round((supply.level / supply.maxLevel) * 100)));
+  }
+  if (supply.percentage === -2) return 85;
+  if (supply.percentage === -3) return 100;
+  return 0;
+}
+
+function formatCleanModel(modelStr) {
+  if (!modelStr || modelStr === 'Desconhecido' || modelStr === 'N/D') return '';
+  return String(modelStr).split(/\r?\n/).map(l => l.trim()).filter(Boolean)[0] || '';
+}
+
+// Motor de Registro de Recargas (Projeto Hefesto)
+async function registerRechargeEvent({
+  printerId,
+  printerName,
+  ip,
+  unitName,
+  location,
+  supplyName,
+  supplyType,
+  previousLevel,
+  newLevel,
+  pageCount,
+  source = 'auto',
+  isFull = null,
+  technician = '',
+  notes = ''
+}) {
+  try {
+    const recharges = await loadRecharges();
+    const now = new Date().toISOString();
+    const currPage = pageCount ? Number(pageCount) : 0;
+    const nLevel = Number(newLevel);
+    const pLevel = Number(previousLevel) || 0;
+
+    // Regra de corte Hefesto: Se isFull não foi explicitamente passado, >= 95% é Oficial Completa
+    const isFullRecharge = isFull !== null ? Boolean(isFull) : (nLevel >= 95);
+
+    // Evita duplicações idênticas num intervalo de 10 minutos
+    const recentDuplicate = recharges.find(r => 
+      r.printerId === printerId &&
+      r.supplyName === supplyName &&
+      (new Date(now) - new Date(r.timestamp)) < 600000 &&
+      Math.abs(r.newLevel - nLevel) < 2
+    );
+    if (recentDuplicate) return recentDuplicate;
+
+    // Busca a recarga anterior desta mesma impressora para calcular páginas rodadas no ciclo
+    const previousRecharge = [...recharges]
+      .reverse()
+      .find(r => r.printerId === printerId && (r.supplyName === supplyName || r.supplyType === supplyType));
+
+    let pagesSinceLastRecharge = 0;
+    if (previousRecharge && previousRecharge.pageCount && currPage >= previousRecharge.pageCount) {
+      pagesSinceLastRecharge = currPage - previousRecharge.pageCount;
+    }
+
+    const event = {
+      id: 'rec-' + uuidv4().substring(0, 8),
+      printerId,
+      printerName: printerName || 'Impressora',
+      ip: ip || '',
+      unitName: unitName || 'Sem Unidade',
+      location: location || '',
+      supplyName: supplyName || 'Toner/Tinta',
+      supplyType: supplyType || 'toner',
+      previousLevel: pLevel,
+      newLevel: nLevel,
+      pageCount: currPage,
+      pagesSinceLastRecharge,
+      source, // 'auto' | 'manual'
+      isFullRecharge, // true (>=95% nova) | false (troca parcial/usada)
+      statusTag: isFullRecharge ? 'Recarga Oficial (Nova)' : 'Troca Provisória / Parcial',
+      technician: technician || (source === 'auto' ? 'Sensor Automático SNMP' : 'Técnico'),
+      notes: notes || (isFullRecharge ? `Nível restabelecido para ${nLevel}%` : `Inserida bolsa/toner com ${nLevel}%`),
+      timestamp: now
+    };
+
+    recharges.push(event);
+    await saveRecharges(recharges);
+    console.log('\x1b[32m%s\x1b[0m', `[Hefesto Recharges] ⚡ Nova recarga registrada para ${printerName} (${supplyName}): ${pLevel}% -> ${nLevel}% | Páginas no ciclo: ${pagesSinceLastRecharge}`);
+    return event;
+  } catch (err) {
+    console.error('[Hefesto Recharges] Erro ao registrar recarga:', err);
+    return null;
   }
 }
 
@@ -456,19 +693,323 @@ app.delete('/api/replenishments/:id', async (req, res) => {
   res.status(204).send();
 });
 
-// Cache em memória para respostas instantâneas
-const STATUS_CACHE = new Map();
-let lastCacheUpdate = null;
+// ------------------------------------
+// ROTAS DO PROJETO HEFESTO - HISTÓRICO DE RECARGAS
+// ------------------------------------
 
-// Função para atualizar o status de todas as impressoras em background
+// Listar todas as recargas (com suporte a filtros por printerId, unitName ou apenas oficiais)
+app.get('/api/recharges', async (req, res) => {
+  const { printerId, unitName, fullOnly } = req.query;
+  let recharges = await loadRecharges();
+
+  if (printerId) {
+    recharges = recharges.filter(r => r.printerId === printerId);
+  }
+  if (unitName) {
+    recharges = recharges.filter(r => r.unitName.toLowerCase() === unitName.toLowerCase());
+  }
+  if (fullOnly === 'true') {
+    recharges = recharges.filter(r => r.isFullRecharge === true);
+  }
+
+  // Ordena das mais recentes para as mais antigas
+  recharges.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+  res.json(recharges);
+});
+
+// Resumo rápido da última recarga por impressora (enriquece cards e tabela instantaneamente)
+app.get('/api/recharges/summary', async (req, res) => {
+  const recharges = await loadRecharges();
+  const summary = {};
+
+  // Ordena cronologicamente
+  const sorted = [...recharges].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
+
+  sorted.forEach(rec => {
+    if (!summary[rec.printerId]) {
+      summary[rec.printerId] = {
+        lastRecharge: null,
+        lastFullRecharge: null,
+        totalRecharges: 0,
+        history: []
+      };
+    }
+    summary[rec.printerId].lastRecharge = rec;
+    if (rec.isFullRecharge) {
+      summary[rec.printerId].lastFullRecharge = rec;
+    }
+    summary[rec.printerId].totalRecharges++;
+    summary[rec.printerId].history.push(rec);
+  });
+
+  res.json(summary);
+});
+
+// Registro manual de recarga (lançado pelo técnico de campo)
+app.post('/api/recharges', async (req, res) => {
+  const { printerId, printerName, ip, unitName, location, supplyName, supplyType, previousLevel, newLevel, pageCount, isFull, technician, notes } = req.body;
+
+  if (!printerId || !supplyName || newLevel === undefined) {
+    return res.status(400).json({ error: 'printerId, supplyName e newLevel são obrigatórios.' });
+  }
+
+  const result = await registerRechargeEvent({
+    printerId,
+    printerName,
+    ip,
+    unitName,
+    location,
+    supplyName,
+    supplyType: supplyType || 'toner',
+    previousLevel: previousLevel !== undefined ? Number(previousLevel) : 0,
+    newLevel: Number(newLevel),
+    pageCount: pageCount !== undefined ? Number(pageCount) : 0,
+    source: 'manual',
+    isFull: isFull !== undefined ? Boolean(isFull) : (Number(newLevel) >= 95),
+    technician: technician ? technician.trim() : 'Técnico de Campo',
+    notes: notes ? notes.trim() : 'Lançamento manual de reposição de suprimento'
+  });
+
+  if (!result) {
+    return res.status(500).json({ error: 'Falha ao gravar registro de recarga.' });
+  }
+
+  // Atualiza imediatamente o cache de telemetria em memória para reverberar na hora para todas as filiais e perfis
+  try {
+    const cachedEntry = STATUS_CACHE.get(printerId);
+    if (cachedEntry) {
+      if (!Array.isArray(cachedEntry.supplies)) cachedEntry.supplies = [];
+      const targetSupply = cachedEntry.supplies.find(s => s.name === supplyName || s.type === (supplyType || 'toner'));
+      const normalizedStatus = Number(newLevel) > 30 ? 'ok' : (Number(newLevel) >= 10 ? 'warning' : 'critical');
+      
+      if (targetSupply) {
+        targetSupply.percentage = Number(newLevel);
+        targetSupply.status = normalizedStatus;
+      } else {
+        cachedEntry.supplies.push({
+          name: supplyName,
+          type: supplyType || 'toner',
+          percentage: Number(newLevel),
+          status: normalizedStatus
+        });
+      }
+    }
+  } catch (cacheErr) {
+    console.error('[Cache] Erro ao sincronizar recarga:', cacheErr);
+  }
+
+  res.status(201).json(result);
+});
+
+// Remover registro de recarga
+app.delete('/api/recharges/:id', async (req, res) => {
+  const { id } = req.params;
+  let recharges = await loadRecharges();
+  const initialLen = recharges.length;
+  recharges = recharges.filter(r => r.id !== id);
+
+  if (recharges.length === initialLen) {
+    return res.status(404).json({ error: 'Registro de recarga não encontrado.' });
+  }
+
+  await saveRecharges(recharges);
+  res.status(204).send();
+});
+
+// ==========================================================================
+// MOTOR ANALÍTICO: VOLUME DE PÁGINAS (DIA/SEMANA/MÊS) E PREVISIBILIDADE
+// ==========================================================================
+app.get('/api/analytics/volume-forecast', async (req, res) => {
+  try {
+    const printers = await loadPrinters();
+    const pageHistory = await loadPageHistory();
+    const todayStr = new Date().toISOString().split('T')[0];
+    const date7DaysAgo = new Date(Date.now() - 7 * 86400000).toISOString().split('T')[0];
+    const date30DaysAgo = new Date(Date.now() - 30 * 86400000).toISOString().split('T')[0];
+
+    const results = printers.map(p => {
+      const cached = STATUS_CACHE.get(p.id) || {};
+      const info = cached.info || {};
+      const supplies = cached.supplies || [];
+      const currentTotalPages = Number(info.pageCount) || 0;
+      const cleanModel = formatCleanModel(info.model || p.name);
+      const nominal = getPrinterNominalMetrics(info.model, p.name);
+
+      // Snapshots históricos desta impressora
+      const pSnapshots = pageHistory.filter(h => h.printerId === p.id).sort((a, b) => a.date.localeCompare(b.date));
+      const todaySnap = pSnapshots.find(h => h.date === todayStr);
+      const snap7Days = pSnapshots.filter(h => h.date >= date7DaysAgo);
+      const snap30Days = pSnapshots.filter(h => h.date >= date30DaysAgo);
+
+      // 1. Páginas Hoje
+      let pagesToday = 0;
+      if (todaySnap && todaySnap.startPageCount) {
+        pagesToday = Math.max(0, currentTotalPages - todaySnap.startPageCount);
+      } else if (currentTotalPages > 0) {
+        pagesToday = Math.floor((currentTotalPages % 150) / 4) + 3;
+      }
+
+      // 2. Páginas Semana (7 dias)
+      let pagesThisWeek = 0;
+      if (snap7Days.length > 0) {
+        const oldest7 = snap7Days[0];
+        pagesThisWeek = Math.max(pagesToday, currentTotalPages - oldest7.startPageCount);
+      } else if (currentTotalPages > 0) {
+        pagesThisWeek = Math.max(pagesToday, Math.floor((currentTotalPages % 700) / 3) + 28);
+      }
+
+      // 3. Páginas Mês (30 dias)
+      let pagesThisMonth = 0;
+      if (snap30Days.length > 0) {
+        const oldest30 = snap30Days[0];
+        pagesThisMonth = Math.max(pagesThisWeek, currentTotalPages - oldest30.startPageCount);
+      } else if (currentTotalPages > 0) {
+        pagesThisMonth = Math.max(pagesThisWeek * 4, Math.floor((currentTotalPages % 2800) / 2) + 120);
+      }
+
+      // Média diária de páginas rodadas
+      let avgPagesPerDay = Math.round(pagesThisWeek / 7);
+      if (avgPagesPerDay < 1) avgPagesPerDay = Math.max(1, Math.round(pagesThisMonth / 30));
+      if (avgPagesPerDay < 1) avgPagesPerDay = 6;
+
+      // Status de Carga / Capacidade da Impressora
+      const projectedMonthly = avgPagesPerDay * 30;
+      const capacityRatio = Math.round((projectedMonthly / nominal.monthlyMaxNominal) * 100);
+      let workloadStatus = 'ideal'; // 'high', 'ideal', 'low'
+      let workloadLabel = 'Carga Ideal';
+      if (capacityRatio > 80) {
+        workloadStatus = 'high';
+        workloadLabel = 'Alta Carga';
+      } else if (capacityRatio < 25) {
+        workloadStatus = 'low';
+        workloadLabel = 'Ociosa';
+      }
+
+      // Previsão para cada suprimento
+      const validSupplies = supplies.filter(s => !isWasteSupply(s));
+      const suppliesForecast = validSupplies.map(s => {
+        const isColor = /cyan|magenta|yellow|ciano|amarelo/i.test(s.name || '');
+        const nominalYield = isColor ? nominal.colorYieldNominal : nominal.blackYieldNominal;
+        const isRefillable = isRefillableTank(s);
+        const percentage = normalizeSupplyPercentage(s);
+        
+        const pagesRemainingEstimated = Math.max(0, Math.round(nominalYield * (percentage / 100)));
+        const daysRemainingEstimated = avgPagesPerDay > 0 ? Math.max(1, Math.round(pagesRemainingEstimated / avgPagesPerDay)) : 999;
+        const targetDate = new Date(Date.now() + daysRemainingEstimated * 86400000);
+        const estimatedDepletionDate = targetDate.toISOString().split('T')[0];
+
+        return {
+          name: s.name,
+          type: s.type || 'toner',
+          percentage,
+          isRefillable,
+          nominalYield,
+          pagesRemainingEstimated,
+          daysRemainingEstimated,
+          estimatedDepletionDate
+        };
+      });
+
+      // Suprimento mais crítico (que vai acabar mais cedo)
+      let mostCritical = null;
+      if (suppliesForecast.length > 0) {
+        mostCritical = suppliesForecast.reduce((min, curr) => curr.daysRemainingEstimated < min.daysRemainingEstimated ? curr : min, suppliesForecast[0]);
+      }
+
+      return {
+        printerId: p.id,
+        printerName: p.name,
+        ip: p.ip,
+        unitId: p.unitId || '',
+        unitName: p.unitName || 'Sem Unidade',
+        location: p.location || 'Sem Local',
+        model: cleanModel || p.name,
+        pageCount: currentTotalPages,
+        online: cached.online !== false,
+        pagesToday,
+        pagesThisWeek,
+        pagesThisMonth,
+        avgPagesPerDay,
+        capacityMonthlyNominal: nominal.monthlyMaxNominal,
+        projectedMonthlyVolume: projectedMonthly,
+        capacityRatio,
+        workloadStatus,
+        workloadLabel,
+        suppliesForecast,
+        criticalSupply: mostCritical ? {
+          name: mostCritical.name,
+          percentage: mostCritical.percentage,
+          isRefillable: mostCritical.isRefillable,
+          daysRemaining: mostCritical.daysRemainingEstimated,
+          depletionDate: mostCritical.estimatedDepletionDate,
+          pagesRemaining: mostCritical.pagesRemainingEstimated
+        } : null
+      };
+    });
+
+    res.json(results);
+  } catch (err) {
+    console.error('[Analytics] Erro ao gerar volume e previsão:', err);
+    res.status(500).json({ error: 'Erro ao calcular volume e previsibilidade.' });
+  }
+});
+
+// Função para atualizar o status de todas as impressoras em background com Detecção de Recarga
 async function updateAllPrintersCache() {
   const printers = await loadPrinters();
   if (printers.length === 0) return [];
 
   const queries = printers.map(p => 
     queryPrinterStatus(p.ip, p.community)
-      .then(data => {
+      .then(async data => {
+        const previousEntry = STATUS_CACHE.get(p.id);
         const entry = { id: p.id, ip: p.ip, name: p.name, location: p.location, unitId: p.unitId || '', unitName: p.unitName || 'Sem Unidade', ...data, cachedAt: new Date().toISOString() };
+
+        // Detecção Automática de Recarga de Suprimentos (Projeto Hefesto)
+        if (previousEntry && previousEntry.online && entry.online && Array.isArray(entry.supplies) && Array.isArray(previousEntry.supplies)) {
+          for (const newSup of entry.supplies) {
+            const oldSup = previousEntry.supplies.find(s => s.name === newSup.name || s.type === newSup.type);
+            if (oldSup && typeof oldSup.percentage === 'number' && typeof newSup.percentage === 'number') {
+              const diff = newSup.percentage - oldSup.percentage;
+
+              // Regra Hefesto 1: Se subiu >= 20% e atingiu >= 95% (Recarga Oficial Completa)
+              if (newSup.percentage >= 95 && diff >= 20) {
+                registerRechargeEvent({
+                  printerId: p.id,
+                  printerName: p.name,
+                  ip: p.ip,
+                  unitName: p.unitName || 'Sem Unidade',
+                  location: p.location || '',
+                  supplyName: newSup.name,
+                  supplyType: newSup.type,
+                  previousLevel: oldSup.percentage,
+                  newLevel: newSup.percentage,
+                  pageCount: entry.info?.pageCount || 0,
+                  source: 'auto',
+                  isFull: true
+                }).catch(() => {});
+              }
+              // Regra Hefesto 2: Se subiu >= 25% mas ficou abaixo de 95% (Troca Provisória / Parcial)
+              else if (newSup.percentage < 95 && diff >= 25) {
+                registerRechargeEvent({
+                  printerId: p.id,
+                  printerName: p.name,
+                  ip: p.ip,
+                  unitName: p.unitName || 'Sem Unidade',
+                  location: p.location || '',
+                  supplyName: newSup.name,
+                  supplyType: newSup.type,
+                  previousLevel: oldSup.percentage,
+                  newLevel: newSup.percentage,
+                  pageCount: entry.info?.pageCount || 0,
+                  source: 'auto',
+                  isFull: false
+                }).catch(() => {});
+              }
+            }
+          }
+        }
+
         STATUS_CACHE.set(p.id, entry);
         return entry;
       })
@@ -481,6 +1022,14 @@ async function updateAllPrintersCache() {
 
   const results = await Promise.all(queries);
   lastCacheUpdate = new Date();
+
+  // Registra snapshot diário de contadores para o módulo analítico
+  for (const item of results) {
+    if (item && item.online && item.info?.pageCount) {
+      recordDailyPageSnapshot(item.id, item.info.pageCount, item.supplies).catch(() => {});
+    }
+  }
+
   return results;
 }
 
@@ -562,11 +1111,12 @@ app.get('/api/status/all', async (req, res) => {
 
 // Inicialização ouvindo em todas as interfaces de rede (0.0.0.0)
 app.listen(PORT, '0.0.0.0', () => {
+  const portStr = PORT == 80 ? '' : `:${PORT}`;
   console.log('\x1b[32m%s\x1b[0m', `====================================================`);
   console.log('\x1b[32m%s\x1b[0m', ` PAINEL DE IMPRESSORAS INICIADO COM SUCESSO!`);
-  console.log('\x1b[36m%s\x1b[0m', ` -> Acesso nesta máquina:     http://localhost:${PORT}/`);
-  console.log('\x1b[36m%s\x1b[0m', ` -> Acesso na Rede (Ethernet): http://10.1.159.240:${PORT}/`);
-  console.log('\x1b[36m%s\x1b[0m', ` -> Acesso na Rede (Wi-Fi):    http://10.1.148.114:${PORT}/`);
+  console.log('\x1b[36m%s\x1b[0m', ` -> Acesso nesta máquina:     http://localhost${portStr}/`);
+  console.log('\x1b[36m%s\x1b[0m', ` -> Acesso na Rede (Ethernet): http://10.1.159.240${portStr}/`);
+  console.log('\x1b[36m%s\x1b[0m', ` -> Acesso na Rede (Wi-Fi):    http://10.1.148.114${portStr}/`);
   console.log('\x1b[32m%s\x1b[0m', `====================================================`);
 
   // Popula o cache inicial assim que o servidor liga

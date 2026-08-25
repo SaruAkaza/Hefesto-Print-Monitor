@@ -1,0 +1,5 @@
+- Criar um contador de carregamento de impressoras (Data e hora da ultima recarga)
+- Gerar relatório de quantas páginas cada impressora imprimiu no mês (Assim validando se a impressora está imprimindo em sua capacidade máxima)
+- Um relatório de quando a impressora foi conectada a rede quantas impressões ela tinha
+- Existe impressoras que não estão conectando via IP, será possível fazer uma conexão via PC que está utilizando ela via USB?
+- Criar automação para lançar o forms de pedido de Tinta para a GOMAQ

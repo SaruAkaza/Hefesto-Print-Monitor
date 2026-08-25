@@ -1,30 +1,36 @@
 # 🖨️ Painel de Monitoramento de Impressoras — Prevent Senior
+### 🏛️ Projeto Hefesto — Telemetria SNMP, Auditoria de Recargas & Inteligência Preditiva
 
-Sistema web em tempo real para telemetria, diagnóstico e gestão de suprimentos (toner, tintas, caixas de manutenção, fotocondutores e bandejas) do parque de impressoras corporativo da **Prevent Senior**.
+Sistema corporativo em tempo real para telemetria, diagnóstico de suprimentos, histórico de trocas e motor de previsibilidade de consumo de páginas do parque de impressoras da **Prevent Senior** (São Paulo e Rio de Janeiro).
 
 ---
 
 ## 🌟 Principais Recursos
 
-- 📡 **Telemetria SNMP em Tempo Real:** Comunicação direta com equipamentos multimarca (**Epson, Brother, Lexmark, Xerox**) através dos protocolos SNMPv1, SNMPv2c e decodificação proprietária TLV.
-- 🏢 **Gestão por Pastas / Unidades:**
-  - `103 - Sede Leblon`
-  - `113 - Havaí`
-  - `121 - Rio Sul`
-  - `138 - Taiti`
-- 🎯 **Perfis de Acesso:**
-  - **Operador de Filial (Read-Only):** Visão focada e objetiva das impressoras da sua própria unidade, alertas de troca e consulta de Raio-X.
-  - **Administrador de TI (Full Access):** Visão global de todas as unidades, criação/edição de pastas de unidades, cadastro de novas impressoras, teste de conectividade por IP e exportação gerencial em CSV/Excel.
-- 🚨 **Cockpit & Fila "Requer Ação":**
-  - Contagem instantânea de equipamentos **Online & Conectados**, **Nível Crítico (< 10%)**, **Nível Atenção (10% a 30%)** e **Sem Conexão**.
-  - Alinhamento rigoroso com ordenação por prioridade para trocas preventivas.
-- 🔬 **Modal Raio-X Detalhado:**
-  - Diagnóstico completo de cada suprimento (nível percentual, vida útil de fusor, laser, fotocondutor e bandejas de papel).
-  - Contador de páginas impressas acumulado no equipamento.
-- 📊 **Exportação Gerencial (CSV):**
-  - Relatório direto no cabeçalho com todos os dados consolidados para planejamento de compras e reposição de estoque.
-- 🌙 **Dark Mode & Light Mode:** Suporte a temas com alternância instantânea e persistência local.
-- ⚙️ **Execução em Segundo Plano no Windows:** Inicialização silenciosa integrada ao `shell:startup` sem janelas de terminal abertas.
+### 1. 📡 Telemetria SNMP em Tempo Real
+- Varredura de equipamentos multimarca (**Epson, Brother, Lexmark, Xerox**) via protocolos **SNMPv1** e **SNMPv2c** (Porta UDP 161).
+- Monitoramento contínuo de toners, bolsas de tinta, caixas de manutenção, fotocondutores e bandejas de papel.
+- Normalização inteligente para modelos contínuos **Epson EcoTank / Garrafas de Tinta** (evitando falsos alarmes de esgotamento).
+
+### 2. 🔮 Módulo Executivo de Volume & Previsibilidade
+- **Horizontes de Produção:** Contabilização de páginas rodadas **Hoje**, na **Semana (7 dias)** e no **Mês (30 dias)**.
+- **Média Diária de Produção:** Cálculo da taxa diária de páginas impressas ($\text{pág/dia}$).
+- **Motor Preditivo Inteligente (Run-Rate):** Cálculo de quantas páginas ainda podem ser impressas com a carga atual e projeção da **data exata da próxima troca**.
+- **Validação de Carga & Capacidade Máxima:** Classificação do equipamento em relação à sua capacidade mensal recomendada (**Alta Carga / Sobrecarga**, **Carga Ideal / Saudável**, **Subutilizada / Ociosa**).
+- **KPIs do Topo 100% Reativos por Unidade:** Cartões dinâmicos com tags de datas exatas contabilizadas que se adaptam instantaneamente à filial selecionada.
+
+### 3. 🔄 Histórico de Recargas & Auditoria de Suprimentos
+- **Regra de Corte Inteligente:** Classificação automática de **Recarga Oficial ($\ge 95\%$)** vs. **Troca Provisória / Usada ($< 95\%$)**.
+- **Detecção Automática SNMP:** Identificação instantânea de reposições quando o nível sobe $\ge +20\%$ em relação à leitura anterior.
+- **Registro Manual no Raio-X:** Modal em camadas sobreposto à gaveta de diagnóstico com atualização reativa em tempo real.
+- **Cálculo de Ciclo de Páginas:** Quantificação de quantas páginas cada suprimento rendeu entre trocas.
+
+### 4. 👥 Isolamento de Perfis de Acesso
+- **Perfil Operador de Filial (Read-Only):** Visão focada e objetiva nas impressoras da sua própria unidade, garantindo privacidade de dados estratégicos.
+- **Perfil Administrador de TI (Full Access):** Acesso total ao inventário global, cockpit de previsão, histórico de auditoria, testes de IP e exportação em lote.
+
+### 5. 📊 Exportação de Relatórios Gerenciais (CSV / Excel)
+- Download instantâneo de relatórios completos com codificação **UTF-8 BOM** para compatibilidade com Microsoft Excel e PowerBI.
 
 ---
 
@@ -32,7 +38,7 @@ Sistema web em tempo real para telemetria, diagnóstico e gestão de suprimentos
 
 - **Backend:** Node.js (ES Modules), Express, `net-snmp` (Protocolo SNMP UDP 161).
 - **Frontend:** HTML5 Semântico, CSS3 Moderno (Custom Properties / Design Tokens / Flexbox & CSS Grid), JavaScript Vanilla (Zero dependências externas pesadas).
-- **Identidade Visual:** Ícones e logos vetoriais SVG oficiais Prevent Senior.
+- **Identidade Visual:** Design System oficial Prevent Senior com Dark Mode nativo.
 
 ---
 
@@ -42,39 +48,27 @@ Sistema web em tempo real para telemetria, diagnóstico e gestão de suprimentos
 - **Node.js** instalado (versão 18 ou superior).
 
 ### 1. Instalação das dependências
-Abra o terminal na pasta do projeto e instale os módulos do servidor:
 ```bash
 cd server
 npm install
 ```
 
-### 2. Inicialização
+### 2. Inicialização do Servidor
+O servidor opera na **Porta 80 (HTTP Padrão)**:
 
-#### Opção A: Executar em Segundo Plano (Recomendado para Produção / Servidor)
-Dê um duplo clique no arquivo:
-```
-INICIAR_EM_SEGUNDO_PLANO.vbs
-```
-
-#### Opção B: Executar via Linha de Comando (Modo Desenvolvimento)
 ```bash
 cd server
 node server.js
 ```
 
+Ou execute em segundo plano através do script VBScript:
+```
+INICIAR_EM_SEGUNDO_PLANO.vbs
+```
+
 ### 3. Acesso ao Painel
-Abra seu navegador no endereço:
-- **Local:** `http://localhost:3000/`
-- **Rede Corporativa:** `http://[IP_DA_MAQUINA]:3000/` (ex: `http://10.1.159.240:3000/`)
-
----
-
-## 🔄 Inicialização Automática com o Windows
-
-Para que o painel suba automaticamente ao ligar o computador/servidor:
-1. Pressione **`Win + R`** no teclado.
-2. Digite **`shell:startup`** e pressione **Enter**.
-3. Crie um **Atalho** do arquivo `INICIAR_EM_SEGUNDO_PLANO.vbs` dentro desta pasta.
+- **Local:** [http://localhost/](http://localhost/)
+- **Rede Corporativa:** [http://10.1.159.240/](http://10.1.159.240/)
 
 ---
 
@@ -83,26 +77,16 @@ Para que o painel suba automaticamente ao ligar o computador/servidor:
 ```
 Painel de Impressoras/
 │
-├── public/                     # Frontend da aplicação
+├── public/                          # Frontend da aplicação
 │   ├── css/
-│   │   └── style.css           # Design system e folhas de estilo
+│   │   └── style.css                # Design system, tokens e estilos
 │   ├── js/
-│   │   └── app.js              # Lógica da interface e chamadas de API
-│   ├── favicon.svg             # Favicon oficial Prevent Senior
-│   └── index.html              # Estrutura da interface
+│   │   └── app.js                   # Lógica da interface, reatividade e API
+│   ├── favicon.svg                  # Favicon oficial Prevent Senior
+│   └── index.html                   # Estrutura HTML e abas de navegação
 │
-├── server/                     # Backend Node.js
+├── server/                          # Backend Node.js
 │   ├── data/
-│   │   ├── printers.json       # Base de dados das impressoras cadastradas
-│   │   └── units.json          # Cadastro das unidades / pastas
-│   ├── node_modules/           # Pacotes instalados
-│   ├── package.json            # Dependências do backend
-│   ├── server.js               # Servidor Express e rotas REST API
-│   └── snmp-service.js         # Motor SNMP multimarca e decodificador TLV Brother
-│
-├── INICIAR_EM_SEGUNDO_PLANO.vbs # Script de inicialização silenciosa
-├── INICIAR_PAINEL.bat          # Script de inicialização em terminal
-├── PARAR_PAINEL.bat            # Script para encerrar o processo Node
 ├── STATUS_PAINEL.bat           # Script para verificar status do serviço
 ├── .gitignore                  # Arquivos ignorados no versionamento
 └── README.md                   # Documentação do projeto

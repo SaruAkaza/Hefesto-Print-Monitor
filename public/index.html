@@ -32,17 +32,17 @@
        TELA / CAIXA INICIAL DE ACESSO (SELEÇÃO DE UNIDADE OU ADMIN)
        ==================================================================== -->
   <div class="login-overlay active" id="login-overlay">
-    <!-- Efeito Fundo: Espiral DNA Infinita & Chuva Matrix Prevent Senior -->
-    <canvas id="dna-matrix-canvas" class="dna-matrix-canvas"></canvas>
+    <!-- Canvas de Fundo Dinâmico (Rede Constelar Prevent Senior / Chuva Matrix TI) -->
+    <canvas id="login-background-canvas" class="login-background-canvas"></canvas>
 
     <div class="login-card">
-      <div class="login-brand-icon">
-        <img src="prevent-logo.png" alt="Prevent Senior" class="login-brand-img">
-      </div>
-
-      <div class="login-header-text">
+      <div class="login-brand-header">
+        <div class="login-brand-logo-wrap">
+          <img src="prevent-logo.png" alt="Prevent Senior" class="login-brand-img">
+        </div>
+        <span class="login-brand-company">PREVENT SENIOR</span>
         <h2 class="login-title">Monitor de Impressoras</h2>
-        <p class="login-subtitle">Selecione o tipo de acesso para entrar:</p>
+        <p class="login-subtitle">Acesso operacional e gestão de suprimentos</p>
       </div>
 
       <!-- Alternador de Tipo de Login -->
@@ -93,7 +93,7 @@
       </form>
 
       <div class="login-footer">
-        <span>Monitoramento operacional de suprimentos</span>
+        <span>Prevent Senior • Gestão de Tecnologia</span>
       </div>
     </div>
   </div>
@@ -111,23 +111,29 @@
         </div>
         <div class="brand-info">
           <h1>
-            <span>Monitor de Impressoras</span>
+            <span>PREVENT SENIOR</span>
             <span class="unit-current-badge" id="current-unit-badge">Carregando...</span>
             <span class="admin-role-badge" id="admin-role-badge" style="display: none;">
               <svg class="icon icon-xs" viewBox="0 0 24 24" style="margin-right: 4px; display: inline-block; vertical-align: -2px;"><path d="M5 16 3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5Z"/><path d="M5 19h14v2H5z"/></svg>
               <span>Administrador</span>
             </span>
           </h1>
-          <p id="header-unit-desc">Visão operacional da unidade em tempo real</p>
+          <p id="header-unit-desc">Monitor de Impressoras e Gestão de Suprimentos • Prevent Senior</p>
         </div>
       </div>
 
       <!-- Ações do Cabeçalho (Agrupadas no Canto Direito) -->
       <div class="header-actions">
-        <!-- Botão Exportar Relatório (Apenas Administrador) -->
+        <!-- Botão Exportar Histórico de Recargas (Projeto Hefesto - ADM) -->
+        <button class="btn btn-secondary btn-sm admin-only" id="btn-export-recharges-csv-header" style="display: none;" title="Exportar histórico completo de recargas e trocas de suprimentos em CSV">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Recargas CSV</span>
+        </button>
+
+        <!-- Botão Exportar Relatório de Tintas (Apenas Administrador) -->
         <button class="btn btn-secondary btn-sm admin-only" id="btn-export-ink-csv-header" style="display: none;" title="Exportar relatório consolidado de tintas e suprimentos em CSV">
           <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
-          <span>Exportar Relatório</span>
+          <span>Relatório Tintas</span>
         </button>
 
         <!-- Botão Testar IP (Apenas Administrador) -->
@@ -256,70 +262,234 @@
         </div>
       </section>
 
-      <!-- 2. SEÇÃO "MINHAS IMPRESSORAS" (LISTA) -->
-      <section class="dashboard-card my-printers-section">
-        <div class="my-printers-header">
-          <div class="section-title-group">
-            <h3 class="card-title">
-              <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-              <span>Minhas Impressoras</span>
-            </h3>
-            <p class="card-subtitle">Inventário operacional de equipamentos monitorados</p>
+      <!-- 1.1 HISTÓRICO RECENTE DE TROCAS NA UNIDADE (EXCLUSIVO ADMINISTRADOR) -->
+      <section class="dashboard-card unit-recent-recharges-section admin-only" id="unit-recent-recharges-section" style="margin-bottom: 1.25rem; display: none;">
+        <div class="unit-recharges-card-header" style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" id="toggle-unit-recharges-btn">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3 class="card-title" style="font-size: 0.95rem; margin: 0;">Reposições Recentes de Suprimentos na Unidade</h3>
+            <span class="badge" id="unit-recharges-count-badge" style="background: var(--bg-surface-light); border: 1px solid var(--border-subtle); font-size: 0.75rem; padding: 0.15rem 0.5rem; border-radius: var(--radius-full); color: var(--text-secondary);">0</span>
           </div>
-
-          <!-- Filtros Rápidos (Pills) -->
-          <div class="filter-pills" id="overview-filter-pills">
-            <button class="pill-btn active" data-filter="all">Todas (<span id="count-all">0</span>)</button>
-            <button class="pill-btn" data-filter="critical"><svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-danger); vertical-align: -2px; margin-right: 4px;"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Críticas (<span id="pill-count-critical">0</span>)</button>
-            <button class="pill-btn" data-filter="warning"><svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-warning); vertical-align: -2px; margin-right: 4px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>Atenção (<span id="pill-count-warning">0</span>)</button>
-            <button class="pill-btn" data-filter="offline"><svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--text-muted); vertical-align: -2px; margin-right: 4px;"><line x1="1" x2="23" y1="1" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg>Sem conexão (<span id="pill-count-offline">0</span>)</button>
-          </div>
+          <button type="button" class="btn btn-ghost btn-sm" id="btn-toggle-unit-recharges-text" style="font-size: 0.75rem; color: var(--text-muted);">
+            Ocultar
+          </button>
         </div>
-
-        <!-- Barra de Busca e Setor -->
-        <div class="my-printers-toolbar">
-          <div class="search-box">
-            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input 
-              type="text" 
-              id="search-input" 
-              placeholder="Buscar por Local/Setor, modelo, IP..."
-              autocomplete="off"
-            >
-          </div>
-
-          <div class="toolbar-selects">
-            <select class="form-select" id="filter-location-select" title="Filtrar por Setor">
-              <option value="">Todos os Setores</option>
-            </select>
-
-            <select class="form-select" id="sort-fleet-select" title="Ordenar lista">
-              <option value="lowest-supply">Menor Tinta Primeiro</option>
-              <option value="name-asc">Local / Setor (A-Z)</option>
-              <option value="ip-asc">Endereço IP</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Lista / Tabela de Impressoras -->
-        <div class="dense-table-wrapper" style="margin-top: 1rem;">
-          <table class="dense-table">
-            <thead>
-              <tr>
-                <th>Local / Setor</th>
-                <th>Modelo Detectado</th>
-                <th>Endereço IP</th>
-                <th>Suprimento Mais Baixo</th>
-                <th style="text-align: center;">Status</th>
-                <th style="text-align: center; min-width: 140px;">Ações</th>
-              </tr>
-            </thead>
-            <tbody id="my-printers-list-body">
-              <!-- Injetado dinamicamente via JS -->
-            </tbody>
-          </table>
+        <div class="unit-recharges-list-body" id="unit-recent-recharges-list" style="margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.5rem;">
+          <!-- Preenchido via JS com informações limpas (Data, Setor, Suprimento e Tipo) -->
         </div>
       </section>
+
+      <!-- NAVEGAÇÃO DE ABAS EXECUTIVAS (APENAS ADMINISTRADOR) -->
+      <div class="admin-main-tabs admin-only" id="admin-main-tabs" style="display: none; margin-bottom: 1rem;">
+        <button type="button" class="admin-tab-btn active" id="btn-tab-printers" data-tab="printers">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <span>Minhas Impressoras (Inventário)</span>
+        </button>
+        <button type="button" class="admin-tab-btn" id="btn-tab-forecast" data-tab="forecast">
+          <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <span>Volume & Previsibilidade</span>
+          <span class="badge" style="background: rgba(2, 132, 199, 0.18); color: var(--color-primary); font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 9999px; margin-left: 0.35rem; font-weight: 700;">PRO</span>
+        </button>
+      </div>
+
+      <!-- ABA 1: INVENTÁRIO DE IMPRESSORAS -->
+      <div id="tab-view-printers" class="admin-tab-view active">
+        <!-- 2. SEÇÃO "MINHAS IMPRESSORAS" (LISTA) -->
+        <section class="dashboard-card my-printers-section">
+          <div class="my-printers-header">
+            <div class="section-title-group">
+              <h3 class="card-title">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                <span>Minhas Impressoras</span>
+              </h3>
+              <p class="card-subtitle">Inventário operacional de equipamentos monitorados</p>
+            </div>
+
+            <!-- Filtros Rápidos (Pills) -->
+            <div class="filter-pills" id="overview-filter-pills">
+              <button class="pill-btn active" data-filter="all">Todas (<span id="count-all">0</span>)</button>
+              <button class="pill-btn" data-filter="critical"><svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-danger); vertical-align: -2px; margin-right: 4px;"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>Críticas (<span id="pill-count-critical">0</span>)</button>
+              <button class="pill-btn" data-filter="warning"><svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-warning); vertical-align: -2px; margin-right: 4px;"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>Atenção (<span id="pill-count-warning">0</span>)</button>
+              <button class="pill-btn" data-filter="offline"><svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--text-muted); vertical-align: -2px; margin-right: 4px;"><line x1="1" x2="23" y1="1" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg>Sem conexão (<span id="pill-count-offline">0</span>)</button>
+            </div>
+          </div>
+
+          <!-- Barra de Busca e Setor -->
+          <div class="my-printers-toolbar">
+            <div class="search-box">
+              <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Buscar por Local/Setor, modelo, IP..."
+                autocomplete="off"
+              >
+            </div>
+
+            <div class="toolbar-selects">
+              <select class="form-select" id="filter-location-select" title="Filtrar por Setor">
+                <option value="">Todos os Setores</option>
+              </select>
+
+              <select class="form-select" id="sort-fleet-select" title="Ordenar lista">
+                <option value="lowest-supply">Menor Tinta Primeiro</option>
+                <option value="name-asc">Local / Setor (A-Z)</option>
+                <option value="ip-asc">Endereço IP</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Lista / Tabela de Impressoras -->
+          <div class="dense-table-wrapper" style="margin-top: 1rem;">
+            <table class="dense-table">
+              <thead>
+                <tr>
+                  <th>Local / Setor</th>
+                  <th>Modelo Detectado</th>
+                  <th>Endereço IP</th>
+                  <th>Suprimento Mais Baixo</th>
+                  <th style="text-align: center;">Status</th>
+                  <th style="text-align: center; min-width: 140px;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="my-printers-list-body">
+                <!-- Injetado dinamicamente via JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <!-- ABA 2: VOLUME & PREVISIBILIDADE (ADMIN ONLY) -->
+      <div id="tab-view-forecast" class="admin-tab-view" style="display: none;">
+        
+        <!-- KPIs do Cockpit de Previsibilidade -->
+        <div class="forecast-kpi-grid">
+          <div class="forecast-kpi-card">
+            <div class="kpi-icon-wrap" style="background: rgba(2, 132, 199, 0.12); color: var(--color-primary);">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            </div>
+            <div class="kpi-content">
+              <div class="kpi-val" id="kpi-pages-today">0</div>
+              <div class="kpi-title">Páginas Hoje</div>
+              <span class="kpi-period-tag" id="kpi-period-today">Período: Hoje</span>
+              <div class="kpi-sub" id="kpi-sub-pages-today">Total rodado na rede hoje</div>
+            </div>
+          </div>
+
+          <div class="forecast-kpi-card">
+            <div class="kpi-icon-wrap" style="background: rgba(16, 185, 129, 0.12); color: var(--color-success);">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div class="kpi-content">
+              <div class="kpi-val" id="kpi-pages-week">0</div>
+              <div class="kpi-title">Páginas na Semana</div>
+              <span class="kpi-period-tag" id="kpi-period-week">Últimos 7 dias</span>
+              <div class="kpi-sub" id="kpi-sub-pages-week">Últimos 7 dias acumulados</div>
+            </div>
+          </div>
+
+          <div class="forecast-kpi-card">
+            <div class="kpi-icon-wrap" style="background: rgba(99, 102, 241, 0.12); color: #6366f1;">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+            </div>
+            <div class="kpi-content">
+              <div class="kpi-val" id="kpi-pages-month">0</div>
+              <div class="kpi-title">Páginas no Mês</div>
+              <span class="kpi-period-tag" id="kpi-period-month">Últimos 30 dias</span>
+              <div class="kpi-sub" id="kpi-sub-pages-month">Últimos 30 dias de operação</div>
+            </div>
+          </div>
+
+          <div class="forecast-kpi-card">
+            <div class="kpi-icon-wrap" style="background: rgba(239, 68, 68, 0.12); color: var(--color-danger);">
+              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            </div>
+            <div class="kpi-content">
+              <div class="kpi-val" id="kpi-critical-swaps-count">0</div>
+              <div class="kpi-title">Trocas Iminentes (&lt; 7 dias)</div>
+              <span class="kpi-period-tag danger" id="kpi-period-swaps">Próximos 7 dias</span>
+              <div class="kpi-sub" id="kpi-sub-critical-swaps">Suprimentos perto de acabar</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card Principal da Tabela Analítica -->
+        <section class="dashboard-card" style="margin-top: 1.25rem;">
+          <div class="my-printers-header" style="flex-wrap: wrap; gap: 0.75rem;">
+            <div class="section-title-group">
+              <h3 class="card-title">
+                <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                <span>Relatório Executivo de Volume & Previsibilidade</span>
+              </h3>
+              <p class="card-subtitle">Estimativa de esgotamento de suprimentos, data projetada de troca e validação de capacidade máxima</p>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-forecast-csv">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Exportar Relatório (CSV)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Filtros da Previsibilidade -->
+          <div class="my-printers-toolbar" style="margin-top: 0.75rem;">
+            <div class="search-box">
+              <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--text-muted);"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input 
+                type="text" 
+                id="forecast-search-input" 
+                placeholder="Buscar por Setor, modelo, IP..."
+                autocomplete="off"
+              >
+            </div>
+
+            <div class="toolbar-selects">
+              <select class="form-select" id="forecast-unit-select" title="Filtrar por Unidade">
+                <option value="">Todas as Unidades</option>
+              </select>
+
+              <select class="form-select" id="forecast-workload-select" title="Filtrar por Carga">
+                <option value="">Todas as Cargas</option>
+                <option value="high">Alta Carga / Sobrecarga</option>
+                <option value="ideal">Carga Ideal (Saudável)</option>
+                <option value="low">Subutilizada / Ociosa</option>
+              </select>
+
+              <select class="form-select" id="forecast-time-filter" title="Filtrar por Janela de Troca">
+                <option value="">Todas as Previsões</option>
+                <option value="critical7">Troca em até 7 dias</option>
+                <option value="warning15">Troca em até 15 dias</option>
+                <option value="normal30">Troca em até 30 dias</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Tabela de Volume & Previsão -->
+          <div class="table-responsive" style="margin-top: 1rem; overflow-x: auto;">
+            <table class="dense-table forecast-table" id="forecast-table">
+              <thead>
+                <tr>
+                  <th>Equipamento / Setor</th>
+                  <th style="text-align: center;">Hoje</th>
+                  <th style="text-align: center;">Semana (7d)</th>
+                  <th style="text-align: center;">Mês (30d)</th>
+                  <th style="text-align: center;">Média/Dia</th>
+                  <th style="text-align: center;">Carga / Capacidade</th>
+                  <th>Suprimento Crítico & %</th>
+                  <th style="text-align: center;">Págs. Restantes</th>
+                  <th>Previsão da Troca</th>
+                  <th style="text-align: center; min-width: 110px;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="forecast-table-body">
+                <!-- Preenchido via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </div>
 
     </main>
 
@@ -541,6 +711,89 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" id="btn-cancel-modal-unit">Cancelar</button>
           <button type="submit" class="btn btn-primary" id="btn-submit-unit-form">Salvar Pasta</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ====================================================================
+       MODAL: REGISTRAR RECARGA MANUAL DE SUPRIMENTO (PROJETO HEFESTO)
+       ==================================================================== -->
+  <div class="modal-backdrop" id="modal-manual-recharge" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 520px;">
+      <div class="modal-header">
+        <h2 class="modal-title">
+          <svg class="icon icon-sm" viewBox="0 0 24 24" style="color: var(--color-primary);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          <span>Registrar Troca de Toner, Bolsa ou Tinta</span>
+        </h2>
+        <button class="btn-close-modal" id="btn-close-modal-recharge" aria-label="Fechar modal">
+          <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form id="form-manual-recharge">
+        <input type="hidden" id="recharge-printer-id" value="">
+        <input type="hidden" id="recharge-printer-name" value="">
+        <input type="hidden" id="recharge-printer-ip" value="">
+        <input type="hidden" id="recharge-unit-name" value="">
+        <input type="hidden" id="recharge-location" value="">
+        <input type="hidden" id="recharge-page-count" value="">
+
+        <div class="modal-body">
+          <div class="recharge-printer-info-card" id="recharge-modal-printer-info">
+            <!-- Preenchido dinamicamente via JS -->
+          </div>
+
+          <div class="form-group" style="margin-top: 1rem;">
+            <label class="form-label" for="recharge-supply-select">Suprimento Trocado / Recarregado <span class="req">*</span></label>
+            <select id="recharge-supply-select" class="form-select" required>
+              <option value="">Carregando suprimentos da impressora...</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Tipo de Troca de Suprimento <span class="req">*</span></label>
+            <div class="recharge-type-grid">
+              <label class="recharge-type-card active" id="opt-recharge-full-card">
+                <input type="radio" name="recharge-is-full" id="opt-recharge-full-input" value="true" checked style="display: none;">
+                <div class="recharge-card-badge">✨ OFICIAL</div>
+                <strong>Recarga Oficial (100%)</strong>
+                <small>Bolsa / Toner novo lacrado (≥ 95% de tinta)</small>
+              </label>
+
+              <label class="recharge-type-card" id="opt-recharge-partial-card">
+                <input type="radio" name="recharge-is-full" id="opt-recharge-partial-input" value="false" style="display: none;">
+                <div class="recharge-card-badge partial">🔄 PARCIAL</div>
+                <strong>Troca Provisória</strong>
+                <small>Bolsa usada reaproveitada de outra impressora</small>
+              </label>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group">
+              <label class="form-label" for="recharge-new-level">Nível Instalado (%) <span class="req">*</span></label>
+              <input type="number" id="recharge-new-level" class="form-input" min="1" max="100" value="100" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="recharge-technician">Técnico Responsável</label>
+              <input type="text" id="recharge-technician" class="form-input" placeholder="Ex: Técnico TI / Plantão">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="recharge-notes">Observações / Motivo da Troca</label>
+            <textarea id="recharge-notes" class="form-input" rows="2" placeholder="Ex: Substituição por fim de ciclo ou preventiva"></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-recharge">Cancelar</button>
+          <button type="submit" class="btn btn-primary" id="btn-submit-manual-recharge">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>Salvar Recarga</span>
+          </button>
         </div>
       </form>
     </div>
