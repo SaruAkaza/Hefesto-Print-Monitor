@@ -1,9 +1,9 @@
 [
   {
-    "printerId": "p-tt-09",
+    "printerId": "p-tt-13",
     "date": "2026-08-25",
-    "startPageCount": 25084,
-    "endPageCount": 25084,
+    "startPageCount": 28349,
+    "endPageCount": 28349,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -13,9 +13,30 @@
       {
         "name": "Caixa de Manutenção (Maintenance Box)",
         "type": "waste_toner",
-        "percentage": 60
+        "percentage": 46
       }
     ],
-    "lastUpdatedAt": "2026-08-25T13:17:57.687Z"
+    "lastUpdatedAt": "2026-08-25T13:43:08.618Z"
+  }
+]  {
+    "printerId": "p-tt-16",
+    "date": "2026-08-25",
+    "startPageCount": 79609,
+    "endPageCount": 79609,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "lastUpdatedAt": "2026-08-25T13:43:08.614Z"
+  }
+] Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-25T13:43:08.605Z"
   }
 ]
