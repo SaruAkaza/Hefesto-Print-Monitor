@@ -165,6 +165,7 @@ const DOM = {
   optRechargeFullInput: document.getElementById('opt-recharge-full-input'),
   optRechargePartialInput: document.getElementById('opt-recharge-partial-input'),
   rechargeNewLevel: document.getElementById('recharge-new-level'),
+  rechargeCustomDate: document.getElementById('recharge-custom-date'),
   rechargeTechnician: document.getElementById('recharge-technician'),
   rechargeNotes: document.getElementById('recharge-notes'),
   btnCloseModalRecharge: document.getElementById('btn-close-modal-recharge'),
@@ -364,6 +365,15 @@ function translateSupplyName(name) {
     return 'Kit de Manutenção Preventiva';
   }
   return name;
+}
+
+function getSupplyColorByName(name) {
+  const n = (name || '').toLowerCase();
+  if (n.includes('cyan') || n.includes('ciano') || n.includes('[c]') || n.includes('t11a2')) return '#06b6d4'; // Cyan
+  if (n.includes('magenta') || n.includes('[m]') || n.includes('t11a3')) return '#ec4899'; // Magenta
+  if (n.includes('yellow') || n.includes('amarel') || n.includes('[y]') || n.includes('t11a4')) return '#eab308'; // Yellow
+  if (n.includes('black') || n.includes('preto') || n.includes('preta') || n.includes('[k]') || n.includes('t11a1')) return '#334155'; // Black
+  return 'var(--color-primary)';
 }
 
 function isRefillableTank(supply) {
@@ -944,15 +954,55 @@ function renderMyPrinters(scopedPrinters) {
       const fillWidth = isZero ? 100 : pct;
       const supplyColorStatus = getSupplyStatusByPercentage(pct, isRefillable);
 
+      // Mini-paleta com todos os suprimentos para visão instantânea de todas as cores
+      let allSuppliesDotsHTML = '';
+      if (validSupplies.length > 1) {
+        allSuppliesDotsHTML = `
+          <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.35rem;" title="Todos os suprimentos da impressora">
+            ${validSupplies.map(s => {
+              const dotColor = getSupplyColorByName(s.name);
+              const statusClr = getSupplyStatusByPercentage(s._normalizedPct, isRefillableTank(s));
+              const borderClr = statusClr === 'critical' ? 'var(--color-danger)' : (statusClr === 'warning' ? 'var(--color-warning)' : 'var(--color-success)');
+              const translatedShort = translateSupplyName(s.name).replace('Cartucho / Toner ', '').replace('Bolsa de Tinta ', '');
+              return `
+                <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 0.68rem; font-weight: 700; color: var(--text-secondary); background: var(--bg-input); padding: 1px 5px; border-radius: 4px; border-left: 2px solid ${borderClr};" title="${escapeHtml(translateSupplyName(s.name))}: ${s._normalizedPct}%">
+                  <span style="width: 7px; height: 7px; border-radius: 50%; background-color: ${dotColor}; display: inline-block;"></span>
+                  <span>${translatedShort}: ${s._normalizedPct}%</span>
+                </span>
+              `;
+            }).join('')}
+          </div>
+        `;
+      }
+
+      // Tag de última recarga recente se houver
+      const rechargeInfo = AppState.rechargesSummary && AppState.rechargesSummary[printer.id];
+      let recentRechargeHTML = '';
+      if (rechargeInfo && rechargeInfo.lastRecharge) {
+        const rec = rechargeInfo.lastRecharge;
+        const isRecent = (Date.now() - new Date(rec.timestamp).getTime()) < (7 * 86400000);
+        if (isRecent) {
+          const recName = translateSupplyName(rec.supplyName).replace('Cartucho / Toner ', '').replace('Bolsa de Tinta ', '');
+          recentRechargeHTML = `
+            <div style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--color-success); font-weight: 700; display: flex; align-items: center; gap: 0.25rem;" title="Última reposição: ${escapeHtml(rec.supplyName)} (${rec.newLevel}%) em ${formatFullDateTime(rec.timestamp)}">
+              <svg class="icon icon-xs" viewBox="0 0 24 24" style="width: 12px; height: 12px; color: var(--color-success);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span>Troca Recente: ${escapeHtml(recName)} (${rec.newLevel}%)</span>
+            </div>
+          `;
+        }
+      }
+
       supplyCellHTML = `
-        <div style="display: flex; flex-direction: column; gap: 0.25rem; min-width: 140px;">
+        <div style="display: flex; flex-direction: column; gap: 0.2rem; min-width: 150px;">
           <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
-            <span style="font-weight: 600; color: var(--text-primary);">${escapeHtml(translateSupplyName(lowest.name))}</span>
+            <span style="font-weight: 600; color: var(--text-primary);">${escapeHtml(translateSupplyName(lowest.name))} (Crítico)</span>
             <strong class="supply-percentage ${supplyColorStatus}" style="font-family: var(--font-mono);">${displayVal}</strong>
           </div>
           <div class="progress-track" style="height: 5px;">
             <div class="progress-fill ${supplyColorStatus}" style="width: ${Math.max(5, fillWidth)}%"></div>
           </div>
+          ${allSuppliesDotsHTML}
+          ${recentRechargeHTML}
         </div>
       `;
     } else {
@@ -1260,10 +1310,20 @@ async function openPrinterDetailDrawer(id) {
       const statusClass = getSupplyStatusByPercentage(pct, refillable);
       const borderStatus = statusClass === 'critical' ? 'var(--color-danger)' : (statusClass === 'warning' ? 'var(--color-warning)' : 'var(--color-success)');
 
+      const matchedRec = printerRecharges.find(r => r.supplyName === s.name || r.supplyType === s.type);
+      const isRecentlyRecharged = matchedRec && (Date.now() - new Date(matchedRec.timestamp).getTime()) < (7 * 86400000);
+      const rechargeBadge = isRecentlyRecharged 
+        ? `<span class="printer-recharge-tag" style="margin-left: 0.4rem; font-size: 0.65rem;" title="Trocado em ${formatFullDateTime(matchedRec.timestamp)} (${matchedRec.newLevel}%)">✨ Recarga (${matchedRec.newLevel}%)</span>` 
+        : '';
+
       return `
         <div class="detail-chip" style="border-left: 3px solid ${borderStatus};">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${escapeHtml(translateSupplyName(s.name))}${refillable ? ' <span title="Tanque recarregável - nível estimado" style="cursor: help; opacity: 0.6;">≈</span>' : ''}</span>
+            <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary); display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.3rem;">
+              ${escapeHtml(translateSupplyName(s.name))}
+              ${refillable ? ' <span title="Tanque recarregável - nível estimado" style="cursor: help; opacity: 0.6;">≈</span>' : ''}
+              ${rechargeBadge}
+            </span>
             <span class="supply-percentage ${statusClass}" style="font-size: 0.9rem; font-weight: 800; font-family: var(--font-mono);">${textVal}</span>
           </div>
           <div class="progress-track" style="margin-top: 0.45rem;">
@@ -1500,6 +1560,10 @@ function openManualRechargeModal(printerId) {
   }
   setRechargeTypeOption('full');
   DOM.rechargeNewLevel.value = 100;
+  if (DOM.rechargeCustomDate) {
+    const localIso = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+    DOM.rechargeCustomDate.value = localIso;
+  }
   DOM.rechargeTechnician.value = '';
   DOM.rechargeNotes.value = '';
 
@@ -1544,6 +1608,8 @@ async function handleManualRechargeSubmit(e) {
 
   const isFull = DOM.optRechargeFullInput.checked;
   const newLevel = Number(DOM.rechargeNewLevel.value);
+  const customDateVal = DOM.rechargeCustomDate ? DOM.rechargeCustomDate.value : '';
+  const timestamp = customDateVal ? new Date(customDateVal).toISOString() : new Date().toISOString();
   const technician = DOM.rechargeTechnician.value.trim();
   const notes = DOM.rechargeNotes.value.trim();
 
@@ -1574,7 +1640,8 @@ async function handleManualRechargeSubmit(e) {
       pageCount,
       isFull,
       technician,
-      notes
+      notes,
+      timestamp
     });
 
     // Atualiza imediatamente o suprimento no AppState local

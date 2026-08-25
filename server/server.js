@@ -230,11 +230,12 @@ async function registerRechargeEvent({
   source = 'auto',
   isFull = null,
   technician = '',
-  notes = ''
+  notes = '',
+  timestamp = null
 }) {
   try {
     const recharges = await loadRecharges();
-    const now = new Date().toISOString();
+    const eventTime = timestamp ? new Date(timestamp).toISOString() : new Date().toISOString();
     const currPage = pageCount ? Number(pageCount) : 0;
     const nLevel = Number(newLevel);
     const pLevel = Number(previousLevel) || 0;
@@ -242,14 +243,17 @@ async function registerRechargeEvent({
     // Regra de corte Hefesto: Se isFull não foi explicitamente passado, >= 95% é Oficial Completa
     const isFullRecharge = isFull !== null ? Boolean(isFull) : (nLevel >= 95);
 
-    // Evita duplicações idênticas num intervalo de 10 minutos
-    const recentDuplicate = recharges.find(r => 
-      r.printerId === printerId &&
-      r.supplyName === supplyName &&
-      (new Date(now) - new Date(r.timestamp)) < 600000 &&
-      Math.abs(r.newLevel - nLevel) < 2
-    );
-    if (recentDuplicate) return recentDuplicate;
+    // Evita duplicações para detecção automática: se já temos recarga recente nesse nível alto, não duplica
+    if (source === 'auto') {
+      const latestRecharge = [...recharges].reverse().find(r => 
+        r.printerId === printerId &&
+        (r.supplyName === supplyName || r.supplyType === supplyType)
+      );
+
+      if (latestRecharge && latestRecharge.newLevel >= 90 && Math.abs(latestRecharge.newLevel - nLevel) <= 5 && Math.abs(currPage - (latestRecharge.pageCount || 0)) < 300) {
+        return latestRecharge;
+      }
+    }
 
     // Busca a recarga anterior desta mesma impressora para calcular páginas rodadas no ciclo
     const previousRecharge = [...recharges]
@@ -279,7 +283,7 @@ async function registerRechargeEvent({
       statusTag: isFullRecharge ? 'Recarga Oficial (Nova)' : 'Troca Provisória / Parcial',
       technician: technician || (source === 'auto' ? 'Sensor Automático SNMP' : 'Técnico'),
       notes: notes || (isFullRecharge ? `Nível restabelecido para ${nLevel}%` : `Inserida bolsa/toner com ${nLevel}%`),
-      timestamp: now
+      timestamp: eventTime
     };
 
     recharges.push(event);
@@ -747,7 +751,7 @@ app.get('/api/recharges/summary', async (req, res) => {
 
 // Registro manual de recarga (lançado pelo técnico de campo)
 app.post('/api/recharges', async (req, res) => {
-  const { printerId, printerName, ip, unitName, location, supplyName, supplyType, previousLevel, newLevel, pageCount, isFull, technician, notes } = req.body;
+  const { printerId, printerName, ip, unitName, location, supplyName, supplyType, previousLevel, newLevel, pageCount, isFull, technician, notes, timestamp } = req.body;
 
   if (!printerId || !supplyName || newLevel === undefined) {
     return res.status(400).json({ error: 'printerId, supplyName e newLevel são obrigatórios.' });
@@ -767,7 +771,8 @@ app.post('/api/recharges', async (req, res) => {
     source: 'manual',
     isFull: isFull !== undefined ? Boolean(isFull) : (Number(newLevel) >= 95),
     technician: technician ? technician.trim() : 'Técnico de Campo',
-    notes: notes ? notes.trim() : 'Lançamento manual de reposição de suprimento'
+    notes: notes ? notes.trim() : 'Lançamento manual de reposição de suprimento',
+    timestamp: timestamp || new Date().toISOString()
   });
 
   if (!result) {
