@@ -1302,14 +1302,22 @@ async function openPrinterDetailDrawer(id) {
   // Abre a gaveta imediatamente
   DOM.drawerPrinterDetail.classList.add('active');
 
-  const normalSupplies = [];
+  const tonerSupplies = [];
+  const drumSupplies = [];
+  const maintenanceSupplies = [];
   const wasteSupplies = [];
+
   if (isOnline && supplies.length > 0) {
     supplies.forEach(s => {
+      const lower = (s.name || '').toLowerCase();
       if (isWasteSupply(s)) {
         wasteSupplies.push(s);
+      } else if (lower.includes('drum') || lower.includes('imaging') || lower.includes('fotocondutor') || lower.includes('cilindro') || s.type === 'imaging_kit') {
+        drumSupplies.push(s);
+      } else if (lower.includes('fuser') || lower.includes('fusor') || lower.includes('transfer') || lower.includes('laser') || lower.includes('kit') || s.type === 'fuser' || s.type === 'transfer') {
+        maintenanceSupplies.push(s);
       } else {
-        normalSupplies.push(s);
+        tonerSupplies.push(s);
       }
     });
   }
@@ -1324,10 +1332,8 @@ async function openPrinterDetailDrawer(id) {
 
   const isAdmin = AppState.userRole === 'admin';
 
-  // Suprimentos normais vs resíduos (visual 100% clean para o usuário)
-  let suppliesHTML = '';
-  if (isOnline && normalSupplies.length > 0) {
-    suppliesHTML = normalSupplies.map(s => {
+  function renderSupplyCardsList(list) {
+    return list.map(s => {
       const pct = normalizeSupplyPercentage(s);
       const refillable = isRefillableTank(s);
       const isZero = pct === 0;
@@ -1336,6 +1342,7 @@ async function openPrinterDetailDrawer(id) {
       const fillWidth = isZero ? 100 : isND ? 0 : pct;
       const statusClass = getSupplyStatusByPercentage(pct, refillable);
       const borderStatus = statusClass === 'critical' ? 'var(--color-danger)' : (statusClass === 'warning' ? 'var(--color-warning)' : 'var(--color-success)');
+      const dotColor = getSupplyColorByName(s.name);
 
       const matchedRec = printerRecharges.find(r => r.supplyName === s.name || r.supplyType === s.type);
       const isRecentlyRecharged = matchedRec && (Date.now() - new Date(matchedRec.timestamp).getTime()) < (7 * 86400000);
@@ -1346,8 +1353,9 @@ async function openPrinterDetailDrawer(id) {
       return `
         <div class="detail-chip" style="border-left: 3px solid ${borderStatus};">
           <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary); display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.3rem;">
-              ${escapeHtml(translateSupplyName(s.name, s.type))}
+            <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary); display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.35rem;">
+              <span style="width: 8px; height: 8px; border-radius: 50%; background-color: ${dotColor}; display: inline-block;"></span>
+              <span>${escapeHtml(translateSupplyName(s.name, s.type))}</span>
               ${refillable ? ' <span title="Tanque recarregável - nível estimado" style="cursor: help; opacity: 0.6;">≈</span>' : ''}
               ${rechargeBadge}
             </span>
@@ -1359,32 +1367,53 @@ async function openPrinterDetailDrawer(id) {
         </div>
       `;
     }).join('');
+  }
+
+  // Suprimentos divididos de forma elegante e intuitiva
+  let suppliesHTML = '';
+  if (isOnline && (tonerSupplies.length > 0 || drumSupplies.length > 0 || maintenanceSupplies.length > 0 || wasteSupplies.length > 0)) {
+    if (tonerSupplies.length > 0) {
+      suppliesHTML += `
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          ${renderSupplyCardsList(tonerSupplies)}
+        </div>
+      `;
+    }
+
+    if (drumSupplies.length > 0) {
+      suppliesHTML += `
+        <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-top: 1.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+          <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          <span>Cilindros / Fotocondutores (Drums)</span>
+        </h4>
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          ${renderSupplyCardsList(drumSupplies)}
+        </div>
+      `;
+    }
+
+    if (maintenanceSupplies.length > 0) {
+      suppliesHTML += `
+        <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-top: 1.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+          <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>Unidades de Fusão & Manutenção</span>
+        </h4>
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          ${renderSupplyCardsList(maintenanceSupplies)}
+        </div>
+      `;
+    }
 
     if (wasteSupplies.length > 0) {
       suppliesHTML += `
-        <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-top: 1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
+        <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); margin-top: 1.25rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem;">
           ${Icons.trash}
-          <span>Caixa de Resíduos</span>
+          <span>Caixas de Resíduos & Manutenção</span>
         </h4>
+        <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+          ${renderSupplyCardsList(wasteSupplies)}
+        </div>
       `;
-      suppliesHTML += wasteSupplies.map(s => {
-        const pct = s.percentage >= 0 ? s.percentage : (s.percentage === -3 ? 50 : 0);
-        const wasteStatus = getSupplyStatusByPercentage(pct);
-        const borderColor = wasteStatus === 'critical' ? 'var(--color-danger)' : (wasteStatus === 'warning' ? 'var(--color-warning)' : 'var(--color-success)');
-        const textVal = pct >= 0 ? `${pct}%` : 'N/D';
-
-        return `
-          <div class="detail-chip" style="border-left: 3px solid ${borderColor};">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${escapeHtml(translateSupplyName(s.name, s.type))}</span>
-              <span class="supply-percentage ${wasteStatus}" style="font-size: 0.9rem; font-weight: 800; font-family: var(--font-mono);">${textVal}</span>
-            </div>
-            <div class="progress-track" style="margin-top: 0.45rem;">
-              <div class="progress-fill ${wasteStatus}" style="width: ${Math.max(5, pct)}%"></div>
-            </div>
-          </div>
-        `;
-      }).join('');
     }
   } else if (!isOnline) {
     suppliesHTML = `<p style="color: var(--color-danger); font-size: 0.85rem;">Equipamento offline. Não é possível ler os suprimentos agora.</p>`;
@@ -2416,6 +2445,37 @@ function renderForecastTable() {
               <div class="forecast-meter-bar">
                 <div class="forecast-meter-fill" style="width: ${supPct}%; background: ${supColor};"></div>
               </div>
+              ${(() => {
+                const forecastToners = (item.suppliesForecast || []).filter(s => 
+                  !s.name.toLowerCase().includes('waste') &&
+                  !s.name.toLowerCase().includes('drum') &&
+                  !s.name.toLowerCase().includes('imaging') &&
+                  !s.name.toLowerCase().includes('transfer') &&
+                  !s.name.toLowerCase().includes('adf') &&
+                  !s.name.toLowerCase().includes('fuser') &&
+                  !s.name.toLowerCase().includes('fusor') &&
+                  !s.name.toLowerCase().includes('kit')
+                );
+                if (forecastToners.length <= 1) return '';
+                return `
+                  <div style="display: flex; flex-wrap: wrap; gap: 0.25rem; margin-top: 0.35rem;" title="Níveis de todos os insumos de impressão">
+                    ${forecastToners.map(s => {
+                      const dotColor = getSupplyColorByName(s.name);
+                      const shortName = translateSupplyName(s.name, s.type)
+                        .replace('Toner / Tinta ', '')
+                        .replace('Cartucho / Toner ', '')
+                        .replace('Bolsa de Tinta ', '');
+                      const statusClr = s.percentage <= 10 ? 'var(--color-danger)' : (s.percentage <= 30 ? 'var(--color-warning)' : 'var(--color-success)');
+                      return `
+                        <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; font-weight: 700; color: var(--text-secondary); background: var(--bg-input); padding: 1px 4px; border-radius: 3px; border-left: 2px solid ${statusClr};" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s.percentage}% (${s.daysRemainingEstimated ? '~' + s.daysRemainingEstimated + ' dias' : 'Estável'})">
+                          <span style="width: 6px; height: 6px; border-radius: 50%; background-color: ${dotColor}; display: inline-block;"></span>
+                          <span>${shortName}: ${s.percentage}%</span>
+                        </span>
+                      `;
+                    }).join('')}
+                  </div>
+                `;
+              })()}
             </div>
           ` : '<span style="color: var(--text-muted); font-size: 0.75rem;">Sem dados</span>'}
         </td>

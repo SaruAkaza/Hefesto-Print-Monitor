@@ -11,13 +11,64 @@
         "percentage": -2
       }
     ],
-    "lastUpdatedAt": "2026-08-25T16:49:37.360Z"
+    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
   }
 ] Box)",
         "type": "waste_toner",
-        "percentage": 65
+        "percentage": 46
       }
     ],
-    "lastUpdatedAt": "2026-08-25T16:49:37.360Z"
+    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+  }
+]]"percentage": 44
+      }
+    ],
+    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+  }
+] Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+  }
+]]nance_kit",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+  }
+]
+]name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 93
+      },
+      {
+        "name": "Waste Toner Bottle",
+        "type": "toner",
+        "percentage": 49
+      },
+      {
+        "name": "Yellow Cartridge",
+        "type": "other",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-25T17:04:37.399Z"
+  }
+]        "percentage": 99
+      },
+      {
+        "name": "Black Toner [K1];SN27058780E0000379",
+        "type": "toner",
+        "percentage": 100
+      },
+      {
+        "name": "Black Toner [K2];SN160A5E80E0000329",
+        "type": "toner",
+        "percentage": 40
+      }
+    ],
+    "lastUpdatedAt": "2026-08-25T17:04:37.399Z"
   }
 ]
