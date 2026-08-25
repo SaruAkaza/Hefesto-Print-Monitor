@@ -34,6 +34,9 @@
 - [ ] **Auditoria & Trilha de Registro de Modificações:**  
   Log imutável de qualquer alteração de suprimento, entrada manual de insumo, ajuste na lista de equipamentos ou formatação de quantidades.
 
+- [ ] Quem imprimiu?
+	Log de qual CPF imprimiu e a quantidade que imprimiu. Gerar um alerta se em uma única impressão passou de 40 folhas.
+
 ---
 
 ## 🔗 Navegação do Cofre (Obsidian)

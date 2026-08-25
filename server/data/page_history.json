@@ -11,29 +11,13 @@
         "percentage": -2
       }
     ],
-    "lastUpdatedAt": "2026-08-25T16:25:37.333Z"
+    "lastUpdatedAt": "2026-08-25T16:49:37.360Z"
   }
 ] Box)",
         "type": "waste_toner",
-        "percentage": 46
+        "percentage": 65
       }
     ],
-    "lastUpdatedAt": "2026-08-25T16:25:37.330Z"
-  }
-]]r",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "lastUpdatedAt": "2026-08-25T16:25:37.330Z"
+    "lastUpdatedAt": "2026-08-25T16:49:37.360Z"
   }
 ]

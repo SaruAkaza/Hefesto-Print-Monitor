@@ -330,49 +330,63 @@ const API = {
 // ==========================================================================
 // 5. TRADUÇÃO DE SUPRIMENTOS E CORES PARA PORTUGUÊS
 // ==========================================================================
-function translateSupplyName(name) {
+function translateSupplyName(name, type = '') {
   if (!name) return 'Suprimento';
   const lower = name.toLowerCase();
 
-  if (lower.includes('black') || lower.includes('preto') || lower.includes('preta') || lower.includes('k cartridge') || lower.includes('bk')) {
-    return 'Cartucho / Toner Preto';
-  }
-  if (lower.includes('cyan') || lower.includes('ciano') || lower.includes('c cartridge')) {
-    return 'Cartucho / Toner Ciano';
-  }
-  if (lower.includes('magenta') || lower.includes('m cartridge')) {
-    return 'Cartucho / Toner Magenta';
-  }
-  if (lower.includes('yellow') || lower.includes('amarelo') || lower.includes('y cartridge')) {
-    return 'Cartucho / Toner Amarelo';
-  }
+  // 1. Caixas de Resíduos
   if (lower.includes('waste') || lower.includes('resíduo') || lower.includes('residuo')) {
     return 'Garrafa de Resíduo de Toner';
-  }
-  if (lower.includes('imaging') || lower.includes('fotocondutor') || lower.includes('drum') || lower.includes('cilindro')) {
-    return 'Kit Fotocondutor / Imagem';
-  }
-  if (lower.includes('transfer')) {
-    return 'Módulo de Transferência';
-  }
-  if (lower.includes('fuser') || lower.includes('fusor')) {
-    return 'Unidade Fusora';
   }
   if (lower.includes('maintenance box') || lower.includes('caixa de manutenção') || lower.includes('caixa de manutencao')) {
     return 'Caixa de Manutenção';
   }
+
+  // 2. Fotocondutores / Cilindros (Drums)
+  if (lower.includes('drum') || lower.includes('imaging') || lower.includes('fotocondutor') || lower.includes('cilindro') || type === 'imaging_kit') {
+    if (lower.includes('black') || lower.includes('preto') || lower.includes('[r1]')) return 'Cilindro Preto';
+    if (lower.includes('cyan') || lower.includes('ciano') || lower.includes('[r2]')) return 'Cilindro Ciano';
+    if (lower.includes('magenta') || lower.includes('[r3]')) return 'Cilindro Magenta';
+    if (lower.includes('yellow') || lower.includes('amarel') || lower.includes('[r4]')) return 'Cilindro Amarelo';
+    return 'Kit Fotocondutor / Cilindro';
+  }
+
+  // 3. Fusores e Transferência
+  if (lower.includes('fuser') || lower.includes('fusor') || type === 'fuser') {
+    return 'Unidade Fusora';
+  }
+  if (lower.includes('transfer') || type === 'transfer') {
+    return 'Módulo de Transferência';
+  }
   if (lower.includes('maintenance kit') || lower.includes('kit de manutenção')) {
     return 'Kit de Manutenção Preventiva';
   }
+
+  // 4. Toners e Tintas com slots múltiplos (K1, K2, etc.)
+  if (lower.includes('k1') || lower.includes('[k1]')) return 'Toner Preto (K1)';
+  if (lower.includes('k2') || lower.includes('[k2]')) return 'Toner Preto (K2)';
+  if (lower.includes('black') || lower.includes('preto') || lower.includes('preta') || lower.includes('k cartridge') || lower.includes('bk') || lower.includes('t11a1')) {
+    return 'Toner / Tinta Preta';
+  }
+  if (lower.includes('cyan') || lower.includes('ciano') || lower.includes('c cartridge') || lower.includes('[c]') || lower.includes('t11a2')) {
+    return 'Toner / Tinta Ciano';
+  }
+  if (lower.includes('magenta') || lower.includes('m cartridge') || lower.includes('[m]') || lower.includes('t11a3')) {
+    return 'Toner / Tinta Magenta';
+  }
+  if (lower.includes('yellow') || lower.includes('amarelo') || lower.includes('amarela') || lower.includes('y cartridge') || lower.includes('[y]') || lower.includes('t11a4')) {
+    return 'Toner / Tinta Amarela';
+  }
+
   return name;
 }
 
 function getSupplyColorByName(name) {
   const n = (name || '').toLowerCase();
-  if (n.includes('cyan') || n.includes('ciano') || n.includes('[c]') || n.includes('t11a2')) return '#06b6d4'; // Cyan
-  if (n.includes('magenta') || n.includes('[m]') || n.includes('t11a3')) return '#ec4899'; // Magenta
-  if (n.includes('yellow') || n.includes('amarel') || n.includes('[y]') || n.includes('t11a4')) return '#eab308'; // Yellow
-  if (n.includes('black') || n.includes('preto') || n.includes('preta') || n.includes('[k]') || n.includes('t11a1')) return '#334155'; // Black
+  if (n.includes('cyan') || n.includes('ciano') || n.includes('[c]') || n.includes('[r2]') || n.includes('t11a2')) return '#06b6d4'; // Cyan
+  if (n.includes('magenta') || n.includes('[m]') || n.includes('[r3]') || n.includes('t11a3')) return '#ec4899'; // Magenta
+  if (n.includes('yellow') || n.includes('amarel') || n.includes('[y]') || n.includes('[r4]') || n.includes('t11a4')) return '#eab308'; // Yellow
+  if (n.includes('black') || n.includes('preto') || n.includes('preta') || n.includes('[k') || n.includes('[r1]') || n.includes('t11a1')) return '#334155'; // Black
   return 'var(--color-primary)';
 }
 
@@ -920,6 +934,16 @@ function renderMyPrinters(scopedPrinters) {
     const validSupplies = normalizedSupplies.filter(s => s._normalizedPct >= 0 && !s._isWaste).sort((a, b) => a._normalizedPct - b._normalizedPct);
     const lowest = validSupplies[0];
 
+    // Filtra apenas os toners e tintas principais de consumo para a visualização resumida
+    const mainToners = normalizedSupplies.filter(s => 
+      s._normalizedPct >= 0 && 
+      !s._isWaste && 
+      (s.type === 'toner' || !s.type) &&
+      !s.name.toLowerCase().includes('drum') && 
+      !s.name.toLowerCase().includes('fuser') && 
+      !s.name.toLowerCase().includes('transfer')
+    );
+
     const locationTitle = getPrinterLocationTitle(printer);
     const modelSubtitle = getPrinterModelSubtitle(printer, status);
 
@@ -954,18 +978,21 @@ function renderMyPrinters(scopedPrinters) {
       const fillWidth = isZero ? 100 : pct;
       const supplyColorStatus = getSupplyStatusByPercentage(pct, isRefillable);
 
-      // Mini-paleta com todos os suprimentos para visão instantânea de todas as cores
+      // Mini-paleta limpa exclusivamente com os toners/tintas principais (sem poluir com cilindros/fusores)
       let allSuppliesDotsHTML = '';
-      if (validSupplies.length > 1) {
+      if (mainToners.length > 1) {
         allSuppliesDotsHTML = `
-          <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.35rem;" title="Todos os suprimentos da impressora">
-            ${validSupplies.map(s => {
+          <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.35rem;" title="Níveis dos toners e tintas">
+            ${mainToners.map(s => {
               const dotColor = getSupplyColorByName(s.name);
               const statusClr = getSupplyStatusByPercentage(s._normalizedPct, isRefillableTank(s));
               const borderClr = statusClr === 'critical' ? 'var(--color-danger)' : (statusClr === 'warning' ? 'var(--color-warning)' : 'var(--color-success)');
-              const translatedShort = translateSupplyName(s.name).replace('Cartucho / Toner ', '').replace('Bolsa de Tinta ', '');
+              const translatedShort = translateSupplyName(s.name, s.type)
+                .replace('Toner / Tinta ', '')
+                .replace('Cartucho / Toner ', '')
+                .replace('Bolsa de Tinta ', '');
               return `
-                <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 0.68rem; font-weight: 700; color: var(--text-secondary); background: var(--bg-input); padding: 1px 5px; border-radius: 4px; border-left: 2px solid ${borderClr};" title="${escapeHtml(translateSupplyName(s.name))}: ${s._normalizedPct}%">
+                <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 0.68rem; font-weight: 700; color: var(--text-secondary); background: var(--bg-input); padding: 1px 5px; border-radius: 4px; border-left: 2px solid ${borderClr};" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%">
                   <span style="width: 7px; height: 7px; border-radius: 50%; background-color: ${dotColor}; display: inline-block;"></span>
                   <span>${translatedShort}: ${s._normalizedPct}%</span>
                 </span>
@@ -1320,7 +1347,7 @@ async function openPrinterDetailDrawer(id) {
         <div class="detail-chip" style="border-left: 3px solid ${borderStatus};">
           <div style="display: flex; justify-content: space-between; align-items: center;">
             <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary); display: inline-flex; align-items: center; flex-wrap: wrap; gap: 0.3rem;">
-              ${escapeHtml(translateSupplyName(s.name))}
+              ${escapeHtml(translateSupplyName(s.name, s.type))}
               ${refillable ? ' <span title="Tanque recarregável - nível estimado" style="cursor: help; opacity: 0.6;">≈</span>' : ''}
               ${rechargeBadge}
             </span>
@@ -1349,7 +1376,7 @@ async function openPrinterDetailDrawer(id) {
         return `
           <div class="detail-chip" style="border-left: 3px solid ${borderColor};">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-              <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${escapeHtml(translateSupplyName(s.name))}</span>
+              <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary);">${escapeHtml(translateSupplyName(s.name, s.type))}</span>
               <span class="supply-percentage ${wasteStatus}" style="font-size: 0.9rem; font-weight: 800; font-family: var(--font-mono);">${textVal}</span>
             </div>
             <div class="progress-track" style="margin-top: 0.45rem;">
