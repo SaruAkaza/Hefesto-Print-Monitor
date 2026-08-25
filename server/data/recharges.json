@@ -1,6 +1,6 @@
 [
   {
-    "id": "rec-99ea1544",
+    "id": "rec-2b99c326",
     "printerId": "p-tt-01",
     "printerName": "XBJZ010993",
     "ip": "10.1.176.14",
@@ -17,26 +17,6 @@
     "statusTag": "Recarga Oficial (Nova)",
     "technician": "Sensor Automático SNMP",
     "notes": "Nível restabelecido para 99%",
-    "timestamp": "2026-08-25T17:04:32.249Z"
-  },
-  {
-    "id": "rec-2d1b44c4",
-    "printerId": "p-rs-14",
-    "printerName": "XBJZ029656",
-    "ip": "10.5.104.18",
-    "unitName": "121 - Rio Sul",
-    "location": "Recepção (13º Andar)",
-    "supplyName": "Magenta Ink Supply Unit T11A3",
-    "supplyType": "toner",
-    "previousLevel": 22,
-    "newLevel": 86,
-    "pageCount": 124073,
-    "pagesSinceLastRecharge": 0,
-    "source": "auto",
-    "isFullRecharge": false,
-    "statusTag": "Troca Provisória / Parcial",
-    "technician": "Sensor Automático SNMP",
-    "notes": "Inserida bolsa/toner com 86%",
-    "timestamp": "2026-08-25T17:04:32.389Z"
+    "timestamp": "2026-08-25T17:19:32.266Z"
   }
 ]

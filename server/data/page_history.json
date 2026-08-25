@@ -2,8 +2,8 @@
   {
     "printerId": "p-tt-16",
     "date": "2026-08-25",
-    "startPageCount": 79625,
-    "endPageCount": 79625,
+    "startPageCount": 79628,
+    "endPageCount": 79628,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -11,34 +11,32 @@
         "percentage": -2
       }
     ],
-    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+    "lastUpdatedAt": "2026-08-25T17:19:37.466Z"
   }
 ] Box)",
         "type": "waste_toner",
-        "percentage": 46
+        "percentage": 33
       }
     ],
-    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+    "lastUpdatedAt": "2026-08-25T17:19:37.466Z"
   }
-]]"percentage": 44
-      }
-    ],
-    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
-  }
-] Ink Supply Unit T11A4",
+]]   "type": "toner",
+        "percentage": 19
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
         "type": "toner",
-        "percentage": 1
+        "percentage": 82
       }
     ],
-    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+    "lastUpdatedAt": "2026-08-25T17:19:37.466Z"
   }
-]]nance_kit",
-        "percentage": 99
+]enance_kit",
+        "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-25T17:04:37.400Z"
+    "lastUpdatedAt": "2026-08-25T17:19:37.465Z"
   }
-]
 ]name": "Maintenance Kit",
         "type": "maintenance_kit",
         "percentage": 93
@@ -54,7 +52,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-25T17:04:37.399Z"
+    "lastUpdatedAt": "2026-08-25T17:19:37.465Z"
   }
 ]        "percentage": 99
       },
@@ -69,6 +67,6 @@
         "percentage": 40
       }
     ],
-    "lastUpdatedAt": "2026-08-25T17:04:37.399Z"
+    "lastUpdatedAt": "2026-08-25T17:19:37.465Z"
   }
 ]

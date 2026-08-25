@@ -777,8 +777,8 @@ function renderOverviewTab() {
 async function renderUnitRecentRecharges() {
   if (!DOM.unitRecentRechargesSection || !DOM.unitRecentRechargesList) return;
 
-  // Apenas o perfil Administrador pode ver a seção de reposições da unidade
-  if (AppState.userRole !== 'admin') {
+  // Apenas o perfil Administrador pode ver a seção de reposições da unidade, e apenas na aba de inventário
+  if (AppState.userRole !== 'admin' || AppState.activeAdminTab === 'forecast') {
     DOM.unitRecentRechargesSection.style.display = 'none';
     return;
   }
@@ -2187,6 +2187,19 @@ function switchAdminTab(tabName) {
 
   if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = tabName === 'printers' ? 'block' : 'none';
   if (DOM.tabViewForecast) DOM.tabViewForecast.style.display = tabName === 'forecast' ? 'block' : 'none';
+
+  // Oculta automaticamente os cards operacionais de status (Conectadas, Crítico, Atenção, Sem Conexão e Reposições Recentes) na aba de Previsibilidade
+  const operationalContainer = document.getElementById('operational-status-cards-container');
+  if (operationalContainer) {
+    operationalContainer.style.display = tabName === 'printers' ? 'block' : 'none';
+  }
+  if (DOM.unitRecentRechargesSection) {
+    if (tabName === 'forecast') {
+      DOM.unitRecentRechargesSection.style.display = 'none';
+    } else if (AppState.userRole === 'admin') {
+      renderUnitRecentRecharges();
+    }
+  }
 
   if (tabName === 'forecast') {
     loadAndRenderForecastTab();

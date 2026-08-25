@@ -204,61 +204,77 @@
           </div>
         </div>
 
-        <!-- Banner de Destaque: Impressoras Conectadas & Operacionais -->
-        <div class="connected-hero-banner clickable" data-action="filter-overview" data-filter="online" title="Clique para filtrar apenas as impressoras conectadas e operacionais">
-          <div class="connected-banner-left">
-            <div class="connected-icon-badge">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <div>
-              <div class="connected-banner-title">Impressoras Conectadas & Operacionais</div>
-              <div class="connected-banner-sub">Equipamentos respondendo ativamente na rede local com telemetria sincronizada</div>
-            </div>
-          </div>
-          <div class="connected-banner-right">
-            <div class="connected-banner-count" id="count-connected-banner">0</div>
-            <span class="connected-banner-tag">Ver Conectadas</span>
-          </div>
+        <!-- NAVEGAÇÃO DE ABAS EXECUTIVAS (APENAS ADMINISTRADOR) -->
+        <div class="admin-main-tabs admin-only" id="admin-main-tabs" style="display: none; margin-top: 1rem; margin-bottom: 1rem;">
+          <button type="button" class="admin-tab-btn active" id="btn-tab-printers" data-tab="printers">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+            <span>Minhas Impressoras (Inventário)</span>
+          </button>
+          <button type="button" class="admin-tab-btn" id="btn-tab-forecast" data-tab="forecast">
+            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>Volume & Previsibilidade</span>
+            <span class="badge" style="background: rgba(2, 132, 199, 0.18); color: var(--color-primary); font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 9999px; margin-left: 0.35rem; font-weight: 700;">PRO</span>
+          </button>
         </div>
 
-        <div class="status-metrics-grid">
-          
-          <!-- Card Crítico -->
-          <div class="status-metric-card critical clickable" data-action="filter-overview" data-filter="critical">
-            <div class="status-metric-icon">
-              <svg class="icon icon-md" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+        <!-- CONTAINER DOS CARDS OPERACIONAIS DE STATUS (OCULTO NA ABA DE PREVISIBILIDADE) -->
+        <div id="operational-status-cards-container">
+          <!-- Banner de Destaque: Impressoras Conectadas & Operacionais -->
+          <div class="connected-hero-banner clickable" data-action="filter-overview" data-filter="online" title="Clique para filtrar apenas as impressoras conectadas e operacionais">
+            <div class="connected-banner-left">
+              <div class="connected-icon-badge">
+                <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div>
+                <div class="connected-banner-title">Impressoras Conectadas & Operacionais</div>
+                <div class="connected-banner-sub">Equipamentos respondendo ativamente na rede local com telemetria sincronizada</div>
+              </div>
             </div>
-            <div class="status-metric-content">
-              <div class="status-metric-value" id="count-critical">0</div>
-              <div class="status-metric-title">Nível Crítico</div>
-              <div class="status-metric-sub">Tinta / Toner abaixo de 10%</div>
-            </div>
-          </div>
-
-          <!-- Card Atenção -->
-          <div class="status-metric-card warning clickable" data-action="filter-overview" data-filter="warning">
-            <div class="status-metric-icon">
-              <svg class="icon icon-md" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
-            </div>
-            <div class="status-metric-content">
-              <div class="status-metric-value" id="count-warning">0</div>
-              <div class="status-metric-title">Nível Atenção</div>
-              <div class="status-metric-sub">Tinta / Toner entre 10% e 30%</div>
+            <div class="connected-banner-right">
+              <div class="connected-banner-count" id="count-connected-banner">0</div>
+              <span class="connected-banner-tag">Ver Conectadas</span>
             </div>
           </div>
 
-          <!-- Card Sem Conexão -->
-          <div class="status-metric-card offline clickable" data-action="filter-overview" data-filter="offline">
-            <div class="status-metric-icon">
-              <svg class="icon icon-md" viewBox="0 0 24 24"><line x1="1" x2="23" y1="1" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg>
+          <div class="status-metrics-grid">
+            
+            <!-- Card Crítico -->
+            <div class="status-metric-card critical clickable" data-action="filter-overview" data-filter="critical">
+              <div class="status-metric-icon">
+                <svg class="icon icon-md" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+              </div>
+              <div class="status-metric-content">
+                <div class="status-metric-value" id="count-critical">0</div>
+                <div class="status-metric-title">Nível Crítico</div>
+                <div class="status-metric-sub">Tinta / Toner abaixo de 10%</div>
+              </div>
             </div>
-            <div class="status-metric-content">
-              <div class="status-metric-value" id="count-offline">0</div>
-              <div class="status-metric-title">Sem conexão</div>
-              <div class="status-metric-sub">Inacessível na rede local</div>
-            </div>
-          </div>
 
+            <!-- Card Atenção -->
+            <div class="status-metric-card warning clickable" data-action="filter-overview" data-filter="warning">
+              <div class="status-metric-icon">
+                <svg class="icon icon-md" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+              </div>
+              <div class="status-metric-content">
+                <div class="status-metric-value" id="count-warning">0</div>
+                <div class="status-metric-title">Nível Atenção</div>
+                <div class="status-metric-sub">Tinta / Toner entre 10% e 30%</div>
+              </div>
+            </div>
+
+            <!-- Card Sem Conexão -->
+            <div class="status-metric-card offline clickable" data-action="filter-overview" data-filter="offline">
+              <div class="status-metric-icon">
+                <svg class="icon icon-md" viewBox="0 0 24 24"><line x1="1" x2="23" y1="1" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg>
+              </div>
+              <div class="status-metric-content">
+                <div class="status-metric-value" id="count-offline">0</div>
+                <div class="status-metric-title">Sem conexão</div>
+                <div class="status-metric-sub">Inacessível na rede local</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </section>
 
@@ -278,19 +294,6 @@
           <!-- Preenchido via JS com informações limpas (Data, Setor, Suprimento e Tipo) -->
         </div>
       </section>
-
-      <!-- NAVEGAÇÃO DE ABAS EXECUTIVAS (APENAS ADMINISTRADOR) -->
-      <div class="admin-main-tabs admin-only" id="admin-main-tabs" style="display: none; margin-bottom: 1rem;">
-        <button type="button" class="admin-tab-btn active" id="btn-tab-printers" data-tab="printers">
-          <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-          <span>Minhas Impressoras (Inventário)</span>
-        </button>
-        <button type="button" class="admin-tab-btn" id="btn-tab-forecast" data-tab="forecast">
-          <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-          <span>Volume & Previsibilidade</span>
-          <span class="badge" style="background: rgba(2, 132, 199, 0.18); color: var(--color-primary); font-size: 0.65rem; padding: 0.1rem 0.45rem; border-radius: 9999px; margin-left: 0.35rem; font-weight: 700;">PRO</span>
-        </button>
-      </div>
 
       <!-- ABA 1: INVENTÁRIO DE IMPRESSORAS -->
       <div id="tab-view-printers" class="admin-tab-view active">
