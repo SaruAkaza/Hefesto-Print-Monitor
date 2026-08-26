@@ -1033,18 +1033,18 @@ function renderMyPrinters(scopedPrinters) {
       let allSuppliesDotsHTML = '';
       if (mainToners.length > 1) {
         allSuppliesDotsHTML = `
-          <div style="display: flex; flex-wrap: wrap; gap: 0.3rem; margin-top: 0.35rem;" title="Níveis dos toners e tintas">
+          <div class="cmyk-mini-palette" title="Níveis dos toners e tintas">
             ${mainToners.map(s => {
               const dotColor = getSupplyColorByName(s.name);
               const statusClr = getSupplyStatusByPercentage(s._normalizedPct, isRefillableTank(s));
-              const borderClr = statusClr === 'critical' ? 'var(--color-danger)' : (statusClr === 'warning' ? 'var(--color-warning)' : 'var(--color-success)');
+              const chipClass = statusClr === 'critical' ? 'chip-critical' : (statusClr === 'warning' ? 'chip-warning' : 'chip-success');
               const translatedShort = translateSupplyName(s.name, s.type)
                 .replace('Toner / Tinta ', '')
                 .replace('Cartucho / Toner ', '')
                 .replace('Bolsa de Tinta ', '');
               return `
-                <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 0.68rem; font-weight: 700; color: var(--text-secondary); background: var(--bg-input); padding: 1px 5px; border-radius: 4px; border-left: 2px solid ${borderClr};" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%">
-                  <span style="width: 7px; height: 7px; border-radius: 50%; background-color: ${dotColor}; display: inline-block;"></span>
+                <span class="cmyk-chip ${chipClass}" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%">
+                  <span class="cmyk-dot" style="background-color: ${dotColor};"></span>
                   <span>${translatedShort}: ${s._normalizedPct}%</span>
                 </span>
               `;
@@ -1071,12 +1071,12 @@ function renderMyPrinters(scopedPrinters) {
       }
 
       supplyCellHTML = `
-        <div style="display: flex; flex-direction: column; gap: 0.2rem; min-width: 150px;">
-          <div style="display: flex; justify-content: space-between; font-size: 0.75rem;">
-            <span style="font-weight: 600; color: var(--text-primary);">${escapeHtml(translateSupplyName(lowest.name))} (Crítico)</span>
-            <strong class="supply-percentage ${supplyColorStatus}" style="font-family: var(--font-mono);">${displayVal}</strong>
+        <div class="supply-capsule-group">
+          <div class="supply-capsule-header">
+            <span class="supply-capsule-name">${escapeHtml(translateSupplyName(lowest.name))}</span>
+            <strong class="supply-percentage ${supplyColorStatus}">${displayVal}</strong>
           </div>
-          <div class="progress-track" style="height: 5px;">
+          <div class="progress-track">
             <div class="progress-fill ${supplyColorStatus}" style="width: ${Math.max(5, fillWidth)}%"></div>
           </div>
           ${allSuppliesDotsHTML}
@@ -3187,9 +3187,23 @@ function setupEventListeners() {
     }
   });
 
-  // Fechamento em camadas com a tecla ESC (fecha primeiro o modal ativo superior)
+  // Atalhos de Teclado Inteligentes (/ para focar busca, R para sincronizar e ESC em camadas)
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
+    const isInput = ['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName);
+
+    if (e.key === '/' && !isInput) {
+      e.preventDefault();
+      if (DOM.tabViewForecast && DOM.tabViewForecast.style.display !== 'none' && DOM.forecastSearchInput) {
+        DOM.forecastSearchInput.focus();
+        DOM.forecastSearchInput.select();
+      } else if (DOM.searchInput) {
+        DOM.searchInput.focus();
+        DOM.searchInput.select();
+      }
+    } else if ((e.key === 'r' || e.key === 'R') && !isInput && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      loadDashboardData(true, true);
+    } else if (e.key === 'Escape') {
       if (DOM.modalManualRecharge?.classList.contains('active')) {
         closeManualRechargeModal();
       } else if (DOM.modalPrinterForm?.classList.contains('active')) {
