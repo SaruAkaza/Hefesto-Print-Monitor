@@ -1,7 +1,7 @@
-﻿# ⚙️ Arquitetura Técnica & Endpoints da API
+# ⚙️ Arquitetura Técnica & Endpoints da API
 
 > **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #prevent-senior #projeto-hefesto #api #arquitetura #node #express #snmp
+> **Tags:** #projeto-hefesto #api #arquitetura #node #express #snmp
 
 ---
 

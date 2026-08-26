@@ -1,7 +1,7 @@
-# 📋 Roadmap & Registro de Atualizações — Prevent Senior
+# 📋 Roadmap & Registro de Atualizações — Projeto Hefesto
 
 > **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #prevent-senior #projeto-hefesto #roadmap #atualizacoes
+> **Tags:** #projeto-hefesto #roadmap #atualizacoes
 
 ---
 

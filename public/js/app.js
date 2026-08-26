@@ -324,8 +324,51 @@ const API = {
   async getVolumeForecast() {
     const res = await fetch('/api/analytics/volume-forecast');
     return res.ok ? await res.json() : [];
+  },
+
+  // Identidade Visual / White-Label
+  async getBranding() {
+    try {
+      const res = await fetch('/api/config/branding');
+      return res.ok ? await res.json() : null;
+    } catch {
+      return null;
+    }
   }
 };
+
+async function applyBranding() {
+  try {
+    const branding = await API.getBranding();
+    if (!branding) return;
+    AppState.branding = branding;
+
+    const brandName = branding.brandName || 'HEFESTO';
+    const companyName = branding.companyName || brandName;
+    const subTitle = branding.subTitle || 'Monitor de Impressoras e Gestão de Suprimentos';
+    const systemTag = branding.systemTag || `${companyName} • Gestão de Tecnologia`;
+
+    // Atualiza título da página
+    document.title = `${brandName} — Painel de Monitoramento de Impressoras`;
+
+    // Atualiza Tela de Acesso
+    const loginCompanyEl = document.querySelector('.login-brand-company');
+    if (loginCompanyEl) loginCompanyEl.textContent = companyName.toUpperCase();
+
+    const loginTagEl = document.querySelector('.login-brand-text span');
+    if (loginTagEl) loginTagEl.textContent = systemTag;
+
+    // Atualiza Cabeçalho
+    const brandTextSpan = document.querySelector('.brand-text span');
+    if (brandTextSpan) brandTextSpan.textContent = companyName.toUpperCase();
+
+    if (DOM.headerUnitDesc && !AppState.activeUnitFilter) {
+      DOM.headerUnitDesc.textContent = subTitle;
+    }
+  } catch (err) {
+    console.warn('[Branding] Usando identidade padrão:', err);
+  }
+}
 
 // ==========================================================================
 // 5. TRADUÇÃO DE SUPRIMENTOS E CORES PARA PORTUGUÊS
@@ -1186,8 +1229,9 @@ function exportInkReportCsv() {
   const csvContent = 'data:text/csv;charset=utf-8,\uFEFF' + rows.map(e => e.map(val => `"${String(val).replace(/"/g, '""')}"`).join(';')).join('\n');
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement('a');
+  const compSlug = (AppState.branding?.companyName || 'corporativo').toLowerCase().replace(/[^a-z0-9]/g, '_');
   link.setAttribute('href', encodedUri);
-  link.setAttribute('download', `relatorio_suprimentos_prevent_senior_${new Date().toISOString().slice(0, 10)}.csv`);
+  link.setAttribute('download', `relatorio_suprimentos_${compSlug}_${new Date().toISOString().slice(0, 10)}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
@@ -2068,8 +2112,9 @@ async function exportRechargesReportCsv() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     const dateStr = new Date().toISOString().split('T')[0];
+    const compSlug = (AppState.branding?.companyName || 'corporativo').toLowerCase().replace(/[^a-z0-9]/g, '_');
     link.setAttribute('href', url);
-    link.setAttribute('download', `Relatorio_Recargas_Suprimentos_PreventSenior_${dateStr}.csv`);
+    link.setAttribute('download', `Relatorio_Recargas_Suprimentos_${compSlug}_${dateStr}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -2163,8 +2208,9 @@ async function exportInkReportCsv() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     const dateStr = new Date().toISOString().split('T')[0];
+    const compSlug = (AppState.branding?.companyName || 'corporativo').toLowerCase().replace(/[^a-z0-9]/g, '_');
     link.setAttribute('href', url);
-    link.setAttribute('download', `Relatorio_Suprimentos_PreventSenior_${dateStr}.csv`);
+    link.setAttribute('download', `Relatorio_Suprimentos_${compSlug}_${dateStr}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -2590,8 +2636,9 @@ async function exportForecastReportCsv() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     const dateStr = new Date().toISOString().split('T')[0];
+    const compSlug = (AppState.branding?.companyName || 'corporativo').toLowerCase().replace(/[^a-z0-9]/g, '_');
     link.setAttribute('href', url);
-    link.setAttribute('download', `Relatorio_Volume_Previsibilidade_PreventSenior_${dateStr}.csv`);
+    link.setAttribute('download', `Relatorio_Volume_Previsibilidade_${compSlug}_${dateStr}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -3035,8 +3082,8 @@ function initLoginBackground() {
     'renderMyPrinters()', 'tonerLevel:98%', 'drumKit:OK', 'fuserUnit:100%',
     'async/await', 'const { ip }', 'pageCount: 42890', 'ONLINE', 'OFFLINE',
     'CRITICAL<10%', 'WARNING:20%', '01001100', '11010001', '0x1F', '0xFF',
-    'HTTP/1.1 200 OK', 'PreventSenior.TI', 'Units_138_Taiti',
-    'Units_121_RioSul', 'Units_113_Havai', 'Units_103_Leblon', 'net-snmp',
+    'HTTP/1.1 200 OK', 'Hefesto.TI', 'Units_Telemetria',
+    'Units_Network', 'Units_SNMP', 'Units_Cloud', 'net-snmp',
     '0', '1', '{}', '[]', '=>', '//', '✦', '⌬', '⬡', '⚡', '</>', '◈'
   ];
 
@@ -3330,6 +3377,7 @@ function stopLoginCanvas() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
+  await applyBranding();
   setupEventListeners();
 
   // Limpa campos de credencial ao carregar a página

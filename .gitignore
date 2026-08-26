@@ -34,3 +34,6 @@ $RECYCLE.BIN/
 .idea/
 .obsidian/
 *.code-workspace
+
+# Customizações locais de marca (White-Label)
+server/data/branding.json

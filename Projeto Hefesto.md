@@ -1,23 +1,23 @@
-﻿# 🏛️ Projeto Hefesto — Sistema de Monitoramento & Telemetria Prevent Senior
+# 🏛️ Projeto Hefesto — Sistema de Monitoramento & Telemetria Corporativo
 
-> **Ambiente:** Produção / Intranet Prevent Senior  
+> **Ambiente:** Produção / Intranet Corporativa  
 > **Status:** 🟢 Operacional (Porta 80)  
-> **Tags:** #prevent-senior #projeto-hefesto #impressoras #telemetria #dashboard #snmp
+> **Tags:** #projeto-hefesto #impressoras #telemetria #dashboard #snmp #white-label
 
 ---
 
 ## 🧭 Visão Geral & Propósito
 
-O **Projeto Hefesto** é a plataforma corporativa de observabilidade, telemetria SNMP em tempo real e inteligência preditiva de suprimentos para todo o parque de impressoras da **Prevent Senior** (São Paulo e Rio de Janeiro).
+O **Projeto Hefesto** é a plataforma corporativa de observabilidade, telemetria SNMP em tempo real e inteligência preditiva de suprimentos para parques de impressão corporativos e multifuncionais.
 
-O sistema oferece visibilidade operacional para os operadores das unidades locais e ferramentas avançadas de auditoria, volumetria e previsão de trocas para a equipe de Tecnologia da Informação e Gestão de Contratos.
+O sistema oferece visibilidade operacional para os operadores das filiais/unidades locais e ferramentas avançadas de auditoria, volumetria e previsão de trocas para a equipe de Tecnologia da Informação e Gestão de Contratos de Outsourcing.
 
 ```mermaid
 graph TD
-    A[Parque de Impressoras SP / RJ] -->|SNMP v1/v2c| B[Servidor Backend Node.js]
+    A[Parque de Impressoras Multi-Unidades] -->|SNMP v1/v2c| B[Servidor Backend Node.js]
     B -->|Persistência JSON| C[(Base de Telemetria & Snapshots)]
     B -->|API REST / JSON| D[Frontend Web Dashboard]
-    D -->|Perfil Operador| E[Visão Local da Unidade]
+    D -->|Perfil Operador| E[Visão Local da Filial]
     D -->|Perfil Administrador| F[Cockpit TI / Auditoria / Previsão]
     F -->|Módulo| G[[Módulo de Volume e Previsibilidade]]
     F -->|Módulo| H[[Histórico de Recargas e Suprimentos]]

@@ -13,6 +13,28 @@ const REPLENISHMENTS_FILE = path.join(__dirname, 'data', 'replenishments.json');
 const UNITS_FILE = path.join(__dirname, 'data', 'units.json');
 const RECHARGES_FILE = path.join(__dirname, 'data', 'recharges.json');
 const PAGE_HISTORY_FILE = path.join(__dirname, 'data', 'page_history.json');
+const BRANDING_FILE = path.join(__dirname, 'data', 'branding.json');
+
+const DEFAULT_BRANDING = {
+  brandName: 'HEFESTO',
+  companyName: 'Gestão Corporativa',
+  subTitle: 'Monitor de Impressoras e Gestão de Suprimentos',
+  systemTag: 'Gestão de Tecnologia & Telemetria',
+  logoText: 'HEFESTO',
+  showLogoImg: false,
+  logoImgSrc: ''
+};
+
+async function loadBranding() {
+  try {
+    const data = await fs.readFile(BRANDING_FILE, 'utf-8');
+    const cleanData = data.replace(/^\uFEFF/, '').trim();
+    return { ...DEFAULT_BRANDING, ...JSON.parse(cleanData) };
+  } catch (error) {
+    console.warn('[Branding] Erro ao carregar branding.json, usando padrão:', error.message);
+    return DEFAULT_BRANDING;
+  }
+}
 
 const app = express();
 const PORT = process.env.PORT || 80;
@@ -20,6 +42,12 @@ const PORT = process.env.PORT || 80;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'public')));
+
+// Rota de configuração de identidade visual / White-Label
+app.get('/api/config/branding', async (req, res) => {
+  const branding = await loadBranding();
+  res.json(branding);
+});
 
 // Cache em memória para respostas instantâneas
 const STATUS_CACHE = new Map();

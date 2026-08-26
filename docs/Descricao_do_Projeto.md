@@ -1,7 +1,7 @@
 # 📄 Descrição do Projeto: Painel de Monitoramento de Impressoras e Gestão de Insumos
 
 > **Documento Executivo e Técnico do Projeto**  
-> **Autor/Responsável:** Equipe de TI Prevent  
+> **Autor/Responsável:** Equipe de Tecnologia & Infraestrutura  
 > **Data:** Agosto / 2026  
 > **Status:** ✅ Em Produção / Homologado  
 > **Compatibilidade:** Obsidian / Markdown  

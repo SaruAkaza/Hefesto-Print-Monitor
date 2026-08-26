@@ -1,13 +1,13 @@
-﻿# 🔄 Histórico de Recargas & Auditoria de Suprimentos
+# 🔄 Histórico de Recargas & Auditoria de Suprimentos
 
 > **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #prevent-senior #projeto-hefesto #recargas #suprimentos #auditoria #raiox
+> **Tags:** #projeto-hefesto #recargas #suprimentos #auditoria #raiox
 
 ---
 
 ## 🎯 Objetivo & Conceito de Ciclos
 
-O módulo de histórico de recargas foi projetado para registrar com precisão cada troca de bolsa de tinta, toner ou garrafa de abastecimento no parque de impressoras da **Prevent Senior**, garantindo:
+O módulo de histórico de recargas foi projetado para registrar com precisão cada troca de bolsa de tinta, toner ou garrafa de abastecimento no parque corporativo de impressoras, garantindo:
 1. **Auditoria completa de trocas** realizadas por técnicos ou operadores.
 2. **Cálculo exato de rendimento de páginas** obtidas com cada cartucho/bolsa.
 3. **Identificação de trocas provisórias ou cartuchos usados** que não devem distorcer a média histórica.

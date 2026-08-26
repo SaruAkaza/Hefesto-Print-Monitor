@@ -1,13 +1,13 @@
-﻿# 🔮 Módulo de Volume de Impressões & Previsibilidade de Suprimentos
+# 🔮 Módulo de Volume de Impressões & Previsibilidade de Suprimentos
 
 > **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #prevent-senior #projeto-hefesto #previsibilidade #volume #capacidade #kpis
+> **Tags:** #projeto-hefesto #previsibilidade #volume #capacidade #kpis
 
 ---
 
 ## 🎯 Objetivo & Funcionalidades
 
-O **Módulo de Volume e Previsibilidade** transforma dados brutos de contadores SNMP em inteligência de gestão para a TI da **Prevent Senior**, respondendo a três perguntas críticas:
+O **Módulo de Volume e Previsibilidade** transforma dados brutos de contadores SNMP em inteligência de gestão para a equipe de TI e Operações, respondendo a quatro perguntas críticas:
 1. **Quanto cada impressora imprimiu** hoje, nos últimos 7 dias e nos últimos 30 dias?
 2. **Quantas páginas ainda podem ser impressas** com a tinta/toner restante?
 3. **Quando exatamente será a próxima troca de suprimento** de cada impressora?
