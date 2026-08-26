@@ -2022,3 +2022,94 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   14. FEEDBACK VISUAL: SPINNER, ESTADOS DE CARREGAMENTO & FILTROS ATIVOS
+   ========================================================================== */
+
+/* Spinner de Rotação para o Ícone de Refresh */
+@keyframes spin360 {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.rotating {
+  animation: spin360 0.7s linear infinite;
+  display: inline-block;
+}
+
+/* Estado desabilitado do botão Sincronizar */
+.deck-action-pill:disabled,
+.deck-action-pill[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.sync-pill:disabled,
+.sync-pill[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Pills táticas com estado ativo claro */
+.tactical-pill {
+  cursor: pointer;
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.tactical-pill:active {
+  transform: scale(0.96);
+}
+
+.tactical-pill.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary-glow);
+  border-color: var(--color-primary-border);
+  font-weight: 700;
+}
+
+.tactical-pill.critical-pill.active {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border-color: var(--color-danger-border);
+}
+
+.tactical-pill.warning-pill.active {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+  border-color: var(--color-warning-border);
+}
+
+.tactical-pill.offline-pill.active {
+  background: var(--color-offline-bg);
+  color: var(--color-offline);
+  border-color: var(--color-offline-border);
+}
+
+/* Cards táticos no estado ativo (selecionado como filtro) */
+.tactical-card.active-card {
+  border-width: 2px;
+  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.1);
+}
+
+.tactical-card.critical.active-card {
+  border-color: var(--color-danger);
+  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
+}
+
+.tactical-card.warning.active-card {
+  border-color: var(--color-warning);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+}
+
+.tactical-card.offline.active-card {
+  border-color: var(--color-offline);
+  box-shadow: 0 0 20px rgba(100, 116, 139, 0.2);
+}
+
+.operational-radar-hud.active-card {
+  border-color: var(--color-success);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.35);
+}

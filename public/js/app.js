@@ -584,7 +584,12 @@ async function loadDashboardData(showLoading = true, force = false) {
   AppState.isRefreshing = true;
 
   if (DOM.refreshIcon) DOM.refreshIcon.classList.add('rotating');
-  if (DOM.btnRefreshAll) DOM.btnRefreshAll.disabled = true;
+  if (DOM.btnRefreshAll) {
+    DOM.btnRefreshAll.disabled = true;
+    DOM.btnRefreshAll.setAttribute('aria-busy', 'true');
+  }
+  const refreshText = document.getElementById('btn-refresh-text');
+  if (refreshText) refreshText.textContent = 'Sincronizando...';
   const startTime = Date.now();
 
   try {
@@ -629,7 +634,11 @@ async function loadDashboardData(showLoading = true, force = false) {
     setTimeout(() => {
       AppState.isRefreshing = false;
       if (DOM.refreshIcon) DOM.refreshIcon.classList.remove('rotating');
-      if (DOM.btnRefreshAll) DOM.btnRefreshAll.disabled = false;
+      if (DOM.btnRefreshAll) {
+        DOM.btnRefreshAll.disabled = false;
+        DOM.btnRefreshAll.removeAttribute('aria-busy');
+      }
+      if (refreshText) refreshText.textContent = 'Sincronizar';
     }, remaining);
   }
 }
@@ -2993,7 +3002,7 @@ function setupEventListeners() {
     });
   }
 
-  document.querySelectorAll('.status-metric-card[data-action], .connected-hero-banner[data-action]').forEach(card => {
+  document.querySelectorAll('.tactical-card.clickable[data-action], .operational-radar-hud.clickable[data-action]').forEach(card => {
     card.addEventListener('click', () => {
       const filter = card.dataset.filter;
       if (AppState.overviewFilter === filter) {
@@ -3002,18 +3011,18 @@ function setupEventListeners() {
         AppState.overviewFilter = filter;
       }
 
-      DOM.overviewFilterPills.querySelectorAll('.pill-btn').forEach(btn => {
+      DOM.overviewFilterPills.querySelectorAll('.tactical-pill').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.filter === AppState.overviewFilter);
       });
 
-      document.querySelectorAll('.status-metric-card[data-action], .connected-hero-banner[data-action]').forEach(c => {
+      document.querySelectorAll('.tactical-card.clickable[data-action], .operational-radar-hud.clickable[data-action]').forEach(c => {
         c.classList.toggle('active-card', c.dataset.filter === AppState.overviewFilter);
       });
 
       const scoped = getScopedPrinters();
       renderMyPrinters(scoped);
 
-      const tableSection = document.querySelector('.my-printers-section');
+      const tableSection = document.querySelector('.fleet-matrix-panel');
       if (tableSection) {
         tableSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
@@ -3021,12 +3030,18 @@ function setupEventListeners() {
   });
 
   DOM.overviewFilterPills.addEventListener('click', (e) => {
-    const pill = e.target.closest('.pill-btn');
+    const pill = e.target.closest('.tactical-pill');
     if (!pill) return;
-    DOM.overviewFilterPills.querySelectorAll('.pill-btn').forEach(btn => btn.classList.remove('active'));
+    DOM.overviewFilterPills.querySelectorAll('.tactical-pill').forEach(btn => btn.classList.remove('active'));
     pill.classList.add('active');
     AppState.overviewFilter = pill.dataset.filter;
     renderMyPrinters(getScopedPrinters());
+
+    // Scroll suave até a tabela
+    const tableSection = document.querySelector('.fleet-matrix-panel');
+    if (tableSection && pill.dataset.filter !== 'all') {
+      tableSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
 
   DOM.searchInput.addEventListener('input', (e) => {
