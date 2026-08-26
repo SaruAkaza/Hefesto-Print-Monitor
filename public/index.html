@@ -175,20 +175,37 @@
       <div class="deck-action-hub">
         <!-- Grupo de Exportação CSV (Administrador) -->
         <div class="deck-action-cluster admin-only" style="display: none;">
-          <button class="deck-action-pill admin-only" id="btn-export-recharges-csv-header" style="display: none;" title="Exportar histórico de recargas">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            <span>Recargas CSV</span>
-          </button>
+          <div class="deck-dropdown-container" id="export-dropdown-container">
+            <button type="button" class="deck-action-pill" id="btn-export-dropdown-toggle" title="Exportar relatórios em formato CSV" aria-expanded="false" aria-haspopup="true">
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" x2="3"/></svg>
+              <span>Exportar ▾</span>
+            </button>
+            <div class="deck-dropdown-menu" id="export-dropdown-menu">
+              <button class="deck-dropdown-item" id="btn-export-recharges-csv-header" type="button" title="Exportar histórico de recargas">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <div class="dropdown-item-content">
+                  <span class="dropdown-item-title">Histórico de Recargas</span>
+                  <span class="dropdown-item-desc">Registro detalhado de insumos</span>
+                </div>
+              </button>
 
-          <button class="deck-action-pill admin-only" id="btn-export-integration-csv-header" style="display: none;" title="Exportar histórico inicial e auditoria">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Histórico CSV</span>
-          </button>
+              <button class="deck-dropdown-item" id="btn-export-integration-csv-header" type="button" title="Exportar histórico inicial e auditoria">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div class="dropdown-item-content">
+                  <span class="dropdown-item-title">Auditoria & Integração</span>
+                  <span class="dropdown-item-desc">Histórico e telemetria consolidada</span>
+                </div>
+              </button>
 
-          <button class="deck-action-pill admin-only" id="btn-export-ink-csv-header" style="display: none;" title="Exportar relatório consolidado de tintas">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" x2="3"/></svg>
-            <span>Tintas CSV</span>
-          </button>
+              <button class="deck-dropdown-item" id="btn-export-ink-csv-header" type="button" title="Exportar relatório consolidado de tintas">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+                <div class="dropdown-item-content">
+                  <span class="dropdown-item-title">Relatório de Tintas</span>
+                  <span class="dropdown-item-desc">Níveis CMYK e status de insumos</span>
+                </div>
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Grupo de Ferramentas de Configuração -->
@@ -381,8 +398,11 @@
           <div class="matrix-search-toolbar">
             <div class="cyber-search-box">
               <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input type="text" id="search-input" placeholder="Filtrar por Setor, Modelo, IP, Número de Série..." autocomplete="off">
-              <kbd class="keycap">/</kbd>
+              <input type="text" id="search-input" placeholder="Buscar por setor, modelo, IP, série..." autocomplete="off">
+              <button type="button" class="search-clear-btn" id="search-clear-btn" style="display: none;" title="Limpar busca">
+                <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              </button>
+              <kbd class="keycap" id="search-keycap">/</kbd>
             </div>
 
             <div class="matrix-toolbar-actions">

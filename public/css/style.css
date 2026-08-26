@@ -2113,3 +2113,168 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
   border-color: var(--color-success);
   box-shadow: 0 0 24px rgba(16, 185, 129, 0.35);
 }
+
+/* ==========================================================================
+   15. DROPDOWN DE EXPORTAÇÃO NO HEADER
+   ========================================================================== */
+.deck-dropdown-container {
+  position: relative;
+  display: inline-block;
+}
+
+.deck-dropdown-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 250px;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 12px 28px -4px rgba(0, 0, 0, 0.5), 0 8px 12px -6px rgba(0, 0, 0, 0.4);
+  padding: 0.45rem;
+  display: none;
+  flex-direction: column;
+  gap: 0.3rem;
+  z-index: 250;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: dropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.deck-dropdown-menu.show {
+  display: flex;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.deck-dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.deck-dropdown-item:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--border-subtle);
+}
+
+.deck-dropdown-item .icon {
+  width: 18px;
+  height: 18px;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.dropdown-item-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dropdown-item-title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.dropdown-item-desc {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   16. BOTÃO DE LIMPAR BUSCA (SEARCH CLEAR BTN)
+   ========================================================================== */
+.search-clear-btn {
+  position: absolute;
+  right: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-medium);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transition-fast);
+  z-index: 2;
+}
+
+.search-clear-btn:hover {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  border-color: var(--color-danger-border);
+}
+
+.search-clear-btn .icon {
+  width: 12px;
+  height: 12px;
+}
+
+/* ==========================================================================
+   17. EMPTY STATE DA TABELA DE IMPRESSORAS COM AÇÃO RÁPIDA
+   ========================================================================== */
+.empty-matrix-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.2rem 1rem;
+  text-align: center;
+}
+
+.empty-state-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.85rem;
+  color: var(--text-muted);
+}
+
+.empty-state-icon .icon {
+  width: 22px;
+  height: 22px;
+}
+
+.empty-state-title {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.empty-state-text {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  max-width: 440px;
+  line-height: 1.45;
+  margin: 0;
+}
+

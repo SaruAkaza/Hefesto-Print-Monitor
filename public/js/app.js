@@ -104,9 +104,14 @@ const DOM = {
   myPrintersListBody: document.getElementById('my-printers-list-body'),
 
   // Exportar Relatórios (Cabeçalho ADM)
+  exportDropdownContainer: document.getElementById('export-dropdown-container'),
+  btnExportDropdownToggle: document.getElementById('btn-export-dropdown-toggle'),
+  exportDropdownMenu: document.getElementById('export-dropdown-menu'),
   btnExportInkCsvHeader: document.getElementById('btn-export-ink-csv-header'),
   btnExportRechargesCsvHeader: document.getElementById('btn-export-recharges-csv-header'),
   btnExportIntegrationCsvHeader: document.getElementById('btn-export-integration-csv-header'),
+  searchClearBtn: document.getElementById('search-clear-btn'),
+  searchKeycap: document.getElementById('search-keycap'),
 
   // Modal Testar Conexão por IP
   modalTestIp: document.getElementById('modal-test-ip'),
@@ -672,6 +677,8 @@ function updateHeaderRoleAndUnit() {
     adminOnlyElements.forEach(el => {
       if (el.id === 'unit-recent-recharges-section') {
         // Controlado separadamente pelo renderUnitRecentRecharges
+      } else if (el.classList.contains('deck-action-cluster')) {
+        el.style.display = 'flex';
       } else {
         el.style.display = el.tagName === 'BUTTON' ? 'inline-flex' : 'block';
       }
@@ -972,8 +979,20 @@ function renderMyPrinters(scopedPrinters) {
   if (filtered.length === 0) {
     DOM.myPrintersListBody.innerHTML = `
       <tr>
-        <td colspan="6" style="text-align: center; padding: 2rem; color: var(--text-muted);">
-          Nenhuma impressora corresponde aos filtros aplicados.
+        <td colspan="6">
+          <div class="empty-matrix-state">
+            <div class="empty-state-icon">
+              <svg class="icon icon-md" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <div class="empty-state-title">Nenhum equipamento corresponde aos filtros</div>
+            <p class="empty-state-text">
+              Tente redefinir o termo de busca ou selecionar outra categoria nos filtros táticos acima.
+            </p>
+            <button type="button" class="deck-action-pill highlight" id="btn-clear-empty-filters" style="margin-top: 0.85rem;">
+              <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+              <span>Limpar todos os filtros</span>
+            </button>
+          </div>
         </td>
       </tr>
     `;
@@ -2974,6 +2993,31 @@ function setupEventListeners() {
     DOM.btnLogout.addEventListener('click', handleLogout);
   }
 
+  // Dropdown de Exportação CSV
+  if (DOM.btnExportDropdownToggle && DOM.exportDropdownMenu) {
+    DOM.btnExportDropdownToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isShown = DOM.exportDropdownMenu.classList.toggle('show');
+      DOM.btnExportDropdownToggle.setAttribute('aria-expanded', isShown);
+    });
+
+    document.addEventListener('click', (e) => {
+      if (DOM.exportDropdownContainer && !DOM.exportDropdownContainer.contains(e.target)) {
+        if (DOM.exportDropdownMenu.classList.contains('show')) {
+          DOM.exportDropdownMenu.classList.remove('show');
+          DOM.btnExportDropdownToggle.setAttribute('aria-expanded', 'false');
+        }
+      }
+    });
+
+    DOM.exportDropdownMenu.querySelectorAll('.deck-dropdown-item').forEach(item => {
+      item.addEventListener('click', () => {
+        DOM.exportDropdownMenu.classList.remove('show');
+        DOM.btnExportDropdownToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   if (DOM.btnExportInkCsvHeader) {
     DOM.btnExportInkCsvHeader.addEventListener('click', exportInkReportCsv);
   }
@@ -3002,13 +3046,41 @@ function setupEventListeners() {
     });
   }
 
+  function resetAllFilters() {
+    AppState.searchQuery = '';
+    AppState.locationFilter = '';
+    AppState.overviewFilter = 'all';
+    if (DOM.searchInput) DOM.searchInput.value = '';
+    if (DOM.searchClearBtn) DOM.searchClearBtn.style.display = 'none';
+    if (DOM.searchKeycap) DOM.searchKeycap.style.display = 'inline-flex';
+    if (DOM.filterLocationSelect) DOM.filterLocationSelect.value = '';
+    if (DOM.overviewFilterPills) {
+      DOM.overviewFilterPills.querySelectorAll('.tactical-pill').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === 'all');
+      });
+    }
+    document.querySelectorAll('.tactical-card.clickable[data-action], .operational-radar-hud.clickable[data-action]').forEach(c => {
+      c.classList.remove('active-card');
+    });
+    showToast('Filtros redefinidos para visualização completa', 'info');
+    renderMyPrinters(getScopedPrinters());
+  }
+
   document.querySelectorAll('.tactical-card.clickable[data-action], .operational-radar-hud.clickable[data-action]').forEach(card => {
     card.addEventListener('click', () => {
       const filter = card.dataset.filter;
       if (AppState.overviewFilter === filter) {
         AppState.overviewFilter = 'all';
+        showToast('Filtro removido. Exibindo todas as impressoras', 'info');
       } else {
         AppState.overviewFilter = filter;
+        const filterLabels = {
+          critical: 'Filtrando por suprimentos críticos (< 10%)',
+          warning: 'Filtrando por suprimentos em atenção (10% - 30%)',
+          offline: 'Filtrando por equipamentos sem conexão',
+          online: 'Filtrando por equipamentos operacionais'
+        };
+        showToast(filterLabels[filter] || `Filtro ativo: ${filter}`, 'info');
       }
 
       DOM.overviewFilterPills.querySelectorAll('.tactical-pill').forEach(btn => {
@@ -3035,7 +3107,18 @@ function setupEventListeners() {
     DOM.overviewFilterPills.querySelectorAll('.tactical-pill').forEach(btn => btn.classList.remove('active'));
     pill.classList.add('active');
     AppState.overviewFilter = pill.dataset.filter;
-    renderMyPrinters(getScopedPrinters());
+    const scoped = getScopedPrinters();
+    renderMyPrinters(scoped);
+
+    const filterLabels = {
+      all: 'Exibindo todas as impressoras',
+      critical: 'Filtrando por suprimentos críticos (< 10%)',
+      warning: 'Filtrando por suprimentos em atenção (10% - 30%)',
+      offline: 'Filtrando por equipamentos sem conexão'
+    };
+    if (filterLabels[pill.dataset.filter]) {
+      showToast(filterLabels[pill.dataset.filter], 'info');
+    }
 
     // Scroll suave até a tabela
     const tableSection = document.querySelector('.fleet-matrix-panel');
@@ -3046,8 +3129,31 @@ function setupEventListeners() {
 
   DOM.searchInput.addEventListener('input', (e) => {
     AppState.searchQuery = e.target.value;
+    const hasText = e.target.value.trim().length > 0;
+    if (DOM.searchClearBtn) DOM.searchClearBtn.style.display = hasText ? 'flex' : 'none';
+    if (DOM.searchKeycap) DOM.searchKeycap.style.display = hasText ? 'none' : 'inline-flex';
     renderMyPrinters(getScopedPrinters());
   });
+
+  if (DOM.searchClearBtn) {
+    DOM.searchClearBtn.addEventListener('click', () => {
+      DOM.searchInput.value = '';
+      AppState.searchQuery = '';
+      DOM.searchClearBtn.style.display = 'none';
+      if (DOM.searchKeycap) DOM.searchKeycap.style.display = 'inline-flex';
+      DOM.searchInput.focus();
+      renderMyPrinters(getScopedPrinters());
+    });
+  }
+
+  if (DOM.myPrintersListBody) {
+    DOM.myPrintersListBody.addEventListener('click', (e) => {
+      const btnClear = e.target.closest('#btn-clear-empty-filters');
+      if (btnClear) {
+        resetAllFilters();
+      }
+    });
+  }
 
   DOM.filterLocationSelect.addEventListener('change', (e) => {
     AppState.locationFilter = e.target.value;
@@ -3219,7 +3325,10 @@ function setupEventListeners() {
       e.preventDefault();
       loadDashboardData(true, true);
     } else if (e.key === 'Escape') {
-      if (DOM.modalManualRecharge?.classList.contains('active')) {
+      if (DOM.exportDropdownMenu?.classList.contains('show')) {
+        DOM.exportDropdownMenu.classList.remove('show');
+        DOM.btnExportDropdownToggle?.setAttribute('aria-expanded', 'false');
+      } else if (DOM.modalManualRecharge?.classList.contains('active')) {
         closeManualRechargeModal();
       } else if (DOM.modalPrinterForm?.classList.contains('active')) {
         closeModalForm();
