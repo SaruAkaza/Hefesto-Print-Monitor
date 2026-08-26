@@ -638,7 +638,7 @@ function renderAllViews() {
   updateHeaderRoleAndUnit();
   populateDropdownFilters();
   renderOverviewTab();
-  if (AppState.userRole === 'admin' && AppState.activeAdminTab === 'forecast') {
+  if (AppState.activeAdminTab === 'forecast') {
     loadAndRenderForecastTab();
   }
 }
@@ -661,26 +661,15 @@ function updateHeaderRoleAndUnit() {
     }
 
     adminOnlyElements.forEach(el => {
-      if (el.id === 'admin-main-tabs') {
-        el.style.display = 'flex';
-      } else if (el.id === 'unit-recent-recharges-section') {
+      if (el.id === 'unit-recent-recharges-section') {
         // Controlado separadamente pelo renderUnitRecentRecharges
       } else {
         el.style.display = el.tagName === 'BUTTON' ? 'inline-flex' : 'block';
       }
     });
 
-    // Mantém aba ativa
-    if (AppState.activeAdminTab === 'forecast') {
-      if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = 'none';
-      if (DOM.tabViewForecast) DOM.tabViewForecast.style.display = 'block';
-    } else {
-      if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = 'block';
-      if (DOM.tabViewForecast) DOM.tabViewForecast.style.display = 'none';
-    }
-
   } else {
-    // Modo Operador (Read-Only focado na sua filial)
+    // Modo Operador / Visualizador de Unidade (Read-Only focado na sua filial)
     if (DOM.adminRoleBadge) DOM.adminRoleBadge.style.display = 'none';
 
     const selectedUnitObj = AppState.units.find(u => u.id === AppState.activeUnitFilter);
@@ -692,14 +681,23 @@ function updateHeaderRoleAndUnit() {
       if (DOM.headerUnitDesc) DOM.headerUnitDesc.textContent = 'Visão operacional da unidade em tempo real';
     }
 
-    // Esconde todos os elementos administrativos e força visão de inventário
-    AppState.activeAdminTab = 'printers';
-    if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = 'block';
-    if (DOM.tabViewForecast) DOM.tabViewForecast.style.display = 'none';
-
+    // Esconde apenas os botões e formulários de administração técnica
     adminOnlyElements.forEach(el => {
       el.style.display = 'none';
     });
+  }
+
+  // Gerencia visibilidade das abas (comutável tanto para Administrador quanto para Visualizador de Unidade)
+  const isForecastTab = AppState.activeAdminTab === 'forecast';
+  if (DOM.btnTabPrinters) DOM.btnTabPrinters.classList.toggle('active', !isForecastTab);
+  if (DOM.btnTabForecast) DOM.btnTabForecast.classList.toggle('active', isForecastTab);
+
+  if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = !isForecastTab ? 'block' : 'none';
+  if (DOM.tabViewForecast) DOM.tabViewForecast.style.display = isForecastTab ? 'block' : 'none';
+
+  const operationalContainer = document.getElementById('operational-status-cards-container');
+  if (operationalContainer) {
+    operationalContainer.style.display = !isForecastTab ? 'block' : 'none';
   }
 }
 
@@ -2348,19 +2346,19 @@ function switchAdminTab(tabName) {
 }
 
 async function loadAndRenderForecastTab() {
-  if (AppState.userRole !== 'admin' || !DOM.tabViewForecast) return;
+  if (!DOM.tabViewForecast) return;
 
   try {
     const data = await API.getVolumeForecast();
     AppState.forecastData = data;
 
-    // Se o usuário já filtrou uma unidade na barra de status, sincroniza
-    if (AppState.activeUnitFilter && !AppState.forecastUnitFilter) {
+    // Se estiver no modo operador ou uma unidade estiver selecionada no escopo
+    if (AppState.activeUnitFilter) {
       const u = AppState.units.find(x => x.id === AppState.activeUnitFilter);
       if (u) AppState.forecastUnitFilter = u.name;
     }
 
-    // Popula dropdown de unidades do forecast
+    // Popula dropdown de unidades do forecast (quando em modo admin)
     if (DOM.forecastUnitSelect) {
       const cur = AppState.forecastUnitFilter || '';
       DOM.forecastUnitSelect.innerHTML = '<option value="">Todas as Unidades</option>' + 
@@ -2434,7 +2432,11 @@ function renderForecastTable() {
   if (!DOM.forecastTableBody) return;
 
   const q = (AppState.forecastSearch || '').toLowerCase().trim();
-  const unitFilter = AppState.forecastUnitFilter;
+  let unitFilter = AppState.forecastUnitFilter;
+  if (AppState.activeUnitFilter) {
+    const u = AppState.units.find(x => x.id === AppState.activeUnitFilter);
+    if (u) unitFilter = u.name;
+  }
   const workloadFilter = AppState.forecastWorkloadFilter;
   const timeFilter = AppState.forecastTimeFilter;
 

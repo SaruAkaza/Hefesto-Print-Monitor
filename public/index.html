@@ -210,8 +210,8 @@
           </div>
         </div>
 
-        <!-- NAVEGAÇÃO DE ABAS EXECUTIVAS (APENAS ADMINISTRADOR) -->
-        <div class="admin-main-tabs admin-only" id="admin-main-tabs" style="display: none; margin-top: 1rem; margin-bottom: 1rem;">
+        <!-- NAVEGAÇÃO DE ABAS PRINCIPAIS -->
+        <div class="admin-main-tabs" id="admin-main-tabs" style="margin-top: 1rem; margin-bottom: 1rem; display: flex;">
           <button type="button" class="admin-tab-btn active" id="btn-tab-printers" data-tab="printers">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
             <span>Minhas Impressoras (Inventário)</span>
@@ -455,7 +455,7 @@
             </div>
 
             <div class="toolbar-selects">
-              <select class="form-select" id="forecast-unit-select" title="Filtrar por Unidade">
+              <select class="form-select admin-only" id="forecast-unit-select" title="Filtrar por Unidade">
                 <option value="">Todas as Unidades</option>
               </select>
 
