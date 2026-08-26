@@ -130,6 +130,12 @@
           <span>Recargas CSV</span>
         </button>
 
+        <!-- Botão Exportar Histórico de Entrada na Rede & Auditoria Inicial (Projeto Hefesto - ADM) -->
+        <button class="btn btn-secondary btn-sm admin-only" id="btn-export-integration-csv-header" style="display: none;" title="Exportar histórico de entrada na rede e auditoria de páginas iniciais em CSV">
+          <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Histórico Inicial CSV</span>
+        </button>
+
         <!-- Botão Exportar Relatório de Tintas (Apenas Administrador) -->
         <button class="btn btn-secondary btn-sm admin-only" id="btn-export-ink-csv-header" style="display: none;" title="Exportar relatório consolidado de tintas e suprimentos em CSV">
           <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
@@ -612,6 +618,30 @@
               placeholder="Ex: 7529826140D50 (Detectado automaticamente na rede)" 
             >
             <span class="form-hint">Ficará visível dentro dos detalhes técnicos no Raio-X.</span>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group">
+              <label class="form-label" for="printer-initial-page-count">Contador Inicial (Páginas)</label>
+              <input 
+                type="number" 
+                class="form-input" 
+                id="printer-initial-page-count" 
+                min="0"
+                placeholder="Ex: 12500 (Auto se vazio)" 
+              >
+              <span class="form-hint">Total no dia da entrada.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="printer-created-at">Data de Entrada na Rede</label>
+              <input 
+                type="datetime-local" 
+                class="form-input" 
+                id="printer-created-at"
+              >
+              <span class="form-hint">Primeira conexão.</span>
+            </div>
           </div>
 
           <input type="hidden" id="printer-community" value="public">

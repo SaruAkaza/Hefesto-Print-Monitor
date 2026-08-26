@@ -1,11 +1,11 @@
 [
   {
-    "id": "rec-b35c310c",
+    "id": "rec-64339412",
     "printerId": "p-rs-14",
     "printerName": "XBJZ029656",
     "ip": "10.5.104.18",
     "unitName": "121 - Rio Sul",
-    "location": "Recepção (13º Andar)",
+    "location": "RecepÃ§Ã£o (13Âº Andar)",
     "supplyName": "Magenta Ink Supply Unit T11A3",
     "supplyType": "toner",
     "previousLevel": 22,
@@ -17,15 +17,15 @@
     "statusTag": "Troca Provisória / Parcial",
     "technician": "Sensor Automático SNMP",
     "notes": "Inserida bolsa/toner com 86%",
-    "timestamp": "2026-08-26T12:24:38.746Z"
+    "timestamp": "2026-08-26T12:39:38.766Z"
   },
   {
-    "id": "rec-de47fcd1",
+    "id": "rec-75bf267e",
     "printerId": "p-tt-01",
     "printerName": "XBJZ010993",
     "ip": "10.1.176.14",
     "unitName": "138 - Taiti",
-    "location": "Administração (1º Andar)",
+    "location": "AdministraÃ§Ã£o (1Âº Andar)",
     "supplyName": "Cyan Ink Supply Unit T11A2",
     "supplyType": "toner",
     "previousLevel": 72,
@@ -37,15 +37,15 @@
     "statusTag": "Recarga Oficial (Nova)",
     "technician": "Sensor Automático SNMP",
     "notes": "Nível restabelecido para 99%",
-    "timestamp": "2026-08-26T12:24:38.903Z"
+    "timestamp": "2026-08-26T12:39:39.105Z"
   },
   {
-    "id": "rec-e977f79c",
+    "id": "rec-ec89ed27",
     "printerId": "p-sf-39",
     "printerName": "QGQ000687",
     "ip": "10.1.152.24",
-    "unitName": "113 - Havaí",
-    "location": "Ouvidoria Xerox A3 (Térreo)",
+    "unitName": "113 - HavaÃ­",
+    "location": "Ouvidoria Xerox A3 (TÃ©rreo)",
     "supplyName": "Magenta Toner [M];SN2C081A80E0000359",
     "supplyType": "toner",
     "previousLevel": 30,
@@ -57,26 +57,27 @@
     "statusTag": "Troca Provisória / Parcial",
     "technician": "Sensor Automático SNMP",
     "notes": "Inserida bolsa/toner com 90%",
-    "timestamp": "2026-08-26T12:27:36.618Z"
+    "timestamp": "2026-08-26T12:53:21.744Z"
   },
   {
-    "id": "rec-d3310f8b",
+    "id": "rec-e8ba0efc",
     "printerId": "p-rs-14",
     "printerName": "XBJZ029656",
     "ip": "10.5.104.18",
     "unitName": "121 - Rio Sul",
-    "location": "Recepção (13º Andar)",
-    "supplyName": "Magenta Ink Supply Unit T11A3",
+    "location": "RecepÃ§Ã£o (13Âº Andar)",
+    "supplyName": "Cyan Ink Supply Unit T11A2",
     "supplyType": "toner",
     "previousLevel": 22,
-    "newLevel": 86,
+    "newLevel": 53,
     "pageCount": 124128,
     "pagesSinceLastRecharge": 0,
     "source": "auto",
     "isFullRecharge": false,
     "statusTag": "Troca Provisória / Parcial",
     "technician": "Sensor Automático SNMP",
-    "notes": "Inserida bolsa/toner com 86%",
-    "timestamp": "2026-08-26T12:27:38.790Z"
+    "notes": "Inserida bolsa/toner com 53%",
+    "timestamp": "2026-08-26T12:53:22.295Z"
   }
+]}
 ]

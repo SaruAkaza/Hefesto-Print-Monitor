@@ -49,7 +49,13 @@ graph LR
 - **`DELETE /api/recharges/:id`**
   - Remove um registro de recarga do histórico.
 
-### 3. Telemetria & Status Operacional
+### 3. Relatórios & Auditoria de Entrada
+- **`GET /api/reports/initial-integration`**
+  - Retorna o relatório consolidado de primeira conexão à rede, contadores iniciais de entrada, contadores atuais e total produzido sob gestão.
+- **`GET /api/config/branding`**
+  - Retorna a configuração ativa de identidade visual e marca da aplicação (White-Label).
+
+### 4. Telemetria & Status Operacional
 - **`GET /api/status/all`**
   - Retorna o status SNMP em tempo real de todas as impressoras (suporta `?force=true`).
 - **`GET /api/printers/:id/status`**
@@ -57,7 +63,7 @@ graph LR
 - **`GET /api/test-ip?ip=...`**
   - Executa um teste de conectividade SNMP direto contra qualquer endereço IP.
 
-### 4. Inventário & Pastas (Unidades)
+### 5. Inventário & Pastas (Unidades)
 - **`GET /api/printers`** | **`POST /api/printers`** | **`PUT /api/printers/:id`** | **`DELETE /api/printers/:id`**
 - **`GET /api/units`** | **`POST /api/units`** | **`PUT /api/units/:id`** | **`DELETE /api/units/:id`**
 

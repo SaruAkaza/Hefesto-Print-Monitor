@@ -430,7 +430,7 @@ app.get('/api/printers', async (req, res) => {
 // Adicionar nova impressora
 app.post('/api/printers', async (req, res) => {
   console.log('\x1b[36m%s\x1b[0m', 'POST /api/printers - Adicionando nova impressora');
-  const { name, ip, location, unitId, unitName, community } = req.body;
+  const { name, ip, location, unitId, unitName, community, initialPageCount, createdAt } = req.body;
   if (!name || !ip) {
     return res.status(400).json({ error: 'Nome e IP são obrigatórios.' });
   }
@@ -444,7 +444,8 @@ app.post('/api/printers', async (req, res) => {
     unitId: unitId || '',
     unitName: unitName || 'Sem Unidade',
     community: community || 'public',
-    createdAt: new Date().toISOString()
+    initialPageCount: typeof initialPageCount === 'number' ? initialPageCount : (Number(initialPageCount) || 0),
+    createdAt: createdAt || new Date().toISOString()
   };
 
   printers.push(newPrinter);
@@ -532,7 +533,7 @@ app.post('/api/printers/batch', async (req, res) => {
 app.put('/api/printers/:id', async (req, res) => {
   console.log('\x1b[36m%s\x1b[0m', `PUT /api/printers/${req.params.id} - Atualizando impressora`);
   const { id } = req.params;
-  const { name, ip, location, unitId, unitName, community } = req.body;
+  const { name, ip, location, unitId, unitName, community, initialPageCount, createdAt } = req.body;
 
   const printers = await loadPrinters();
   const idx = printers.findIndex(p => p.id === id);
@@ -548,7 +549,9 @@ app.put('/api/printers/:id', async (req, res) => {
     location: location !== undefined ? location : printers[idx].location,
     unitId: unitId !== undefined ? unitId : printers[idx].unitId,
     unitName: unitName !== undefined ? unitName : printers[idx].unitName,
-    community: community || printers[idx].community
+    community: community || printers[idx].community,
+    initialPageCount: initialPageCount !== undefined ? (Number(initialPageCount) || 0) : (printers[idx].initialPageCount || 0),
+    createdAt: createdAt || printers[idx].createdAt || new Date().toISOString()
   };
   await savePrinters(printers);
   res.json(printers[idx]);
@@ -984,6 +987,57 @@ app.get('/api/analytics/volume-forecast', async (req, res) => {
   } catch (err) {
     console.error('[Analytics] Erro ao gerar volume e previsão:', err);
     res.status(500).json({ error: 'Erro ao calcular volume e previsibilidade.' });
+  }
+});
+
+// Relatório de Auditoria de Integração e Início na Rede
+app.get('/api/reports/initial-integration', async (req, res) => {
+  try {
+    const printers = await loadPrinters();
+    const pageHistory = await loadPageHistory();
+
+    const report = printers.map(p => {
+      const cached = STATUS_CACHE.get(p.id);
+      const info = cached?.info || {};
+      const isOnline = cached ? cached.online : false;
+      const model = formatCleanModel(info.model || p.name);
+      const serial = (info.serialNumber && info.serialNumber !== 'N/D') ? info.serialNumber : (p.name || 'N/D');
+      const curCount = Number(info.pageCount || (cached?.pageCount) || p.initialPageCount || 0);
+      const initCount = Number(p.initialPageCount || 0);
+      const delta = Math.max(0, curCount - initCount);
+
+      let statusDesc = 'Sem conexão';
+      if (isOnline) {
+        const supplies = cached?.supplies || [];
+        const criticalSupply = supplies.find(s => s.percentage >= 0 && s.percentage < 10);
+        const warningSupply = supplies.find(s => s.percentage >= 0 && s.percentage <= 30);
+        if (criticalSupply) statusDesc = 'Nível Crítico';
+        else if (warningSupply) statusDesc = 'Nível Atenção';
+        else statusDesc = 'Operacional';
+      }
+
+      return {
+        printerId: p.id,
+        name: p.name,
+        ip: p.ip,
+        location: p.location || '',
+        unitId: p.unitId || '',
+        unitName: p.unitName || 'Sem Unidade',
+        model,
+        serialNumber: serial,
+        createdAt: p.createdAt || '2026-08-19T08:00:00.000Z',
+        initialPageCount: initCount,
+        currentPageCount: curCount,
+        pagesProducedSinceIntegration: delta,
+        online: isOnline,
+        status: statusDesc
+      };
+    });
+
+    res.json(report);
+  } catch (err) {
+    console.error('[IntegrationReport] Erro ao gerar relatório de integração:', err);
+    res.status(500).json({ error: 'Erro ao gerar relatório de integração inicial.' });
   }
 });
 

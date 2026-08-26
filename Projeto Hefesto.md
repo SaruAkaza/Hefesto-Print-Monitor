@@ -29,6 +29,7 @@ graph TD
 
 - [[Módulo de Volume e Previsibilidade]] — Motor preditivo de esgotamento de tinta/toner, volume diário/semanal/mensal e classificação de carga.
 - [[Histórico de Recargas e Suprimentos]] — Registro de trocas oficiais vs. parciais, telemetria delta SNMP e auditoria com gaveta Raio-X.
+- [[Relatório Histórico de Início na Rede]] — Registro de primeira conexão na rede, contadores iniciais de entrada e páginas sob gestão.
 - [[Arquitetura e Endpoints da API]] — Especificação técnica dos endpoints REST, persistência em disco e ciclo de vida do backend.
 - [[Atualizações]] — Roadmap de implementação e controle de tarefas concluídas e futuras.
 

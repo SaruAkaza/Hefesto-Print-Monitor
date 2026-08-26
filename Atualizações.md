@@ -19,8 +19,9 @@
   Perfil Administrador com visão analítica e gestão completa. Perfil Operador focado estritamente no status operacional da unidade, sem exibição de históricos de auditoria internos.  
   🔗 *Documentação completa:* [[Projeto Hefesto]]
 
-- [ ] **Relatório Histórico de Início na Rede:**  
-  Relatório histórico de quando a impressora foi conectada pela primeira vez à rede e quantas impressões totais ela possuía no momento da integração inicial.
+- [x] **Relatório Histórico de Início na Rede:**  
+  Relatório histórico de quando a impressora foi conectada pela primeira vez à rede e quantas impressões totais ela possuía no momento da integração inicial. Card no Raio-X com total produzido sob gestão e exportação executiva em CSV.  
+  🔗 *Documentação completa:* [[Relatório Histórico de Início na Rede]]
 
 - [ ] **Integração de Impressoras Locais USB via Agente Host:**  
   Mecanismo para capturar telemetria e contadores de impressoras conectadas via cabo USB em computadores locais na rede.
@@ -34,13 +35,14 @@
 - [ ] **Auditoria & Trilha de Registro de Modificações:**  
   Log imutável de qualquer alteração de suprimento, entrada manual de insumo, ajuste na lista de equipamentos ou formatação de quantidades.
 
-- [ ] Quem imprimiu?
-	Log de qual CPF imprimiu e a quantidade que imprimiu. Gerar um alerta se em uma única impressão passou de 40 folhas.
+- [ ] **Quem imprimiu?**  
+  Log de qual CPF/usuário imprimiu e a quantidade que imprimiu. Gerar um alerta se em uma única impressão passou de 40 folhas.
 
 ---
 
 ## 🔗 Navegação do Cofre (Obsidian)
 - [[Projeto Hefesto]] — Hub principal de arquitetura e documentação
+- [[Relatório Histórico de Início na Rede]] — Histórico de 1ª conexão e contadores iniciais
 - [[Módulo de Volume e Previsibilidade]] — Motor preditivo e métricas de produção
 - [[Histórico de Recargas e Suprimentos]] — Registro de trocas e auditoria
-- [[Arquitetura e Endpoints da API]] — Guia técnico de rotas e banco de dados
+- [[Arquitetura e Endpoints da API]] — Especificação técnica dos serviços REST e banco de dados
