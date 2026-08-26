@@ -825,12 +825,12 @@ function renderOverviewTab() {
   renderUnitRecentRecharges();
 }
 
-// Histórico Resumido de Reposições na Unidade (Visível exclusivamente para Administrador)
+// Histórico Resumido de Reposições na Unidade (Visível no Visualizador de Unidade e Administrador)
 async function renderUnitRecentRecharges() {
   if (!DOM.unitRecentRechargesSection || !DOM.unitRecentRechargesList) return;
 
-  // Apenas o perfil Administrador pode ver a seção de reposições da unidade, e apenas na aba de inventário
-  if (AppState.userRole !== 'admin' || AppState.activeAdminTab === 'forecast') {
+  // Oculta apenas se estiver na aba de volume/previsibilidade
+  if (AppState.activeAdminTab === 'forecast') {
     DOM.unitRecentRechargesSection.style.display = 'none';
     return;
   }
@@ -1488,62 +1488,62 @@ async function openPrinterDetailDrawer(id) {
     ? info.serialNumber 
     : (printer.name && printer.name !== printer.location ? printer.name : 'N/D');
 
-  // Linha do tempo das recargas (Visível exclusivamente para Perfil de Administrador)
-  let adminRechargesSectionHTML = '';
-  if (isAdmin) {
-    let rechargesTimelineHTML = '';
-    if (printerRecharges.length === 0) {
-      rechargesTimelineHTML = `
-        <div style="padding: 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; background: var(--bg-input); border-radius: var(--radius-md); border: 1px dashed var(--border-card);">
-          Nenhum evento no histórico ainda. Clique em <strong>"Registrar Recarga"</strong> para lançar a primeira troca.
+  // Linha do tempo das recargas e trocas de insumos (Visível para Visualizador de Unidade e Administrador)
+  let rechargesSectionHTML = '';
+  let rechargesTimelineHTML = '';
+  if (printerRecharges.length === 0) {
+    rechargesTimelineHTML = `
+      <div style="padding: 1rem; text-align: center; color: var(--text-muted); font-size: 0.8rem; background: var(--bg-input); border-radius: var(--radius-md); border: 1px dashed var(--border-card);">
+        Nenhuma troca de insumo registrada no histórico desta impressora ainda.
+      </div>
+    `;
+  } else {
+    rechargesTimelineHTML = printerRecharges.map(rec => {
+      const isOfficial = rec.isFullRecharge;
+      const formattedDate = formatFullDateTime(rec.timestamp);
+      const relTime = formatRelativeTime(rec.timestamp);
+      const pagesText = rec.pagesSinceLastRecharge > 0 
+        ? `<span style="color: var(--color-success); font-weight: 700;">+${rec.pagesSinceLastRecharge.toLocaleString('pt-BR')}</span> pág. no ciclo` 
+        : 'Ciclo inicial';
+
+      return `
+        <div class="recharge-item-card">
+          <div class="recharge-item-top">
+            <div>
+              <span class="recharge-item-supply">${escapeHtml(translateSupplyName(rec.supplyName))}</span>
+              <span class="printer-recharge-tag ${isOfficial ? '' : 'partial'}" style="margin-left: 0.5rem;">${escapeHtml(rec.statusTag || (isOfficial ? 'Oficial (100%)' : 'Parcial'))}</span>
+            </div>
+            <span class="recharge-item-date" title="${escapeHtml(formattedDate)}">${escapeHtml(relTime)}</span>
+          </div>
+          <div class="recharge-item-meta">
+            <span class="recharge-item-stat">Nível: <strong>${rec.previousLevel}% ➔ ${rec.newLevel}%</strong></span>
+            <span class="recharge-item-stat">Total: <strong>${rec.pageCount ? Number(rec.pageCount).toLocaleString('pt-BR') : '0'} pág.</strong></span>
+            <span class="recharge-item-stat">${pagesText}</span>
+            <span style="color: var(--text-muted); font-size: 0.7rem;">• ${escapeHtml(rec.technician || 'Sensor SNMP')}</span>
+          </div>
+          ${rec.notes ? `<div class="recharge-item-notes">Obs: ${escapeHtml(rec.notes)}</div>` : ''}
         </div>
       `;
-    } else {
-      rechargesTimelineHTML = printerRecharges.map(rec => {
-        const isOfficial = rec.isFullRecharge;
-        const formattedDate = formatFullDateTime(rec.timestamp);
-        const relTime = formatRelativeTime(rec.timestamp);
-        const pagesText = rec.pagesSinceLastRecharge > 0 
-          ? `<span style="color: var(--color-success); font-weight: 700;">+${rec.pagesSinceLastRecharge.toLocaleString('pt-BR')}</span> pág. no ciclo` 
-          : 'Ciclo inicial';
+    }).join('');
+  }
 
-        return `
-          <div class="recharge-item-card">
-            <div class="recharge-item-top">
-              <div>
-                <span class="recharge-item-supply">${escapeHtml(translateSupplyName(rec.supplyName))}</span>
-                <span class="printer-recharge-tag ${isOfficial ? '' : 'partial'}" style="margin-left: 0.5rem;">${escapeHtml(rec.statusTag || (isOfficial ? 'Oficial (100%)' : 'Parcial'))}</span>
-              </div>
-              <span class="recharge-item-date" title="${escapeHtml(formattedDate)}">${escapeHtml(relTime)}</span>
-            </div>
-            <div class="recharge-item-meta">
-              <span class="recharge-item-stat">Nível: <strong>${rec.previousLevel}% ➔ ${rec.newLevel}%</strong></span>
-              <span class="recharge-item-stat">Total: <strong>${rec.pageCount ? Number(rec.pageCount).toLocaleString('pt-BR') : '0'} pág.</strong></span>
-              <span class="recharge-item-stat">${pagesText}</span>
-              <span style="color: var(--text-muted); font-size: 0.7rem;">• ${escapeHtml(rec.technician || 'Sensor SNMP')}</span>
-            </div>
-            ${rec.notes ? `<div class="recharge-item-notes">Obs: ${escapeHtml(rec.notes)}</div>` : ''}
-          </div>
-        `;
-      }).join('');
-    }
-
-    adminRechargesSectionHTML = `
-      <div class="drawer-recharges-header" style="margin-top: 1.75rem;">
-        <div class="drawer-recharges-title">
-          <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary); width: 16px; height: 16px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>Histórico de Recargas & Auditoria (TI)</span>
-        </div>
+  rechargesSectionHTML = `
+    <div class="drawer-recharges-header" style="margin-top: 1.75rem;">
+      <div class="drawer-recharges-title">
+        <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary); width: 16px; height: 16px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>${isAdmin ? 'Histórico de Recargas & Auditoria (TI)' : 'Histórico de Trocas de Insumos & Suprimentos'}</span>
+      </div>
+      ${isAdmin ? `
         <button type="button" class="btn btn-secondary btn-sm" onclick="openManualRechargeModal('${printer.id}')" title="Registrar uma recarga manualmente">
           <svg class="icon icon-xs" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
           <span>Registrar Recarga</span>
         </button>
-      </div>
-      <div class="recharges-timeline-list">
-        ${rechargesTimelineHTML}
-      </div>
-    `;
-  }
+      ` : ''}
+    </div>
+    <div class="recharges-timeline-list">
+      ${rechargesTimelineHTML}
+    </div>
+  `;
 
   const curCount = Number(info.pageCount || printer.initialPageCount || 0);
   const initCount = Number(printer.initialPageCount || 0);
@@ -1613,17 +1613,19 @@ async function openPrinterDetailDrawer(id) {
     <div style="margin-top: 1.5rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
         <h4 style="font-size: 0.9rem; font-weight: 700; color: var(--text-primary); margin: 0;">Todos os Suprimentos & Tintas</h4>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="openManualRechargeModal('${printer.id}')" title="Registrar troca de toner, bolsa de tinta ou abastecimento">
-          <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary); width: 14px; height: 14px;"><path d="M12 5v14M5 12h14"/></svg>
-          <span>Registrar Troca</span>
-        </button>
+        ${isAdmin ? `
+          <button type="button" class="btn btn-secondary btn-sm" onclick="openManualRechargeModal('${printer.id}')" title="Registrar troca de toner, bolsa de tinta ou abastecimento">
+            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary); width: 14px; height: 14px;"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Registrar Troca</span>
+          </button>
+        ` : ''}
       </div>
       <div style="display: flex; flex-direction: column; gap: 0.65rem;">
         ${suppliesHTML}
       </div>
     </div>
 
-    ${adminRechargesSectionHTML}
+    ${rechargesSectionHTML}
 
     ${trays.length > 0 ? `
       <div style="margin-top: 1.5rem;">
