@@ -443,7 +443,7 @@ app.get('/api/printers', async (req, res) => {
 // Adicionar nova impressora
 app.post('/api/printers', async (req, res) => {
   console.log('\x1b[36m%s\x1b[0m', 'POST /api/printers - Adicionando nova impressora');
-  const { name, ip, location, unitId, unitName, community, initialPageCount, createdAt } = req.body;
+  const { name, ip, location, unitId, unitName, community, initialPageCount, createdAt, hefestoActivatedAt, installedAt } = req.body;
   if (!name || !ip) {
     return res.status(400).json({ error: 'Nome e IP são obrigatórios.' });
   }
@@ -458,6 +458,8 @@ app.post('/api/printers', async (req, res) => {
     unitName: unitName || 'Sem Unidade',
     community: community || 'public',
     initialPageCount: typeof initialPageCount === 'number' ? initialPageCount : (Number(initialPageCount) || 0),
+    hefestoActivatedAt: hefestoActivatedAt || createdAt || new Date().toISOString(),
+    installedAt: installedAt || '',
     createdAt: createdAt || new Date().toISOString()
   };
 
@@ -546,7 +548,7 @@ app.post('/api/printers/batch', async (req, res) => {
 app.put('/api/printers/:id', async (req, res) => {
   console.log('\x1b[36m%s\x1b[0m', `PUT /api/printers/${req.params.id} - Atualizando impressora`);
   const { id } = req.params;
-  const { name, ip, location, unitId, unitName, community, initialPageCount, createdAt } = req.body;
+  const { name, ip, location, unitId, unitName, community, initialPageCount, createdAt, hefestoActivatedAt, installedAt } = req.body;
 
   const printers = await loadPrinters();
   const idx = printers.findIndex(p => p.id === id);
@@ -564,6 +566,8 @@ app.put('/api/printers/:id', async (req, res) => {
     unitName: unitName !== undefined ? unitName : printers[idx].unitName,
     community: community || printers[idx].community,
     initialPageCount: initialPageCount !== undefined ? (Number(initialPageCount) || 0) : (printers[idx].initialPageCount || 0),
+    hefestoActivatedAt: hefestoActivatedAt || printers[idx].hefestoActivatedAt || printers[idx].createdAt || new Date().toISOString(),
+    installedAt: installedAt !== undefined ? installedAt : (printers[idx].installedAt || ''),
     createdAt: createdAt || printers[idx].createdAt || new Date().toISOString()
   };
   await savePrinters(printers);
@@ -1062,6 +1066,8 @@ app.get('/api/reports/initial-integration', async (req, res) => {
         unitName: p.unitName || 'Sem Unidade',
         model,
         serialNumber: serial,
+        installedAt: p.installedAt || '',
+        hefestoActivatedAt: p.hefestoActivatedAt || p.createdAt || '2026-08-19T08:00:00.000Z',
         createdAt: p.createdAt || '2026-08-19T08:00:00.000Z',
         initialPageCount: initCount,
         currentPageCount: curCount,

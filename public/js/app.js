@@ -129,7 +129,8 @@ const DOM = {
   formLocation: document.getElementById('printer-location'),
   formCommunity: document.getElementById('printer-community'),
   formInitialPageCount: document.getElementById('printer-initial-page-count'),
-  formCreatedAt: document.getElementById('printer-created-at'),
+  formActivatedAt: document.getElementById('printer-activated-at'),
+  formInstalledAt: document.getElementById('printer-installed-at'),
   btnCloseModalForm: document.getElementById('btn-close-modal-form'),
   btnCancelModalForm: document.getElementById('btn-cancel-modal-form'),
   btnQuickNewUnit: document.getElementById('btn-quick-new-unit'),
@@ -1548,8 +1549,10 @@ async function openPrinterDetailDrawer(id) {
   const curCount = Number(info.pageCount || printer.initialPageCount || 0);
   const initCount = Number(printer.initialPageCount || 0);
   const pagesUnderManagement = Math.max(0, curCount - initCount);
-  const formattedCreatedAt = formatFullDateTime(printer.createdAt || '2026-08-19T08:00:00.000Z');
-  const relCreatedAt = formatRelativeTime(printer.createdAt || '2026-08-19T08:00:00.000Z');
+  const activatedDateStr = printer.hefestoActivatedAt || printer.createdAt || '2026-08-19T08:00:00.000Z';
+  const formattedActivated = formatFullDateTime(activatedDateStr);
+  const relActivated = formatRelativeTime(activatedDateStr);
+  const installedDateStr = printer.installedAt ? formatFullDateTime(printer.installedAt).split(' ')[0] : 'Não cadastrada';
 
   DOM.detailModalBody.innerHTML = `
     <div class="detail-meta-grid">
@@ -1573,39 +1576,37 @@ async function openPrinterDetailDrawer(id) {
         <div class="detail-chip-lbl">Número de Série</div>
         <div class="detail-chip-val tabular-nums">${escapeHtml(serialVal)}</div>
       </div>
-      <div class="detail-chip" style="grid-column: 1 / -1;">
-        <div class="detail-chip-lbl">Total de Impressões Acumuladas (Histórico)</div>
-        <div class="detail-chip-val tabular-nums" style="color: var(--color-primary); font-size: 1.1rem;">
-          ${info.pageCount ? Number(info.pageCount).toLocaleString('pt-BR') : '0'} páginas
-        </div>
-      </div>
     </div>
 
-    <!-- Card de Marco de Entrada na Rede & Auditoria Inicial -->
+    <!-- Card de Rastreamento Histórico & Produção sob Gestão (Modelo Híbrido) -->
     <div class="integration-audit-card" style="margin-top: 1.25rem; background: var(--bg-surface-light); border: 1px solid var(--border-card); border-left: 4px solid var(--color-primary); border-radius: var(--radius-md); padding: 0.9rem;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
         <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary); display: inline-flex; align-items: center; gap: 0.4rem;">
           <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary); width: 15px; height: 15px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          <span>Marco de Entrada na Rede & Auditoria Inicial</span>
+          <span>Rastreamento Histórico & Produção sob Gestão</span>
         </span>
-        <span style="font-size: 0.725rem; color: var(--text-muted);" title="${escapeHtml(formattedCreatedAt)}">${escapeHtml(relCreatedAt)}</span>
+        <span style="font-size: 0.725rem; color: var(--text-muted);" title="Monitoramento Ativo: ${escapeHtml(formattedActivated)}">Ativo ${escapeHtml(relActivated)}</span>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem;">
         <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
-          <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">1ª Conexão</div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-primary); font-family: var(--font-mono); margin-top: 2px;">${escapeHtml(formattedCreatedAt.split(' ')[0])}</div>
+          <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Total Vitalício (Hardware)</div>
+          <div style="font-size: 0.9rem; font-weight: 800; color: var(--text-primary); font-family: var(--font-mono); margin-top: 2px;">${curCount.toLocaleString('pt-BR')} pág.</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">Desde a fabricação</div>
         </div>
         <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
-          <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Contador Inicial</div>
+          <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Contador na Ativação</div>
           <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 2px;">${initCount.toLocaleString('pt-BR')} pág.</div>
-        </div>
-        <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
-          <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Contador Atual</div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--color-primary); font-family: var(--font-mono); margin-top: 2px;">${curCount.toLocaleString('pt-BR')} pág.</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">Em ${escapeHtml(formattedActivated.split(' ')[0])}</div>
         </div>
         <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
           <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Produção sob Gestão</div>
-          <div style="font-size: 0.85rem; font-weight: 800; color: var(--color-success); font-family: var(--font-mono); margin-top: 2px;">+${pagesUnderManagement.toLocaleString('pt-BR')} pág.</div>
+          <div style="font-size: 0.9rem; font-weight: 800; color: var(--color-success); font-family: var(--font-mono); margin-top: 2px;">+${pagesUnderManagement.toLocaleString('pt-BR')} pág.</div>
+          <div style="font-size: 0.65rem; color: var(--color-success); margin-top: 2px;">Sob monitoramento</div>
+        </div>
+        <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Instalação Física</div>
+          <div style="font-size: 0.825rem; font-weight: 700; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 2px;">${escapeHtml(installedDateStr)}</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">Entrega na filial</div>
         </div>
       </div>
     </div>
@@ -1838,7 +1839,8 @@ function openAddPrinterModal() {
   DOM.formId.value = '';
   DOM.printerForm.reset();
   if (DOM.formInitialPageCount) DOM.formInitialPageCount.value = '';
-  if (DOM.formCreatedAt) DOM.formCreatedAt.value = '';
+  if (DOM.formActivatedAt) DOM.formActivatedAt.value = '';
+  if (DOM.formInstalledAt) DOM.formInstalledAt.value = '';
   populateDropdownFilters();
   if (AppState.activeUnitFilter) {
     DOM.formUnitSelect.value = AppState.activeUnitFilter;
@@ -1868,18 +1870,22 @@ function openEditPrinterModal(id) {
   if (DOM.formInitialPageCount) {
     DOM.formInitialPageCount.value = (typeof printer.initialPageCount === 'number') ? printer.initialPageCount : '';
   }
-  if (DOM.formCreatedAt) {
-    if (printer.createdAt) {
+  if (DOM.formActivatedAt) {
+    const actDate = printer.hefestoActivatedAt || printer.createdAt;
+    if (actDate) {
       try {
-        const dt = new Date(printer.createdAt);
+        const dt = new Date(actDate);
         dt.setMinutes(dt.getMinutes() - dt.getTimezoneOffset());
-        DOM.formCreatedAt.value = dt.toISOString().slice(0, 16);
+        DOM.formActivatedAt.value = dt.toISOString().slice(0, 16);
       } catch {
-        DOM.formCreatedAt.value = '';
+        DOM.formActivatedAt.value = '';
       }
     } else {
-      DOM.formCreatedAt.value = '';
+      DOM.formActivatedAt.value = '';
     }
+  }
+  if (DOM.formInstalledAt) {
+    DOM.formInstalledAt.value = printer.installedAt ? printer.installedAt.split('T')[0] : '';
   }
 
   DOM.modalFormTitleText.textContent = 'Editar Impressora';
@@ -1911,8 +1917,10 @@ async function handlePrinterFormSubmit(e) {
 
   const initPageCountVal = DOM.formInitialPageCount?.value.trim();
   const initialPageCount = initPageCountVal !== '' ? Number(initPageCountVal) : undefined;
-  const createdAtVal = DOM.formCreatedAt?.value;
-  const createdAt = createdAtVal ? new Date(createdAtVal).toISOString() : undefined;
+  const activatedAtVal = DOM.formActivatedAt?.value;
+  const hefestoActivatedAt = activatedAtVal ? new Date(activatedAtVal).toISOString() : undefined;
+  const installedAtVal = DOM.formInstalledAt?.value;
+  const installedAt = installedAtVal ? installedAtVal : '';
 
   if (!location || !ip) {
     showToast('Local/Setor e Endereço IP são obrigatórios!', 'error');
@@ -1926,7 +1934,11 @@ async function handlePrinterFormSubmit(e) {
   try {
     const payload = { name, ip, unitId, unitName, location, community };
     if (initialPageCount !== undefined) payload.initialPageCount = initialPageCount;
-    if (createdAt !== undefined) payload.createdAt = createdAt;
+    if (hefestoActivatedAt !== undefined) {
+      payload.hefestoActivatedAt = hefestoActivatedAt;
+      payload.createdAt = hefestoActivatedAt;
+    }
+    if (installedAt !== undefined) payload.installedAt = installedAt;
 
     if (id) {
       await API.updatePrinter(id, payload);
@@ -2745,10 +2757,11 @@ async function exportInitialIntegrationReportCsv() {
       'Endereço IP',
       'Modelo da Impressora',
       'Número de Série',
-      'Data de Entrada na Rede',
-      'Contador Inicial (Páginas)',
-      'Contador Atual (Páginas)',
-      'Páginas Rodadas sob Gestão (Delta)',
+      'Data de Instalação Física (Contrato)',
+      'Data de Início do Monitoramento (Hefesto)',
+      'Contador na Ativação Hefesto (Páginas)',
+      'Contador Atual Vitalício (Páginas)',
+      'Páginas Rodadas sob Gestão Hefesto (Delta)',
       'Status Operacional Atual'
     ];
 
@@ -2758,7 +2771,8 @@ async function exportInitialIntegrationReportCsv() {
       r.ip,
       r.model,
       r.serialNumber,
-      formatFullDateTime(r.createdAt),
+      r.installedAt ? formatFullDateTime(r.installedAt).split(' ')[0] : 'Não informada',
+      formatFullDateTime(r.hefestoActivatedAt || r.createdAt),
       r.initialPageCount || 0,
       r.currentPageCount || 0,
       r.pagesProducedSinceIntegration || 0,
