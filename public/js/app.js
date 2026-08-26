@@ -1580,12 +1580,20 @@ async function openPrinterDetailDrawer(id) {
 
     <!-- Card de Rastreamento Histórico & Produção sob Gestão (Modelo Híbrido) -->
     <div class="integration-audit-card" style="margin-top: 1.25rem; background: var(--bg-surface-light); border: 1px solid var(--border-card); border-left: 4px solid var(--color-primary); border-radius: var(--radius-md); padding: 0.9rem;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.5rem;">
         <span style="font-weight: 700; font-size: 0.85rem; color: var(--text-primary); display: inline-flex; align-items: center; gap: 0.4rem;">
           <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary); width: 15px; height: 15px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           <span>Rastreamento Histórico & Produção sob Gestão</span>
         </span>
-        <span style="font-size: 0.725rem; color: var(--text-muted);" title="Monitoramento Ativo: ${escapeHtml(formattedActivated)}">Ativo ${escapeHtml(relActivated)}</span>
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <span style="font-size: 0.725rem; color: var(--text-muted);" title="Monitoramento Ativo: ${escapeHtml(formattedActivated)}">Ativo ${escapeHtml(relActivated)}</span>
+          ${isAdmin ? `
+            <button type="button" class="btn btn-secondary btn-sm" onclick="openEditPrinterModal('${printer.id}')" style="padding: 0.2rem 0.55rem; font-size: 0.725rem; display: inline-flex; align-items: center; gap: 0.35rem;" title="Editar marco zero, contadores e datas históricas deste equipamento">
+              <svg class="icon icon-xs" viewBox="0 0 24 24" style="width: 12px; height: 12px;"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              <span>Editar Marco</span>
+            </button>
+          ` : ''}
+        </div>
       </div>
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem;">
         <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
