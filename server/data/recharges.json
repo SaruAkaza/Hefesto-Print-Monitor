@@ -1,6 +1,26 @@
 [
   {
-    "id": "rec-d015477b",
+    "id": "rec-b35c310c",
+    "printerId": "p-rs-14",
+    "printerName": "XBJZ029656",
+    "ip": "10.5.104.18",
+    "unitName": "121 - Rio Sul",
+    "location": "Recepção (13º Andar)",
+    "supplyName": "Magenta Ink Supply Unit T11A3",
+    "supplyType": "toner",
+    "previousLevel": 22,
+    "newLevel": 86,
+    "pageCount": 124128,
+    "pagesSinceLastRecharge": 0,
+    "source": "auto",
+    "isFullRecharge": false,
+    "statusTag": "Troca Provisória / Parcial",
+    "technician": "Sensor Automático SNMP",
+    "notes": "Inserida bolsa/toner com 86%",
+    "timestamp": "2026-08-26T12:24:38.746Z"
+  },
+  {
+    "id": "rec-de47fcd1",
     "printerId": "p-tt-01",
     "printerName": "XBJZ010993",
     "ip": "10.1.176.14",
@@ -17,10 +37,10 @@
     "statusTag": "Recarga Oficial (Nova)",
     "technician": "Sensor Automático SNMP",
     "notes": "Nível restabelecido para 99%",
-    "timestamp": "2026-08-26T11:59:27.457Z"
+    "timestamp": "2026-08-26T12:24:38.903Z"
   },
   {
-    "id": "rec-81fcc812",
+    "id": "rec-e977f79c",
     "printerId": "p-sf-39",
     "printerName": "QGQ000687",
     "ip": "10.1.152.24",
@@ -37,10 +57,10 @@
     "statusTag": "Troca Provisória / Parcial",
     "technician": "Sensor Automático SNMP",
     "notes": "Inserida bolsa/toner com 90%",
-    "timestamp": "2026-08-26T12:02:25.418Z"
+    "timestamp": "2026-08-26T12:27:36.618Z"
   },
   {
-    "id": "rec-48361402",
+    "id": "rec-d3310f8b",
     "printerId": "p-rs-14",
     "printerName": "XBJZ029656",
     "ip": "10.5.104.18",
@@ -50,13 +70,13 @@
     "supplyType": "toner",
     "previousLevel": 22,
     "newLevel": 86,
-    "pageCount": 124126,
+    "pageCount": 124128,
     "pagesSinceLastRecharge": 0,
     "source": "auto",
     "isFullRecharge": false,
     "statusTag": "Troca Provisória / Parcial",
     "technician": "Sensor Automático SNMP",
     "notes": "Inserida bolsa/toner com 86%",
-    "timestamp": "2026-08-26T12:02:27.309Z"
+    "timestamp": "2026-08-26T12:27:38.790Z"
   }
 ]

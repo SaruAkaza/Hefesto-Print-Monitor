@@ -1,104 +1,32 @@
 [
   {
-    "printerId": "p-sf-39",
+    "printerId": "p-tt-07",
     "date": "2026-08-26",
-    "startPageCount": 6418,
-    "endPageCount": 6418,
-    "supplies": [
-      {
-        "name": "Yellow Toner [Y];SN14080F80E000032C",
-        "type": "toner",
-        "percentage": 30
-      },
-      {
-        "name": "Magenta Toner [M];SN2C081A80E0000359",
-        "type": "toner",
-        "percentage": 90
-      },
-      {
-        "name": "Cyan Toner [C];SN0F014780E0000376",
-        "type": "toner",
-        "percentage": 100
-      },
-      {
-        "name": "Waste Toner Container",
-        "type": "toner",
-        "percentage": 50
-      },
-      {
-        "name": "Black Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 95
-      },
-      {
-        "name": "Yellow Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 63
-      },
-      {
-        "name": "Magenta Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 71
-      },
-      {
-        "name": "Cyan Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 63
-      },
-      {
-        "name": "Fuser Assembly",
-        "type": "fuser",
-        "percentage": 99
-      },
-      {
-        "name": "Black Toner [K1];SN27058780E0000379",
-        "type": "toner",
-        "percentage": 100
-      },
-      {
-        "name": "Black Toner [K2];SN160A5E80E0000329",
-        "type": "toner",
-        "percentage": 40
-      }
-    ],
-    "lastUpdatedAt": "2026-08-26T12:03:03.606Z"
-  },
-  {
-    "printerId": "p-tt-16",
-    "date": "2026-08-26",
-    "startPageCount": 79685,
-    "endPageCount": 79685,
+    "startPageCount": 54467,
+    "endPageCount": 54467,
     "supplies": [
       {
         "name": "Black Ink Bottle",
         "type": "toner",
         "percentage": -2
-      }
-    ],
-    "lastUpdatedAt": "2026-08-26T12:03:43.968Z"
-  }
-] Box)",
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
         "type": "waste_toner",
-        "percentage": 100
+        "percentage": 17
       }
     ],
-    "lastUpdatedAt": "2026-08-26T12:03:43.966Z"
+    "lastUpdatedAt": "2026-08-26T12:27:44.028Z"
   }
-]   "type": "toner",
-        "percentage": 19
+]    "type": "toner",
+        "percentage": 50
       },
       {
         "name": "Yellow Ink Supply Unit T11A4",
         "type": "toner",
-        "percentage": 81
+        "percentage": 1
       }
     ],
-    "lastUpdatedAt": "2026-08-26T12:03:43.966Z"
-  }
-]enance_kit",
-        "percentage": 100
-      }
-    ],
-    "lastUpdatedAt": "2026-08-26T12:03:43.966Z"
+    "lastUpdatedAt": "2026-08-26T12:27:44.024Z"
   }
 ]
