@@ -3,430 +3,430 @@
     "id": "p-sf-01",
     "name": "XC75048540",
     "ip": "10.1.152.226",
-    "location": "Cozinha (4Âº Andar)",
+    "location": "Cozinha (4º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 4079
   },
   {
     "id": "p-sf-02",
     "name": "X5VL004865",
     "ip": "10.1.152.29",
-    "location": "LaboratÃ³rio (3Âº Andar)",
+    "location": "Laboratório (3º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 5349
   },
   {
     "id": "p-sf-03",
     "name": "X5VL005017",
     "ip": "10.1.152.109",
-    "location": "Vendas (3Âº Andar)",
+    "location": "Vendas (3º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 29970
   },
   {
     "id": "p-sf-04",
     "name": "X5VL006260",
     "ip": "10.1.152.141",
-    "location": "Ultrassom (3Âº Andar)",
+    "location": "Ultrassom (3º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 374
   },
   {
     "id": "p-sf-05",
     "name": "X5VL006383",
     "ip": "10.1.152.215",
-    "location": "Posto de Enfermagem 3 (3Âº Andar)",
+    "location": "Posto de Enfermagem 3 (3º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 2494
   },
   {
     "id": "p-sf-06",
     "name": "X5VL004984",
     "ip": "10.1.152.76",
-    "location": "Posto de Enfermagem 2 (3Âº Andar)",
+    "location": "Posto de Enfermagem 2 (3º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 13035
   },
   {
     "id": "p-sf-07",
     "name": "X5VL005013",
     "ip": "10.1.152.117",
-    "location": "Posto de Enfermagem 1 (3Âº Andar)",
+    "location": "Posto de Enfermagem 1 (3º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14739
   },
   {
     "id": "p-sf-08",
     "name": "XC75048538",
     "ip": "10.1.152.218",
-    "location": "Multifuncional (3Âº Andar)",
+    "location": "Multifuncional (3º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 16879
   },
   {
     "id": "p-sf-09",
     "name": "X5VL004852",
     "ip": "10.1.152.63",
-    "location": "FarmÃ¡cia (2Âº Andar)",
+    "location": "Farmácia (2º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 3810
   },
   {
     "id": "p-sf-10",
     "name": "X5VL004978",
     "ip": "10.1.152.96",
-    "location": "FarmÃ¡cia 2 (2Âº Andar)",
+    "location": "Farmácia 2 (2º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 25785
   },
   {
     "id": "p-sf-11",
     "name": "XC75025130",
     "ip": "10.1.152.10",
-    "location": "FarmÃ¡cia Multifuncional 1 (2Âº Andar)",
+    "location": "Farmácia Multifuncional 1 (2º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 48799
   },
   {
     "id": "p-sf-12",
     "name": "XC75025094",
     "ip": "10.1.152.8",
-    "location": "FarmÃ¡cia Multifuncional 2 (2Âº Andar)",
+    "location": "Farmácia Multifuncional 2 (2º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 0
   },
   {
     "id": "p-sf-13",
     "name": "X3BK021199",
     "ip": "10.1.152.115",
-    "location": "FarmÃ¡cia WF-M5799 (2Âº Andar)",
+    "location": "Farmácia WF-M5799 (2º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 38714
   },
   {
     "id": "p-sf-14",
     "name": "XC75048507",
     "ip": "10.1.152.79",
-    "location": "OPME (2Âº Andar)",
+    "location": "OPME (2º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 105
   },
   {
     "id": "p-sf-15",
     "name": "X5VL004994",
     "ip": "10.1.152.114",
-    "location": "InfusÃ£o Oncologia (1Âº Andar)",
+    "location": "Infusão Oncologia (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 7035
   },
   {
     "id": "p-sf-16",
     "name": "X5VL004989",
     "ip": "10.1.152.3",
-    "location": "MedicaÃ§Ã£o (1Âº Andar)",
+    "location": "Medicação (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 12465
   },
   {
     "id": "p-sf-17",
     "name": "X5VL006241",
     "ip": "10.1.152.22",
-    "location": "MedicaÃ§Ã£o 2 (1Âº Andar)",
+    "location": "Medicação 2 (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-sf-18",
     "name": "X5VL004992",
     "ip": "10.1.152.108",
-    "location": "ObservaÃ§Ã£o (1Âº Andar)",
+    "location": "Observação (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 31245
   },
   {
     "id": "p-sf-19",
     "name": "X5VL004854",
     "ip": "10.1.152.66",
-    "location": "ConsultÃ³rio 2 (1Âº Andar)",
+    "location": "Consultório 2 (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-sf-20",
     "name": "X5VL004983",
     "ip": "10.1.152.142",
-    "location": "ConsultÃ³rio 3 (1Âº Andar)",
+    "location": "Consultório 3 (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 12099
   },
   {
     "id": "p-sf-21",
     "name": "X5VL004985",
     "ip": "10.1.152.26",
-    "location": "ConsultÃ³rio 4 (1Âº Andar)",
+    "location": "Consultório 4 (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-sf-22",
     "name": "X5VL005417",
     "ip": "10.1.152.6",
-    "location": "ConsultÃ³rio 5 (1Âº Andar)",
+    "location": "Consultório 5 (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 6175
   },
   {
     "id": "p-sf-23",
     "name": "X5VL004999",
     "ip": "10.1.152.11",
-    "location": "ConsultÃ³rio 6 (1Âº Andar)",
+    "location": "Consultório 6 (1º Andar)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 3814
   },
   {
     "id": "p-sf-24",
     "name": "XC75025144",
     "ip": "10.1.152.105",
-    "location": "Controladora (TÃ©rreo)",
+    "location": "Controladora (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 47770
   },
   {
     "id": "p-sf-25",
     "name": "X5VL006330",
     "ip": "10.1.152.124",
-    "location": "Triagem 1 (TÃ©rreo)",
+    "location": "Triagem 1 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-sf-26",
     "name": "X5VL006218",
     "ip": "10.1.152.127",
-    "location": "Triagem 2 (TÃ©rreo)",
+    "location": "Triagem 2 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 0
   },
   {
     "id": "p-sf-27",
     "name": "X5VL004976",
     "ip": "10.1.152.130",
-    "location": "Triagem 3 (TÃ©rreo)",
+    "location": "Triagem 3 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 20295
   },
   {
     "id": "p-sf-28",
     "name": "X5VL004990",
     "ip": "10.1.152.123",
-    "location": "ConsultÃ³rio 2 (TÃ©rreo)",
+    "location": "Consultório 2 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 42064
   },
   {
     "id": "p-sf-29",
     "name": "X5VL004860",
     "ip": "10.1.152.133",
-    "location": "ConsultÃ³rio 3 (TÃ©rreo)",
+    "location": "Consultório 3 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 56409
   },
   {
     "id": "p-sf-30",
     "name": "X5VL005015",
     "ip": "10.1.152.94",
-    "location": "ConsultÃ³rio 4 (TÃ©rreo)",
+    "location": "Consultório 4 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-sf-31",
     "name": "X5VL004980",
     "ip": "10.1.152.110",
-    "location": "ConsultÃ³rio 5 (TÃ©rreo)",
+    "location": "Consultório 5 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 33684
   },
   {
     "id": "p-sf-32",
     "name": "X5VL004863",
     "ip": "10.1.152.58",
-    "location": "ConsultÃ³rio 6 (TÃ©rreo)",
+    "location": "Consultório 6 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 26064
   },
   {
     "id": "p-sf-33",
     "name": "X5VL004856",
     "ip": "10.1.152.122",
-    "location": "Intramuscular (TÃ©rreo)",
+    "location": "Intramuscular (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 3099
   },
   {
     "id": "p-sf-34",
     "name": "X5VL004848",
     "ip": "10.1.152.113",
-    "location": "Posto de Enfermagem (TÃ©rreo)",
+    "location": "Posto de Enfermagem (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-sf-35",
     "name": "X5VL004998",
     "ip": "10.1.152.112",
-    "location": "EmergÃªncia (TÃ©rreo)",
+    "location": "Emergência (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 37465
   },
   {
     "id": "p-sf-36",
     "name": "XC75025133",
     "ip": "10.1.152.14",
-    "location": "RH (TÃ©rreo)",
+    "location": "RH (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 18970
   },
   {
     "id": "p-sf-37",
     "name": "753154403CZDG",
     "ip": "10.1.152.216",
-    "location": "AdministraÃ§Ã£o Lexmark (TÃ©rreo)",
+    "location": "Administração Lexmark (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 11834
   },
   {
     "id": "p-sf-39",
     "name": "QGQ000687",
     "ip": "10.1.152.24",
-    "location": "Ouvidoria Xerox A3 (TÃ©rreo)",
+    "location": "Ouvidoria Xerox A3 (Térreo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 6089
   },
   {
     "id": "p-sf-40",
     "name": "X5VL004977",
     "ip": "10.1.152.53",
-    "location": "SeguranÃ§a do Trabalho (Subsolo)",
+    "location": "Segurança do Trabalho (Subsolo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 1750
   },
   {
     "id": "p-sf-41",
@@ -434,383 +434,383 @@
     "ip": "10.1.152.151",
     "location": "Almoxarifado (Subsolo)",
     "unitId": "unit-113-havai",
-    "unitName": "113 - HavaÃ­",
+    "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 634
   },
   {
     "id": "p-rs-01",
     "name": "U67032E5N691286",
     "ip": "10.5.104.51",
-    "location": "ConsultÃ³rio 1 (13Âº Andar)",
+    "location": "Consultório 1 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 10
   },
   {
     "id": "p-rs-02",
     "name": "U67032E5N691220",
     "ip": "10.5.104.65",
-    "location": "ConsultÃ³rio 2 (13Âº Andar)",
+    "location": "Consultório 2 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 139
   },
   {
     "id": "p-rs-03",
     "name": "U67032E5N691207",
     "ip": "10.5.104.64",
-    "location": "ConsultÃ³rio 3 (13Âº Andar)",
+    "location": "Consultório 3 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 690
   },
   {
     "id": "p-rs-04",
     "name": "U67032E5N691213",
     "ip": "10.5.104.66",
-    "location": "ConsultÃ³rio 4 (13Âº Andar)",
+    "location": "Consultório 4 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 0
   },
   {
     "id": "p-rs-05",
     "name": "U67032E5N691211",
     "ip": "10.5.104.57",
-    "location": "ConsultÃ³rio 5 (13Âº Andar)",
+    "location": "Consultório 5 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 2070
   },
   {
     "id": "p-rs-06",
     "name": "U67032E5N691218",
     "ip": "10.5.104.61",
-    "location": "ConsultÃ³rio 6 (13Âº Andar)",
+    "location": "Consultório 6 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 3244
   },
   {
     "id": "p-rs-07",
     "name": "U67032E5N692787",
     "ip": "10.5.104.58",
-    "location": "ConsultÃ³rio 7 (13Âº Andar)",
+    "location": "Consultório 7 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 2584
   },
   {
     "id": "p-rs-08",
     "name": "U67032E5N691250",
     "ip": "10.5.104.60",
-    "location": "ConsultÃ³rio 8 (13Âº Andar)",
+    "location": "Consultório 8 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 3949
   },
   {
     "id": "p-rs-09",
     "name": "U67032E5N691269",
     "ip": "10.5.104.63",
-    "location": "ConsultÃ³rio 9 (13Âº Andar)",
+    "location": "Consultório 9 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 899
   },
   {
     "id": "p-rs-10",
     "name": "U67032E5N692785",
     "ip": "10.5.104.59",
-    "location": "ConsultÃ³rio 10 (13Âº Andar)",
+    "location": "Consultório 10 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 2394
   },
   {
     "id": "p-rs-11",
     "name": "U67032E5N691177",
     "ip": "10.5.104.69",
-    "location": "ConsultÃ³rio 11 (13Âº Andar)",
+    "location": "Consultório 11 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 194
   },
   {
     "id": "p-rs-12",
     "name": "U67032E5N691199",
     "ip": "10.5.104.68",
-    "location": "ConsultÃ³rio 12 (13Âº Andar)",
+    "location": "Consultório 12 (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 0
   },
   {
     "id": "p-rs-13",
     "name": "U67032E5N691107",
     "ip": "10.5.104.67",
-    "location": "Atendimento (13Âº Andar)",
+    "location": "Atendimento (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 2385
   },
   {
     "id": "p-rs-14",
     "name": "XBJZ029656",
     "ip": "10.5.104.18",
-    "location": "RecepÃ§Ã£o (13Âº Andar)",
+    "location": "Recepção (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 123810
   },
   {
     "id": "p-rs-15",
     "name": "X3B7019963",
     "ip": "10.5.104.27",
-    "location": "AdministraÃ§Ã£o (13Âº Andar)",
+    "location": "Administração (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 59025
   },
   {
     "id": "p-rs-16",
     "name": "U67032E5N691272",
     "ip": "10.5.104.62",
-    "location": "Apoio (13Âº Andar)",
+    "location": "Apoio (13º Andar)",
     "unitId": "unit-rio-sul",
     "unitName": "121 - Rio Sul",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 845
   },
   {
     "id": "p-lb-01",
     "name": "701794230GW2F",
     "ip": "10.5.16.215",
-    "location": "Sala OPME (7Âº Andar)",
+    "location": "Sala OPME (7º Andar)",
     "unitId": "unit-103-sede-leblon",
     "unitName": "103 - Sede Leblon",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 100665
   },
   {
     "id": "p-lb-02",
     "name": "70189393072DW",
     "ip": "10.5.16.18",
-    "location": "RecepÃ§Ã£o (7Âº Andar)",
+    "location": "Recepção (7º Andar)",
     "unitId": "unit-103-sede-leblon",
     "unitName": "103 - Sede Leblon",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 80075
   },
   {
     "id": "p-tt-01",
     "name": "XBJZ010993",
     "ip": "10.1.176.14",
-    "location": "AdministraÃ§Ã£o (1Âº Andar)",
+    "location": "Administração (1º Andar)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 26724
   },
   {
     "id": "p-tt-02",
     "name": "XBJZ018217",
     "ip": "10.1.176.17",
-    "location": "ReabilitaÃ§Ã£o (TÃ©rreo)",
+    "location": "Reabilitação (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 15729
   },
   {
     "id": "p-tt-03",
     "name": "X3BK028424",
     "ip": "10.1.176.19",
-    "location": "RecepÃ§Ã£o (TÃ©rreo)",
+    "location": "Recepção (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 122614
   },
   {
     "id": "p-tt-04",
     "name": "X5VL002124",
     "ip": "10.1.176.33",
-    "location": "RecepÃ§Ã£o (TÃ©rreo)",
+    "location": "Recepção (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 23064
   },
   {
     "id": "p-tt-05",
     "name": "X5VL001716",
     "ip": "10.1.176.4",
-    "location": "Coleta (TÃ©rreo)",
+    "location": "Coleta (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 31115
   },
   {
     "id": "p-tt-06",
     "name": "X5VL002121",
     "ip": "10.1.176.24",
-    "location": "Mapa/Holter (TÃ©rreo)",
+    "location": "Mapa/Holter (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 1530
   },
   {
     "id": "p-tt-07",
     "name": "X5VL002120",
     "ip": "10.1.176.34",
-    "location": "ConsultÃ³rio 1 (TÃ©rreo)",
+    "location": "Consultório 1 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 54349
   },
   {
     "id": "p-tt-08",
     "name": "X5VL000474",
     "ip": "10.1.176.5",
-    "location": "ConsultÃ³rio 2 (TÃ©rreo)",
+    "location": "Consultório 2 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 17580
   },
   {
     "id": "p-tt-09",
     "name": "X5VL001536",
     "ip": "10.1.176.15",
-    "location": "ConsultÃ³rio 3 (TÃ©rreo)",
+    "location": "Consultório 3 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 24834
   },
   {
     "id": "p-tt-10",
     "name": "X5VL002149",
     "ip": "10.1.176.25",
-    "location": "ConsultÃ³rio 4 (TÃ©rreo)",
+    "location": "Consultório 4 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 41145
   },
   {
     "id": "p-tt-11",
     "name": "X5VL002140",
     "ip": "10.1.176.21",
-    "location": "ConsultÃ³rio 5 (TÃ©rreo)",
+    "location": "Consultório 5 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-tt-12",
     "name": "X5VL001732",
     "ip": "10.1.176.10",
-    "location": "ConsultÃ³rio 6 (TÃ©rreo)",
+    "location": "Consultório 6 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 39549
   },
   {
     "id": "p-tt-13",
     "name": "X5VL002139",
     "ip": "10.1.176.26",
-    "location": "ConsultÃ³rio 7 (TÃ©rreo)",
+    "location": "Consultório 7 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 28005
   },
   {
     "id": "p-tt-14",
     "name": "X5VL002116",
     "ip": "10.1.176.16",
-    "location": "ConsultÃ³rio 8 (TÃ©rreo)",
+    "location": "Consultório 8 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 18330
   },
   {
     "id": "p-tt-15",
     "name": "X5VL002131",
     "ip": "10.1.176.8",
-    "location": "ConsultÃ³rio 9 (TÃ©rreo)",
+    "location": "Consultório 9 (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 14874
   },
   {
     "id": "p-tt-16",
     "name": "X5VL000819",
     "ip": "10.1.176.107",
-    "location": "Atendimento / Triagem (TÃ©rreo)",
+    "location": "Atendimento / Triagem (Térreo)",
     "unitId": "unit-138-taiti",
     "unitName": "138 - Taiti",
     "community": "public",
     "createdAt": "2026-08-20T09:55:00.000Z",
-    "initialPageCount": 3400
+    "initialPageCount": 79469
   }
 ]

@@ -106,21 +106,34 @@ async function saveRecharges(recharges) {
   }
 }
 
+let pageHistoryCache = null;
+let pageHistorySaveTimeout = null;
+
 async function loadPageHistory() {
+  if (pageHistoryCache) return pageHistoryCache;
   try {
     const data = await fs.readFile(PAGE_HISTORY_FILE, 'utf-8');
-    return JSON.parse(data);
+    const clean = data.replace(/^\uFEFF/, '').trim();
+    pageHistoryCache = JSON.parse(clean);
+    return pageHistoryCache;
   } catch (error) {
-    return [];
+    pageHistoryCache = [];
+    return pageHistoryCache;
   }
 }
 
 async function savePageHistory(history) {
-  try {
-    await fs.writeFile(PAGE_HISTORY_FILE, JSON.stringify(history, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar page_history.json:', error);
-  }
+  pageHistoryCache = history;
+  if (pageHistorySaveTimeout) clearTimeout(pageHistorySaveTimeout);
+  pageHistorySaveTimeout = setTimeout(async () => {
+    try {
+      const tmpFile = `${PAGE_HISTORY_FILE}.tmp`;
+      await fs.writeFile(tmpFile, JSON.stringify(pageHistoryCache, null, 2), 'utf-8');
+      await fs.rename(tmpFile, PAGE_HISTORY_FILE);
+    } catch (error) {
+      console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar page_history.json:', error);
+    }
+  }, 1000);
 }
 
 // Grava / atualiza o snapshot diário de contadores de páginas
