@@ -1033,7 +1033,7 @@ function renderMyPrinters(scopedPrinters) {
       let allSuppliesDotsHTML = '';
       if (mainToners.length > 1) {
         allSuppliesDotsHTML = `
-          <div class="cmyk-mini-palette" title="Níveis dos toners e tintas">
+          <div class="cmyk-fluid-chips" title="Níveis dos toners e tintas">
             ${mainToners.map(s => {
               const dotColor = getSupplyColorByName(s.name);
               const statusClr = getSupplyStatusByPercentage(s._normalizedPct, isRefillableTank(s));
@@ -1043,8 +1043,8 @@ function renderMyPrinters(scopedPrinters) {
                 .replace('Cartucho / Toner ', '')
                 .replace('Bolsa de Tinta ', '');
               return `
-                <span class="cmyk-chip ${chipClass}" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%">
-                  <span class="cmyk-dot" style="background-color: ${dotColor};"></span>
+                <span class="cmyk-micro-pill ${chipClass}" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%">
+                  <span class="cmyk-micro-dot" style="background-color: ${dotColor};"></span>
                   <span>${translatedShort}: ${s._normalizedPct}%</span>
                 </span>
               `;
@@ -1062,8 +1062,8 @@ function renderMyPrinters(scopedPrinters) {
         if (isRecent) {
           const recName = translateSupplyName(rec.supplyName).replace('Cartucho / Toner ', '').replace('Bolsa de Tinta ', '');
           recentRechargeHTML = `
-            <div style="margin-top: 0.3rem; font-size: 0.7rem; color: var(--color-success); font-weight: 700; display: flex; align-items: center; gap: 0.25rem;" title="Última reposição: ${escapeHtml(rec.supplyName)} (${rec.newLevel}%) em ${formatFullDateTime(rec.timestamp)}">
-              <svg class="icon icon-xs" viewBox="0 0 24 24" style="width: 12px; height: 12px; color: var(--color-success);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <div style="margin-top: 0.35rem; font-size: 0.7rem; color: var(--color-success); font-weight: 700; display: flex; align-items: center; gap: 0.25rem;" title="Última reposição: ${escapeHtml(rec.supplyName)} (${rec.newLevel}%) em ${formatFullDateTime(rec.timestamp)}">
+              <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-success);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
               <span>Troca Recente: ${escapeHtml(recName)} (${rec.newLevel}%)</span>
             </div>
           `;
@@ -1071,13 +1071,13 @@ function renderMyPrinters(scopedPrinters) {
       }
 
       supplyCellHTML = `
-        <div class="supply-capsule-group">
-          <div class="supply-capsule-header">
-            <span class="supply-capsule-name">${escapeHtml(translateSupplyName(lowest.name))}</span>
-            <strong class="supply-percentage ${supplyColorStatus}">${displayVal}</strong>
+        <div class="cmyk-reservoir-cell">
+          <div class="cmyk-reservoir-top">
+            <span class="cmyk-supply-title">${escapeHtml(translateSupplyName(lowest.name))}</span>
+            <strong class="cmyk-percentage-tag ${supplyColorStatus}">${displayVal}</strong>
           </div>
-          <div class="progress-track">
-            <div class="progress-fill ${supplyColorStatus}" style="width: ${Math.max(5, fillWidth)}%"></div>
+          <div class="cmyk-capillary-tube">
+            <div class="cmyk-fluid-fill ${supplyColorStatus}" style="width: ${Math.max(5, fillWidth)}%"></div>
           </div>
           ${allSuppliesDotsHTML}
           ${recentRechargeHTML}
@@ -1092,38 +1092,38 @@ function renderMyPrinters(scopedPrinters) {
     return `
       <tr>
         <td>
-          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.9rem;">${escapeHtml(locationTitle)}</div>
-          ${isAdmin && printer.unitName ? `<span class="unit-current-badge" style="font-size: 0.65rem; margin-top: 0.2rem; display: inline-block;">${escapeHtml(printer.unitName)}</span>` : ''}
+          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.88rem;">${escapeHtml(locationTitle)}</div>
+          ${isAdmin && printer.unitName ? `<span class="deck-status-capsule" style="font-size: 0.65rem; margin-top: 0.25rem; display: inline-block;">${escapeHtml(printer.unitName)}</span>` : ''}
         </td>
-        <td style="color: var(--text-secondary); font-size: 0.85rem;">
+        <td style="color: var(--text-secondary); font-size: 0.84rem;">
           ${escapeHtml(modelSubtitle)}
         </td>
         <td>
-          <code style="font-family: var(--font-mono); color: var(--color-primary); font-weight: 600;">${printer.ip}</code>
+          <code style="font-family: var(--font-mono); color: var(--color-primary-glow); font-weight: 700; font-size: 0.84rem;">${printer.ip}</code>
         </td>
         <td>
           ${supplyCellHTML}
         </td>
         <td style="text-align: center;">
-          <span class="action-recommended-badge ${statusClass}" style="font-size: 0.75rem;">
+          <span class="operational-state-badge ${statusClass}">
             ${statusIcon}
             <span>${statusText}</span>
           </span>
         </td>
         <td style="text-align: center;">
           <div style="display: flex; justify-content: center; gap: 0.35rem;">
-            <button class="btn btn-secondary btn-sm" onclick="openPrinterDetailDrawer('${printer.id}')" title="Visualizar Raio-X">
+            <button class="deck-action-pill" onclick="openPrinterDetailDrawer('${printer.id}')" title="Visualizar Raio-X Diagnóstico">
               ${Icons.eye}
               <span>Raio-X</span>
             </button>
-            <button class="btn btn-secondary btn-sm" id="btn-refresh-row-${printer.id}" onclick="refreshSinglePrinter('${printer.id}', this)" title="Atualizar dados desta impressora">
+            <button class="deck-action-pill" id="btn-refresh-row-${printer.id}" onclick="refreshSinglePrinter('${printer.id}', this)" title="Reconsultar esta impressora">
               ${Icons.refresh}
             </button>
             ${isAdmin ? `
-              <button class="btn btn-secondary btn-sm" onclick="openEditPrinterModal('${printer.id}')" title="Editar dados cadastrais">
+              <button class="deck-action-pill" onclick="openEditPrinterModal('${printer.id}')" title="Editar dados cadastrais">
                 ${Icons.edit}
               </button>
-              <button class="btn btn-secondary btn-sm" onclick="confirmDeletePrinter('${printer.id}', '${escapeHtml(locationTitle)}')" style="color: var(--color-danger);" title="Excluir impressora">
+              <button class="deck-action-pill danger" onclick="confirmDeletePrinter('${printer.id}', '${escapeHtml(locationTitle)}')" title="Excluir impressora">
                 ${Icons.trash}
               </button>
             ` : ''}

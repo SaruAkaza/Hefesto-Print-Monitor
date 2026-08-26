@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Painel de Monitoramento & Telemetria Industrial de Impressoras Corporativas">
-  <meta name="theme-color" content="#080c14">
-  <title>Hefesto — Monitor & Telemetria de Impressoras Corporativo</title>
+  <meta name="description" content="Hefesto — Centro de Comando e Telemetria Industrial de Impressão">
+  <meta name="theme-color" content="#06090e">
+  <title>HEFESTO 3.0 — Centro de Comando & Telemetria Industrial</title>
 
   <!-- Script Anti-FOUC para Tema Dark/Light -->
   <script>
@@ -15,13 +15,13 @@
     })();
   </script>
 
-  <!-- Fontes de Alta Precisão: Plus Jakarta Sans (UI Corporativa) & JetBrains Mono (Telemetria) -->
+  <!-- Tipografia de Alta Performance: Syne / Plus Jakarta Sans & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
   
   <!-- Estilos da Aplicação -->
-  <link rel="stylesheet" href="css/style.css?v=3.0">
+  <link rel="stylesheet" href="css/style.css?v=3.5">
   <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="alternate icon" type="image/png" href="prevent-logo.png">
   <link rel="apple-touch-icon" href="prevent-logo.png">
@@ -29,389 +29,390 @@
 <body>
 
   <!-- ====================================================================
-       TELA / CONSOLE INICIAL DE ACESSO (SELEÇÃO DE UNIDADE OU ADMIN)
+       PORTAL DE ACESSO & AUTORIZAÇÃO (LOGIN CONSOLE INDUSTRIAL)
        ==================================================================== -->
   <div class="login-overlay active" id="login-overlay">
-    <!-- Canvas de Fundo Dinâmico (Malha de Nós & Telemetria de Rede) -->
     <canvas id="login-background-canvas" class="login-background-canvas"></canvas>
+    
+    <div class="login-terminal-frame">
+      <div class="terminal-decor-corner top-left"></div>
+      <div class="terminal-decor-corner top-right"></div>
+      <div class="terminal-decor-corner bottom-left"></div>
+      <div class="terminal-decor-corner bottom-right"></div>
 
-    <div class="login-card">
-      <div class="login-card-inner">
+      <div class="login-card">
+        <!-- Top Status Bar do Portal -->
+        <div class="login-status-bar">
+          <div class="status-indicator-beacon">
+            <span class="beacon-orb"></span>
+            <span class="beacon-label">PROTOCOLO SNMP UDP/161 • ATIVO</span>
+          </div>
+          <div class="system-version-tag">HEFESTO v3.0</div>
+        </div>
+
         <div class="login-brand-header">
-          <div class="login-brand-badge">
-            <span class="pulse-dot"></span>
-            <span>TELEMETRIA SNMP ATIVA</span>
+          <div class="brand-monogram">
+            <div class="brand-monogram-glow"></div>
+            <img src="prevent-logo.png" alt="Logo" class="brand-logo-source" onerror="this.style.display='none'">
+            <svg class="monogram-icon" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           </div>
-          <div class="login-brand-logo-wrap">
-            <img src="prevent-logo.png" alt="Logo" class="login-brand-img" onerror="this.style.display='none'">
-            <div class="login-logo-placeholder">
-              <svg class="icon icon-md" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <div class="brand-title-group">
+            <span class="brand-eyebrow">SISTEMA INTEGRADO DE TELEMETRIA</span>
+            <h1 class="login-main-title">HEFESTO</h1>
+            <p class="login-description">Gestão de Parques de Impressão • Auditoria de Suprimentos • Motor Preditivo</p>
+          </div>
+        </div>
+
+        <!-- Segmented Mode Control -->
+        <div class="login-mode-dock">
+          <button type="button" class="mode-dock-btn active" id="tab-login-operator" data-mode="operator">
+            <div class="dock-btn-icon"><svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+            <div class="dock-btn-text">
+              <strong>Visualizar Filial</strong>
+              <small>Modo Operador de Unidade</small>
             </div>
-          </div>
-          <span class="login-brand-company">HEFESTO</span>
-          <h2 class="login-title">Centro de Telemetria de Impressão</h2>
-          <p class="login-subtitle">Gestão de frota em tempo real, auditoria de recargas e predição de volume</p>
-        </div>
-
-        <!-- Alternador Tátil de Tipo de Acesso -->
-        <div class="login-type-tabs">
-          <button type="button" class="login-tab-btn active" id="tab-login-operator" data-mode="operator">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-            <span>Visualizar Unidade</span>
           </button>
-          <button type="button" class="login-tab-btn" id="tab-login-admin" data-mode="admin">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span>Administrador TI</span>
+          
+          <button type="button" class="mode-dock-btn" id="tab-login-admin" data-mode="admin">
+            <div class="dock-btn-icon"><svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div class="dock-btn-text">
+              <strong>Administrador TI</strong>
+              <small>Acesso Global & Gestão</small>
+            </div>
           </button>
         </div>
 
-        <!-- FORMULÁRIO 1: ACESSO DE OPERADOR (ESCOLHA DA UNIDADE) -->
-        <form id="form-login-unit" class="login-form">
-          <div class="form-group">
-            <label for="login-unit-select" class="form-label">
-              <span>Selecione sua Filial / Unidade</span>
-              <span class="req">*</span>
+        <!-- Formulário 1: Operador de Filial -->
+        <form id="form-login-unit" class="login-form-module">
+          <div class="cyber-field">
+            <label for="login-unit-select" class="cyber-label">
+              <span>UNIDADE / FILIAL OPERACIONAL</span>
+              <span class="required-indicator">*</span>
             </label>
-            <div class="input-with-icon">
-              <svg class="icon icon-xs input-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <select id="login-unit-select" class="form-select login-select" required>
-                <option value="">Carregando pastas de unidades...</option>
+            <div class="cyber-input-wrapper">
+              <svg class="cyber-input-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <select id="login-unit-select" class="cyber-select" required>
+                <option value="">Carregando filiais cadastradas...</option>
               </select>
             </div>
-            <span class="form-hint">Visualização restrita aos equipamentos da sua respectiva filial.</span>
+            <div class="cyber-hint">Isolamento seguro: exibição restrita ao parque da filial escolhida.</div>
           </div>
 
-          <button type="submit" class="btn btn-primary login-btn" id="btn-login-submit">
-            <span>Acessar Painel da Unidade</span>
+          <button type="submit" class="cyber-button primary" id="btn-login-submit">
+            <span>CONECTAR À UNIDADE</span>
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </form>
 
-        <!-- FORMULÁRIO 2: ACESSO DE ADMINISTRADOR -->
-        <form id="form-login-admin" class="login-form" style="display: none;" autocomplete="off">
-          <div class="form-group">
-            <label for="admin-user-input" class="form-label">
-              <span>Usuário de Administrador</span>
-              <span class="req">*</span>
+        <!-- Formulário 2: Administrador -->
+        <form id="form-login-admin" class="login-form-module" style="display: none;" autocomplete="off">
+          <div class="cyber-field">
+            <label for="admin-user-input" class="cyber-label">
+              <span>CREDENCIAL DE GESTÃO (USUÁRIO)</span>
+              <span class="required-indicator">*</span>
             </label>
-            <div class="input-with-icon">
-              <svg class="icon icon-xs input-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              <input type="text" id="admin-user-input" class="form-input" required placeholder="Ex: admin" autocomplete="off">
+            <div class="cyber-input-wrapper">
+              <svg class="cyber-input-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              <input type="text" id="admin-user-input" class="cyber-input" required placeholder="Digite seu usuário administrador" autocomplete="off">
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="admin-password-input" class="form-label">
-              <span>Senha de Acesso</span>
-              <span class="req">*</span>
+          <div class="cyber-field">
+            <label for="admin-password-input" class="cyber-label">
+              <span>CHAVE DE ACESSO (SENHA)</span>
+              <span class="required-indicator">*</span>
             </label>
-            <div class="input-with-icon">
-              <svg class="icon icon-xs input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <input type="password" id="admin-password-input" class="form-input" required placeholder="Digite sua senha de administrador" autocomplete="new-password">
+            <div class="cyber-input-wrapper">
+              <svg class="cyber-input-icon" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <input type="password" id="admin-password-input" class="cyber-input" required placeholder="Digite sua senha de acesso" autocomplete="new-password">
             </div>
-            <span class="form-hint">Acesso restrito à gestão geral de parques, cadastro, testes de rede e auditoria.</span>
+            <div class="cyber-hint">Controle total: inventário global, testes de rede IP e auditoria completa.</div>
           </div>
 
-          <button type="submit" class="btn btn-primary login-btn" id="btn-admin-submit">
-            <span>Autenticar como Administrador</span>
+          <button type="submit" class="cyber-button primary" id="btn-admin-submit">
+            <span>AUTENTICAR ADMINISTRADOR</span>
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </button>
         </form>
 
-        <div class="login-footer">
-          <div class="login-footer-info">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-            <span>Serviço SNMP UDP 161 • Telemetria Corporativa</span>
-          </div>
+        <!-- Footer do Portal -->
+        <div class="login-terminal-footer">
+          <span>Servidor de Varredura Multimarca (Epson • Brother • Lexmark • Xerox • HP)</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- CONTAINER PRINCIPAL DA APLICAÇÃO -->
+  <!-- ====================================================================
+       ESTRUTURA PRINCIPAL: CENTRO DE COMANDO & TELEMETRIA
+       ==================================================================== -->
   <div class="app-container" id="main-app-container">
     
-    <!-- ====================================================================
-         1. CABEÇALHO SUPERIOR (COCKPIT INDUSTRIAL)
-         ==================================================================== -->
-    <header class="main-header">
-      <div class="brand-section">
-        <div class="brand-logo" aria-hidden="true" title="Hefesto Print Monitor">
-          <img src="prevent-logo.png" alt="Logo" class="brand-logo-img" onerror="this.style.display='none'">
-          <div class="brand-logo-fallback">
+    <!-- 1. HUD COMMAND STRIP (HEADER TECNOLÓGICO) -->
+    <header class="command-deck-header">
+      <div class="deck-brand-block">
+        <div class="deck-logo-emblem">
+          <img src="prevent-logo.png" alt="Logo" class="deck-logo-img" onerror="this.style.display='none'">
+          <div class="deck-logo-mesh">
             <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           </div>
         </div>
-        <div class="brand-info">
-          <div class="brand-title-row">
-            <h1 class="brand-text">HEFESTO</h1>
-            <span class="unit-current-badge" id="current-unit-badge">Carregando...</span>
-            <span class="admin-role-badge" id="admin-role-badge" style="display: none;">
+
+        <div class="deck-brand-details">
+          <div class="deck-title-row">
+            <span class="deck-brand-name">HEFESTO</span>
+            <div class="deck-status-capsule" id="current-unit-badge">Carregando...</div>
+            <div class="deck-admin-capsule admin-role-badge" id="admin-role-badge" style="display: none;">
               <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              <span>Administrador TI</span>
-            </span>
+              <span>NÍVEL ADMIN</span>
+            </div>
           </div>
-          <p id="header-unit-desc" class="brand-subtitle">Monitor de Impressoras e Gestão de Suprimentos</p>
+          <div class="deck-subtitle" id="header-unit-desc">Centro de Telemetria & Gestão de Suprimentos</div>
         </div>
       </div>
 
-      <!-- Ações do Cabeçalho Agrupadas -->
-      <div class="header-actions">
+      <!-- Action Hub & Control Dock -->
+      <div class="deck-action-hub">
         <!-- Grupo de Exportação CSV (Administrador) -->
-        <div class="header-action-group admin-only" style="display: none;">
-          <button class="btn btn-secondary btn-sm admin-only" id="btn-export-recharges-csv-header" style="display: none;" title="Exportar histórico completo de recargas e trocas de suprimentos em CSV">
+        <div class="deck-action-cluster admin-only" style="display: none;">
+          <button class="deck-action-pill admin-only" id="btn-export-recharges-csv-header" style="display: none;" title="Exportar histórico de recargas">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
             <span>Recargas CSV</span>
           </button>
 
-          <button class="btn btn-secondary btn-sm admin-only" id="btn-export-integration-csv-header" style="display: none;" title="Exportar histórico de entrada na rede e auditoria de páginas iniciais em CSV">
+          <button class="deck-action-pill admin-only" id="btn-export-integration-csv-header" style="display: none;" title="Exportar histórico inicial e auditoria">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <span>Histórico Inicial CSV</span>
+            <span>Histórico CSV</span>
           </button>
 
-          <button class="btn btn-secondary btn-sm admin-only" id="btn-export-ink-csv-header" style="display: none;" title="Exportar relatório consolidado de tintas e suprimentos em CSV">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            <span>Relatório Tintas</span>
+          <button class="deck-action-pill admin-only" id="btn-export-ink-csv-header" style="display: none;" title="Exportar relatório consolidado de tintas">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" x2="3"/></svg>
+            <span>Tintas CSV</span>
           </button>
         </div>
 
-        <!-- Ferramentas Administrativas -->
-        <div class="header-action-group admin-only" style="display: none;">
-          <button class="btn btn-secondary btn-sm admin-only" id="btn-open-diagnose-ip" style="display: none;" title="Testar comunicação com uma impressora não cadastrada na rede">
-            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-warning);"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <!-- Grupo de Ferramentas de Configuração -->
+        <div class="deck-action-cluster admin-only" style="display: none;">
+          <button class="deck-action-pill highlight admin-only" id="btn-open-diagnose-ip" style="display: none;" title="Testar IP não cadastrado">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             <span>Testar IP</span>
           </button>
 
-          <button class="btn btn-secondary btn-sm admin-only" id="btn-manage-units-header" style="display: none;" title="Gerenciar pastas e filiais cadastradas">
+          <button class="deck-action-pill admin-only" id="btn-manage-units-header" style="display: none;" title="Gerenciar Pastas de Unidades">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
-            <span>Pastas de Unidades</span>
+            <span>Filiais / Pastas</span>
           </button>
 
-          <button class="btn btn-primary btn-sm admin-only" id="btn-add-printer-header" style="display: none;" title="Cadastrar nova impressora no monitoramento">
+          <button class="deck-action-pill cta admin-only" id="btn-add-printer-header" style="display: none;" title="Cadastrar nova impressora">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="12" x2="12" y1="5" y2="19"/><line x1="5" x2="19" y1="12" y2="12"/></svg>
             <span>+ Nova Impressora</span>
           </button>
         </div>
 
-        <!-- Controles Globais -->
-        <div class="header-action-group">
-          <button class="btn btn-secondary btn-sm" id="btn-refresh-all" title="Reconsultar telemetria SNMP de todas as impressoras (Atalho: R)">
+        <!-- Controles de Sessão e Tema -->
+        <div class="deck-action-cluster">
+          <button class="deck-action-pill sync-pill" id="btn-refresh-all" title="Reconsultar telemetria SNMP de todo o parque (Atalho: R)">
             <svg class="icon icon-xs" id="refresh-icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
             <span id="btn-refresh-text">Sincronizar</span>
-            <kbd class="kbd-badge">R</kbd>
+            <kbd class="keycap">R</kbd>
           </button>
 
-          <button class="btn-icon" id="btn-theme-toggle" title="Alternar Modo Escuro / Claro" aria-label="Alternar tema de cores">
+          <button class="deck-icon-btn" id="btn-theme-toggle" title="Alternar Modo Escuro / Claro">
             <svg class="icon icon-sm" id="theme-icon-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             <svg class="icon icon-sm" id="theme-icon-sun" viewBox="0 0 24 24" style="display: none;"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
           </button>
 
-          <button class="btn btn-secondary btn-sm btn-logout" id="btn-logout" title="Encerrar sessão atual">
-            <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
-            <span>Sair</span>
+          <button class="deck-icon-btn exit-btn" id="btn-logout" title="Sair do painel e voltar ao login">
+            <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
           </button>
         </div>
       </div>
     </header>
 
-    <!-- ====================================================================
-         2. CONTEÚDO PRINCIPAL
-         ==================================================================== -->
-    <main class="main-content">
-
-      <!-- 1. COCKPIT HERO: RADAR DE STATUS DA FROTA & METRICS -->
-      <section class="overview-hero">
-        <!-- Cockpit Status Strip -->
-        <div class="cockpit-bar">
-          <div class="cockpit-group-left">
-            <div class="cockpit-chip live-status">
-              <span class="live-dot pulse"></span>
-              <span class="live-status-label">Telemetria Ativa</span>
+    <!-- 2. CONSOLE PRINCIPAL -->
+    <main class="mission-control-main">
+      
+      <!-- HERO COCKPIT & RADAR DA FROTA -->
+      <section class="telemetry-radar-section">
+        <div class="radar-telemetry-banner">
+          <div class="radar-meta-left">
+            <div class="live-pulse-badge">
+              <span class="live-radar-dot"></span>
+              <span class="live-radar-text">TELEMETRIA ATIVA EM TEMPO REAL</span>
             </div>
-
-            <div class="cockpit-chip printer-count">
+            <div class="fleet-count-chip">
               <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-              <span id="status-now-summary-text">Carregando telemetria...</span>
+              <span id="status-now-summary-text">Carregando parque...</span>
             </div>
 
             <!-- Seletor Rápido de Unidade (Administrador) -->
-            <div class="unit-selector-compact admin-only" id="overview-unit-selector-box" style="display: none;">
-              <select class="form-select form-select-sm" id="overview-unit-filter" title="Filtrar por Unidade">
-                <option value="">Todas as Unidades</option>
+            <div class="admin-unit-filter-slot admin-only" id="overview-unit-selector-box" style="display: none;">
+              <select class="cyber-select-compact" id="overview-unit-filter" title="Filtrar por Unidade">
+                <option value="">Todas as Filiais</option>
               </select>
             </div>
           </div>
 
-          <div class="cockpit-chip last-sync">
+          <div class="radar-sync-stamp">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             <span id="last-updated-text">Aguardando sincronização...</span>
           </div>
         </div>
 
-        <!-- NAVEGAÇÃO DE ABAS PRINCIPAIS -->
-        <div class="admin-main-tabs" id="admin-main-tabs">
-          <button type="button" class="admin-tab-btn active" id="btn-tab-printers" data-tab="printers">
+        <!-- BARRA DE NAVEGAÇÃO DE ABAS MESTRAS -->
+        <div class="master-navigation-dock" id="admin-main-tabs">
+          <button type="button" class="master-tab-trigger active" id="btn-tab-printers" data-tab="printers">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            <span>Minhas Impressoras (Inventário)</span>
+            <span>INVENTÁRIO DO PARQUE</span>
           </button>
-          <button type="button" class="admin-tab-btn" id="btn-tab-forecast" data-tab="forecast">
-            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-            <span>Volume & Previsibilidade</span>
-            <span class="tab-badge-pro">PRO</span>
+          
+          <button type="button" class="master-tab-trigger" id="btn-tab-forecast" data-tab="forecast">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            <span>VOLUME & MOTOR PREDITIVO</span>
+            <span class="pro-tag">RUN-RATE</span>
           </button>
         </div>
 
-        <!-- CONTAINER DOS CARDS OPERACIONAIS DE STATUS (OCULTO NA ABA DE PREVISIBILIDADE) -->
+        <!-- PAINEL DE CARDS DE STATUS OPERACIONAL -->
         <div id="operational-status-cards-container">
-          <!-- Banner Radar: Impressoras Conectadas & Operacionais -->
-          <div class="connected-hero-banner clickable" data-action="filter-overview" data-filter="online" title="Clique para filtrar apenas as impressoras conectadas e operacionais">
-            <div class="connected-banner-left">
-              <div class="connected-icon-badge">
+          <!-- Radar Card Principal: Conectadas -->
+          <div class="operational-radar-hud clickable" data-action="filter-overview" data-filter="online" title="Filtrar impressoras operacionais">
+            <div class="hud-left">
+              <div class="hud-beacon-icon">
                 <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
               </div>
-              <div class="connected-banner-text">
-                <div class="connected-banner-title">Impressoras Conectadas & Operacionais</div>
-                <div class="connected-banner-sub">Equipamentos respondendo ativamente na rede local com telemetria sincronizada</div>
+              <div>
+                <div class="hud-title">Frota Conectada & Operacional</div>
+                <div class="hud-desc">Equipamentos respondendo ativamente na rede corporativa via SNMPv1/v2c</div>
               </div>
             </div>
-            <div class="connected-banner-right">
-              <div class="connected-banner-count" id="count-connected-banner">0</div>
-              <span class="connected-banner-tag">Filtrar Conectadas</span>
+            <div class="hud-right">
+              <div class="hud-counter" id="count-connected-banner">0</div>
+              <span class="hud-action-tag">Ver Online</span>
             </div>
           </div>
 
-          <!-- Grade de Alertas Operacionais -->
-          <div class="status-metrics-grid">
-            <!-- Card Crítico -->
-            <div class="status-metric-card critical clickable" data-action="filter-overview" data-filter="critical" title="Clique para ver suprimentos abaixo de 10%">
-              <div class="status-metric-icon">
-                <svg class="icon icon-md" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+          <!-- Grade de Cartões de Alerta Tático -->
+          <div class="tactical-metrics-grid">
+            <!-- Crítico -->
+            <div class="tactical-card critical clickable" data-action="filter-overview" data-filter="critical" title="Ver suprimentos abaixo de 10%">
+              <div class="tactical-card-top">
+                <div class="tactical-icon-wrap">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" x2="12" y1="8" y2="12"/><line x1="12" x2="12.01" y1="16" y2="16"/></svg>
+                </div>
+                <div class="tactical-value" id="count-critical">0</div>
               </div>
-              <div class="status-metric-content">
-                <div class="status-metric-value" id="count-critical">0</div>
-                <div class="status-metric-title">Nível Crítico</div>
-                <div class="status-metric-sub">Toner / Tinta abaixo de 10%</div>
-              </div>
+              <div class="tactical-title">Nível Crítico</div>
+              <div class="tactical-sub">Toner / Tinta abaixo de 10%</div>
             </div>
 
-            <!-- Card Atenção -->
-            <div class="status-metric-card warning clickable" data-action="filter-overview" data-filter="warning" title="Clique para ver suprimentos entre 10% e 30%">
-              <div class="status-metric-icon">
-                <svg class="icon icon-md" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+            <!-- Atenção -->
+            <div class="tactical-card warning clickable" data-action="filter-overview" data-filter="warning" title="Ver suprimentos entre 10% e 30%">
+              <div class="tactical-card-top">
+                <div class="tactical-icon-wrap">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" x2="12" y1="9" y2="13"/><line x1="12" x2="12.01" y1="17" y2="17"/></svg>
+                </div>
+                <div class="tactical-value" id="count-warning">0</div>
               </div>
-              <div class="status-metric-content">
-                <div class="status-metric-value" id="count-warning">0</div>
-                <div class="status-metric-title">Nível Atenção</div>
-                <div class="status-metric-sub">Toner / Tinta entre 10% e 30%</div>
-              </div>
+              <div class="tactical-title">Nível Atenção</div>
+              <div class="tactical-sub">Toner / Tinta entre 10% e 30%</div>
             </div>
 
-            <!-- Card Sem Conexão -->
-            <div class="status-metric-card offline clickable" data-action="filter-overview" data-filter="offline" title="Clique para ver impressoras inacessíveis">
-              <div class="status-metric-icon">
-                <svg class="icon icon-md" viewBox="0 0 24 24"><line x1="1" x2="23" y1="1" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg>
+            <!-- Sem Conexão -->
+            <div class="tactical-card offline clickable" data-action="filter-overview" data-filter="offline" title="Ver impressoras inacessíveis">
+              <div class="tactical-card-top">
+                <div class="tactical-icon-wrap">
+                  <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="1" x2="23" y1="1" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg>
+                </div>
+                <div class="tactical-value" id="count-offline">0</div>
               </div>
-              <div class="status-metric-content">
-                <div class="status-metric-value" id="count-offline">0</div>
-                <div class="status-metric-title">Sem Conexão</div>
-                <div class="status-metric-sub">Inacessível na rede local</div>
-              </div>
+              <div class="tactical-title">Sem Conexão</div>
+              <div class="tactical-sub">Inacessível na rede local</div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 1.1 HISTÓRICO RECENTE DE TROCAS NA UNIDADE (MODO UNIDADE) -->
-      <section class="dashboard-card unit-recent-recharges-section" id="unit-recent-recharges-section" style="display: none;">
-        <div class="unit-recharges-card-header" id="toggle-unit-recharges-btn">
-          <div class="unit-recharges-header-title">
-            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            <h3 class="card-title">Reposições Recentes de Suprimentos na Unidade</h3>
-            <span class="badge" id="unit-recharges-count-badge">0</span>
+      <!-- HISTÓRICO DE RECARGAS NA UNIDADE (OPERADOR) -->
+      <section class="unit-recent-recharges-section" id="unit-recent-recharges-section" style="display: none;">
+        <div class="unit-recharges-header-bar" id="toggle-unit-recharges-btn">
+          <div class="unit-recharges-title-wrap">
+            <svg class="icon icon-xs" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <h3>Reposições Recentes de Suprimentos na Filial</h3>
+            <span class="recharge-badge-counter" id="unit-recharges-count-badge">0</span>
           </div>
-          <button type="button" class="btn btn-ghost btn-sm" id="btn-toggle-unit-recharges-text">
-            Ocultar
-          </button>
+          <button type="button" class="deck-ghost-btn" id="btn-toggle-unit-recharges-text">Ocultar</button>
         </div>
-        <div class="unit-recharges-list-body" id="unit-recent-recharges-list">
-          <!-- Preenchido via JS -->
-        </div>
+        <div class="unit-recharges-list-body" id="unit-recent-recharges-list"></div>
       </section>
 
       <!-- ====================================================================
            ABA 1: INVENTÁRIO DE IMPRESSORAS
            ==================================================================== -->
       <div id="tab-view-printers" class="admin-tab-view active">
-        <section class="dashboard-card my-printers-section">
-          <!-- Topo da Seção de Inventário -->
-          <div class="my-printers-header">
-            <div class="section-title-group">
-              <h3 class="card-title">
-                <svg class="icon icon-xs" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-                <span>Minhas Impressoras</span>
-              </h3>
-              <p class="card-subtitle">Inventário operacional de equipamentos monitorados via SNMP</p>
+        <section class="fleet-matrix-panel">
+          
+          <!-- Barra de Controle do Inventário -->
+          <div class="matrix-control-bar">
+            <div class="matrix-title-block">
+              <h2 class="matrix-title">Inventário de Equipamentos</h2>
+              <p class="matrix-subtitle">Monitoramento de insumos CMYK, caixas de manutenção e diagnósticos</p>
             </div>
 
-            <!-- Filtros Rápidos (Pills) -->
-            <div class="filter-pills" id="overview-filter-pills">
-              <button class="pill-btn active" data-filter="all">Todas (<span id="count-all">0</span>)</button>
-              <button class="pill-btn pill-critical" data-filter="critical">
-                <span class="pill-dot critical"></span>
+            <!-- Filtros Rápidos Segmentados -->
+            <div class="tactical-filter-pills" id="overview-filter-pills">
+              <button class="tactical-pill active" data-filter="all">Todas (<span id="count-all">0</span>)</button>
+              <button class="tactical-pill critical-pill" data-filter="critical">
+                <span class="tactical-dot critical"></span>
                 <span>Críticas (<span id="pill-count-critical">0</span>)</span>
               </button>
-              <button class="pill-btn pill-warning" data-filter="warning">
-                <span class="pill-dot warning"></span>
+              <button class="tactical-pill warning-pill" data-filter="warning">
+                <span class="tactical-dot warning"></span>
                 <span>Atenção (<span id="pill-count-warning">0</span>)</span>
               </button>
-              <button class="pill-btn pill-offline" data-filter="offline">
-                <span class="pill-dot offline"></span>
-                <span>Sem conexão (<span id="pill-count-offline">0</span>)</span>
+              <button class="tactical-pill offline-pill" data-filter="offline">
+                <span class="tactical-dot offline"></span>
+                <span>Sem Conexão (<span id="pill-count-offline">0</span>)</span>
               </button>
             </div>
           </div>
 
-          <!-- Barra de Busca e Filtros -->
-          <div class="my-printers-toolbar">
-            <div class="search-box">
-              <svg class="icon icon-xs search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input 
-                type="text" 
-                id="search-input" 
-                placeholder="Buscar por Setor, modelo, IP, número de série..."
-                autocomplete="off"
-              >
-              <kbd class="kbd-badge">/</kbd>
+          <!-- Barra de Busca & Seletores -->
+          <div class="matrix-search-toolbar">
+            <div class="cyber-search-box">
+              <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="search-input" placeholder="Filtrar por Setor, Modelo, IP, Número de Série..." autocomplete="off">
+              <kbd class="keycap">/</kbd>
             </div>
 
-            <div class="toolbar-selects">
-              <select class="form-select" id="filter-location-select" title="Filtrar por Setor">
+            <div class="matrix-toolbar-actions">
+              <select class="cyber-select-compact" id="filter-location-select" title="Filtrar por Setor">
                 <option value="">Todos os Setores</option>
               </select>
 
-              <select class="form-select" id="sort-fleet-select" title="Ordenar lista">
-                <option value="lowest-supply">Menor Nível Primeiro</option>
-                <option value="name-asc">Local / Setor (A-Z)</option>
+              <select class="cyber-select-compact" id="sort-fleet-select" title="Ordenar lista">
+                <option value="lowest-supply">Menor Suprimento Primeiro</option>
+                <option value="name-asc">Setor / Local (A-Z)</option>
                 <option value="ip-asc">Endereço IP</option>
               </select>
             </div>
           </div>
 
-          <!-- Lista / Tabela de Impressoras -->
-          <div class="dense-table-wrapper">
-            <table class="dense-table">
+          <!-- Tabela de Alta Densidade Tecnológica -->
+          <div class="telemetry-table-wrapper">
+            <table class="telemetry-data-table">
               <thead>
                 <tr>
-                  <th style="min-width: 180px;">Local / Setor</th>
-                  <th style="min-width: 160px;">Modelo Detectado</th>
-                  <th style="min-width: 130px;">Endereço IP</th>
-                  <th style="min-width: 240px;">Telemetria de Suprimentos</th>
+                  <th style="min-width: 200px;">Local / Setor</th>
+                  <th style="min-width: 170px;">Modelo de Hardware</th>
+                  <th style="min-width: 140px;">Endereço IP</th>
+                  <th style="min-width: 260px;">Telemetria CMYK & Suprimentos</th>
                   <th style="text-align: center; width: 140px;">Status</th>
-                  <th style="text-align: center; min-width: 160px;">Ações Rápidas</th>
+                  <th style="text-align: center; min-width: 170px;">Ações Rápidas</th>
                 </tr>
               </thead>
               <tbody id="my-printers-list-body">
-                <!-- Injetado dinamicamente via JS -->
+                <!-- Injetado dinamicamente via JavaScript -->
               </tbody>
             </table>
           </div>
@@ -423,102 +424,85 @@
            ==================================================================== -->
       <div id="tab-view-forecast" class="admin-tab-view" style="display: none;">
         
-        <!-- KPIs do Cockpit de Previsibilidade -->
-        <div class="forecast-kpi-grid">
-          <div class="forecast-kpi-card">
-            <div class="kpi-icon-wrap kpi-primary">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-val" id="kpi-pages-today">0</div>
-              <div class="kpi-title">Páginas Hoje</div>
-              <span class="kpi-period-tag" id="kpi-period-today">Período: Hoje</span>
-              <div class="kpi-sub" id="kpi-sub-pages-today">Total rodado na rede hoje</div>
+        <!-- KPIs do Cockpit de Previsão -->
+        <div class="forecast-kpi-deck">
+          <div class="forecast-card primary">
+            <div class="forecast-card-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg></div>
+            <div class="forecast-card-body">
+              <div class="forecast-val" id="kpi-pages-today">0</div>
+              <div class="forecast-label">Páginas Hoje</div>
+              <span class="forecast-period-tag" id="kpi-period-today">Período: Hoje</span>
+              <div class="forecast-sub" id="kpi-sub-pages-today">Total rodado na rede hoje</div>
             </div>
           </div>
 
-          <div class="forecast-kpi-card">
-            <div class="kpi-icon-wrap kpi-success">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-val" id="kpi-pages-week">0</div>
-              <div class="kpi-title">Páginas na Semana</div>
-              <span class="kpi-period-tag" id="kpi-period-week">Últimos 7 dias</span>
-              <div class="kpi-sub" id="kpi-sub-pages-week">Últimos 7 dias acumulados</div>
+          <div class="forecast-card success">
+            <div class="forecast-card-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+            <div class="forecast-card-body">
+              <div class="forecast-val" id="kpi-pages-week">0</div>
+              <div class="forecast-label">Páginas na Semana</div>
+              <span class="forecast-period-tag" id="kpi-period-week">Últimos 7 dias</span>
+              <div class="forecast-sub" id="kpi-sub-pages-week">Últimos 7 dias acumulados</div>
             </div>
           </div>
 
-          <div class="forecast-kpi-card">
-            <div class="kpi-icon-wrap kpi-indigo">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-val" id="kpi-pages-month">0</div>
-              <div class="kpi-title">Páginas no Mês</div>
-              <span class="kpi-period-tag" id="kpi-period-month">Últimos 30 dias</span>
-              <div class="kpi-sub" id="kpi-sub-pages-month">Últimos 30 dias de operação</div>
+          <div class="forecast-card indigo">
+            <div class="forecast-card-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg></div>
+            <div class="forecast-card-body">
+              <div class="forecast-val" id="kpi-pages-month">0</div>
+              <div class="forecast-label">Páginas no Mês</div>
+              <span class="forecast-period-tag" id="kpi-period-month">Últimos 30 dias</span>
+              <div class="forecast-sub" id="kpi-sub-pages-month">Últimos 30 dias de operação</div>
             </div>
           </div>
 
-          <div class="forecast-kpi-card">
-            <div class="kpi-icon-wrap kpi-danger">
-              <svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-            <div class="kpi-content">
-              <div class="kpi-val" id="kpi-critical-swaps-count">0</div>
-              <div class="kpi-title">Trocas Iminentes (&lt; 7 dias)</div>
-              <span class="kpi-period-tag danger" id="kpi-period-swaps">Próximos 7 dias</span>
-              <div class="kpi-sub" id="kpi-sub-critical-swaps">Suprimentos perto de acabar</div>
+          <div class="forecast-card danger">
+            <div class="forecast-card-icon"><svg class="icon icon-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+            <div class="forecast-card-body">
+              <div class="forecast-val" id="kpi-critical-swaps-count">0</div>
+              <div class="forecast-label">Trocas Iminentes (&lt; 7 dias)</div>
+              <span class="forecast-period-tag danger" id="kpi-period-swaps">Próximos 7 dias</span>
+              <div class="forecast-sub" id="kpi-sub-critical-swaps">Suprimentos perto de acabar</div>
             </div>
           </div>
         </div>
 
-        <!-- Card Principal da Tabela Analítica -->
-        <section class="dashboard-card" style="margin-top: 1.25rem;">
-          <div class="my-printers-header" style="flex-wrap: wrap; gap: 0.75rem;">
-            <div class="section-title-group">
-              <h3 class="card-title">
-                <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary);"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                <span>Relatório Executivo de Volume & Previsibilidade</span>
-              </h3>
-              <p class="card-subtitle">Estimativa de esgotamento de suprimentos, data projetada de troca e validação de capacidade máxima</p>
+        <!-- Seção Analítica de Previsibilidade -->
+        <section class="fleet-matrix-panel" style="margin-top: 1.25rem;">
+          <div class="matrix-control-bar">
+            <div class="matrix-title-block">
+              <h2 class="matrix-title">Relatório Executivo de Volume & Previsibilidade</h2>
+              <p class="matrix-subtitle">Motor preditivo de esgotamento de suprimentos e classificação de carga de trabalho</p>
             </div>
 
-            <div style="display: flex; align-items: center; gap: 0.5rem;">
-              <button type="button" class="btn btn-secondary btn-sm" id="btn-export-forecast-csv">
+            <div>
+              <button type="button" class="deck-action-pill highlight" id="btn-export-forecast-csv">
                 <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                 <span>Exportar Relatório (CSV)</span>
               </button>
             </div>
           </div>
 
-          <!-- Filtros da Previsibilidade -->
-          <div class="my-printers-toolbar" style="margin-top: 0.75rem;">
-            <div class="search-box">
-              <svg class="icon icon-xs search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              <input 
-                type="text" 
-                id="forecast-search-input" 
-                placeholder="Buscar por Setor, modelo, IP..."
-                autocomplete="off"
-              >
+          <div class="matrix-search-toolbar">
+            <div class="cyber-search-box">
+              <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input type="text" id="forecast-search-input" placeholder="Buscar no relatório de previsão..." autocomplete="off">
             </div>
 
-            <div class="toolbar-selects">
-              <select class="form-select admin-only" id="forecast-unit-select" title="Filtrar por Unidade">
-                <option value="">Todas as Unidades</option>
+            <div class="matrix-toolbar-actions">
+              <select class="cyber-select-compact admin-only" id="forecast-unit-select" title="Filtrar por Filial">
+                <option value="">Todas as Filiais</option>
               </select>
 
-              <select class="form-select" id="forecast-workload-select" title="Filtrar por Carga">
+              <select class="cyber-select-compact" id="forecast-workload-select" title="Filtrar por Carga">
                 <option value="">Todas as Cargas</option>
                 <option value="high">Alta Carga / Sobrecarga</option>
                 <option value="ideal">Carga Ideal (Saudável)</option>
                 <option value="low">Subutilizada / Ociosa</option>
               </select>
 
-              <select class="form-select" id="forecast-time-filter" title="Filtrar por Janela de Troca">
-                <option value="">Todas as Previsões</option>
+              <select class="cyber-select-compact" id="forecast-time-filter" title="Filtrar por Janela de Troca">
+                <option value="">Todas as Janelas</option>
                 <option value="critical7">Troca em até 7 dias</option>
                 <option value="warning15">Troca em até 15 dias</option>
                 <option value="normal30">Troca em até 30 dias</option>
@@ -526,21 +510,21 @@
             </div>
           </div>
 
-          <!-- Tabela de Volume & Previsão -->
-          <div class="dense-table-wrapper" style="margin-top: 1rem;">
-            <table class="dense-table forecast-table" id="forecast-table">
+          <!-- Tabela de Volume -->
+          <div class="telemetry-table-wrapper">
+            <table class="telemetry-data-table forecast-table" id="forecast-table">
               <thead>
                 <tr>
-                  <th style="min-width: 180px;">Equipamento / Setor</th>
-                  <th style="text-align: center; width: 85px;">Hoje</th>
-                  <th style="text-align: center; width: 105px;">Semana (7d)</th>
-                  <th style="text-align: center; width: 105px;">Mês (30d)</th>
-                  <th style="text-align: center; width: 95px;">Média/Dia</th>
-                  <th style="text-align: center; width: 140px;">Carga / Capacidade</th>
-                  <th style="min-width: 160px;">Suprimento Crítico & %</th>
-                  <th style="text-align: center; width: 110px;">Págs. Restantes</th>
-                  <th style="min-width: 140px;">Previsão da Troca</th>
-                  <th style="text-align: center; min-width: 110px;">Ações</th>
+                  <th style="min-width: 200px;">Equipamento / Setor</th>
+                  <th style="text-align: center; width: 90px;">Hoje</th>
+                  <th style="text-align: center; width: 110px;">Semana (7d)</th>
+                  <th style="text-align: center; width: 110px;">Mês (30d)</th>
+                  <th style="text-align: center; width: 100px;">Média/Dia</th>
+                  <th style="text-align: center; width: 150px;">Carga / Capacidade</th>
+                  <th style="min-width: 170px;">Suprimento Crítico</th>
+                  <th style="text-align: center; width: 120px;">Págs. Restantes</th>
+                  <th style="min-width: 150px;">Previsão da Troca</th>
+                  <th style="text-align: center; min-width: 120px;">Ações</th>
                 </tr>
               </thead>
               <tbody id="forecast-table-body">
@@ -556,14 +540,16 @@
   </div>
 
   <!-- ====================================================================
-       MODAL: TESTAR CONEXÃO COM IMPRESSORA NÃO CADASTRADA (ADM)
+       MODAIS & CONSOLES SUSPENSOS
        ==================================================================== -->
+
+  <!-- MODAL: TESTAR CONEXÃO POR IP -->
   <div class="modal-backdrop" id="modal-test-ip" role="dialog" aria-modal="true">
     <div class="modal-dialog" style="max-width: 540px;">
       <div class="modal-header">
         <h2 class="modal-title">
           <svg class="icon icon-sm" viewBox="0 0 24 24" style="color: var(--color-warning);"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          <span>Testar Conexão com Impressora</span>
+          <span>Diagnóstico de Conexão IP</span>
         </h2>
         <button class="btn-close-modal" id="btn-close-modal-test-ip" aria-label="Fechar modal">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
@@ -573,23 +559,17 @@
       <form id="form-test-ip-modal">
         <div class="modal-body">
           <p class="modal-intro-text">
-            Digite o endereço IP de qualquer impressora da rede local para verificar se ela responde nas portas SNMP (UDP 161) e Web (HTTP TCP 80).
+            Digite o endereço IP de qualquer equipamento para sondagem imediata nas portas SNMP (UDP 161) e Web (TCP 80).
           </p>
 
-          <div class="form-group">
-            <label class="form-label" for="input-test-ip">
-              <span>Endereço IP da Impressora</span>
-              <span class="req">*</span>
+          <div class="cyber-field">
+            <label class="cyber-label" for="input-test-ip">
+              <span>ENDEREÇO IP DO EQUIPAMENTO</span>
+              <span class="required-indicator">*</span>
             </label>
-            <div class="input-with-icon">
-              <svg class="icon icon-xs input-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
-              <input 
-                type="text" 
-                class="form-input" 
-                id="input-test-ip" 
-                placeholder="Ex: 10.5.128.48 ou 192.168.1.100" 
-                required
-              >
+            <div class="cyber-input-wrapper">
+              <svg class="cyber-input-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+              <input type="text" class="cyber-input" id="input-test-ip" placeholder="Ex: 10.5.128.48 ou 192.168.1.100" required>
             </div>
           </div>
 
@@ -597,12 +577,12 @@
         </div>
 
         <div class="modal-footer" style="justify-content: space-between;">
-          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-test-ip">Fechar</button>
+          <button type="button" class="deck-action-pill" id="btn-cancel-modal-test-ip">Fechar</button>
           <div style="display: flex; gap: 0.5rem;">
-            <button type="button" class="btn btn-primary" id="btn-quick-add-from-test" style="display: none;">
+            <button type="button" class="deck-action-pill cta" id="btn-quick-add-from-test" style="display: none;">
               <span>+ Cadastrar esta Impressora</span>
             </button>
-            <button type="submit" class="btn btn-primary" id="btn-submit-test-ip">
+            <button type="submit" class="cyber-button primary" id="btn-submit-test-ip">
               <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               <span>Testar Conexão</span>
             </button>
@@ -612,9 +592,7 @@
     </div>
   </div>
 
-  <!-- ====================================================================
-       MODAL: CADASTRAR / EDITAR IMPRESSORA (ADM)
-       ==================================================================== -->
+  <!-- MODAL: CADASTRAR / EDITAR IMPRESSORA -->
   <div class="modal-backdrop" id="modal-printer-form" role="dialog" aria-modal="true">
     <div class="modal-dialog">
       <div class="modal-header">
@@ -631,115 +609,78 @@
         <input type="hidden" id="printer-form-id" value="">
         <div class="modal-body">
           
-          <div class="form-group">
-            <label class="form-label" for="printer-unit-select">
-              <span>Pasta / Filial de Destino</span>
-              <span class="req">*</span>
+          <div class="cyber-field">
+            <label class="cyber-label" for="printer-unit-select">
+              <span>FILIAL / PASTA DE DESTINO</span>
+              <span class="required-indicator">*</span>
             </label>
             <div style="display: flex; gap: 0.5rem;">
-              <select class="form-select" id="printer-unit-select" required style="flex: 1;">
+              <select class="cyber-select" id="printer-unit-select" required style="flex: 1;">
                 <option value="">Selecione a Pasta de Unidade...</option>
               </select>
-              <button type="button" class="btn btn-secondary btn-sm" id="btn-quick-new-unit" title="Criar nova pasta de unidade">
+              <button type="button" class="deck-action-pill" id="btn-quick-new-unit" title="Criar nova pasta de unidade">
                 <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
               </button>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="printer-location">
-              <span>Local / Setor onde está a impressora</span>
-              <span class="req">*</span>
+          <div class="cyber-field">
+            <label class="cyber-label" for="printer-location">
+              <span>LOCAL / SETOR DA MÁQUINA</span>
+              <span class="required-indicator">*</span>
             </label>
-            <input 
-              type="text" 
-              class="form-input" 
-              id="printer-location" 
-              placeholder="Ex: Recepção, Oncologia, Triagem 2º Andar" 
-              required
-            >
+            <input type="text" class="cyber-input" id="printer-location" placeholder="Ex: Recepção, Oncologia, Triagem 2º Andar" required>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="printer-ip">
-              <span>Endereço IP na Rede</span>
-              <span class="req">*</span>
+          <div class="cyber-field">
+            <label class="cyber-label" for="printer-ip">
+              <span>ENDEREÇO IP CORPORATIVO</span>
+              <span class="required-indicator">*</span>
             </label>
-            <input 
-              type="text" 
-              class="form-input" 
-              id="printer-ip" 
-              placeholder="Ex: 10.5.128.48 ou 192.168.1.100" 
-              required
-            >
-            <span class="form-hint">A impressora deve estar ligada e conectada na rede local corporativa.</span>
+            <input type="text" class="cyber-input" id="printer-ip" placeholder="Ex: 10.5.128.48 ou 192.168.1.100" required>
+            <div class="cyber-hint">A impressora deve responder a requisições SNMP UDP na porta 161.</div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="printer-name">Número de Série (Opcional)</label>
-            <input 
-              type="text" 
-              class="form-input" 
-              id="printer-name" 
-              placeholder="Ex: 7529826140D50 (Detectado automaticamente via SNMP)" 
-            >
-            <span class="form-hint">Ficará visível dentro dos detalhes técnicos no Raio-X.</span>
+          <div class="cyber-field">
+            <label class="cyber-label" for="printer-name">NÚMERO DE SÉRIE (OPCIONAL)</label>
+            <input type="text" class="cyber-input" id="printer-name" placeholder="Ex: 7529826140D50 (Detectado automaticamente)">
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-            <div class="form-group">
-              <label class="form-label" for="printer-initial-page-count">Contador Inicial Hefesto</label>
-              <input 
-                type="number" 
-                class="form-input" 
-                id="printer-initial-page-count" 
-                min="0"
-                placeholder="Ex: 12500 (Auto se vazio)" 
-              >
-              <span class="form-hint">Baseline inicial de ativação.</span>
+            <div class="cyber-field">
+              <label class="cyber-label" for="printer-initial-page-count">CONTADOR INICIAL</label>
+              <input type="number" class="cyber-input" id="printer-initial-page-count" min="0" placeholder="Ex: 12500">
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="printer-activated-at">Data de Início no Sistema</label>
-              <input 
-                type="datetime-local" 
-                class="form-input" 
-                id="printer-activated-at"
-              >
-              <span class="form-hint">1ª conexão ao sistema.</span>
+            <div class="cyber-field">
+              <label class="cyber-label" for="printer-activated-at">INÍCIO DO MONITORAMENTO</label>
+              <input type="datetime-local" class="cyber-input" id="printer-activated-at">
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="printer-installed-at">Data de Instalação Física / Contrato (Opcional)</label>
-            <input 
-              type="date" 
-              class="form-input" 
-              id="printer-installed-at"
-            >
-            <span class="form-hint">Data de entrega física da máquina na unidade (termo de entrega/outsourcing).</span>
+          <div class="cyber-field">
+            <label class="cyber-label" for="printer-installed-at">DATA DE INSTALAÇÃO FÍSICA</label>
+            <input type="date" class="cyber-input" id="printer-installed-at">
           </div>
 
           <input type="hidden" id="printer-community" value="public">
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-form">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="btn-submit-printer-form">Salvar Impressora</button>
+          <button type="button" class="deck-action-pill" id="btn-cancel-modal-form">Cancelar</button>
+          <button type="submit" class="cyber-button primary" id="btn-submit-printer-form">Salvar Equipamento</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ====================================================================
-       MODAL: GERENCIADOR DE PASTAS DE UNIDADES (ADM)
-       ==================================================================== -->
+  <!-- MODAL: GERENCIADOR DE PASTAS -->
   <div class="modal-backdrop" id="modal-manage-units" role="dialog" aria-modal="true">
     <div class="modal-dialog" style="max-width: 580px;">
       <div class="modal-header">
         <h2 class="modal-title">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>
-          <span>Gerenciar Pastas de Unidades</span>
+          <span>Pastas de Filiais & Unidades</span>
         </h2>
         <button class="btn-close-modal" id="btn-close-modal-manage-units" aria-label="Fechar modal">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
@@ -748,38 +689,34 @@
 
       <div class="modal-body">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-          <p class="modal-intro-text" style="margin: 0;">
-            Pastas e filiais cadastradas para organização do parque:
-          </p>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-open-create-unit-inside-manage">
+          <p class="modal-intro-text" style="margin: 0;">Pastas cadastradas para organização do parque:</p>
+          <button type="button" class="deck-action-pill cta" id="btn-open-create-unit-inside-manage">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
             <span>+ Nova Pasta</span>
           </button>
         </div>
 
-        <div class="dense-table-wrapper" style="max-height: 320px; overflow-y: auto;">
-          <table class="dense-table">
+        <div class="telemetry-table-wrapper" style="max-height: 320px; overflow-y: auto;">
+          <table class="telemetry-data-table">
             <thead>
               <tr>
-                <th>Nome da Pasta / Filial</th>
+                <th>Nome da Filial / Pasta</th>
                 <th style="text-align: center;">Impressoras</th>
                 <th style="text-align: center; width: 140px;">Ações</th>
               </tr>
             </thead>
-            <tbody id="manage-units-list-body">
-              <!-- Injetado via JS -->
-            </tbody>
+            <tbody id="manage-units-list-body"></tbody>
           </table>
         </div>
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" id="btn-close-modal-manage-units-btn">Fechar</button>
+        <button type="button" class="deck-action-pill" id="btn-close-modal-manage-units-btn">Fechar</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: NOVA / EDITAR PASTA DE UNIDADE (ADM) -->
+  <!-- MODAL: NOVA PASTA -->
   <div class="modal-backdrop" id="modal-unit-form" role="dialog" aria-modal="true">
     <div class="modal-dialog">
       <div class="modal-header">
@@ -795,48 +732,35 @@
       <form id="unit-form">
         <input type="hidden" id="unit-form-id" value="">
         <div class="modal-body">
-          <div class="form-group">
-            <label class="form-label" for="unit-name">
-              <span>Nome da Unidade / Filial</span>
-              <span class="req">*</span>
+          <div class="cyber-field">
+            <label class="cyber-label" for="unit-name">
+              <span>NOME DA FILIAL / UNIDADE</span>
+              <span class="required-indicator">*</span>
             </label>
-            <input 
-              type="text" 
-              class="form-input" 
-              id="unit-name" 
-              placeholder="Ex: Unidade Rio Sul, Unidade Taiti, Unidade Day" 
-              required
-            >
+            <input type="text" class="cyber-input" id="unit-name" placeholder="Ex: Unidade Rio Sul, Unidade Day" required>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="unit-description">Descrição / Detalhes (Opcional)</label>
-            <input 
-              type="text" 
-              class="form-input" 
-              id="unit-description" 
-              placeholder="Ex: Filial Zona Sul - 1º e 2º Andar" 
-            >
+          <div class="cyber-field">
+            <label class="cyber-label" for="unit-description">DESCRIÇÃO / DETALHES</label>
+            <input type="text" class="cyber-input" id="unit-description" placeholder="Ex: Filial Zona Sul - Andares 1 e 2">
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-unit">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="btn-submit-unit-form">Salvar Pasta</button>
+          <button type="button" class="deck-action-pill" id="btn-cancel-modal-unit">Cancelar</button>
+          <button type="submit" class="cyber-button primary" id="btn-submit-unit-form">Salvar Pasta</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- ====================================================================
-       MODAL: REGISTRAR RECARGA MANUAL DE SUPRIMENTO (PROJETO HEFESTO)
-       ==================================================================== -->
+  <!-- MODAL: REGISTRAR RECARGA MANUAL -->
   <div class="modal-backdrop" id="modal-manual-recharge" role="dialog" aria-modal="true">
     <div class="modal-dialog" style="max-width: 540px;">
       <div class="modal-header">
         <h2 class="modal-title">
           <svg class="icon icon-sm" viewBox="0 0 24 24" style="color: var(--color-primary);"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          <span>Registrar Troca de Toner, Bolsa ou Tinta</span>
+          <span>Registrar Substituição de Insumo</span>
         </h2>
         <button class="btn-close-modal" id="btn-close-modal-recharge" aria-label="Fechar modal">
           <svg class="icon icon-sm" viewBox="0 0 24 24"><line x1="18" x2="6" y1="6" y2="18"/><line x1="6" x2="18" y1="6" y2="18"/></svg>
@@ -852,76 +776,74 @@
         <input type="hidden" id="recharge-page-count" value="">
 
         <div class="modal-body">
-          <div class="recharge-printer-info-card" id="recharge-modal-printer-info">
-            <!-- Preenchido dinamicamente via JS -->
-          </div>
+          <div class="recharge-printer-info-card" id="recharge-modal-printer-info"></div>
 
-          <div class="form-group" style="margin-top: 1rem;">
-            <label class="form-label" for="recharge-supply-select">
-              <span>Suprimento Trocado / Recarregado</span>
-              <span class="req">*</span>
+          <div class="cyber-field" style="margin-top: 1rem;">
+            <label class="cyber-label" for="recharge-supply-select">
+              <span>SUPRIMENTO TROCADO</span>
+              <span class="required-indicator">*</span>
             </label>
-            <select id="recharge-supply-select" class="form-select" required>
-              <option value="">Carregando suprimentos da impressora...</option>
+            <select id="recharge-supply-select" class="cyber-select" required>
+              <option value="">Carregando suprimentos...</option>
             </select>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">
-              <span>Classificação da Reposição</span>
-              <span class="req">*</span>
+          <div class="cyber-field">
+            <label class="cyber-label">
+              <span>CLASSIFICAÇÃO DA REPOSIÇÃO</span>
+              <span class="required-indicator">*</span>
             </label>
             <div class="recharge-type-grid">
               <label class="recharge-type-card active" id="opt-recharge-full-card">
                 <input type="radio" name="recharge-is-full" id="opt-recharge-full-input" value="true" checked style="display: none;">
-                <div class="recharge-card-badge">✨ OFICIAL</div>
-                <strong>Recarga Oficial (100%)</strong>
-                <small>Bolsa / Toner novo lacrado (≥ 95% de tinta)</small>
+                <div class="recharge-card-badge">✨ OFICIAL (100%)</div>
+                <strong>Insumo Novo Lacrado</strong>
+                <small>Bolsa / Toner lacrado de fábrica (≥ 95%)</small>
               </label>
 
               <label class="recharge-type-card" id="opt-recharge-partial-card">
                 <input type="radio" name="recharge-is-full" id="opt-recharge-partial-input" value="false" style="display: none;">
-                <div class="recharge-card-badge partial">🔄 PARCIAL</div>
+                <div class="recharge-card-badge partial">🔄 PARCIAL / USADO</div>
                 <strong>Troca Provisória</strong>
-                <small>Bolsa usada reaproveitada de outra impressora</small>
+                <small>Suprimento reaproveitado de outra impressora</small>
               </label>
             </div>
           </div>
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
-            <div class="form-group">
-              <label class="form-label" for="recharge-new-level">
-                <span>Nível Instalado (%)</span>
-                <span class="req">*</span>
+            <div class="cyber-field">
+              <label class="cyber-label" for="recharge-new-level">
+                <span>NÍVEL INSTALADO (%)</span>
+                <span class="required-indicator">*</span>
               </label>
-              <input type="number" id="recharge-new-level" class="form-input" min="1" max="100" value="100" required>
+              <input type="number" id="recharge-new-level" class="cyber-input" min="1" max="100" value="100" required>
             </div>
 
-            <div class="form-group">
-              <label class="form-label" for="recharge-custom-date">
-                <span>Data e Hora da Troca</span>
-                <span class="req">*</span>
+            <div class="cyber-field">
+              <label class="cyber-label" for="recharge-custom-date">
+                <span>DATA E HORA DA TROCA</span>
+                <span class="required-indicator">*</span>
               </label>
-              <input type="datetime-local" id="recharge-custom-date" class="form-input" required>
+              <input type="datetime-local" id="recharge-custom-date" class="cyber-input" required>
             </div>
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="recharge-technician">Técnico Responsável</label>
-            <input type="text" id="recharge-technician" class="form-input" placeholder="Ex: Técnico TI / Plantão">
+          <div class="cyber-field">
+            <label class="cyber-label" for="recharge-technician">TÉCNICO RESPONSÁVEL</label>
+            <input type="text" id="recharge-technician" class="cyber-input" placeholder="Ex: Plantonista TI / Técnico Campo">
           </div>
 
-          <div class="form-group">
-            <label class="form-label" for="recharge-notes">Observações / Motivo da Troca</label>
-            <textarea id="recharge-notes" class="form-input" rows="2" placeholder="Ex: Substituição preventiva ou fim de ciclo"></textarea>
+          <div class="cyber-field">
+            <label class="cyber-label" for="recharge-notes">OBSERVAÇÕES TÉCNICAS</label>
+            <textarea id="recharge-notes" class="cyber-input" rows="2" placeholder="Ex: Troca preventiva por atingimento de fim de ciclo"></textarea>
           </div>
         </div>
 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" id="btn-cancel-modal-recharge">Cancelar</button>
-          <button type="submit" class="btn btn-primary" id="btn-submit-manual-recharge">
+          <button type="button" class="deck-action-pill" id="btn-cancel-modal-recharge">Cancelar</button>
+          <button type="submit" class="cyber-button primary" id="btn-submit-manual-recharge">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            <span>Salvar Recarga</span>
+            <span>Salvar Registro</span>
           </button>
         </div>
       </form>
@@ -929,7 +851,7 @@
   </div>
 
   <!-- ====================================================================
-       SIDE DRAWER: RAIO-X 360° DA IMPRESSORA (CONSOLE DIAGNÓSTICO)
+       CONSOLE LATERAL: RAIO-X 360° DO EQUIPAMENTO
        ==================================================================== -->
   <div class="drawer-backdrop" id="drawer-printer-detail" role="dialog" aria-modal="true">
     <div class="drawer-content">
@@ -940,7 +862,7 @@
           </div>
           <div>
             <h2 class="drawer-title" id="detail-printer-name">Raio-X da Impressora</h2>
-            <p class="drawer-subtitle">Diagnóstico 360° em tempo real via telemetria SNMP</p>
+            <p class="drawer-subtitle">Diagnóstico Completo 360° via Sondas SNMP</p>
           </div>
         </div>
         <button class="btn-close-modal" id="btn-close-drawer-detail" aria-label="Fechar Gaveta">
@@ -949,34 +871,33 @@
       </div>
 
       <div class="drawer-body" id="detail-modal-body">
-        <!-- Telemetria detalhada injetada dinamicamente via JS -->
+        <!-- Telemetria rica injetada dinamicamente via JS -->
       </div>
 
       <div class="drawer-footer">
         <div class="drawer-footer-actions-left">
-          <!-- Ações Administrativas no Raio-X -->
-          <button type="button" class="btn btn-secondary btn-sm admin-only" id="btn-detail-edit" style="display: none;" title="Editar dados cadastrais">
+          <button type="button" class="deck-action-pill admin-only" id="btn-detail-edit" style="display: none;" title="Editar dados cadastrais">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/><path d="m15 5 4 4"/></svg>
             <span>Editar</span>
           </button>
-          <button type="button" class="btn btn-danger-subtle btn-sm admin-only" id="btn-detail-delete" style="display: none;" title="Excluir impressora">
+          <button type="button" class="deck-action-pill danger admin-only" id="btn-detail-delete" style="display: none;" title="Excluir impressora">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/></svg>
             <span>Excluir</span>
           </button>
         </div>
 
         <div class="drawer-footer-actions-right">
-          <button type="button" class="btn btn-secondary btn-sm" id="btn-detail-refresh" title="Reconsultar SNMP desta impressora">
+          <button type="button" class="deck-action-pill" id="btn-detail-refresh" title="Reconsultar telemetria">
             <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
             <span>Atualizar</span>
           </button>
-          <button type="button" class="btn btn-primary btn-sm" id="btn-detail-close">Fechar</button>
+          <button type="button" class="cyber-button primary" id="btn-detail-close">Fechar Painel</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- BOTÃO FLUTUANTE: VOLTAR AO TOPO -->
+  <!-- BOTÃO FLUTUANTE DE ROLAGEM AO TOPO -->
   <button class="scroll-top-btn" id="btn-scroll-top" title="Voltar ao topo da página" aria-label="Voltar ao topo">
     <svg class="icon icon-sm" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg>
   </button>
@@ -985,6 +906,6 @@
   <div class="toast-container" id="toast-container" aria-live="assertive"></div>
 
   <!-- Script Principal da Aplicação -->
-  <script src="js/app.js?v=3.0"></script>
+  <script src="js/app.js?v=3.5"></script>
 </body>
 </html>
