@@ -2215,7 +2215,7 @@
     "printerId": "p-tt-16",
     "date": "2026-08-27",
     "startPageCount": 79775,
-    "endPageCount": 79776,
+    "endPageCount": 79777,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2223,7 +2223,7 @@
         "percentage": -2
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-sf-01",
@@ -2237,7 +2237,7 @@
         "percentage": 89
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-02",
@@ -2256,7 +2256,7 @@
         "percentage": 88
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-03",
@@ -2275,7 +2275,7 @@
         "percentage": 52
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-04",
@@ -2294,7 +2294,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-05",
@@ -2313,13 +2313,13 @@
         "percentage": 96
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-06",
     "date": "2026-08-27",
     "startPageCount": 13706,
-    "endPageCount": 13710,
+    "endPageCount": 13712,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2332,7 +2332,7 @@
         "percentage": 65
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-07",
@@ -2351,7 +2351,7 @@
         "percentage": 71
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-08",
@@ -2365,7 +2365,7 @@
         "percentage": 39
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-09",
@@ -2384,7 +2384,7 @@
         "percentage": 92
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-10",
@@ -2403,7 +2403,7 @@
         "percentage": 48
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-11",
@@ -2417,7 +2417,7 @@
         "percentage": 57
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-12",
@@ -2431,13 +2431,13 @@
         "percentage": 62
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-13",
     "date": "2026-08-27",
     "startPageCount": 39327,
-    "endPageCount": 39330,
+    "endPageCount": 39331,
     "supplies": [
       {
         "name": "Black Ink Supply Unit M04XL/M04XXL",
@@ -2445,13 +2445,13 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-14",
     "date": "2026-08-27",
     "startPageCount": 373,
-    "endPageCount": 373,
+    "endPageCount": 377,
     "supplies": [
       {
         "name": "Black Ink Supply Unit T12B1/T12C1",
@@ -2459,7 +2459,7 @@
         "percentage": 80
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-15",
@@ -2478,7 +2478,7 @@
         "percentage": 85
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-16",
@@ -2497,7 +2497,7 @@
         "percentage": 75
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-18",
@@ -2516,7 +2516,7 @@
         "percentage": 50
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-20",
@@ -2535,7 +2535,7 @@
         "percentage": 77
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-22",
@@ -2554,13 +2554,13 @@
         "percentage": 92
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-23",
     "date": "2026-08-27",
     "startPageCount": 4227,
-    "endPageCount": 4228,
+    "endPageCount": 4232,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2573,7 +2573,7 @@
         "percentage": 96
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-24",
@@ -2587,7 +2587,7 @@
         "percentage": 42
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-26",
@@ -2606,7 +2606,7 @@
         "percentage": 92
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-27",
@@ -2625,13 +2625,13 @@
         "percentage": 56
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-28",
     "date": "2026-08-27",
     "startPageCount": 42803,
-    "endPageCount": 42807,
+    "endPageCount": 42808,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2644,7 +2644,7 @@
         "percentage": 83
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-29",
@@ -2663,13 +2663,13 @@
         "percentage": 54
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-31",
     "date": "2026-08-27",
     "startPageCount": 33892,
-    "endPageCount": 33892,
+    "endPageCount": 33894,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2682,7 +2682,7 @@
         "percentage": 19
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-32",
@@ -2701,7 +2701,7 @@
         "percentage": 58
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-33",
@@ -2720,7 +2720,7 @@
         "percentage": 90
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-35",
@@ -2739,7 +2739,7 @@
         "percentage": 19
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-36",
@@ -2753,7 +2753,7 @@
         "percentage": 26
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-37",
@@ -2807,7 +2807,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.245Z"
   },
   {
     "printerId": "p-sf-39",
@@ -2818,60 +2818,60 @@
       {
         "name": "Yellow Toner [Y];SN14080F80E000032C",
         "type": "toner",
-        "percentage": 0
+        "percentage": 30
       },
       {
         "name": "Magenta Toner [M];SN2C081A80E0000359",
         "type": "toner",
-        "percentage": 0
+        "percentage": 90
       },
       {
         "name": "Cyan Toner [C];SN0F014780E0000376",
         "type": "toner",
-        "percentage": 0
+        "percentage": 100
       },
       {
         "name": "Waste Toner Container",
         "type": "toner",
-        "percentage": 0
+        "percentage": 50
       },
       {
         "name": "Black Drum Cartridge",
         "type": "imaging_kit",
-        "percentage": 0
+        "percentage": 95
       },
       {
         "name": "Yellow Drum Cartridge",
         "type": "imaging_kit",
-        "percentage": 0
+        "percentage": 63
       },
       {
         "name": "Magenta Drum Cartridge",
         "type": "imaging_kit",
-        "percentage": 0
+        "percentage": 70
       },
       {
         "name": "Cyan Drum Cartridge",
         "type": "imaging_kit",
-        "percentage": 0
+        "percentage": 63
       },
       {
         "name": "Fuser Assembly",
         "type": "fuser",
-        "percentage": 0
+        "percentage": 99
       },
       {
         "name": "Black Toner [K1];SN27058780E0000379",
         "type": "toner",
-        "percentage": 0
+        "percentage": 100
       },
       {
         "name": "Black Toner [K2];SN160A5E80E0000329",
         "type": "toner",
-        "percentage": 0
+        "percentage": 40
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-sf-40",
@@ -2890,7 +2890,7 @@
         "percentage": 94
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-sf-41",
@@ -2904,7 +2904,7 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-01",
@@ -2938,7 +2938,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-02",
@@ -2972,13 +2972,13 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-03",
     "date": "2026-08-27",
     "startPageCount": 1083,
-    "endPageCount": 1083,
+    "endPageCount": 1084,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3006,7 +3006,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-04",
@@ -3040,7 +3040,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-05",
@@ -3074,7 +3074,7 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-06",
@@ -3108,13 +3108,13 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-07",
     "date": "2026-08-27",
     "startPageCount": 2824,
-    "endPageCount": 2828,
+    "endPageCount": 2829,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3142,7 +3142,7 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-09",
@@ -3176,13 +3176,13 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-11",
     "date": "2026-08-27",
     "startPageCount": 597,
-    "endPageCount": 597,
+    "endPageCount": 601,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3210,7 +3210,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-12",
@@ -3244,12 +3244,12 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-14",
     "date": "2026-08-27",
-    "startPageCount": 124156,
+    "startPageCount": 0,
     "endPageCount": 124156,
     "supplies": [
       {
@@ -3273,7 +3273,7 @@
         "percentage": 13
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-15",
@@ -3302,7 +3302,7 @@
         "percentage": 90
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-lb-01",
@@ -3326,7 +3326,7 @@
         "percentage": 44
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-lb-02",
@@ -3350,7 +3350,7 @@
         "percentage": 60
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-01",
@@ -3379,7 +3379,7 @@
         "percentage": 1
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-02",
@@ -3408,13 +3408,13 @@
         "percentage": 81
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-03",
     "date": "2026-08-27",
     "startPageCount": 123280,
-    "endPageCount": 123283,
+    "endPageCount": 123289,
     "supplies": [
       {
         "name": "Black Ink Supply Unit M04XL/M04XXL",
@@ -3422,13 +3422,13 @@
         "percentage": 1
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-04",
     "date": "2026-08-27",
     "startPageCount": 23633,
-    "endPageCount": 23636,
+    "endPageCount": 23641,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -3441,13 +3441,13 @@
         "percentage": 40
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-05",
     "date": "2026-08-27",
     "startPageCount": 31508,
-    "endPageCount": 31512,
+    "endPageCount": 31522,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -3460,7 +3460,7 @@
         "percentage": 48
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-06",
@@ -3479,7 +3479,7 @@
         "percentage": 94
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-07",
@@ -3498,7 +3498,7 @@
         "percentage": 17
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-08",
@@ -3512,13 +3512,13 @@
         "percentage": -2
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-09",
     "date": "2026-08-27",
     "startPageCount": 25208,
-    "endPageCount": 25208,
+    "endPageCount": 25209,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -3531,7 +3531,7 @@
         "percentage": 60
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-10",
@@ -3550,13 +3550,13 @@
         "percentage": 35
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-11",
     "date": "2026-08-27",
     "startPageCount": 36710,
-    "endPageCount": 36712,
+    "endPageCount": 36716,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -3569,7 +3569,7 @@
         "percentage": 31
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-12",
@@ -3588,13 +3588,13 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-13",
     "date": "2026-08-27",
     "startPageCount": 28443,
-    "endPageCount": 28448,
+    "endPageCount": 28450,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -3607,7 +3607,7 @@
         "percentage": 46
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-14",
@@ -3626,13 +3626,13 @@
         "percentage": 63
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-tt-15",
     "date": "2026-08-27",
     "startPageCount": 24754,
-    "endPageCount": 24754,
+    "endPageCount": 24755,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -3645,13 +3645,13 @@
         "percentage": 54
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.725Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-08",
     "date": "2026-08-27",
     "startPageCount": 4228,
-    "endPageCount": 4228,
+    "endPageCount": 4235,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3679,13 +3679,13 @@
         "percentage": 98
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-10",
     "date": "2026-08-27",
-    "startPageCount": 2891,
-    "endPageCount": 2893,
+    "startPageCount": 0,
+    "endPageCount": 2897,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3713,7 +3713,7 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-13",
@@ -3747,7 +3747,7 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   },
   {
     "printerId": "p-rs-16",
@@ -3781,6 +3781,6 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T18:34:13.724Z"
+    "lastUpdatedAt": "2026-08-27T18:44:39.246Z"
   }
 ]

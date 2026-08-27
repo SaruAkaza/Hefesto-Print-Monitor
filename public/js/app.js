@@ -1286,12 +1286,14 @@ function openTestIpModal() {
   DOM.testIpResultBox.innerHTML = '';
   DOM.btnQuickAddFromTest.style.display = 'none';
   AppState.testedPrinterIp = '';
+  lockBodyScroll('modal');
   DOM.modalTestIp.classList.add('active');
   setTimeout(() => DOM.inputTestIp.focus(), 100);
 }
 
 function closeTestIpModal() {
   DOM.modalTestIp.classList.remove('active');
+  unlockBodyScroll('modal');
 }
 
 async function handleTestIpSubmit(e) {
@@ -1363,6 +1365,29 @@ function handleQuickAddFromTest() {
 // ==========================================================================
 let currentDrawerPrinterId = null;
 
+function lockBodyScroll(type = 'modal') {
+  if (type === 'drawer') {
+    document.body.classList.add('drawer-open');
+    document.documentElement.classList.add('drawer-open');
+  } else {
+    document.body.classList.add('modal-open');
+    document.documentElement.classList.add('modal-open');
+  }
+}
+
+function unlockBodyScroll(type = 'modal') {
+  if (type === 'drawer') {
+    document.body.classList.remove('drawer-open');
+    document.documentElement.classList.remove('drawer-open');
+  } else {
+    const hasActiveModal = document.querySelector('.modal-backdrop.active');
+    if (!hasActiveModal) {
+      document.body.classList.remove('modal-open');
+      document.documentElement.classList.remove('modal-open');
+    }
+  }
+}
+
 async function openPrinterDetailDrawer(id) {
   const printer = AppState.printers.find(p => p.id === id);
   if (!printer) return;
@@ -1379,7 +1404,8 @@ async function openPrinterDetailDrawer(id) {
 
   DOM.detailPrinterName.textContent = `Raio-X: ${locationTitle}`;
 
-  // Abre a gaveta imediatamente
+  // Trava scroll da tela de fundo e abre a gaveta imediatamente
+  lockBodyScroll('drawer');
   DOM.drawerPrinterDetail.classList.add('active');
 
   const tonerSupplies = [];
@@ -1677,6 +1703,7 @@ async function openPrinterDetailDrawer(id) {
 }
 
 function closePrinterDetailDrawer() {
+  unlockBodyScroll('drawer');
   DOM.drawerPrinterDetail.classList.remove('active');
 }
 
@@ -1748,12 +1775,14 @@ function openManualRechargeModal(printerId) {
   DOM.rechargeTechnician.value = '';
   DOM.rechargeNotes.value = '';
 
+  lockBodyScroll('modal');
   DOM.modalManualRecharge.classList.add('active');
   setTimeout(() => DOM.rechargeSupplySelect.focus(), 100);
 }
 
 function closeManualRechargeModal() {
   DOM.modalManualRecharge.classList.remove('active');
+  unlockBodyScroll('modal');
 }
 
 function setRechargeTypeOption(type) {
@@ -1881,6 +1910,7 @@ function openAddPrinterModal() {
   }
   DOM.formCommunity.value = 'public';
   DOM.modalFormTitleText.textContent = 'Cadastrar Nova Impressora';
+  lockBodyScroll('modal');
   DOM.modalPrinterForm.classList.add('active');
   setTimeout(() => DOM.formLocation.focus(), 100);
 }
@@ -1923,12 +1953,14 @@ function openEditPrinterModal(id) {
   }
 
   DOM.modalFormTitleText.textContent = 'Editar Impressora';
+  lockBodyScroll('modal');
   DOM.modalPrinterForm.classList.add('active');
   setTimeout(() => DOM.formLocation.focus(), 100);
 }
 
 function closeModalForm() {
   DOM.modalPrinterForm.classList.remove('active');
+  unlockBodyScroll('modal');
 }
 
 async function handlePrinterFormSubmit(e) {
@@ -2033,12 +2065,14 @@ function openQuickUnitModal(unitId = null) {
     if (DOM.modalUnitFormTitleText) DOM.modalUnitFormTitleText.textContent = 'Nova Pasta de Unidade';
   }
 
+  lockBodyScroll('modal');
   DOM.modalUnitForm.classList.add('active');
   setTimeout(() => DOM.unitNameInput.focus(), 100);
 }
 
 function closeQuickUnitModal() {
   DOM.modalUnitForm.classList.remove('active');
+  unlockBodyScroll('modal');
 }
 
 async function handleUnitFormSubmit(e) {
@@ -2081,11 +2115,13 @@ function openManageUnitsModal() {
     return;
   }
   renderManageUnitsList();
+  lockBodyScroll('modal');
   DOM.modalManageUnits.classList.add('active');
 }
 
 function closeManageUnitsModal() {
   DOM.modalManageUnits.classList.remove('active');
+  unlockBodyScroll('modal');
 }
 
 function renderManageUnitsList() {
@@ -3253,7 +3289,6 @@ function setupEventListeners() {
   });
   DOM.btnDetailEdit.addEventListener('click', () => {
     if (currentDrawerPrinterId && AppState.userRole === 'admin') {
-      closePrinterDetailDrawer();
       openEditPrinterModal(currentDrawerPrinterId);
     }
   });
