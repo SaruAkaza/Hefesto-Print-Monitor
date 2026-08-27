@@ -2676,25 +2676,15 @@ function renderForecastTable() {
         </td>
 
         <td style="text-align: center;">
-          <div style="display: inline-flex; gap: 0.35rem; justify-content: center;">
-            <button 
-              type="button" 
-              class="btn btn-secondary btn-sm" 
-              onclick="openPrinterDetailDrawer('${item.printerId}')"
-              title="Abrir Raio-X detalhado"
-            >
-              ${Icons.eye}
-              <span>Raio-X</span>
-            </button>
-            <button 
-              type="button" 
-              class="btn btn-secondary btn-sm" 
-              onclick="openManualRechargeModal('${item.printerId}')"
-              title="Registrar troca de suprimento"
-            >
-              ${Icons.plus}
-            </button>
-          </div>
+          <button 
+            type="button" 
+            class="deck-action-pill cta" 
+            onclick="openPrinterDetailDrawer('${item.printerId}')"
+            title="Abrir Raio-X detalhado 360°"
+          >
+            ${Icons.eye}
+            <span>Raio-X</span>
+          </button>
         </td>
       </tr>
     `;
