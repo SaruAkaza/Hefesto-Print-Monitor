@@ -1,3050 +1,5 @@
 [
   {
-    "printerId": "p-rs-07",
-    "ip": "10.5.104.58",
-    "name": "U67032E5N692787",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2829,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 85
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 99
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 99
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-08",
-    "ip": "10.5.104.60",
-    "name": "U67032E5N691250",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 4231,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 79
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 98
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 98
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 98
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-09",
-    "ip": "10.5.104.63",
-    "name": "U67032E5N691269",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 1180,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 93
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-10",
-    "ip": "10.5.104.59",
-    "name": "U67032E5N692785",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2893,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 84
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 99
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 99
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-11",
-    "ip": "10.5.104.69",
-    "name": "U67032E5N691177",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 601,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 96
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-12",
-    "ip": "10.5.104.68",
-    "name": "U67032E5N691199",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 515,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 97
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-13",
-    "ip": "10.5.104.67",
-    "name": "U67032E5N691107",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2894,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 85
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 99
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 99
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-14",
-    "ip": "10.5.104.18",
-    "name": "XBJZ029656",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 124156,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 21
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 53
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 86
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 13
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-15",
-    "ip": "10.5.104.27",
-    "name": "X3B7019963",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 59521,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit R04L/R04X",
-        "type": "toner",
-        "percentage": 91
-      },
-      {
-        "name": "Cyan Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 16
-      },
-      {
-        "name": "Magenta Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 84
-      },
-      {
-        "name": "Yellow Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 90
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-rs-16",
-    "ip": "10.5.104.62",
-    "name": "U67032E5N691272",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 1328,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 86
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-lb-01",
-    "ip": "10.5.16.215",
-    "name": "701794230GW2F",
-    "unitName": "103 - Sede Leblon",
-    "pageCount": 100841,
-    "supplies": [
-      {
-        "name": "Imaging Unit",
-        "type": "imaging_kit",
-        "percentage": 35
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 53
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 44
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-lb-02",
-    "ip": "10.5.16.18",
-    "name": "70189393072DW",
-    "unitName": "103 - Sede Leblon",
-    "pageCount": 80622,
-    "supplies": [
-      {
-        "name": "Imaging Unit",
-        "type": "imaging_kit",
-        "percentage": 92
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 41
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 60
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-01",
-    "ip": "10.1.176.14",
-    "name": "XBJZ010993",
-    "unitName": "138 - Taiti",
-    "pageCount": 26938,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 72
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 98
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 49
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 1
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-02",
-    "ip": "10.1.176.17",
-    "name": "XBJZ018217",
-    "unitName": "138 - Taiti",
-    "pageCount": 16187,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 81
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 42
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 19
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 81
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-03",
-    "ip": "10.1.176.19",
-    "name": "X3BK028424",
-    "unitName": "138 - Taiti",
-    "pageCount": 123288,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit M04XL/M04XXL",
-        "type": "toner",
-        "percentage": 1
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-04",
-    "ip": "10.1.176.33",
-    "name": "X5VL002124",
-    "unitName": "138 - Taiti",
-    "pageCount": 23637,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 40
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-05",
-    "ip": "10.1.176.4",
-    "name": "X5VL001716",
-    "unitName": "138 - Taiti",
-    "pageCount": 31512,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 48
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-06",
-    "ip": "10.1.176.24",
-    "name": "X5VL002121",
-    "unitName": "138 - Taiti",
-    "pageCount": 2155,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 94
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-07",
-    "ip": "10.1.176.34",
-    "name": "X5VL002120",
-    "unitName": "138 - Taiti",
-    "pageCount": 54595,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 17
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-08",
-    "ip": "10.1.176.5",
-    "name": "X5VL000474",
-    "unitName": "138 - Taiti",
-    "pageCount": 17868,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-09",
-    "ip": "10.1.176.15",
-    "name": "X5VL001536",
-    "unitName": "138 - Taiti",
-    "pageCount": 25209,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 60
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-10",
-    "ip": "10.1.176.25",
-    "name": "X5VL002149",
-    "unitName": "138 - Taiti",
-    "pageCount": 41336,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 35
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-11",
-    "ip": "10.1.176.21",
-    "name": "X5VL002140",
-    "unitName": "138 - Taiti",
-    "pageCount": 36715,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 31
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-12",
-    "ip": "10.1.176.10",
-    "name": "X5VL001732",
-    "unitName": "138 - Taiti",
-    "pageCount": 39939,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-13",
-    "ip": "10.1.176.26",
-    "name": "X5VL002139",
-    "unitName": "138 - Taiti",
-    "pageCount": 28449,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 46
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-14",
-    "ip": "10.1.176.16",
-    "name": "X5VL002116",
-    "unitName": "138 - Taiti",
-    "pageCount": 18733,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 63
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-15",
-    "ip": "10.1.176.8",
-    "name": "X5VL002131",
-    "unitName": "138 - Taiti",
-    "pageCount": 24754,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 54
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-tt-16",
-    "ip": "10.1.176.107",
-    "name": "X5VL000819",
-    "unitName": "138 - Taiti",
-    "pageCount": 79777,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      }
-    ],
-    "recordedAt": "2026-08-27T18:38:39.232Z"
-  },
-  {
-    "printerId": "p-sf-01",
-    "ip": "10.1.152.226",
-    "name": "XC75048540",
-    "unitName": "113 - Havaí",
-    "pageCount": 4438,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 89
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-02",
-    "ip": "10.1.152.29",
-    "name": "X5VL004865",
-    "unitName": "113 - Havaí",
-    "pageCount": 5877,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 88
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-03",
-    "ip": "10.1.152.109",
-    "name": "X5VL005017",
-    "unitName": "113 - Havaí",
-    "pageCount": 30167,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 52
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-04",
-    "ip": "10.1.152.141",
-    "name": "X5VL006260",
-    "unitName": "113 - Havaí",
-    "pageCount": 660,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-05",
-    "ip": "10.1.152.215",
-    "name": "X5VL006383",
-    "unitName": "113 - Havaí",
-    "pageCount": 2669,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 96
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-06",
-    "ip": "10.1.152.76",
-    "name": "X5VL004984",
-    "unitName": "113 - Havaí",
-    "pageCount": 13711,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 65
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-07",
-    "ip": "10.1.152.117",
-    "name": "X5VL005013",
-    "unitName": "113 - Havaí",
-    "pageCount": 15244,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 71
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-08",
-    "ip": "10.1.152.218",
-    "name": "XC75048538",
-    "unitName": "113 - Havaí",
-    "pageCount": 17218,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 39
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-09",
-    "ip": "10.1.152.63",
-    "name": "X5VL004852",
-    "unitName": "113 - Havaí",
-    "pageCount": 4327,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 92
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-10",
-    "ip": "10.1.152.96",
-    "name": "X5VL004978",
-    "unitName": "113 - Havaí",
-    "pageCount": 26364,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 48
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-11",
-    "ip": "10.1.152.10",
-    "name": "XC75025130",
-    "unitName": "113 - Havaí",
-    "pageCount": 49174,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 57
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-12",
-    "ip": "10.1.152.8",
-    "name": "XC75025094",
-    "unitName": "113 - Havaí",
-    "pageCount": 223,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 62
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-13",
-    "ip": "10.1.152.115",
-    "name": "X3BK021199",
-    "unitName": "113 - Havaí",
-    "pageCount": 39331,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit M04XL/M04XXL",
-        "type": "toner",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-14",
-    "ip": "10.1.152.79",
-    "name": "XC75048507",
-    "unitName": "113 - Havaí",
-    "pageCount": 376,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 80
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-15",
-    "ip": "10.1.152.114",
-    "name": "X5VL004994",
-    "unitName": "113 - Havaí",
-    "pageCount": 7228,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 85
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-16",
-    "ip": "10.1.152.3",
-    "name": "X5VL004989",
-    "unitName": "113 - Havaí",
-    "pageCount": 12940,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 75
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-18",
-    "ip": "10.1.152.108",
-    "name": "X5VL004992",
-    "unitName": "113 - Havaí",
-    "pageCount": 31720,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 50
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-20",
-    "ip": "10.1.152.142",
-    "name": "X5VL004983",
-    "unitName": "113 - Havaí",
-    "pageCount": 12301,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 77
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-22",
-    "ip": "10.1.152.6",
-    "name": "X5VL005417",
-    "unitName": "113 - Havaí",
-    "pageCount": 6471,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 92
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-23",
-    "ip": "10.1.152.11",
-    "name": "X5VL004999",
-    "unitName": "113 - Havaí",
-    "pageCount": 4231,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 96
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-24",
-    "ip": "10.1.152.105",
-    "name": "XC75025144",
-    "unitName": "113 - Havaí",
-    "pageCount": 48137,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 42
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-26",
-    "ip": "10.1.152.127",
-    "name": "X5VL006218",
-    "unitName": "113 - Havaí",
-    "pageCount": 471,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 92
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-27",
-    "ip": "10.1.152.130",
-    "name": "X5VL004976",
-    "unitName": "113 - Havaí",
-    "pageCount": 20665,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 56
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-28",
-    "ip": "10.1.152.123",
-    "name": "X5VL004990",
-    "unitName": "113 - Havaí",
-    "pageCount": 42808,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 83
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-29",
-    "ip": "10.1.152.133",
-    "name": "X5VL004860",
-    "unitName": "113 - Havaí",
-    "pageCount": 57165,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 54
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-31",
-    "ip": "10.1.152.110",
-    "name": "X5VL004980",
-    "unitName": "113 - Havaí",
-    "pageCount": 33894,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 19
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-32",
-    "ip": "10.1.152.58",
-    "name": "X5VL004863",
-    "unitName": "113 - Havaí",
-    "pageCount": 26347,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 58
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-33",
-    "ip": "10.1.152.122",
-    "name": "X5VL004856",
-    "unitName": "113 - Havaí",
-    "pageCount": 3593,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 90
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-35",
-    "ip": "10.1.152.112",
-    "name": "X5VL004998",
-    "unitName": "113 - Havaí",
-    "pageCount": 37853,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 19
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-36",
-    "ip": "10.1.152.14",
-    "name": "XC75025133",
-    "unitName": "113 - Havaí",
-    "pageCount": 19423,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 26
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-37",
-    "ip": "10.1.152.216",
-    "name": "753154403CZDG",
-    "unitName": "113 - Havaí",
-    "pageCount": 12595,
-    "supplies": [
-      {
-        "name": "ADF Kit",
-        "type": "other",
-        "percentage": 98
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 71
-      },
-      {
-        "name": "Cyan Cartridge",
-        "type": "other",
-        "percentage": 81
-      },
-      {
-        "name": "Transfer Module",
-        "type": "transfer",
-        "percentage": 100
-      },
-      {
-        "name": "Imaging Kit",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Magenta Cartridge",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 92
-      },
-      {
-        "name": "Waste Toner Bottle",
-        "type": "toner",
-        "percentage": 46
-      },
-      {
-        "name": "Yellow Cartridge",
-        "type": "other",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-39",
-    "ip": "10.1.152.24",
-    "name": "QGQ000687",
-    "unitName": "113 - Havaí",
-    "pageCount": 6418,
-    "supplies": [
-      {
-        "name": "Yellow Toner [Y];SN14080F80E000032C",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Magenta Toner [M];SN2C081A80E0000359",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Cyan Toner [C];SN0F014780E0000376",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Waste Toner Container",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Black Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Yellow Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Magenta Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Cyan Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Fuser Assembly",
-        "type": "fuser",
-        "percentage": 0
-      },
-      {
-        "name": "Black Toner [K1];SN27058780E0000379",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Black Toner [K2];SN160A5E80E0000329",
-        "type": "toner",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-40",
-    "ip": "10.1.152.53",
-    "name": "X5VL004977",
-    "unitName": "113 - Havaí",
-    "pageCount": 1968,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 94
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-41",
-    "ip": "10.1.152.151",
-    "name": "XC75048440",
-    "unitName": "113 - Havaí",
-    "pageCount": 1044,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-01",
-    "ip": "10.5.104.51",
-    "name": "U67032E5N691286",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 493,
-    "supplies": [],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-02",
-    "ip": "10.5.104.65",
-    "name": "U67032E5N691220",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 478,
-    "supplies": [],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-03",
-    "ip": "10.5.104.64",
-    "name": "U67032E5N691207",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 1083,
-    "supplies": [
-      {
-        "name": "Black Toner Cartridge",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Drum Unit",
-        "type": "imaging_kit",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-04",
-    "ip": "10.5.104.66",
-    "name": "U67032E5N691213",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 194,
-    "supplies": [],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-05",
-    "ip": "10.5.104.57",
-    "name": "U67032E5N691211",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2530,
-    "supplies": [
-      {
-        "name": "Black Toner Cartridge",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Drum Unit",
-        "type": "imaging_kit",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-07",
-    "ip": "10.5.104.58",
-    "name": "U67032E5N692787",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2829,
-    "supplies": [
-      {
-        "name": "Black Toner Cartridge",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Drum Unit",
-        "type": "imaging_kit",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-09",
-    "ip": "10.5.104.63",
-    "name": "U67032E5N691269",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 1180,
-    "supplies": [
-      {
-        "name": "Black Toner Cartridge",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Drum Unit",
-        "type": "imaging_kit",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-10",
-    "ip": "10.5.104.59",
-    "name": "U67032E5N692785",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2895,
-    "supplies": [],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-12",
-    "ip": "10.5.104.68",
-    "name": "U67032E5N691199",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 515,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 97
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-13",
-    "ip": "10.5.104.67",
-    "name": "U67032E5N691107",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2894,
-    "supplies": [
-      {
-        "name": "Black Toner Cartridge",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Drum Unit",
-        "type": "imaging_kit",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-15",
-    "ip": "10.5.104.27",
-    "name": "X3B7019963",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 59521,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit R04L/R04X",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Cyan Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Magenta Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Yellow Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-rs-16",
-    "ip": "10.5.104.62",
-    "name": "U67032E5N691272",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 1328,
-    "supplies": [],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-lb-01",
-    "ip": "10.5.16.215",
-    "name": "701794230GW2F",
-    "unitName": "103 - Sede Leblon",
-    "pageCount": 100841,
-    "supplies": [
-      {
-        "name": "Imaging Unit",
-        "type": "imaging_kit",
-        "percentage": 35
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 53
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 44
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-lb-02",
-    "ip": "10.5.16.18",
-    "name": "70189393072DW",
-    "unitName": "103 - Sede Leblon",
-    "pageCount": 80622,
-    "supplies": [
-      {
-        "name": "Imaging Unit",
-        "type": "imaging_kit",
-        "percentage": 92
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 41
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 60
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-01",
-    "ip": "10.1.176.14",
-    "name": "XBJZ010993",
-    "unitName": "138 - Taiti",
-    "pageCount": 26938,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 72
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 98
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 49
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 1
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-02",
-    "ip": "10.1.176.17",
-    "name": "XBJZ018217",
-    "unitName": "138 - Taiti",
-    "pageCount": 16187,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 81
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 42
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 19
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 81
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-03",
-    "ip": "10.1.176.19",
-    "name": "X3BK028424",
-    "unitName": "138 - Taiti",
-    "pageCount": 123288,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit M04XL/M04XXL",
-        "type": "toner",
-        "percentage": 1
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-04",
-    "ip": "10.1.176.33",
-    "name": "X5VL002124",
-    "unitName": "138 - Taiti",
-    "pageCount": 23638,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 40
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-05",
-    "ip": "10.1.176.4",
-    "name": "X5VL001716",
-    "unitName": "138 - Taiti",
-    "pageCount": 31513,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 48
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-06",
-    "ip": "10.1.176.24",
-    "name": "X5VL002121",
-    "unitName": "138 - Taiti",
-    "pageCount": 2155,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 94
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-07",
-    "ip": "10.1.176.34",
-    "name": "X5VL002120",
-    "unitName": "138 - Taiti",
-    "pageCount": 54595,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 17
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-08",
-    "ip": "10.1.176.5",
-    "name": "X5VL000474",
-    "unitName": "138 - Taiti",
-    "pageCount": 17868,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-09",
-    "ip": "10.1.176.15",
-    "name": "X5VL001536",
-    "unitName": "138 - Taiti",
-    "pageCount": 25209,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 60
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-10",
-    "ip": "10.1.176.25",
-    "name": "X5VL002149",
-    "unitName": "138 - Taiti",
-    "pageCount": 41336,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 35
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-11",
-    "ip": "10.1.176.21",
-    "name": "X5VL002140",
-    "unitName": "138 - Taiti",
-    "pageCount": 36715,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 31
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-12",
-    "ip": "10.1.176.10",
-    "name": "X5VL001732",
-    "unitName": "138 - Taiti",
-    "pageCount": 39939,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-13",
-    "ip": "10.1.176.26",
-    "name": "X5VL002139",
-    "unitName": "138 - Taiti",
-    "pageCount": 28449,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 46
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-14",
-    "ip": "10.1.176.16",
-    "name": "X5VL002116",
-    "unitName": "138 - Taiti",
-    "pageCount": 18733,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 63
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-15",
-    "ip": "10.1.176.8",
-    "name": "X5VL002131",
-    "unitName": "138 - Taiti",
-    "pageCount": 24755,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 54
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-tt-16",
-    "ip": "10.1.176.107",
-    "name": "X5VL000819",
-    "unitName": "138 - Taiti",
-    "pageCount": 79777,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      }
-    ],
-    "recordedAt": "2026-08-27T18:41:39.221Z"
-  },
-  {
-    "printerId": "p-sf-01",
-    "ip": "10.1.152.226",
-    "name": "XC75048540",
-    "unitName": "113 - Havaí",
-    "pageCount": 4438,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 89
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-02",
-    "ip": "10.1.152.29",
-    "name": "X5VL004865",
-    "unitName": "113 - Havaí",
-    "pageCount": 5877,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 88
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-03",
-    "ip": "10.1.152.109",
-    "name": "X5VL005017",
-    "unitName": "113 - Havaí",
-    "pageCount": 30167,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 52
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-04",
-    "ip": "10.1.152.141",
-    "name": "X5VL006260",
-    "unitName": "113 - Havaí",
-    "pageCount": 660,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-05",
-    "ip": "10.1.152.215",
-    "name": "X5VL006383",
-    "unitName": "113 - Havaí",
-    "pageCount": 2669,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 96
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-06",
-    "ip": "10.1.152.76",
-    "name": "X5VL004984",
-    "unitName": "113 - Havaí",
-    "pageCount": 13711,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 65
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-07",
-    "ip": "10.1.152.117",
-    "name": "X5VL005013",
-    "unitName": "113 - Havaí",
-    "pageCount": 15244,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 71
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-08",
-    "ip": "10.1.152.218",
-    "name": "XC75048538",
-    "unitName": "113 - Havaí",
-    "pageCount": 17218,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 39
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-09",
-    "ip": "10.1.152.63",
-    "name": "X5VL004852",
-    "unitName": "113 - Havaí",
-    "pageCount": 4327,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 92
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-10",
-    "ip": "10.1.152.96",
-    "name": "X5VL004978",
-    "unitName": "113 - Havaí",
-    "pageCount": 26364,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 48
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-11",
-    "ip": "10.1.152.10",
-    "name": "XC75025130",
-    "unitName": "113 - Havaí",
-    "pageCount": 49174,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 57
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-12",
-    "ip": "10.1.152.8",
-    "name": "XC75025094",
-    "unitName": "113 - Havaí",
-    "pageCount": 223,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 62
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-13",
-    "ip": "10.1.152.115",
-    "name": "X3BK021199",
-    "unitName": "113 - Havaí",
-    "pageCount": 39331,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit M04XL/M04XXL",
-        "type": "toner",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-14",
-    "ip": "10.1.152.79",
-    "name": "XC75048507",
-    "unitName": "113 - Havaí",
-    "pageCount": 377,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 80
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-15",
-    "ip": "10.1.152.114",
-    "name": "X5VL004994",
-    "unitName": "113 - Havaí",
-    "pageCount": 7228,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 85
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-16",
-    "ip": "10.1.152.3",
-    "name": "X5VL004989",
-    "unitName": "113 - Havaí",
-    "pageCount": 12940,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 75
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-18",
-    "ip": "10.1.152.108",
-    "name": "X5VL004992",
-    "unitName": "113 - Havaí",
-    "pageCount": 31720,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 50
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-20",
-    "ip": "10.1.152.142",
-    "name": "X5VL004983",
-    "unitName": "113 - Havaí",
-    "pageCount": 12301,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 77
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-22",
-    "ip": "10.1.152.6",
-    "name": "X5VL005417",
-    "unitName": "113 - Havaí",
-    "pageCount": 6471,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 92
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-23",
-    "ip": "10.1.152.11",
-    "name": "X5VL004999",
-    "unitName": "113 - Havaí",
-    "pageCount": 4232,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 96
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-24",
-    "ip": "10.1.152.105",
-    "name": "XC75025144",
-    "unitName": "113 - Havaí",
-    "pageCount": 48137,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 42
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-26",
-    "ip": "10.1.152.127",
-    "name": "X5VL006218",
-    "unitName": "113 - Havaí",
-    "pageCount": 471,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 92
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-27",
-    "ip": "10.1.152.130",
-    "name": "X5VL004976",
-    "unitName": "113 - Havaí",
-    "pageCount": 20665,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 56
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-28",
-    "ip": "10.1.152.123",
-    "name": "X5VL004990",
-    "unitName": "113 - Havaí",
-    "pageCount": 42808,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 83
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-29",
-    "ip": "10.1.152.133",
-    "name": "X5VL004860",
-    "unitName": "113 - Havaí",
-    "pageCount": 57165,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 54
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-31",
-    "ip": "10.1.152.110",
-    "name": "X5VL004980",
-    "unitName": "113 - Havaí",
-    "pageCount": 33894,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 19
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-32",
-    "ip": "10.1.152.58",
-    "name": "X5VL004863",
-    "unitName": "113 - Havaí",
-    "pageCount": 26347,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 58
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-33",
-    "ip": "10.1.152.122",
-    "name": "X5VL004856",
-    "unitName": "113 - Havaí",
-    "pageCount": 3593,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 90
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-35",
-    "ip": "10.1.152.112",
-    "name": "X5VL004998",
-    "unitName": "113 - Havaí",
-    "pageCount": 37853,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 19
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-36",
-    "ip": "10.1.152.14",
-    "name": "XC75025133",
-    "unitName": "113 - Havaí",
-    "pageCount": 19423,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 26
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-37",
-    "ip": "10.1.152.216",
-    "name": "753154403CZDG",
-    "unitName": "113 - Havaí",
-    "pageCount": 12595,
-    "supplies": [
-      {
-        "name": "ADF Kit",
-        "type": "other",
-        "percentage": 98
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 71
-      },
-      {
-        "name": "Cyan Cartridge",
-        "type": "other",
-        "percentage": 81
-      },
-      {
-        "name": "Transfer Module",
-        "type": "transfer",
-        "percentage": 100
-      },
-      {
-        "name": "Imaging Kit",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Magenta Cartridge",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 92
-      },
-      {
-        "name": "Waste Toner Bottle",
-        "type": "toner",
-        "percentage": 46
-      },
-      {
-        "name": "Yellow Cartridge",
-        "type": "other",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-39",
-    "ip": "10.1.152.24",
-    "name": "QGQ000687",
-    "unitName": "113 - Havaí",
-    "pageCount": 6418,
-    "supplies": [
-      {
-        "name": "Yellow Toner [Y];SN14080F80E000032C",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Magenta Toner [M];SN2C081A80E0000359",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Cyan Toner [C];SN0F014780E0000376",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Waste Toner Container",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Black Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Yellow Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Magenta Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Cyan Drum Cartridge",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Fuser Assembly",
-        "type": "fuser",
-        "percentage": 0
-      },
-      {
-        "name": "Black Toner [K1];SN27058780E0000379",
-        "type": "toner",
-        "percentage": 0
-      },
-      {
-        "name": "Black Toner [K2];SN160A5E80E0000329",
-        "type": "toner",
-        "percentage": 0
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-40",
-    "ip": "10.1.152.53",
-    "name": "X5VL004977",
-    "unitName": "113 - Havaí",
-    "pageCount": 1968,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 94
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-sf-41",
-    "ip": "10.1.152.151",
-    "name": "XC75048440",
-    "unitName": "113 - Havaí",
-    "pageCount": 1044,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T12B1/T12C1",
-        "type": "toner",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-01",
-    "ip": "10.5.104.51",
-    "name": "U67032E5N691286",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 493,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 97
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-02",
-    "ip": "10.5.104.65",
-    "name": "U67032E5N691220",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 478,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 97
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-03",
-    "ip": "10.5.104.64",
-    "name": "U67032E5N691207",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 1084,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 94
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-04",
-    "ip": "10.5.104.66",
-    "name": "U67032E5N691213",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 194,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 98
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-05",
-    "ip": "10.5.104.57",
-    "name": "U67032E5N691211",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2530,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 86
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 99
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 99
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-06",
-    "ip": "10.5.104.61",
-    "name": "U67032E5N691218",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 3590,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 81
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 99
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 99
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-07",
-    "ip": "10.5.104.58",
-    "name": "U67032E5N692787",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 2829,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 85
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 99
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 99
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 99
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-08",
-    "ip": "10.5.104.60",
-    "name": "U67032E5N691250",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 4233,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 79
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 98
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 98
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 98
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
-    "printerId": "p-rs-09",
-    "ip": "10.5.104.63",
-    "name": "U67032E5N691269",
-    "unitName": "121 - Rio Sul",
-    "pageCount": 1180,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 93
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "recordedAt": "2026-08-27T18:42:49.887Z"
-  },
-  {
     "printerId": "p-rs-10",
     "ip": "10.5.104.59",
     "name": "U67032E5N692785",
@@ -11757,5 +8712,3073 @@
       }
     ],
     "recordedAt": "2026-08-27T18:55:24.108Z"
+  },
+  {
+    "printerId": "p-sf-01",
+    "ip": "10.1.152.226",
+    "name": "XC75048540",
+    "unitName": "113 - Havaí",
+    "pageCount": 4438,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 89
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-02",
+    "ip": "10.1.152.29",
+    "name": "X5VL004865",
+    "unitName": "113 - Havaí",
+    "pageCount": 5878,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 88
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-03",
+    "ip": "10.1.152.109",
+    "name": "X5VL005017",
+    "unitName": "113 - Havaí",
+    "pageCount": 30167,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 52
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-04",
+    "ip": "10.1.152.141",
+    "name": "X5VL006260",
+    "unitName": "113 - Havaí",
+    "pageCount": 660,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-05",
+    "ip": "10.1.152.215",
+    "name": "X5VL006383",
+    "unitName": "113 - Havaí",
+    "pageCount": 2669,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 96
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-06",
+    "ip": "10.1.152.76",
+    "name": "X5VL004984",
+    "unitName": "113 - Havaí",
+    "pageCount": 13713,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 65
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-07",
+    "ip": "10.1.152.117",
+    "name": "X5VL005013",
+    "unitName": "113 - Havaí",
+    "pageCount": 15244,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 71
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-08",
+    "ip": "10.1.152.218",
+    "name": "XC75048538",
+    "unitName": "113 - Havaí",
+    "pageCount": 17218,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 39
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-09",
+    "ip": "10.1.152.63",
+    "name": "X5VL004852",
+    "unitName": "113 - Havaí",
+    "pageCount": 4327,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-10",
+    "ip": "10.1.152.96",
+    "name": "X5VL004978",
+    "unitName": "113 - Havaí",
+    "pageCount": 26364,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 48
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-11",
+    "ip": "10.1.152.10",
+    "name": "XC75025130",
+    "unitName": "113 - Havaí",
+    "pageCount": 49176,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 57
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-12",
+    "ip": "10.1.152.8",
+    "name": "XC75025094",
+    "unitName": "113 - Havaí",
+    "pageCount": 224,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 62
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-13",
+    "ip": "10.1.152.115",
+    "name": "X3BK021199",
+    "unitName": "113 - Havaí",
+    "pageCount": 39331,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit M04XL/M04XXL",
+        "type": "toner",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-14",
+    "ip": "10.1.152.79",
+    "name": "XC75048507",
+    "unitName": "113 - Havaí",
+    "pageCount": 389,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 80
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-15",
+    "ip": "10.1.152.114",
+    "name": "X5VL004994",
+    "unitName": "113 - Havaí",
+    "pageCount": 7229,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 85
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-16",
+    "ip": "10.1.152.3",
+    "name": "X5VL004989",
+    "unitName": "113 - Havaí",
+    "pageCount": 12940,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 75
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-18",
+    "ip": "10.1.152.108",
+    "name": "X5VL004992",
+    "unitName": "113 - Havaí",
+    "pageCount": 31720,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 50
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-20",
+    "ip": "10.1.152.142",
+    "name": "X5VL004983",
+    "unitName": "113 - Havaí",
+    "pageCount": 12301,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 77
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-22",
+    "ip": "10.1.152.6",
+    "name": "X5VL005417",
+    "unitName": "113 - Havaí",
+    "pageCount": 6471,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-23",
+    "ip": "10.1.152.11",
+    "name": "X5VL004999",
+    "unitName": "113 - Havaí",
+    "pageCount": 4232,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 96
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-24",
+    "ip": "10.1.152.105",
+    "name": "XC75025144",
+    "unitName": "113 - Havaí",
+    "pageCount": 48138,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 42
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-26",
+    "ip": "10.1.152.127",
+    "name": "X5VL006218",
+    "unitName": "113 - Havaí",
+    "pageCount": 471,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-27",
+    "ip": "10.1.152.130",
+    "name": "X5VL004976",
+    "unitName": "113 - Havaí",
+    "pageCount": 20665,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 56
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-28",
+    "ip": "10.1.152.123",
+    "name": "X5VL004990",
+    "unitName": "113 - Havaí",
+    "pageCount": 42808,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 83
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-29",
+    "ip": "10.1.152.133",
+    "name": "X5VL004860",
+    "unitName": "113 - Havaí",
+    "pageCount": 57165,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 54
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-31",
+    "ip": "10.1.152.110",
+    "name": "X5VL004980",
+    "unitName": "113 - Havaí",
+    "pageCount": 33894,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 19
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-32",
+    "ip": "10.1.152.58",
+    "name": "X5VL004863",
+    "unitName": "113 - Havaí",
+    "pageCount": 26347,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 58
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-33",
+    "ip": "10.1.152.122",
+    "name": "X5VL004856",
+    "unitName": "113 - Havaí",
+    "pageCount": 3593,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 90
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-35",
+    "ip": "10.1.152.112",
+    "name": "X5VL004998",
+    "unitName": "113 - Havaí",
+    "pageCount": 37855,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 19
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-36",
+    "ip": "10.1.152.14",
+    "name": "XC75025133",
+    "unitName": "113 - Havaí",
+    "pageCount": 19423,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 26
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-37",
+    "ip": "10.1.152.216",
+    "name": "753154403CZDG",
+    "unitName": "113 - Havaí",
+    "pageCount": 12595,
+    "supplies": [
+      {
+        "name": "ADF Kit",
+        "type": "other",
+        "percentage": 98
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 71
+      },
+      {
+        "name": "Cyan Cartridge",
+        "type": "other",
+        "percentage": 81
+      },
+      {
+        "name": "Transfer Module",
+        "type": "transfer",
+        "percentage": 100
+      },
+      {
+        "name": "Imaging Kit",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Magenta Cartridge",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 92
+      },
+      {
+        "name": "Waste Toner Bottle",
+        "type": "toner",
+        "percentage": 46
+      },
+      {
+        "name": "Yellow Cartridge",
+        "type": "other",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-39",
+    "ip": "10.1.152.24",
+    "name": "QGQ000687",
+    "unitName": "113 - Havaí",
+    "pageCount": 6418,
+    "supplies": [
+      {
+        "name": "Yellow Toner [Y];SN14080F80E000032C",
+        "type": "toner",
+        "percentage": 30
+      },
+      {
+        "name": "Magenta Toner [M];SN2C081A80E0000359",
+        "type": "toner",
+        "percentage": 90
+      },
+      {
+        "name": "Cyan Toner [C];SN0F014780E0000376",
+        "type": "toner",
+        "percentage": 100
+      },
+      {
+        "name": "Waste Toner Container",
+        "type": "toner",
+        "percentage": 50
+      },
+      {
+        "name": "Black Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 95
+      },
+      {
+        "name": "Yellow Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 63
+      },
+      {
+        "name": "Magenta Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 70
+      },
+      {
+        "name": "Cyan Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 63
+      },
+      {
+        "name": "Fuser Assembly",
+        "type": "fuser",
+        "percentage": 99
+      },
+      {
+        "name": "Black Toner [K1];SN27058780E0000379",
+        "type": "toner",
+        "percentage": 100
+      },
+      {
+        "name": "Black Toner [K2];SN160A5E80E0000329",
+        "type": "toner",
+        "percentage": 40
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-40",
+    "ip": "10.1.152.53",
+    "name": "X5VL004977",
+    "unitName": "113 - Havaí",
+    "pageCount": 1968,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 94
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-41",
+    "ip": "10.1.152.151",
+    "name": "XC75048440",
+    "unitName": "113 - Havaí",
+    "pageCount": 1044,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-01",
+    "ip": "10.5.104.51",
+    "name": "U67032E5N691286",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 493,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 97
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-02",
+    "ip": "10.5.104.65",
+    "name": "U67032E5N691220",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 478,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 97
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-03",
+    "ip": "10.5.104.64",
+    "name": "U67032E5N691207",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 1085,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 94
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-04",
+    "ip": "10.5.104.66",
+    "name": "U67032E5N691213",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 194,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 98
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-05",
+    "ip": "10.5.104.57",
+    "name": "U67032E5N691211",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2532,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-06",
+    "ip": "10.5.104.61",
+    "name": "U67032E5N691218",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 3590,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 81
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-07",
+    "ip": "10.5.104.58",
+    "name": "U67032E5N692787",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2831,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 85
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-08",
+    "ip": "10.5.104.60",
+    "name": "U67032E5N691250",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 4246,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 79
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 98
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 98
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 98
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-09",
+    "ip": "10.5.104.63",
+    "name": "U67032E5N691269",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 1185,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 93
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-10",
+    "ip": "10.5.104.59",
+    "name": "U67032E5N692785",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2899,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 84
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-11",
+    "ip": "10.5.104.69",
+    "name": "U67032E5N691177",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 608,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 96
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-12",
+    "ip": "10.5.104.68",
+    "name": "U67032E5N691199",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 517,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 97
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-13",
+    "ip": "10.5.104.67",
+    "name": "U67032E5N691107",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2894,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 85
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-15",
+    "ip": "10.5.104.27",
+    "name": "X3B7019963",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 59522,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit R04L/R04X",
+        "type": "toner",
+        "percentage": 91
+      },
+      {
+        "name": "Cyan Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 16
+      },
+      {
+        "name": "Magenta Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 84
+      },
+      {
+        "name": "Yellow Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 90
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-rs-16",
+    "ip": "10.5.104.62",
+    "name": "U67032E5N691272",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 1328,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-lb-01",
+    "ip": "10.5.16.215",
+    "name": "701794230GW2F",
+    "unitName": "103 - Sede Leblon",
+    "pageCount": 100842,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 35
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 53
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 44
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-lb-02",
+    "ip": "10.5.16.18",
+    "name": "70189393072DW",
+    "unitName": "103 - Sede Leblon",
+    "pageCount": 80636,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 92
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 41
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 60
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-01",
+    "ip": "10.1.176.14",
+    "name": "XBJZ010993",
+    "unitName": "138 - Taiti",
+    "pageCount": 26938,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 72
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 98
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 49
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-02",
+    "ip": "10.1.176.17",
+    "name": "XBJZ018217",
+    "unitName": "138 - Taiti",
+    "pageCount": 16187,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 81
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 42
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 19
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 81
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-03",
+    "ip": "10.1.176.19",
+    "name": "X3BK028424",
+    "unitName": "138 - Taiti",
+    "pageCount": 123291,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit M04XL/M04XXL",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-04",
+    "ip": "10.1.176.33",
+    "name": "X5VL002124",
+    "unitName": "138 - Taiti",
+    "pageCount": 23641,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 40
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-05",
+    "ip": "10.1.176.4",
+    "name": "X5VL001716",
+    "unitName": "138 - Taiti",
+    "pageCount": 31522,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 48
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-06",
+    "ip": "10.1.176.24",
+    "name": "X5VL002121",
+    "unitName": "138 - Taiti",
+    "pageCount": 2155,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 94
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-07",
+    "ip": "10.1.176.34",
+    "name": "X5VL002120",
+    "unitName": "138 - Taiti",
+    "pageCount": 54595,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 17
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-08",
+    "ip": "10.1.176.5",
+    "name": "X5VL000474",
+    "unitName": "138 - Taiti",
+    "pageCount": 17868,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-09",
+    "ip": "10.1.176.15",
+    "name": "X5VL001536",
+    "unitName": "138 - Taiti",
+    "pageCount": 25212,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 60
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-10",
+    "ip": "10.1.176.25",
+    "name": "X5VL002149",
+    "unitName": "138 - Taiti",
+    "pageCount": 41336,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 35
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-11",
+    "ip": "10.1.176.21",
+    "name": "X5VL002140",
+    "unitName": "138 - Taiti",
+    "pageCount": 36717,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 31
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-12",
+    "ip": "10.1.176.10",
+    "name": "X5VL001732",
+    "unitName": "138 - Taiti",
+    "pageCount": 39940,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-13",
+    "ip": "10.1.176.26",
+    "name": "X5VL002139",
+    "unitName": "138 - Taiti",
+    "pageCount": 28451,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 46
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-14",
+    "ip": "10.1.176.16",
+    "name": "X5VL002116",
+    "unitName": "138 - Taiti",
+    "pageCount": 18738,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 63
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-15",
+    "ip": "10.1.176.8",
+    "name": "X5VL002131",
+    "unitName": "138 - Taiti",
+    "pageCount": 24755,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 54
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-tt-16",
+    "ip": "10.1.176.107",
+    "name": "X5VL000819",
+    "unitName": "138 - Taiti",
+    "pageCount": 79778,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "recordedAt": "2026-08-27T18:55:34.897Z"
+  },
+  {
+    "printerId": "p-sf-01",
+    "ip": "10.1.152.226",
+    "name": "XC75048540",
+    "unitName": "113 - Havaí",
+    "pageCount": 4438,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 89
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-02",
+    "ip": "10.1.152.29",
+    "name": "X5VL004865",
+    "unitName": "113 - Havaí",
+    "pageCount": 5878,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 88
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-03",
+    "ip": "10.1.152.109",
+    "name": "X5VL005017",
+    "unitName": "113 - Havaí",
+    "pageCount": 30167,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 52
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-04",
+    "ip": "10.1.152.141",
+    "name": "X5VL006260",
+    "unitName": "113 - Havaí",
+    "pageCount": 660,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-05",
+    "ip": "10.1.152.215",
+    "name": "X5VL006383",
+    "unitName": "113 - Havaí",
+    "pageCount": 2669,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 96
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-06",
+    "ip": "10.1.152.76",
+    "name": "X5VL004984",
+    "unitName": "113 - Havaí",
+    "pageCount": 13715,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 65
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-07",
+    "ip": "10.1.152.117",
+    "name": "X5VL005013",
+    "unitName": "113 - Havaí",
+    "pageCount": 15244,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 71
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-08",
+    "ip": "10.1.152.218",
+    "name": "XC75048538",
+    "unitName": "113 - Havaí",
+    "pageCount": 17218,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 39
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-09",
+    "ip": "10.1.152.63",
+    "name": "X5VL004852",
+    "unitName": "113 - Havaí",
+    "pageCount": 4328,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-10",
+    "ip": "10.1.152.96",
+    "name": "X5VL004978",
+    "unitName": "113 - Havaí",
+    "pageCount": 26367,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 48
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-11",
+    "ip": "10.1.152.10",
+    "name": "XC75025130",
+    "unitName": "113 - Havaí",
+    "pageCount": 49177,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 57
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-12",
+    "ip": "10.1.152.8",
+    "name": "XC75025094",
+    "unitName": "113 - Havaí",
+    "pageCount": 224,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 62
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-13",
+    "ip": "10.1.152.115",
+    "name": "X3BK021199",
+    "unitName": "113 - Havaí",
+    "pageCount": 39332,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit M04XL/M04XXL",
+        "type": "toner",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-14",
+    "ip": "10.1.152.79",
+    "name": "XC75048507",
+    "unitName": "113 - Havaí",
+    "pageCount": 390,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 80
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-15",
+    "ip": "10.1.152.114",
+    "name": "X5VL004994",
+    "unitName": "113 - Havaí",
+    "pageCount": 7229,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 85
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-16",
+    "ip": "10.1.152.3",
+    "name": "X5VL004989",
+    "unitName": "113 - Havaí",
+    "pageCount": 12940,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 75
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-18",
+    "ip": "10.1.152.108",
+    "name": "X5VL004992",
+    "unitName": "113 - Havaí",
+    "pageCount": 31720,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 50
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-20",
+    "ip": "10.1.152.142",
+    "name": "X5VL004983",
+    "unitName": "113 - Havaí",
+    "pageCount": 12301,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 77
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-22",
+    "ip": "10.1.152.6",
+    "name": "X5VL005417",
+    "unitName": "113 - Havaí",
+    "pageCount": 6472,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-23",
+    "ip": "10.1.152.11",
+    "name": "X5VL004999",
+    "unitName": "113 - Havaí",
+    "pageCount": 4232,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 96
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-24",
+    "ip": "10.1.152.105",
+    "name": "XC75025144",
+    "unitName": "113 - Havaí",
+    "pageCount": 48138,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 42
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-26",
+    "ip": "10.1.152.127",
+    "name": "X5VL006218",
+    "unitName": "113 - Havaí",
+    "pageCount": 471,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-27",
+    "ip": "10.1.152.130",
+    "name": "X5VL004976",
+    "unitName": "113 - Havaí",
+    "pageCount": 20665,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 56
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-28",
+    "ip": "10.1.152.123",
+    "name": "X5VL004990",
+    "unitName": "113 - Havaí",
+    "pageCount": 42808,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 83
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-29",
+    "ip": "10.1.152.133",
+    "name": "X5VL004860",
+    "unitName": "113 - Havaí",
+    "pageCount": 57169,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 54
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-31",
+    "ip": "10.1.152.110",
+    "name": "X5VL004980",
+    "unitName": "113 - Havaí",
+    "pageCount": 33895,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 19
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-32",
+    "ip": "10.1.152.58",
+    "name": "X5VL004863",
+    "unitName": "113 - Havaí",
+    "pageCount": 26347,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 58
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-33",
+    "ip": "10.1.152.122",
+    "name": "X5VL004856",
+    "unitName": "113 - Havaí",
+    "pageCount": 3593,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 90
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-35",
+    "ip": "10.1.152.112",
+    "name": "X5VL004998",
+    "unitName": "113 - Havaí",
+    "pageCount": 37858,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 19
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-36",
+    "ip": "10.1.152.14",
+    "name": "XC75025133",
+    "unitName": "113 - Havaí",
+    "pageCount": 19423,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 26
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-37",
+    "ip": "10.1.152.216",
+    "name": "753154403CZDG",
+    "unitName": "113 - Havaí",
+    "pageCount": 12595,
+    "supplies": [
+      {
+        "name": "ADF Kit",
+        "type": "other",
+        "percentage": 98
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 71
+      },
+      {
+        "name": "Cyan Cartridge",
+        "type": "other",
+        "percentage": 81
+      },
+      {
+        "name": "Transfer Module",
+        "type": "transfer",
+        "percentage": 100
+      },
+      {
+        "name": "Imaging Kit",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Magenta Cartridge",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 92
+      },
+      {
+        "name": "Waste Toner Bottle",
+        "type": "toner",
+        "percentage": 46
+      },
+      {
+        "name": "Yellow Cartridge",
+        "type": "other",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-39",
+    "ip": "10.1.152.24",
+    "name": "QGQ000687",
+    "unitName": "113 - Havaí",
+    "pageCount": 6418,
+    "supplies": [
+      {
+        "name": "Yellow Toner [Y];SN14080F80E000032C",
+        "type": "toner",
+        "percentage": 0
+      },
+      {
+        "name": "Magenta Toner [M];SN2C081A80E0000359",
+        "type": "toner",
+        "percentage": 0
+      },
+      {
+        "name": "Cyan Toner [C];SN0F014780E0000376",
+        "type": "toner",
+        "percentage": 0
+      },
+      {
+        "name": "Waste Toner Container",
+        "type": "toner",
+        "percentage": 0
+      },
+      {
+        "name": "Black Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 0
+      },
+      {
+        "name": "Yellow Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 0
+      },
+      {
+        "name": "Magenta Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 0
+      },
+      {
+        "name": "Cyan Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 0
+      },
+      {
+        "name": "Fuser Assembly",
+        "type": "fuser",
+        "percentage": 0
+      },
+      {
+        "name": "Black Toner [K1];SN27058780E0000379",
+        "type": "toner",
+        "percentage": 0
+      },
+      {
+        "name": "Black Toner [K2];SN160A5E80E0000329",
+        "type": "toner",
+        "percentage": 0
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-40",
+    "ip": "10.1.152.53",
+    "name": "X5VL004977",
+    "unitName": "113 - Havaí",
+    "pageCount": 1968,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 94
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-sf-41",
+    "ip": "10.1.152.151",
+    "name": "XC75048440",
+    "unitName": "113 - Havaí",
+    "pageCount": 1044,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-01",
+    "ip": "10.5.104.51",
+    "name": "U67032E5N691286",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 493,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 97
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-02",
+    "ip": "10.5.104.65",
+    "name": "U67032E5N691220",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 480,
+    "supplies": [],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-03",
+    "ip": "10.5.104.64",
+    "name": "U67032E5N691207",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 1086,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 94
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-04",
+    "ip": "10.5.104.66",
+    "name": "U67032E5N691213",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 194,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 98
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-05",
+    "ip": "10.5.104.57",
+    "name": "U67032E5N691211",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2532,
+    "supplies": [],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-06",
+    "ip": "10.5.104.61",
+    "name": "U67032E5N691218",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 3590,
+    "supplies": [],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-07",
+    "ip": "10.5.104.58",
+    "name": "U67032E5N692787",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2831,
+    "supplies": [],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-08",
+    "ip": "10.5.104.60",
+    "name": "U67032E5N691250",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 4247,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 79
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 98
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 98
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 98
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-09",
+    "ip": "10.5.104.63",
+    "name": "U67032E5N691269",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 1185,
+    "supplies": [],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-10",
+    "ip": "10.5.104.59",
+    "name": "U67032E5N692785",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2899,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 84
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-11",
+    "ip": "10.5.104.69",
+    "name": "U67032E5N691177",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 608,
+    "supplies": [],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-12",
+    "ip": "10.5.104.68",
+    "name": "U67032E5N691199",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 519,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 97
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-13",
+    "ip": "10.5.104.67",
+    "name": "U67032E5N691107",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 2894,
+    "supplies": [],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-14",
+    "ip": "10.5.104.18",
+    "name": "XBJZ029656",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 124157,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 21
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 53
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 13
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-15",
+    "ip": "10.5.104.27",
+    "name": "X3B7019963",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 59522,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit R04L/R04X",
+        "type": "toner",
+        "percentage": 91
+      },
+      {
+        "name": "Cyan Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 16
+      },
+      {
+        "name": "Magenta Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 84
+      },
+      {
+        "name": "Yellow Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 90
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-rs-16",
+    "ip": "10.5.104.62",
+    "name": "U67032E5N691272",
+    "unitName": "121 - Rio Sul",
+    "pageCount": 1328,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-lb-01",
+    "ip": "10.5.16.215",
+    "name": "701794230GW2F",
+    "unitName": "103 - Sede Leblon",
+    "pageCount": 100843,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 35
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 53
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 44
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-lb-02",
+    "ip": "10.5.16.18",
+    "name": "70189393072DW",
+    "unitName": "103 - Sede Leblon",
+    "pageCount": 80636,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 92
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 41
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 60
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-01",
+    "ip": "10.1.176.14",
+    "name": "XBJZ010993",
+    "unitName": "138 - Taiti",
+    "pageCount": 26938,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 72
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 98
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 49
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-02",
+    "ip": "10.1.176.17",
+    "name": "XBJZ018217",
+    "unitName": "138 - Taiti",
+    "pageCount": 16187,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 81
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 42
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 19
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 81
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-03",
+    "ip": "10.1.176.19",
+    "name": "X3BK028424",
+    "unitName": "138 - Taiti",
+    "pageCount": 123292,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit M04XL/M04XXL",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-04",
+    "ip": "10.1.176.33",
+    "name": "X5VL002124",
+    "unitName": "138 - Taiti",
+    "pageCount": 23642,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 40
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-05",
+    "ip": "10.1.176.4",
+    "name": "X5VL001716",
+    "unitName": "138 - Taiti",
+    "pageCount": 31522,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 48
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-06",
+    "ip": "10.1.176.24",
+    "name": "X5VL002121",
+    "unitName": "138 - Taiti",
+    "pageCount": 2160,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 94
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-07",
+    "ip": "10.1.176.34",
+    "name": "X5VL002120",
+    "unitName": "138 - Taiti",
+    "pageCount": 54595,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 17
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-08",
+    "ip": "10.1.176.5",
+    "name": "X5VL000474",
+    "unitName": "138 - Taiti",
+    "pageCount": 17875,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-09",
+    "ip": "10.1.176.15",
+    "name": "X5VL001536",
+    "unitName": "138 - Taiti",
+    "pageCount": 25212,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 60
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-10",
+    "ip": "10.1.176.25",
+    "name": "X5VL002149",
+    "unitName": "138 - Taiti",
+    "pageCount": 41337,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 35
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-11",
+    "ip": "10.1.176.21",
+    "name": "X5VL002140",
+    "unitName": "138 - Taiti",
+    "pageCount": 36717,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 31
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-12",
+    "ip": "10.1.176.10",
+    "name": "X5VL001732",
+    "unitName": "138 - Taiti",
+    "pageCount": 39943,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-13",
+    "ip": "10.1.176.26",
+    "name": "X5VL002139",
+    "unitName": "138 - Taiti",
+    "pageCount": 28452,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 46
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-14",
+    "ip": "10.1.176.16",
+    "name": "X5VL002116",
+    "unitName": "138 - Taiti",
+    "pageCount": 18739,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 63
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-15",
+    "ip": "10.1.176.8",
+    "name": "X5VL002131",
+    "unitName": "138 - Taiti",
+    "pageCount": 24756,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 54
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
+  },
+  {
+    "printerId": "p-tt-16",
+    "ip": "10.1.176.107",
+    "name": "X5VL000819",
+    "unitName": "138 - Taiti",
+    "pageCount": 79782,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "recordedAt": "2026-08-27T19:05:02.737Z"
   }
 ]
