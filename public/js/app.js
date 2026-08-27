@@ -3396,7 +3396,7 @@ function setLoginMode(mode) {
   } else {
     if (DOM.loginMainTitle) DOM.loginMainTitle.textContent = 'PREVENT SENIOR';
     if (DOM.loginBrandEyebrow) DOM.loginBrandEyebrow.textContent = 'PREVENT SENIOR • MONITORAMENTO';
-    if (DOM.loginSystemTag) DOM.loginSystemTag.textContent = 'PREVENT SENIOR v3.0';
+    if (DOM.loginSystemTag) DOM.loginSystemTag.textContent = 'HEFESTO v3.0';
     if (DOM.loginMainDesc) DOM.loginMainDesc.textContent = 'Painel de Impressoras • Gestão e Telemetria de Filial';
     document.title = 'Prevent Senior — Painel de Monitoramento de Impressoras';
   }
