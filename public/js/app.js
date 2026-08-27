@@ -68,8 +68,13 @@ const DOM = {
   loginUnitSelect: document.getElementById('login-unit-select'),
   adminUserInput: document.getElementById('admin-user-input'),
   adminPasswordInput: document.getElementById('admin-password-input'),
+  loginMainTitle: document.getElementById('login-main-title'),
+  loginBrandEyebrow: document.getElementById('login-brand-eyebrow'),
+  loginSystemTag: document.getElementById('login-system-tag'),
+  loginMainDesc: document.getElementById('login-main-desc'),
 
   // Cabeçalho
+  headerBrandTitle: document.getElementById('header-brand-title'),
   currentUnitBadge: document.getElementById('current-unit-badge'),
   adminRoleBadge: document.getElementById('admin-role-badge'),
   headerUnitDesc: document.getElementById('header-unit-desc'),
@@ -662,8 +667,10 @@ function updateHeaderRoleAndUnit() {
   const adminOnlyElements = document.querySelectorAll('.admin-only');
 
   if (AppState.userRole === 'admin') {
-    // Modo Administrador
-    if (DOM.adminRoleBadge) DOM.adminRoleBadge.style.display = 'inline-block';
+    // Modo Administrador (Ferramenta HEFESTO)
+    if (DOM.headerBrandTitle) DOM.headerBrandTitle.textContent = 'HEFESTO';
+    if (DOM.adminRoleBadge) DOM.adminRoleBadge.style.display = 'inline-flex';
+    document.title = 'HEFESTO — Painel de Gestão & Administração TI';
     
     if (AppState.activeUnitFilter) {
       const u = AppState.units.find(x => x.id === AppState.activeUnitFilter);
@@ -685,8 +692,10 @@ function updateHeaderRoleAndUnit() {
     });
 
   } else {
-    // Modo Operador / Visualizador de Unidade (Read-Only focado na sua filial)
+    // Modo Operador / Sessão do Usuário (PREVENT SENIOR)
+    if (DOM.headerBrandTitle) DOM.headerBrandTitle.textContent = 'PREVENT SENIOR';
     if (DOM.adminRoleBadge) DOM.adminRoleBadge.style.display = 'none';
+    document.title = 'Prevent Senior — Monitor de Impressoras';
 
     const selectedUnitObj = AppState.units.find(u => u.id === AppState.activeUnitFilter);
     if (selectedUnitObj) {
@@ -697,7 +706,7 @@ function updateHeaderRoleAndUnit() {
       if (DOM.headerUnitDesc) DOM.headerUnitDesc.textContent = 'Visão operacional da unidade em tempo real';
     }
 
-    // Esconde apenas os botões e formulários de administração técnica
+    // Esconde botões de administração técnica
     adminOnlyElements.forEach(el => {
       el.style.display = 'none';
     });
@@ -2822,10 +2831,10 @@ async function exportInitialIntegrationReportCsv() {
       'Modelo da Impressora',
       'Número de Série',
       'Data de Instalação Física (Contrato)',
-      'Data de Início do Monitoramento (Hefesto)',
-      'Contador na Ativação Hefesto (Páginas)',
+      'Data de Início do Monitoramento',
+      'Contador na Ativação (Páginas)',
       'Contador Atual Vitalício (Páginas)',
-      'Páginas Rodadas sob Gestão Hefesto (Delta)',
+      'Páginas Rodadas sob Gestão (Delta)',
       'Status Operacional Atual'
     ];
 
@@ -3374,10 +3383,23 @@ function setupEventListeners() {
    FUNDO DINÂMICO DE ACESSO: CONSTELAÇÃO PREVENT SENIOR & MATRIX TI
    ========================================================================== */
 let loginCanvasAnimId = null;
-let currentLoginMode = 'operator'; // 'operator' (Rede Constelar Prevent Senior) ou 'admin' (Matrix TI)
+let currentLoginMode = 'operator'; // 'operator' (Prevent Senior) ou 'admin' (Hefesto ADM)
 
 function setLoginMode(mode) {
   currentLoginMode = mode;
+  if (mode === 'admin') {
+    if (DOM.loginMainTitle) DOM.loginMainTitle.textContent = 'HEFESTO';
+    if (DOM.loginBrandEyebrow) DOM.loginBrandEyebrow.textContent = 'CENTRO DE GESTÃO TI & TELEMETRIA';
+    if (DOM.loginSystemTag) DOM.loginSystemTag.textContent = 'HEFESTO v3.0';
+    if (DOM.loginMainDesc) DOM.loginMainDesc.textContent = 'Painel Administrativo da Ferramenta • Gestão Global de Parques';
+    document.title = 'HEFESTO — Painel de Gestão & Administração TI';
+  } else {
+    if (DOM.loginMainTitle) DOM.loginMainTitle.textContent = 'PREVENT SENIOR';
+    if (DOM.loginBrandEyebrow) DOM.loginBrandEyebrow.textContent = 'PREVENT SENIOR • MONITORAMENTO';
+    if (DOM.loginSystemTag) DOM.loginSystemTag.textContent = 'PREVENT SENIOR v3.0';
+    if (DOM.loginMainDesc) DOM.loginMainDesc.textContent = 'Painel de Impressoras • Gestão e Telemetria de Filial';
+    document.title = 'Prevent Senior — Painel de Monitoramento de Impressoras';
+  }
 }
 
 function initLoginBackground() {

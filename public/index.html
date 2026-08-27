@@ -29,7 +29,7 @@
 <body>
 
   <!-- ====================================================================
-       PORTAL DE ACESSO & AUTORIZAÇÃO (LOGIN CONSOLE INDUSTRIAL)
+       PORTAL DE ACESSO SEGREGADO (LOGIN DUAL-MODE)
        ==================================================================== -->
   <div class="login-overlay active" id="login-overlay">
     <canvas id="login-background-canvas" class="login-background-canvas"></canvas>
@@ -47,7 +47,7 @@
             <span class="beacon-orb"></span>
             <span class="beacon-label">PROTOCOLO SNMP UDP/161 • ATIVO</span>
           </div>
-          <div class="system-version-tag">HEFESTO v3.0</div>
+          <div class="system-version-tag" id="login-system-tag">PREVENT SENIOR v3.0</div>
         </div>
 
         <div class="login-brand-header">
@@ -57,9 +57,9 @@
             <svg class="monogram-icon" viewBox="0 0 24 24" style="display: none;"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
           </div>
           <div class="brand-title-group">
-            <span class="brand-eyebrow">SISTEMA INTEGRADO DE TELEMETRIA</span>
-            <h1 class="login-main-title">HEFESTO</h1>
-            <p class="login-description">Gestão de Parques de Impressão • Auditoria de Suprimentos • Motor Preditivo</p>
+            <span class="brand-eyebrow" id="login-brand-eyebrow">PREVENT SENIOR • MONITORAMENTO</span>
+            <h1 class="login-main-title" id="login-main-title">PREVENT SENIOR</h1>
+            <p class="login-description" id="login-main-desc">Painel de Impressoras • Gestão e Telemetria de Filial</p>
           </div>
         </div>
 
@@ -69,7 +69,7 @@
             <div class="dock-btn-icon"><svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
             <div class="dock-btn-text">
               <strong>Visualizar Filial</strong>
-              <small>Modo Operador de Unidade</small>
+              <small>Painel Prevent Senior</small>
             </div>
           </button>
           
@@ -77,7 +77,7 @@
             <div class="dock-btn-icon"><svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
             <div class="dock-btn-text">
               <strong>Administrador TI</strong>
-              <small>Acesso Global & Gestão</small>
+              <small>Painel Hefesto (ADM)</small>
             </div>
           </button>
         </div>
@@ -160,7 +160,7 @@
 
         <div class="deck-brand-details">
           <div class="deck-title-row">
-            <span class="deck-brand-name">HEFESTO</span>
+            <span class="deck-brand-name" id="header-brand-title">PREVENT SENIOR</span>
             <div class="deck-status-capsule" id="current-unit-badge">Carregando...</div>
             <div class="deck-admin-capsule admin-role-badge" id="admin-role-badge" style="display: none;">
               <svg class="icon icon-xs" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
@@ -926,6 +926,6 @@
   <div class="toast-container" id="toast-container" aria-live="assertive"></div>
 
   <!-- Script Principal da Aplicação -->
-  <script src="js/app.js?v=3.7"></script>
+  <script src="js/app.js?v=3.8"></script>
 </body>
 </html>
