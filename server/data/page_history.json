@@ -2215,7 +2215,7 @@
     "printerId": "p-tt-16",
     "date": "2026-08-27",
     "startPageCount": 79775,
-    "endPageCount": 79782,
+    "endPageCount": 79805,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2223,7 +2223,7 @@
         "percentage": -2
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
   },
   {
     "printerId": "p-sf-01",
@@ -2237,13 +2237,13 @@
         "percentage": 89
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-02",
     "date": "2026-08-27",
     "startPageCount": 5877,
-    "endPageCount": 5878,
+    "endPageCount": 5882,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2256,13 +2256,13 @@
         "percentage": 88
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-03",
     "date": "2026-08-27",
     "startPageCount": 30167,
-    "endPageCount": 30168,
+    "endPageCount": 30171,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2275,7 +2275,7 @@
         "percentage": 52
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-04",
@@ -2294,7 +2294,7 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-05",
@@ -2313,13 +2313,13 @@
         "percentage": 96
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-06",
     "date": "2026-08-27",
     "startPageCount": 13706,
-    "endPageCount": 13715,
+    "endPageCount": 13732,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2332,7 +2332,7 @@
         "percentage": 65
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-07",
@@ -2351,13 +2351,13 @@
         "percentage": 71
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-08",
     "date": "2026-08-27",
     "startPageCount": 17218,
-    "endPageCount": 17219,
+    "endPageCount": 17276,
     "supplies": [
       {
         "name": "Black Ink Supply Unit T12B1/T12C1",
@@ -2365,7 +2365,7 @@
         "percentage": 39
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-09",
@@ -2384,13 +2384,13 @@
         "percentage": 92
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-10",
     "date": "2026-08-27",
     "startPageCount": 26364,
-    "endPageCount": 26369,
+    "endPageCount": 26390,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2403,27 +2403,27 @@
         "percentage": 48
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-11",
     "date": "2026-08-27",
     "startPageCount": 49171,
-    "endPageCount": 49177,
+    "endPageCount": 49235,
     "supplies": [
       {
         "name": "Black Ink Supply Unit T12B1/T12C1",
         "type": "toner",
-        "percentage": 57
+        "percentage": 56
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-12",
     "date": "2026-08-27",
     "startPageCount": 222,
-    "endPageCount": 224,
+    "endPageCount": 240,
     "supplies": [
       {
         "name": "Black Ink Supply Unit T12B1/T12C1",
@@ -2431,13 +2431,13 @@
         "percentage": 62
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-13",
     "date": "2026-08-27",
     "startPageCount": 39327,
-    "endPageCount": 39332,
+    "endPageCount": 39340,
     "supplies": [
       {
         "name": "Black Ink Supply Unit M04XL/M04XXL",
@@ -2445,13 +2445,13 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-14",
     "date": "2026-08-27",
     "startPageCount": 373,
-    "endPageCount": 390,
+    "endPageCount": 418,
     "supplies": [
       {
         "name": "Black Ink Supply Unit T12B1/T12C1",
@@ -2459,13 +2459,13 @@
         "percentage": 80
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-15",
     "date": "2026-08-27",
     "startPageCount": 7228,
-    "endPageCount": 7229,
+    "endPageCount": 7312,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2478,13 +2478,13 @@
         "percentage": 85
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-16",
     "date": "2026-08-27",
     "startPageCount": 12940,
-    "endPageCount": 12940,
+    "endPageCount": 12987,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2497,13 +2497,13 @@
         "percentage": 75
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-18",
     "date": "2026-08-27",
     "startPageCount": 31720,
-    "endPageCount": 31720,
+    "endPageCount": 31743,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2516,7 +2516,7 @@
         "percentage": 50
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-20",
@@ -2535,13 +2535,13 @@
         "percentage": 77
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-22",
     "date": "2026-08-27",
     "startPageCount": 6471,
-    "endPageCount": 6473,
+    "endPageCount": 6483,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2554,7 +2554,7 @@
         "percentage": 92
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-23",
@@ -2573,21 +2573,21 @@
         "percentage": 96
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-24",
     "date": "2026-08-27",
     "startPageCount": 48136,
-    "endPageCount": 48138,
+    "endPageCount": 48166,
     "supplies": [
       {
         "name": "Black Ink Supply Unit T12B1/T12C1",
         "type": "toner",
-        "percentage": 42
+        "percentage": 41
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-26",
@@ -2606,13 +2606,13 @@
         "percentage": 92
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-27",
     "date": "2026-08-27",
     "startPageCount": 20665,
-    "endPageCount": 20665,
+    "endPageCount": 20706,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2625,13 +2625,13 @@
         "percentage": 56
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-28",
     "date": "2026-08-27",
     "startPageCount": 42803,
-    "endPageCount": 42809,
+    "endPageCount": 42820,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2644,13 +2644,13 @@
         "percentage": 83
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-29",
     "date": "2026-08-27",
     "startPageCount": 57160,
-    "endPageCount": 57179,
+    "endPageCount": 57211,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2663,13 +2663,13 @@
         "percentage": 54
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-31",
     "date": "2026-08-27",
     "startPageCount": 33892,
-    "endPageCount": 33895,
+    "endPageCount": 33906,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2682,7 +2682,7 @@
         "percentage": 19
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-32",
@@ -2701,13 +2701,13 @@
         "percentage": 58
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-33",
     "date": "2026-08-27",
     "startPageCount": 3593,
-    "endPageCount": 3593,
+    "endPageCount": 3594,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2720,13 +2720,13 @@
         "percentage": 90
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-35",
     "date": "2026-08-27",
     "startPageCount": 37850,
-    "endPageCount": 37858,
+    "endPageCount": 37882,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2736,16 +2736,16 @@
       {
         "name": "Caixa de Manutenção (Maintenance Box)",
         "type": "waste_toner",
-        "percentage": 19
+        "percentage": 17
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-36",
     "date": "2026-08-27",
     "startPageCount": 19423,
-    "endPageCount": 19423,
+    "endPageCount": 19424,
     "supplies": [
       {
         "name": "Black Ink Supply Unit T12B1/T12C1",
@@ -2753,13 +2753,13 @@
         "percentage": 26
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-37",
     "date": "2026-08-27",
     "startPageCount": 12595,
-    "endPageCount": 12595,
+    "endPageCount": 12596,
     "supplies": [
       {
         "name": "ADF Kit",
@@ -2807,11 +2807,1569 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
   },
   {
     "printerId": "p-sf-39",
     "date": "2026-08-27",
+    "startPageCount": 6418,
+    "endPageCount": 6418,
+    "supplies": [
+      {
+        "name": "Yellow Toner [Y];SN14080F80E000032C",
+        "type": "toner",
+        "percentage": 30
+      },
+      {
+        "name": "Magenta Toner [M];SN2C081A80E0000359",
+        "type": "toner",
+        "percentage": 90
+      },
+      {
+        "name": "Cyan Toner [C];SN0F014780E0000376",
+        "type": "toner",
+        "percentage": 100
+      },
+      {
+        "name": "Waste Toner Container",
+        "type": "toner",
+        "percentage": 50
+      },
+      {
+        "name": "Black Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 95
+      },
+      {
+        "name": "Yellow Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 63
+      },
+      {
+        "name": "Magenta Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 70
+      },
+      {
+        "name": "Cyan Drum Cartridge",
+        "type": "imaging_kit",
+        "percentage": 63
+      },
+      {
+        "name": "Fuser Assembly",
+        "type": "fuser",
+        "percentage": 99
+      },
+      {
+        "name": "Black Toner [K1];SN27058780E0000379",
+        "type": "toner",
+        "percentage": 100
+      },
+      {
+        "name": "Black Toner [K2];SN160A5E80E0000329",
+        "type": "toner",
+        "percentage": 40
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-sf-40",
+    "date": "2026-08-27",
+    "startPageCount": 1968,
+    "endPageCount": 1968,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 94
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-sf-41",
+    "date": "2026-08-27",
+    "startPageCount": 1044,
+    "endPageCount": 1044,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-01",
+    "date": "2026-08-27",
+    "startPageCount": 490,
+    "endPageCount": 521,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 97
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-02",
+    "date": "2026-08-27",
+    "startPageCount": 478,
+    "endPageCount": 490,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 97
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-03",
+    "date": "2026-08-27",
+    "startPageCount": 1083,
+    "endPageCount": 1090,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 94
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-04",
+    "date": "2026-08-27",
+    "startPageCount": 194,
+    "endPageCount": 194,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 98
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-05",
+    "date": "2026-08-27",
+    "startPageCount": 2530,
+    "endPageCount": 2536,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-06",
+    "date": "2026-08-27",
+    "startPageCount": 3590,
+    "endPageCount": 3600,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 81
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-07",
+    "date": "2026-08-27",
+    "startPageCount": 2824,
+    "endPageCount": 2859,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 85
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T21:56:23.294Z"
+  },
+  {
+    "printerId": "p-rs-09",
+    "date": "2026-08-27",
+    "startPageCount": 1170,
+    "endPageCount": 1220,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 93
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-11",
+    "date": "2026-08-27",
+    "startPageCount": 597,
+    "endPageCount": 642,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 96
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-12",
+    "date": "2026-08-27",
+    "startPageCount": 511,
+    "endPageCount": 560,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 96
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-14",
+    "date": "2026-08-27",
+    "startPageCount": 0,
+    "endPageCount": 124157,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 21
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 53
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 13
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-15",
+    "date": "2026-08-27",
+    "startPageCount": 59521,
+    "endPageCount": 59522,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit R04L/R04X",
+        "type": "toner",
+        "percentage": 91
+      },
+      {
+        "name": "Cyan Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 16
+      },
+      {
+        "name": "Magenta Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 84
+      },
+      {
+        "name": "Yellow Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 90
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-lb-01",
+    "date": "2026-08-27",
+    "startPageCount": 100841,
+    "endPageCount": 100847,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 35
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 52
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 44
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-lb-02",
+    "date": "2026-08-27",
+    "startPageCount": 80622,
+    "endPageCount": 80644,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 92
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 41
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 60
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-tt-01",
+    "date": "2026-08-27",
+    "startPageCount": 26935,
+    "endPageCount": 26949,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 72
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 98
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 49
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-tt-02",
+    "date": "2026-08-27",
+    "startPageCount": 16187,
+    "endPageCount": 16187,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 81
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 42
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 19
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 81
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-tt-03",
+    "date": "2026-08-27",
+    "startPageCount": 123280,
+    "endPageCount": 123337,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit M04XL/M04XXL",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-04",
+    "date": "2026-08-27",
+    "startPageCount": 23633,
+    "endPageCount": 23648,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 40
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-05",
+    "date": "2026-08-27",
+    "startPageCount": 31508,
+    "endPageCount": 31522,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 48
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-06",
+    "date": "2026-08-27",
+    "startPageCount": 2154,
+    "endPageCount": 2187,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 94
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-07",
+    "date": "2026-08-27",
+    "startPageCount": 54595,
+    "endPageCount": 54595,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 17
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-08",
+    "date": "2026-08-27",
+    "startPageCount": 17868,
+    "endPageCount": 17914,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-09",
+    "date": "2026-08-27",
+    "startPageCount": 25208,
+    "endPageCount": 25221,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 60
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-10",
+    "date": "2026-08-27",
+    "startPageCount": 41336,
+    "endPageCount": 41347,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 35
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-11",
+    "date": "2026-08-27",
+    "startPageCount": 36710,
+    "endPageCount": 36725,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 31
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-12",
+    "date": "2026-08-27",
+    "startPageCount": 39939,
+    "endPageCount": 39968,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-13",
+    "date": "2026-08-27",
+    "startPageCount": 28443,
+    "endPageCount": 28469,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 46
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-14",
+    "date": "2026-08-27",
+    "startPageCount": 18731,
+    "endPageCount": 18762,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 63
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-tt-15",
+    "date": "2026-08-27",
+    "startPageCount": 24754,
+    "endPageCount": 24770,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 54
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.582Z"
+  },
+  {
+    "printerId": "p-rs-08",
+    "date": "2026-08-27",
+    "startPageCount": 4228,
+    "endPageCount": 4291,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 79
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 98
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 98
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 98
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-10",
+    "date": "2026-08-27",
+    "startPageCount": 0,
+    "endPageCount": 2916,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 84
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-13",
+    "date": "2026-08-27",
+    "startPageCount": 2894,
+    "endPageCount": 2895,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 85
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-rs-16",
+    "date": "2026-08-27",
+    "startPageCount": 1328,
+    "endPageCount": 1328,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-27T23:59:23.581Z"
+  },
+  {
+    "printerId": "p-sf-01",
+    "date": "2026-08-28",
+    "startPageCount": 4438,
+    "endPageCount": 4439,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 89
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-02",
+    "date": "2026-08-28",
+    "startPageCount": 5882,
+    "endPageCount": 5882,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 88
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-03",
+    "date": "2026-08-28",
+    "startPageCount": 30171,
+    "endPageCount": 30197,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 52
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-04",
+    "date": "2026-08-28",
+    "startPageCount": 660,
+    "endPageCount": 660,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-05",
+    "date": "2026-08-28",
+    "startPageCount": 2669,
+    "endPageCount": 2676,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 96
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-06",
+    "date": "2026-08-28",
+    "startPageCount": 13732,
+    "endPageCount": 13751,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 65
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-07",
+    "date": "2026-08-28",
+    "startPageCount": 15244,
+    "endPageCount": 15344,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 71
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-08",
+    "date": "2026-08-28",
+    "startPageCount": 17276,
+    "endPageCount": 17292,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 39
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-09",
+    "date": "2026-08-28",
+    "startPageCount": 4328,
+    "endPageCount": 4329,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-10",
+    "date": "2026-08-28",
+    "startPageCount": 26390,
+    "endPageCount": 26415,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 48
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-11",
+    "date": "2026-08-28",
+    "startPageCount": 49235,
+    "endPageCount": 49307,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 56
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-12",
+    "date": "2026-08-28",
+    "startPageCount": 240,
+    "endPageCount": 242,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 62
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-13",
+    "date": "2026-08-28",
+    "startPageCount": 39340,
+    "endPageCount": 39350,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit M04XL/M04XXL",
+        "type": "toner",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-14",
+    "date": "2026-08-28",
+    "startPageCount": 418,
+    "endPageCount": 478,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 80
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-15",
+    "date": "2026-08-28",
+    "startPageCount": 7312,
+    "endPageCount": 7312,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 85
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-16",
+    "date": "2026-08-28",
+    "startPageCount": 12987,
+    "endPageCount": 13003,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 75
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-18",
+    "date": "2026-08-28",
+    "startPageCount": 31743,
+    "endPageCount": 31838,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 50
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-20",
+    "date": "2026-08-28",
+    "startPageCount": 12302,
+    "endPageCount": 12307,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 77
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-22",
+    "date": "2026-08-28",
+    "startPageCount": 6483,
+    "endPageCount": 6494,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 90
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-23",
+    "date": "2026-08-28",
+    "startPageCount": 4232,
+    "endPageCount": 4267,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 96
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-24",
+    "date": "2026-08-28",
+    "startPageCount": 48166,
+    "endPageCount": 48210,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 41
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-26",
+    "date": "2026-08-28",
+    "startPageCount": 471,
+    "endPageCount": 476,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 92
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-27",
+    "date": "2026-08-28",
+    "startPageCount": 20706,
+    "endPageCount": 20766,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 56
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-28",
+    "date": "2026-08-28",
+    "startPageCount": 42820,
+    "endPageCount": 42887,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 83
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-29",
+    "date": "2026-08-28",
+    "startPageCount": 57211,
+    "endPageCount": 57223,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 54
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-31",
+    "date": "2026-08-28",
+    "startPageCount": 33906,
+    "endPageCount": 33943,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 19
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-32",
+    "date": "2026-08-28",
+    "startPageCount": 26347,
+    "endPageCount": 26347,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 58
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-33",
+    "date": "2026-08-28",
+    "startPageCount": 3594,
+    "endPageCount": 3627,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 90
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-35",
+    "date": "2026-08-28",
+    "startPageCount": 37882,
+    "endPageCount": 37904,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 17
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-36",
+    "date": "2026-08-28",
+    "startPageCount": 19424,
+    "endPageCount": 19428,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T12B1/T12C1",
+        "type": "toner",
+        "percentage": 26
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-37",
+    "date": "2026-08-28",
+    "startPageCount": 12596,
+    "endPageCount": 12598,
+    "supplies": [
+      {
+        "name": "ADF Kit",
+        "type": "other",
+        "percentage": 98
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 70
+      },
+      {
+        "name": "Cyan Cartridge",
+        "type": "other",
+        "percentage": 81
+      },
+      {
+        "name": "Transfer Module",
+        "type": "transfer",
+        "percentage": 100
+      },
+      {
+        "name": "Imaging Kit",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Magenta Cartridge",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 92
+      },
+      {
+        "name": "Waste Toner Bottle",
+        "type": "toner",
+        "percentage": 46
+      },
+      {
+        "name": "Yellow Cartridge",
+        "type": "other",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-sf-39",
+    "date": "2026-08-28",
     "startPageCount": 6418,
     "endPageCount": 6418,
     "supplies": [
@@ -2871,13 +4429,13 @@
         "percentage": 0
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-sf-40",
-    "date": "2026-08-27",
+    "date": "2026-08-28",
     "startPageCount": 1968,
-    "endPageCount": 1968,
+    "endPageCount": 1970,
     "supplies": [
       {
         "name": "Black Ink Bottle",
@@ -2890,11 +4448,11 @@
         "percentage": 94
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.966Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-sf-41",
-    "date": "2026-08-27",
+    "date": "2026-08-28",
     "startPageCount": 1044,
     "endPageCount": 1044,
     "supplies": [
@@ -2904,13 +4462,13 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-01",
-    "date": "2026-08-27",
-    "startPageCount": 490,
-    "endPageCount": 493,
+    "date": "2026-08-28",
+    "startPageCount": 521,
+    "endPageCount": 590,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -2938,13 +4496,13 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-02",
-    "date": "2026-08-27",
-    "startPageCount": 478,
-    "endPageCount": 480,
+    "date": "2026-08-28",
+    "startPageCount": 490,
+    "endPageCount": 497,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -2972,13 +4530,13 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-03",
-    "date": "2026-08-27",
-    "startPageCount": 1083,
-    "endPageCount": 1086,
+    "date": "2026-08-28",
+    "startPageCount": 1090,
+    "endPageCount": 1094,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3006,13 +4564,13 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-04",
-    "date": "2026-08-27",
+    "date": "2026-08-28",
     "startPageCount": 194,
-    "endPageCount": 194,
+    "endPageCount": 202,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3040,13 +4598,13 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-05",
-    "date": "2026-08-27",
-    "startPageCount": 2530,
-    "endPageCount": 2532,
+    "date": "2026-08-28",
+    "startPageCount": 2536,
+    "endPageCount": 2545,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3074,13 +4632,13 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-06",
-    "date": "2026-08-27",
-    "startPageCount": 3590,
-    "endPageCount": 3590,
+    "date": "2026-08-28",
+    "startPageCount": 3600,
+    "endPageCount": 3619,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3108,550 +4666,13 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-rs-07",
-    "date": "2026-08-27",
-    "startPageCount": 2824,
-    "endPageCount": 2831,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 85
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 99
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 99
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 99
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-rs-09",
-    "date": "2026-08-27",
-    "startPageCount": 1170,
-    "endPageCount": 1185,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 93
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-rs-11",
-    "date": "2026-08-27",
-    "startPageCount": 597,
-    "endPageCount": 610,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 96
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-rs-12",
-    "date": "2026-08-27",
-    "startPageCount": 511,
-    "endPageCount": 520,
-    "supplies": [
-      {
-        "name": "Toner Preto (Black)",
-        "type": "toner",
-        "percentage": 97
-      },
-      {
-        "name": "Unidade de Cilindro (Drum)",
-        "type": "imaging_kit",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Fusora (Fuser)",
-        "type": "fuser",
-        "percentage": 100
-      },
-      {
-        "name": "Unidade Laser",
-        "type": "other",
-        "percentage": 100
-      },
-      {
-        "name": "Kit de Alimentação de Papel (PF Kit)",
-        "type": "maintenance_kit",
-        "percentage": 100
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-rs-14",
-    "date": "2026-08-27",
-    "startPageCount": 0,
-    "endPageCount": 124157,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 21
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 53
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 86
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 13
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-rs-15",
-    "date": "2026-08-27",
-    "startPageCount": 59521,
-    "endPageCount": 59522,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit R04L/R04X",
-        "type": "toner",
-        "percentage": 91
-      },
-      {
-        "name": "Cyan Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 16
-      },
-      {
-        "name": "Magenta Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 84
-      },
-      {
-        "name": "Yellow Ink Supply Unit R04L",
-        "type": "toner",
-        "percentage": 90
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-lb-01",
-    "date": "2026-08-27",
-    "startPageCount": 100841,
-    "endPageCount": 100843,
-    "supplies": [
-      {
-        "name": "Imaging Unit",
-        "type": "imaging_kit",
-        "percentage": 0
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 0
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 0
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-lb-02",
-    "date": "2026-08-27",
-    "startPageCount": 80622,
-    "endPageCount": 80636,
-    "supplies": [
-      {
-        "name": "Imaging Unit",
-        "type": "imaging_kit",
-        "percentage": 92
-      },
-      {
-        "name": "Black Cartridge",
-        "type": "other",
-        "percentage": 41
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "percentage": 60
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-01",
-    "date": "2026-08-27",
-    "startPageCount": 26935,
-    "endPageCount": 26938,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 72
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 98
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 49
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 1
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-02",
-    "date": "2026-08-27",
-    "startPageCount": 16187,
-    "endPageCount": 16187,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit T11A1/T11B1",
-        "type": "toner",
-        "percentage": 81
-      },
-      {
-        "name": "Cyan Ink Supply Unit T11A2",
-        "type": "toner",
-        "percentage": 42
-      },
-      {
-        "name": "Magenta Ink Supply Unit T11A3",
-        "type": "toner",
-        "percentage": 19
-      },
-      {
-        "name": "Yellow Ink Supply Unit T11A4",
-        "type": "toner",
-        "percentage": 81
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-03",
-    "date": "2026-08-27",
-    "startPageCount": 123280,
-    "endPageCount": 123292,
-    "supplies": [
-      {
-        "name": "Black Ink Supply Unit M04XL/M04XXL",
-        "type": "toner",
-        "percentage": 1
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-04",
-    "date": "2026-08-27",
-    "startPageCount": 23633,
-    "endPageCount": 23642,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 40
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-05",
-    "date": "2026-08-27",
-    "startPageCount": 31508,
-    "endPageCount": 31522,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 48
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-06",
-    "date": "2026-08-27",
-    "startPageCount": 2154,
-    "endPageCount": 2160,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 94
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-07",
-    "date": "2026-08-27",
-    "startPageCount": 54595,
-    "endPageCount": 54595,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 17
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-08",
-    "date": "2026-08-27",
-    "startPageCount": 17868,
-    "endPageCount": 17875,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-09",
-    "date": "2026-08-27",
-    "startPageCount": 25208,
-    "endPageCount": 25214,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 60
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-10",
-    "date": "2026-08-27",
-    "startPageCount": 41336,
-    "endPageCount": 41337,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 35
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-11",
-    "date": "2026-08-27",
-    "startPageCount": 36710,
-    "endPageCount": 36717,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 31
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-12",
-    "date": "2026-08-27",
-    "startPageCount": 39939,
-    "endPageCount": 39943,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 100
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-13",
-    "date": "2026-08-27",
-    "startPageCount": 28443,
-    "endPageCount": 28453,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 46
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-14",
-    "date": "2026-08-27",
-    "startPageCount": 18731,
-    "endPageCount": 18741,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 63
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
-  },
-  {
-    "printerId": "p-tt-15",
-    "date": "2026-08-27",
-    "startPageCount": 24754,
-    "endPageCount": 24756,
-    "supplies": [
-      {
-        "name": "Black Ink Bottle",
-        "type": "toner",
-        "percentage": -2
-      },
-      {
-        "name": "Caixa de Manutenção (Maintenance Box)",
-        "type": "waste_toner",
-        "percentage": 54
-      }
-    ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-08",
-    "date": "2026-08-27",
-    "startPageCount": 4228,
-    "endPageCount": 4249,
+    "date": "2026-08-28",
+    "startPageCount": 4291,
+    "endPageCount": 4310,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3679,13 +4700,47 @@
         "percentage": 98
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-rs-09",
+    "date": "2026-08-28",
+    "startPageCount": 1220,
+    "endPageCount": 1224,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 93
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-10",
-    "date": "2026-08-27",
-    "startPageCount": 0,
-    "endPageCount": 2899,
+    "date": "2026-08-28",
+    "startPageCount": 2916,
+    "endPageCount": 2929,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3713,13 +4768,81 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-rs-11",
+    "date": "2026-08-28",
+    "startPageCount": 642,
+    "endPageCount": 646,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 96
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-rs-12",
+    "date": "2026-08-28",
+    "startPageCount": 560,
+    "endPageCount": 566,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 96
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 100
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-13",
-    "date": "2026-08-27",
-    "startPageCount": 2894,
-    "endPageCount": 2894,
+    "date": "2026-08-28",
+    "startPageCount": 2895,
+    "endPageCount": 2928,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3747,13 +4870,71 @@
         "percentage": 99
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-rs-14",
+    "date": "2026-08-28",
+    "startPageCount": 124157,
+    "endPageCount": 124165,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 21
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 53
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 86
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 13
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-rs-15",
+    "date": "2026-08-28",
+    "startPageCount": 59522,
+    "endPageCount": 59561,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit R04L/R04X",
+        "type": "toner",
+        "percentage": 90
+      },
+      {
+        "name": "Cyan Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 15
+      },
+      {
+        "name": "Magenta Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 82
+      },
+      {
+        "name": "Yellow Ink Supply Unit R04L",
+        "type": "toner",
+        "percentage": 89
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   },
   {
     "printerId": "p-rs-16",
-    "date": "2026-08-27",
+    "date": "2026-08-28",
     "startPageCount": 1328,
-    "endPageCount": 1328,
+    "endPageCount": 1337,
     "supplies": [
       {
         "name": "Toner Preto (Black)",
@@ -3781,6 +4962,416 @@
         "percentage": 100
       }
     ],
-    "lastUpdatedAt": "2026-08-27T19:10:33.967Z"
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-lb-01",
+    "date": "2026-08-28",
+    "startPageCount": 100847,
+    "endPageCount": 100848,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 0
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 0
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 0
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-lb-02",
+    "date": "2026-08-28",
+    "startPageCount": 80644,
+    "endPageCount": 80988,
+    "supplies": [
+      {
+        "name": "Imaging Unit",
+        "type": "imaging_kit",
+        "percentage": 91
+      },
+      {
+        "name": "Black Cartridge",
+        "type": "other",
+        "percentage": 37
+      },
+      {
+        "name": "Maintenance Kit",
+        "type": "maintenance_kit",
+        "percentage": 60
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-01",
+    "date": "2026-08-28",
+    "startPageCount": 26949,
+    "endPageCount": 26949,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 72
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 98
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 49
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-02",
+    "date": "2026-08-28",
+    "startPageCount": 16187,
+    "endPageCount": 16189,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit T11A1/T11B1",
+        "type": "toner",
+        "percentage": 81
+      },
+      {
+        "name": "Cyan Ink Supply Unit T11A2",
+        "type": "toner",
+        "percentage": 42
+      },
+      {
+        "name": "Magenta Ink Supply Unit T11A3",
+        "type": "toner",
+        "percentage": 19
+      },
+      {
+        "name": "Yellow Ink Supply Unit T11A4",
+        "type": "toner",
+        "percentage": 81
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-03",
+    "date": "2026-08-28",
+    "startPageCount": 123337,
+    "endPageCount": 123395,
+    "supplies": [
+      {
+        "name": "Black Ink Supply Unit M04XL/M04XXL",
+        "type": "toner",
+        "percentage": 1
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-04",
+    "date": "2026-08-28",
+    "startPageCount": 23648,
+    "endPageCount": 23651,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 40
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-05",
+    "date": "2026-08-28",
+    "startPageCount": 31522,
+    "endPageCount": 31522,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 48
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-06",
+    "date": "2026-08-28",
+    "startPageCount": 2187,
+    "endPageCount": 2205,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 94
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-07",
+    "date": "2026-08-28",
+    "startPageCount": 54595,
+    "endPageCount": 54607,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 17
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-08",
+    "date": "2026-08-28",
+    "startPageCount": 17914,
+    "endPageCount": 17963,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-09",
+    "date": "2026-08-28",
+    "startPageCount": 25221,
+    "endPageCount": 25227,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 60
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-10",
+    "date": "2026-08-28",
+    "startPageCount": 41347,
+    "endPageCount": 41352,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 35
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-11",
+    "date": "2026-08-28",
+    "startPageCount": 36725,
+    "endPageCount": 36734,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 31
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-12",
+    "date": "2026-08-28",
+    "startPageCount": 39968,
+    "endPageCount": 39971,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-13",
+    "date": "2026-08-28",
+    "startPageCount": 28469,
+    "endPageCount": 28484,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 46
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-14",
+    "date": "2026-08-28",
+    "startPageCount": 18762,
+    "endPageCount": 18769,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 63
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-15",
+    "date": "2026-08-28",
+    "startPageCount": 24770,
+    "endPageCount": 24776,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 54
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-tt-16",
+    "date": "2026-08-28",
+    "startPageCount": 79805,
+    "endPageCount": 79809,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:13:04.252Z"
+  },
+  {
+    "printerId": "p-sf-25",
+    "date": "2026-08-28",
+    "startPageCount": 538,
+    "endPageCount": 549,
+    "supplies": [
+      {
+        "name": "Black Ink Bottle",
+        "type": "toner",
+        "percentage": -2
+      },
+      {
+        "name": "Caixa de Manutenção (Maintenance Box)",
+        "type": "waste_toner",
+        "percentage": 100
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
+  },
+  {
+    "printerId": "p-rs-07",
+    "date": "2026-08-28",
+    "startPageCount": 2861,
+    "endPageCount": 2873,
+    "supplies": [
+      {
+        "name": "Toner Preto (Black)",
+        "type": "toner",
+        "percentage": 85
+      },
+      {
+        "name": "Unidade de Cilindro (Drum)",
+        "type": "imaging_kit",
+        "percentage": 99
+      },
+      {
+        "name": "Unidade Fusora (Fuser)",
+        "type": "fuser",
+        "percentage": 100
+      },
+      {
+        "name": "Unidade Laser",
+        "type": "other",
+        "percentage": 99
+      },
+      {
+        "name": "Kit de Alimentação de Papel (PF Kit)",
+        "type": "maintenance_kit",
+        "percentage": 99
+      }
+    ],
+    "lastUpdatedAt": "2026-08-28T13:08:25.477Z"
   }
 ]

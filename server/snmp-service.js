@@ -244,6 +244,9 @@ const extractIndex = (oid, baseOid) => {
  */
 async function querySnmpWithVersion(ip, community, version) {
   const session = snmp.createSession(ip, community, getSessionOptions(version));
+  session.on('error', (err) => {
+    // Previne crash do processo em caso de pacotes ASN1 corrompidos ou malformados na rede
+  });
   try {
     // 1. Consultar OIDs escalares principais
     const infoOids = [
@@ -565,6 +568,7 @@ export const testConnection = async (ip, community = 'public') => {
 
   for (const { v, name } of versions) {
     const session = snmp.createSession(ip, community, getSessionOptions(v));
+    session.on('error', () => {});
     try {
       await getOids(session, [OIDs.sysName]);
       session.close();

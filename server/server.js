@@ -6,6 +6,14 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { queryPrinterStatus, testConnection } from './snmp-service.js';
 
+// Prevenção de crashes globais em background por erros assíncronos ou pacotes SNMP corrompidos
+process.on('uncaughtException', (err) => {
+  console.error('[Process Uncaught Exception]', err.message || err);
+});
+process.on('unhandledRejection', (reason) => {
+  console.error('[Process Unhandled Rejection]', reason);
+});
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_FILE = path.join(__dirname, 'data', 'printers.json');
