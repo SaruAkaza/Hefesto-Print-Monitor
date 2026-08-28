@@ -256,40 +256,43 @@ async function querySnmpWithVersion(ip, community, version) {
     ];
     const infoData = await getOids(session, infoOids);
 
-    // 2. Consultar tabelas de suprimentos e bandejas em paralelo
-    const [descMap, maxMap, levelMap, tNameMap, tMaxMap, tLevelMap] = await Promise.all([
-      getSubtree(session, OIDs.suppliesDesc).catch(() => ({})),
-      getSubtree(session, OIDs.suppliesMax).catch(() => ({})),
-      getSubtree(session, OIDs.suppliesLevel).catch(() => ({})),
-      getSubtree(session, OIDs.trayName).catch(() => ({})),
-      getSubtree(session, OIDs.trayMax).catch(() => ({})),
-      getSubtree(session, OIDs.trayLevel).catch(() => ({}))
+    // 2. Consultar tabelas de suprimentos e bandejas de forma consolidada e atômica
+    const [suppliesTable, traysTable] = await Promise.all([
+      getSubtree(session, '1.3.6.1.2.1.43.11.1.1').catch(() => ({})),
+      getSubtree(session, '1.3.6.1.2.1.43.8.2.1').catch(() => ({}))
     ]);
 
-    // 3. Processar suprimentos
+    // 3. Processar suprimentos da tabela prtMarkerSuppliesEntry
     const supplies = [];
-    for (const oid of Object.keys(descMap)) {
-      const idx = extractIndex(oid, OIDs.suppliesDesc);
-      const name = parseBuffer(descMap[oid]);
+    const descBase = OIDs.suppliesDesc; // '1.3.6.1.2.1.43.11.1.1.6'
+    const indices = new Set();
+    for (const oid of Object.keys(suppliesTable)) {
+      if (oid.startsWith(descBase + '.')) {
+        indices.add(oid.substring(descBase.length + 1));
+      }
+    }
+
+    for (const idx of indices) {
+      const name = parseBuffer(suppliesTable[`${descBase}.${idx}`]);
       if (!name) continue;
 
-      const maxKey = `${OIDs.suppliesMax}.${idx}`;
-      const levelKey = `${OIDs.suppliesLevel}.${idx}`;
-      const maxLevel = maxMap[maxKey] ?? 0;
-      let currentLevel = levelMap[levelKey] ?? 0;
+      const maxLevel = suppliesTable[`1.3.6.1.2.1.43.11.1.1.8.${idx}`] ?? 0;
+      let currentLevel = suppliesTable[`1.3.6.1.2.1.43.11.1.1.9.${idx}`] ?? 0;
 
       // Tratar valores especiais do RFC 3805
       let percentage;
       if (currentLevel === -1) {
         percentage = -1; // "Outro" — sem informação
       } else if (currentLevel === -2) {
-        percentage = -2; // Desconhecido
+        percentage = -2; // Desconhecido (tanques contínuos)
       } else if (currentLevel === -3) {
         percentage = 50; // Parcial — há suprimento mas valor indeterminado
       } else if (maxLevel > 0 && currentLevel >= 0) {
-        percentage = Math.round((currentLevel / maxLevel) * 100);
+        percentage = Math.max(0, Math.min(100, Math.round((currentLevel / maxLevel) * 100)));
+      } else if (currentLevel > 0 && maxLevel <= 0) {
+        percentage = currentLevel <= 100 ? currentLevel : 100;
       } else {
-        percentage = currentLevel >= 0 ? 0 : -1;
+        percentage = currentLevel === 0 ? 0 : -1;
       }
 
       const type = parseSupplyType(name);
@@ -321,25 +324,37 @@ async function querySnmpWithVersion(ip, community, version) {
       }
     }
 
-    // 4. Processar bandejas de papel
+    // 4. Processar bandejas de papel da tabela prtInputEntry
     const trays = [];
-    for (const oid of Object.keys(tNameMap)) {
-      const idx = extractIndex(oid, OIDs.trayName);
-      const name = parseBuffer(tNameMap[oid]);
+    const trayNameBase = OIDs.trayName; // '1.3.6.1.2.1.43.8.2.1.13'
+    const trayIndices = new Set();
+    for (const oid of Object.keys(traysTable)) {
+      if (oid.startsWith(trayNameBase + '.')) {
+        trayIndices.add(oid.substring(trayNameBase.length + 1));
+      } else if (oid.startsWith('1.3.6.1.2.1.43.8.2.1.2.')) {
+        trayIndices.add(oid.substring('1.3.6.1.2.1.43.8.2.1.2.'.length));
+      }
+    }
+
+    for (const idx of trayIndices) {
+      const name = parseBuffer(traysTable[`${trayNameBase}.${idx}`] || traysTable[`1.3.6.1.2.1.43.8.2.1.2.${idx}`] || `Bandeja ${idx}`);
       if (!name) continue;
 
-      const maxKey = `${OIDs.trayMax}.${idx}`;
-      const levelKey = `${OIDs.trayLevel}.${idx}`;
-      const maxLevel = tMaxMap[maxKey] ?? 0;
-      let currentLevel = tLevelMap[levelKey] ?? 0;
+      const maxLevel = traysTable[`1.3.6.1.2.1.43.8.2.1.9.${idx}`] ?? 0;
+      const currentLevel = traysTable[`1.3.6.1.2.1.43.8.2.1.10.${idx}`] ?? 0;
 
-      // Tratar valores especiais
-      if (currentLevel === -3) currentLevel = maxLevel > 0 ? maxLevel : 100;
-      if (currentLevel === -2) currentLevel = maxLevel > 0 ? maxLevel : 100;
-
-      const percentage = (maxLevel > 0 && currentLevel >= 0)
-        ? Math.round((currentLevel / maxLevel) * 100)
-        : (currentLevel < 0 ? -1 : 0);
+      let percentage;
+      if (currentLevel === -1) {
+        percentage = -1;
+      } else if (currentLevel === -2) {
+        percentage = -2;
+      } else if (currentLevel === -3) {
+        percentage = 50;
+      } else if (maxLevel > 0 && currentLevel >= 0) {
+        percentage = Math.max(0, Math.min(100, Math.round((currentLevel / maxLevel) * 100)));
+      } else {
+        percentage = currentLevel >= 0 ? 0 : -1;
+      }
 
       trays.push({ name, currentLevel, maxLevel, percentage });
     }

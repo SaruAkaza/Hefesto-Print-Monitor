@@ -61,6 +61,11 @@ app.get('/api/config/branding', async (req, res) => {
 const STATUS_CACHE = new Map();
 let lastCacheUpdate = null;
 
+// Memória de confirmação de recargas automáticas (Exige 3 ciclos consecutivos de confirmação)
+const PENDING_RECHARGE_CONFIRMATIONS = new Map();
+const SERVER_BOOT_TIME = Date.now();
+const BOOT_GRACE_PERIOD_MS = 600000; // 10 minutos após inicialização do servidor para evitar falsos positivos
+
 // Helpers de arquivo JSON
 async function loadPrinters() {
   try {
@@ -1092,7 +1097,7 @@ app.get('/api/reports/initial-integration', async (req, res) => {
   }
 });
 
-// Função para atualizar o status de todas as impressoras em background com Detecção de Recarga
+// Função para atualizar o status de todas as impressoras em background com Detecção Estrita de Recarga
 async function updateAllPrintersCache() {
   const printers = await loadPrinters();
   if (printers.length === 0) return [];
@@ -1101,48 +1106,93 @@ async function updateAllPrintersCache() {
     queryPrinterStatus(p.ip, p.community)
       .then(async data => {
         const previousEntry = STATUS_CACHE.get(p.id);
-        const entry = { id: p.id, ip: p.ip, name: p.name, location: p.location, unitId: p.unitId || '', unitName: p.unitName || 'Sem Unidade', ...data, cachedAt: new Date().toISOString() };
+        const isNowOnline = Boolean(data && data.online);
+        
+        // Preserva suprimentos válidos anteriores caso uma leitura pontual da rede venha vazia
+        let suppliesToUse = Array.isArray(data?.supplies) && data.supplies.length > 0
+          ? data.supplies
+          : (previousEntry?.supplies && previousEntry.supplies.length > 0 ? previousEntry.supplies : []);
 
-        // Detecção Automática de Recarga de Suprimentos (Projeto Hefesto)
-        if (previousEntry && previousEntry.online && entry.online && Array.isArray(entry.supplies) && Array.isArray(previousEntry.supplies)) {
+        const entry = {
+          id: p.id,
+          ip: p.ip,
+          name: p.name,
+          location: p.location,
+          unitId: p.unitId || '',
+          unitName: p.unitName || 'Sem Unidade',
+          ...data,
+          supplies: suppliesToUse,
+          cachedAt: new Date().toISOString()
+        };
+
+        // Validação Estrita de Detecção de Recarga (Projeto Hefesto)
+        // Regras de Segurança:
+        // 1. Período de carência de 10 min pós-boot
+        // 2. Equipamento e leitura anterior precisam ter sido 100% online com suprimentos válidos
+        // 3. O nível anterior precisa ter sido >= 5% (nunca dispara a partir de 0% ou glitch)
+        // 4. Exige 3 ciclos de confirmação consecutiva com o mesmo nível elevado
+        const isPastBootGrace = (Date.now() - SERVER_BOOT_TIME) > BOOT_GRACE_PERIOD_MS;
+
+        if (isPastBootGrace && previousEntry && previousEntry.online && isNowOnline && Array.isArray(entry.supplies) && Array.isArray(previousEntry.supplies)) {
           for (const newSup of entry.supplies) {
             const oldSup = previousEntry.supplies.find(s => s.name === newSup.name || s.type === newSup.type);
+            
             if (oldSup && typeof oldSup.percentage === 'number' && typeof newSup.percentage === 'number') {
               const diff = newSup.percentage - oldSup.percentage;
+              const isSignificantIncrease = (newSup.percentage >= 95 && diff >= 20) || (newSup.percentage < 95 && diff >= 25);
+              const validBaseline = oldSup.percentage >= 5; // Ignora saltos vindos de 0% ou leituras corrompidas
 
-              // Regra Hefesto 1: Se subiu >= 20% e atingiu >= 95% (Recarga Oficial Completa)
-              if (newSup.percentage >= 95 && diff >= 20) {
-                registerRechargeEvent({
-                  printerId: p.id,
-                  printerName: p.name,
-                  ip: p.ip,
-                  unitName: p.unitName || 'Sem Unidade',
-                  location: p.location || '',
-                  supplyName: newSup.name,
-                  supplyType: newSup.type,
-                  previousLevel: oldSup.percentage,
-                  newLevel: newSup.percentage,
-                  pageCount: entry.info?.pageCount || 0,
-                  source: 'auto',
-                  isFull: true
-                }).catch(() => {});
-              }
-              // Regra Hefesto 2: Se subiu >= 25% mas ficou abaixo de 95% (Troca Provisória / Parcial)
-              else if (newSup.percentage < 95 && diff >= 25) {
-                registerRechargeEvent({
-                  printerId: p.id,
-                  printerName: p.name,
-                  ip: p.ip,
-                  unitName: p.unitName || 'Sem Unidade',
-                  location: p.location || '',
-                  supplyName: newSup.name,
-                  supplyType: newSup.type,
-                  previousLevel: oldSup.percentage,
-                  newLevel: newSup.percentage,
-                  pageCount: entry.info?.pageCount || 0,
-                  source: 'auto',
-                  isFull: false
-                }).catch(() => {});
+              const confKey = `${p.id}:${newSup.name || newSup.type}`;
+
+              if (isSignificantIncrease && validBaseline) {
+                const isFull = newSup.percentage >= 95;
+                if (PENDING_RECHARGE_CONFIRMATIONS.has(confKey)) {
+                  const item = PENDING_RECHARGE_CONFIRMATIONS.get(confKey);
+                  // Verifica se o nível elevado se mantém estável
+                  if (Math.abs(newSup.percentage - item.targetLevel) <= 5) {
+                    item.consecutiveCycles += 1;
+                    item.lastSeen = Date.now();
+
+                    // Confirmado em 3 ciclos consecutivos!
+                    if (item.consecutiveCycles >= 3) {
+                      registerRechargeEvent({
+                        printerId: p.id,
+                        printerName: p.name,
+                        ip: p.ip,
+                        unitName: p.unitName || 'Sem Unidade',
+                        location: p.location || '',
+                        supplyName: newSup.name,
+                        supplyType: newSup.type,
+                        previousLevel: item.baselineLevel,
+                        newLevel: newSup.percentage,
+                        pageCount: entry.info?.pageCount || 0,
+                        source: 'auto',
+                        isFull
+                      }).catch(() => {});
+
+                      PENDING_RECHARGE_CONFIRMATIONS.delete(confKey);
+                    }
+                  } else {
+                    // Flutuação inconsistente, reinicia contagem
+                    item.targetLevel = newSup.percentage;
+                    item.consecutiveCycles = 1;
+                    item.lastSeen = Date.now();
+                  }
+                } else {
+                  // Inicia monitoramento do ciclo 1
+                  PENDING_RECHARGE_CONFIRMATIONS.set(confKey, {
+                    targetLevel: newSup.percentage,
+                    baselineLevel: oldSup.percentage,
+                    consecutiveCycles: 1,
+                    firstSeen: Date.now(),
+                    lastSeen: Date.now()
+                  });
+                }
+              } else {
+                // Se o nível normalizou ou não há aumento, remove confirmação pendente
+                if (PENDING_RECHARGE_CONFIRMATIONS.has(confKey)) {
+                  PENDING_RECHARGE_CONFIRMATIONS.delete(confKey);
+                }
               }
             }
           }
@@ -1152,7 +1202,20 @@ async function updateAllPrintersCache() {
         return entry;
       })
       .catch(err => {
-        const errorEntry = { id: p.id, ip: p.ip, name: p.name, location: p.location, unitId: p.unitId || '', unitName: p.unitName || 'Sem Unidade', online: false, error: err.message, cachedAt: new Date().toISOString() };
+        const previousEntry = STATUS_CACHE.get(p.id);
+        const errorEntry = {
+          id: p.id,
+          ip: p.ip,
+          name: p.name,
+          location: p.location,
+          unitId: p.unitId || '',
+          unitName: p.unitName || 'Sem Unidade',
+          online: false,
+          error: err.message,
+          supplies: previousEntry?.supplies || [],
+          info: previousEntry?.info || {},
+          cachedAt: new Date().toISOString()
+        };
         STATUS_CACHE.set(p.id, errorEntry);
         return errorEntry;
       })
