@@ -144,7 +144,7 @@
   },
   {
     "id": "p-sf-12",
-    "name": "XC75025094",
+    "name": "XC75059144",
     "ip": "10.1.152.8",
     "location": "Farmácia Multifuncional 2 (2º Andar)",
     "unitId": "unit-113-havai",
@@ -170,7 +170,7 @@
   },
   {
     "id": "p-sf-14",
-    "name": "XC75048507",
+    "name": "XC75048517",
     "ip": "10.1.152.79",
     "location": "OPME (2º Andar)",
     "unitId": "unit-113-havai",
@@ -320,7 +320,7 @@
     "unitName": "113 - Havaí",
     "community": "public",
     "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 14874,
+    "initialPageCount": 525,
     "hefestoActivatedAt": "2026-08-19T13:30:00.000Z",
     "installedAt": ""
   },
@@ -430,15 +430,15 @@
   },
   {
     "id": "p-sf-34",
-    "name": "X5VL004848",
-    "ip": "10.1.152.113",
+    "name": "X5VL006274",
+    "ip": "10.1.152.4",
     "location": "Posto de Enfermagem (Térreo)",
     "unitId": "unit-113-havai",
     "unitName": "113 - Havaí",
     "community": "public",
-    "createdAt": "2026-08-19T13:30:00.000Z",
-    "initialPageCount": 14874,
-    "hefestoActivatedAt": "2026-08-19T13:30:00.000Z",
+    "createdAt": "2026-08-31T13:30:00.000Z",
+    "initialPageCount": 6780,
+    "hefestoActivatedAt": "2026-08-31T13:30:00.000Z",
     "installedAt": ""
   },
   {
@@ -768,7 +768,7 @@
   },
   {
     "id": "p-tt-02",
-    "name": "XBJZ018217",
+    "name": "XBJZ018219",
     "ip": "10.1.176.17",
     "location": "Reabilitação (Térreo)",
     "unitId": "unit-138-taiti",
@@ -794,7 +794,7 @@
   },
   {
     "id": "p-tt-04",
-    "name": "X5VL002124",
+    "name": "X5VL005427",
     "ip": "10.1.176.33",
     "location": "Recepção (Térreo)",
     "unitId": "unit-138-taiti",
@@ -820,7 +820,7 @@
   },
   {
     "id": "p-tt-06",
-    "name": "X5VL002121",
+    "name": "X5VL005409",
     "ip": "10.1.176.24",
     "location": "Mapa/Holter (Térreo)",
     "unitId": "unit-138-taiti",
@@ -846,7 +846,7 @@
   },
   {
     "id": "p-tt-08",
-    "name": "X5VL000474",
+    "name": "X5VL004981",
     "ip": "10.1.176.5",
     "location": "Consultório 2 (Térreo)",
     "unitId": "unit-138-taiti",
@@ -859,7 +859,7 @@
   },
   {
     "id": "p-tt-09",
-    "name": "X5VL001536",
+    "name": "X5VL003585",
     "ip": "10.1.176.15",
     "location": "Consultório 3 (Térreo)",
     "unitId": "unit-138-taiti",
@@ -885,7 +885,7 @@
   },
   {
     "id": "p-tt-11",
-    "name": "X5VL002140",
+    "name": "X5VL002133",
     "ip": "10.1.176.21",
     "location": "Consultório 5 (Térreo)",
     "unitId": "unit-138-taiti",

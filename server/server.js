@@ -570,6 +570,16 @@ app.put('/api/printers/:id', async (req, res) => {
     return res.status(404).json({ error: 'Impressora não encontrada.' });
   }
 
+  const cachedStatus = STATUS_CACHE.get(id);
+  const liveCount = cachedStatus?.info?.pageCount;
+  const parsedInitial = initialPageCount !== undefined ? (Number(initialPageCount) || 0) : (printers[idx].initialPageCount || 0);
+
+  if (typeof liveCount === 'number' && liveCount > 0 && parsedInitial > liveCount) {
+    return res.status(400).json({
+      error: `O marco inicial (${parsedInitial.toLocaleString('pt-BR')} pág.) não pode ser maior que o contador físico atual do hardware (${liveCount.toLocaleString('pt-BR')} pág.).`
+    });
+  }
+
   printers[idx] = {
     ...printers[idx],
     name: name || printers[idx].name,
@@ -578,7 +588,7 @@ app.put('/api/printers/:id', async (req, res) => {
     unitId: unitId !== undefined ? unitId : printers[idx].unitId,
     unitName: unitName !== undefined ? unitName : printers[idx].unitName,
     community: community || printers[idx].community,
-    initialPageCount: initialPageCount !== undefined ? (Number(initialPageCount) || 0) : (printers[idx].initialPageCount || 0),
+    initialPageCount: parsedInitial,
     hefestoActivatedAt: hefestoActivatedAt || printers[idx].hefestoActivatedAt || printers[idx].createdAt || new Date().toISOString(),
     installedAt: installedAt !== undefined ? installedAt : (printers[idx].installedAt || ''),
     createdAt: createdAt || printers[idx].createdAt || new Date().toISOString()

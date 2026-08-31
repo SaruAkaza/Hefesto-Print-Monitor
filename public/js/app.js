@@ -1660,12 +1660,12 @@ async function openPrinterDetailDrawer(id) {
         <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
           <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Total Vitalício (Hardware)</div>
           <div style="font-size: 0.9rem; font-weight: 800; color: var(--text-primary); font-family: var(--font-mono); margin-top: 2px;">${curCount.toLocaleString('pt-BR')} pág.</div>
-          <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">Desde a fabricação</div>
+          <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">Páginas impressas (Hardware)</div>
         </div>
         <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
           <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Contador na Ativação</div>
           <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-secondary); font-family: var(--font-mono); margin-top: 2px;">${initCount.toLocaleString('pt-BR')} pág.</div>
-          <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 2px;">Em ${escapeHtml(formattedActivated.split(' ')[0])}</div>
+          <div style="font-size: 0.65rem; color: ${initCount > curCount ? 'var(--color-danger)' : 'var(--text-muted)'}; margin-top: 2px;">${initCount > curCount ? 'Ajuste recomendado' : `Em ${escapeHtml(formattedActivated.split(' ')[0])}`}</div>
         </div>
         <div style="background: var(--bg-card); padding: 0.5rem 0.65rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
           <div style="font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600;">Produção sob Gestão</div>
@@ -2007,6 +2007,17 @@ async function handlePrinterFormSubmit(e) {
   submitBtn.textContent = 'Salvando...';
 
   try {
+    if (id && initialPageCount !== undefined) {
+      const status = AppState.statusData.get(id);
+      const liveCount = status?.info?.pageCount;
+      if (typeof liveCount === 'number' && liveCount > 0 && initialPageCount > liveCount) {
+        showToast(`O marco inicial (${initialPageCount.toLocaleString('pt-BR')} pág.) não pode ser superior ao contador físico do hardware (${liveCount.toLocaleString('pt-BR')} pág.)!`, 'error');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Salvar Equipamento';
+        return;
+      }
+    }
+
     const payload = { name, ip, unitId, unitName, location, community };
     if (initialPageCount !== undefined) payload.initialPageCount = initialPageCount;
     if (hefestoActivatedAt !== undefined) {
@@ -3219,6 +3230,23 @@ function setupEventListeners() {
   DOM.btnCloseModalForm.addEventListener('click', closeModalForm);
   DOM.btnCancelModalForm.addEventListener('click', closeModalForm);
   DOM.printerForm.addEventListener('submit', handlePrinterFormSubmit);
+
+  const btnSyncInitial = document.getElementById('btn-sync-initial-live');
+  if (btnSyncInitial) {
+    btnSyncInitial.addEventListener('click', () => {
+      const printerId = DOM.formId.value.trim();
+      const status = AppState.statusData.get(printerId);
+      const liveCount = status?.info?.pageCount;
+      if (typeof liveCount === 'number' && liveCount > 0) {
+        if (DOM.formInitialPageCount) {
+          DOM.formInitialPageCount.value = liveCount;
+          showToast(`Marco inicial ajustado para o contador físico atual: ${liveCount.toLocaleString('pt-BR')} pág.`, 'info');
+        }
+      } else {
+        showToast('Contador físico da impressora não disponível no momento.', 'warning');
+      }
+    });
+  }
 
   DOM.btnQuickNewUnit.addEventListener('click', openQuickUnitModal);
   DOM.btnCloseModalUnit.addEventListener('click', closeQuickUnitModal);

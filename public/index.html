@@ -664,8 +664,13 @@
 
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
             <div class="cyber-field">
-              <label class="cyber-label" for="printer-initial-page-count">CONTADOR INICIAL</label>
-              <input type="number" class="cyber-input" id="printer-initial-page-count" min="0" placeholder="Ex: 12500">
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <label class="cyber-label" for="printer-initial-page-count" style="margin-bottom: 0;">MARCO INICIAL</label>
+                <button type="button" id="btn-sync-initial-live" class="deck-action-pill" style="font-size: 0.65rem; padding: 0.15rem 0.45rem;" title="Copiar contador físico atual do hardware">
+                  <span>Hardware Atual</span>
+                </button>
+              </div>
+              <input type="number" class="cyber-input" id="printer-initial-page-count" min="0" placeholder="Ex: 6780" style="margin-top: 0.35rem;">
             </div>
 
             <div class="cyber-field">
@@ -922,6 +927,6 @@
   <div class="toast-container" id="toast-container" aria-live="assertive"></div>
 
   <!-- Script Principal da Aplicação -->
-  <script src="js/app.js?v=4.1"></script>
+  <script src="js/app.js?v=4.2"></script>
 </body>
 </html>
