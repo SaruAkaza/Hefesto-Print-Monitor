@@ -1010,10 +1010,25 @@ app.get('/api/analytics/volume-forecast', async (req, res) => {
         };
       });
 
-      // Suprimento mais crítico (que vai acabar mais cedo)
+      // Suporte a impressoras com múltiplos toners da mesma cor (ex: Xerox C60/C70 com compartimento duplo K1 e K2)
+      // Se houver múltiplos toners pretos e pelo menos um estiver com boa carga (>10%),
+      // o cartucho reserva vazio (0%) não derruba a previsão da máquina para "0 páginas restantes".
+      const blackToners = suppliesForecast.filter(s => (s.type === 'toner' || !s.type) && /black|preto|k1|k2/i.test(s.name || ''));
+      const hasDualBlack = blackToners.length > 1;
+      const maxBlackPct = hasDualBlack ? Math.max(...blackToners.map(b => b.percentage)) : 0;
+
+      // Suprimento mais crítico (que de fato dita a parada operacional do equipamento)
       let mostCritical = null;
       if (suppliesForecast.length > 0) {
-        mostCritical = suppliesForecast.reduce((min, curr) => curr.daysRemainingEstimated < min.daysRemainingEstimated ? curr : min, suppliesForecast[0]);
+        const evaluatableSupplies = suppliesForecast.filter(s => {
+          if (hasDualBlack && maxBlackPct > 10 && /black|preto|k1|k2/i.test(s.name || '')) {
+            if (s.percentage <= 10) return false;
+          }
+          return true;
+        });
+
+        const listToEvaluate = evaluatableSupplies.length > 0 ? evaluatableSupplies : suppliesForecast;
+        mostCritical = listToEvaluate.reduce((min, curr) => curr.daysRemainingEstimated < min.daysRemainingEstimated ? curr : min, listToEvaluate[0]);
       }
 
       return {

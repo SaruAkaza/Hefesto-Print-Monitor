@@ -464,6 +464,25 @@ function normalizeSupplyPercentage(supply) {
   return supply.percentage;
 }
 
+function getOperationalSupplies(supplies) {
+  if (!Array.isArray(supplies)) return [];
+  const nonWaste = supplies.filter(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 0);
+  
+  // Identifica múltiplos suprimentos pretos (K1 / K2)
+  const blackSupplies = nonWaste.filter(s => (s.type === 'toner' || !s.type) && /black|preto|k1|k2/i.test(s.name || ''));
+  const hasDualBlack = blackSupplies.length > 1;
+  const maxBlackPct = hasDualBlack ? Math.max(...blackSupplies.map(b => normalizeSupplyPercentage(b))) : 0;
+
+  return nonWaste.filter(s => {
+    // Se a máquina possui múltiplos pretos e pelo menos um está operacional (> 10%),
+    // o cartucho reserva esgotado não bloqueia o status operacional da máquina
+    if (hasDualBlack && maxBlackPct > 10 && /black|preto|k1|k2/i.test(s.name || '')) {
+      if (normalizeSupplyPercentage(s) <= 10) return false;
+    }
+    return true;
+  });
+}
+
 function isWasteSupply(supply) {
   if (!supply || !supply.name) return false;
   const lower = supply.name.toLowerCase();
@@ -811,8 +830,9 @@ function renderOverviewTab() {
     } else {
       countAccessible++;
       const supplies = st.supplies || [];
-      const hasCritical = supplies.some(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 0 && normalizeSupplyPercentage(s) < 10);
-      const hasWarning = supplies.some(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 10 && normalizeSupplyPercentage(s) <= 30);
+      const opSupplies = getOperationalSupplies(supplies);
+      const hasCritical = opSupplies.some(s => normalizeSupplyPercentage(s) < 10);
+      const hasWarning = opSupplies.some(s => normalizeSupplyPercentage(s) >= 10 && normalizeSupplyPercentage(s) <= 30);
 
       if (hasCritical) countCrit++;
       else if (hasWarning) countWarn++;
@@ -951,11 +971,13 @@ function renderMyPrinters(scopedPrinters) {
     }
 
     if (AppState.overviewFilter === 'critical') {
-      return isOnline && supplies.some(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 0 && normalizeSupplyPercentage(s) < 10);
+      const opSupplies = getOperationalSupplies(supplies);
+      return isOnline && opSupplies.some(s => normalizeSupplyPercentage(s) < 10);
     }
     if (AppState.overviewFilter === 'warning') {
-      const hasCritical = supplies.some(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 0 && normalizeSupplyPercentage(s) < 10);
-      const hasWarning = supplies.some(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 10 && normalizeSupplyPercentage(s) <= 30);
+      const opSupplies = getOperationalSupplies(supplies);
+      const hasCritical = opSupplies.some(s => normalizeSupplyPercentage(s) < 10);
+      const hasWarning = opSupplies.some(s => normalizeSupplyPercentage(s) >= 10 && normalizeSupplyPercentage(s) <= 30);
       return isOnline && hasWarning && !hasCritical;
     }
     if (AppState.overviewFilter === 'offline') {
@@ -975,7 +997,7 @@ function renderMyPrinters(scopedPrinters) {
     if (AppState.sortBy === 'lowest-supply') {
       const getLowest = (st) => {
         if (!st?.online || !st.supplies?.length) return 999;
-        const valid = st.supplies.filter(s => !isWasteSupply(s) && normalizeSupplyPercentage(s) >= 0);
+        const valid = getOperationalSupplies(st.supplies);
         return valid.length > 0 ? Math.min(...valid.map(s => normalizeSupplyPercentage(s))) : 999;
       };
       return getLowest(stA) - getLowest(stB);
@@ -1020,7 +1042,20 @@ function renderMyPrinters(scopedPrinters) {
       _isWaste: isWasteSupply(s)
     }));
     const validSupplies = normalizedSupplies.filter(s => s._normalizedPct >= 0 && !s._isWaste).sort((a, b) => a._normalizedPct - b._normalizedPct);
-    const lowest = validSupplies[0];
+    
+    // Insumos operacionais considerando redundância de toner duplo (K1 / K2)
+    const opSupplies = getOperationalSupplies(supplies).map(s => ({
+      ...s,
+      _normalizedPct: normalizeSupplyPercentage(s),
+      _isWaste: isWasteSupply(s)
+    })).sort((a, b) => a._normalizedPct - b._normalizedPct);
+
+    const lowest = opSupplies[0] || validSupplies[0];
+
+    // Detecta se há toner duplo preto (ex: Xerox C60/C70)
+    const blackTonersList = validSupplies.filter(s => (s.type === 'toner' || !s.type) && /black|preto|k1|k2/i.test(s.name || ''));
+    const hasDualBlack = blackTonersList.length > 1;
+    const maxBlackPct = hasDualBlack ? Math.max(...blackTonersList.map(b => b._normalizedPct)) : 0;
 
     // Filtra apenas os toners e tintas principais de consumo para a visualização resumida
     const mainToners = normalizedSupplies.filter(s => 
@@ -1074,15 +1109,28 @@ function renderMyPrinters(scopedPrinters) {
             ${mainToners.map(s => {
               const dotColor = getSupplyColorByName(s.name);
               const statusClr = getSupplyStatusByPercentage(s._normalizedPct, isRefillableTank(s));
-              const chipClass = statusClr === 'critical' ? 'chip-critical' : (statusClr === 'warning' ? 'chip-warning' : 'chip-success');
               const translatedShort = translateSupplyName(s.name, s.type)
                 .replace('Toner / Tinta ', '')
                 .replace('Cartucho / Toner ', '')
                 .replace('Bolsa de Tinta ', '');
+
+              const isDualK = hasDualBlack && /k1|k2/i.test(s.name || '');
+              let statusTextSuffix = '';
+              let chipClass = statusClr === 'critical' ? 'chip-critical' : (statusClr === 'warning' ? 'chip-warning' : 'chip-success');
+
+              if (isDualK) {
+                if (s._normalizedPct > 10) {
+                  statusTextSuffix = ' (Ativo)';
+                } else if (maxBlackPct > 10) {
+                  statusTextSuffix = ' (Reserva vazia)';
+                  chipClass = 'chip-warning';
+                }
+              }
+
               return `
-                <span class="cmyk-micro-pill ${chipClass}" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%">
+                <span class="cmyk-micro-pill ${chipClass}" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%${statusTextSuffix}">
                   <span class="cmyk-micro-dot" style="background-color: ${dotColor};"></span>
-                  <span>${translatedShort}: ${s._normalizedPct}%</span>
+                  <span>${translatedShort}: ${s._normalizedPct}%${statusTextSuffix}</span>
                 </span>
               `;
             }).join('')}
@@ -1465,6 +1513,23 @@ async function openPrinterDetailDrawer(id) {
         ? `<span class="printer-recharge-tag" style="margin-left: 0.4rem; font-size: 0.65rem;" title="Trocado em ${formatFullDateTime(matchedRec.timestamp)} (${matchedRec.newLevel}%)">✨ Recarga (${matchedRec.newLevel}%)</span>` 
         : '';
 
+      // Identificação inteligente de compartimento duplo K1 / K2 (ex: Xerox C60/C70)
+      const isDualK = /k1|k2/i.test(s.name || '');
+      let dualBadge = '';
+      if (isDualK) {
+        const partner = tonerSupplies.find(o => o !== s && /k1|k2/i.test(o.name || ''));
+        const partnerPct = partner ? normalizeSupplyPercentage(partner) : 0;
+        if (/k1/i.test(s.name) && pct > 10) {
+          dualBadge = `<span class="printer-recharge-tag" style="margin-left: 0.4rem; font-size: 0.65rem; background: rgba(16, 185, 129, 0.15); color: var(--color-success); border: 1px solid var(--color-success);">● Cartucho Ativo</span>`;
+        } else if (/k2/i.test(s.name)) {
+          if (pct <= 10 && partnerPct > 10) {
+            dualBadge = `<span class="printer-recharge-tag partial" style="margin-left: 0.4rem; font-size: 0.65rem;" title="A máquina está operando normalmente com o toner K1. Este compartimento pode ser abastecido preventivamente.">Reserva Vazia (K1 Ativo)</span>`;
+          } else if (pct > 10) {
+            dualBadge = `<span class="printer-recharge-tag" style="margin-left: 0.4rem; font-size: 0.65rem; background: rgba(16, 185, 129, 0.15); color: var(--color-success); border: 1px solid var(--color-success);">● Cartucho Reserva Pronto</span>`;
+          }
+        }
+      }
+
       return `
         <div class="detail-chip" style="border-left: 3px solid ${borderStatus};">
           <div style="display: flex; justify-content: space-between; align-items: center;">
@@ -1473,6 +1538,7 @@ async function openPrinterDetailDrawer(id) {
               <span>${escapeHtml(translateSupplyName(s.name, s.type))}</span>
               ${refillable ? ' <span title="Tanque recarregável - nível estimado" style="cursor: help; opacity: 0.6;">≈</span>' : ''}
               ${rechargeBadge}
+              ${dualBadge}
             </span>
             <span class="supply-percentage ${statusClass}" style="font-size: 0.9rem; font-weight: 800; font-family: var(--font-mono);">${textVal}</span>
           </div>
@@ -2705,11 +2771,28 @@ function renderForecastTable() {
                         .replace('Toner / Tinta ', '')
                         .replace('Cartucho / Toner ', '')
                         .replace('Bolsa de Tinta ', '');
-                      const statusClr = s.percentage <= 10 ? 'var(--color-danger)' : (s.percentage <= 30 ? 'var(--color-warning)' : 'var(--color-success)');
+
+                      const blackToners = forecastToners.filter(b => /black|preto|k1|k2/i.test(b.name || ''));
+                      const hasDual = blackToners.length > 1;
+                      const maxBlack = hasDual ? Math.max(...blackToners.map(b => b.percentage)) : 0;
+                      const isDualK = hasDual && /k1|k2/i.test(s.name || '');
+
+                      let statusTextSuffix = '';
+                      let statusClr = s.percentage <= 10 ? 'var(--color-danger)' : (s.percentage <= 30 ? 'var(--color-warning)' : 'var(--color-success)');
+
+                      if (isDualK) {
+                        if (s.percentage > 10) {
+                          statusTextSuffix = ' (Ativo)';
+                        } else if (maxBlack > 10) {
+                          statusTextSuffix = ' (Reserva vazia)';
+                          statusClr = 'var(--color-warning)';
+                        }
+                      }
+
                       return `
-                        <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; font-weight: 700; color: var(--text-secondary); background: var(--bg-input); padding: 1px 4px; border-radius: 3px; border-left: 2px solid ${statusClr};" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s.percentage}% (${s.daysRemainingEstimated ? '~' + s.daysRemainingEstimated + ' dias' : 'Estável'})">
+                        <span style="display: inline-flex; align-items: center; gap: 3px; font-size: 0.65rem; font-weight: 700; color: var(--text-secondary); background: var(--bg-input); padding: 1px 4px; border-radius: 3px; border-left: 2px solid ${statusClr};" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s.percentage}%${statusTextSuffix} (${s.daysRemainingEstimated ? '~' + s.daysRemainingEstimated + ' dias' : 'Estável'})">
                           <span style="width: 6px; height: 6px; border-radius: 50%; background-color: ${dotColor}; display: inline-block;"></span>
-                          <span>${shortName}: ${s.percentage}%</span>
+                          <span>${shortName}: ${s.percentage}%${statusTextSuffix}</span>
                         </span>
                       `;
                     }).join('')}
