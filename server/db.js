@@ -169,18 +169,19 @@ function createSchema() {
     ORDER BY r.timestamp DESC;
 
     DROP VIEW IF EXISTS Vista_Contadores_Diarios;
-    CREATE VIEW Vista_Contadores_Diarios AS
+    DROP VIEW IF EXISTS Vista_Historico_Diario_Por_Data;
+    CREATE VIEW Vista_Historico_Diario_Por_Data AS
     SELECT 
-      h.date AS "Data",
-      p.name AS "Impressora",
-      p.unit_name AS "Unidade",
-      p.location AS "Setor",
-      h.start_page_count AS "Contador Inicial do Dia",
-      h.end_page_count AS "Contador Final do Dia",
+      strftime('%d/%m/%Y', h.date) AS "📅 Data do Registro (Dia a Dia)",
+      p.name AS "Nome da Impressora",
+      p.unit_name AS "Unidade / Filial",
+      p.location AS "Setor / Consultório",
       CASE 
         WHEN h.end_page_count >= h.start_page_count THEN (h.end_page_count - h.start_page_count)
         ELSE 0 
-      END AS "Páginas Impressas no Dia"
+      END AS "Páginas Impressas Nesta Data",
+      h.start_page_count AS "Contador Início do Dia",
+      h.end_page_count AS "Contador Fim do Dia"
     FROM page_history h
     JOIN printers p ON h.printer_id = p.id
     ORDER BY h.date DESC, p.unit_name, p.name;
