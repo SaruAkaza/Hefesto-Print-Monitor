@@ -19,16 +19,16 @@ graph LR
     subgraph Backend
         D[server.js]
         E[snmp-service.js]
+        F[db.js]
     end
-    subgraph Persistencia
-        F[(printers.json)]
-        G[(units.json)]
-        H[(recharges.json)]
-        I[(page_history.json)]
+    subgraph Persistencia Relacional
+        G[(hefesto.db - SQLite Nativo)]
+        H[(backups/ - VACUUM INTO 7d)]
     end
     Frontend <-->|HTTP REST / JSON| Backend
-    Backend <-->|Leitura / Escrita| Persistencia
-    Backend <-->|SNMP v1/v2c UDP 161| Impressoras[Parque de Impressoras]
+    Backend <-->|Transações ACID node:sqlite| G
+    G -.->|Backup Diário Rotativo| H
+    Backend <-->|SNMP v1/v2c UDP 161| Impressoras[Parque de 73 Impressoras]
 ```
 
 ---
@@ -41,9 +41,11 @@ graph LR
 
 ### 2. Recargas & Suprimentos
 - **`GET /api/recharges`**
-  - Lista o histórico de recargas registradas (com filtros opcionais por `printerId` ou `unitId`).
+  - Lista o histórico de recargas registradas (com filtros opcionais por `printerId`, `unitName` ou `fullOnly`).
 - **`GET /api/recharges/summary`**
   - Retorna um mapa indexado por `printerId` contendo os dados da última recarga de cada equipamento.
+- **`GET /api/recharges/recent-events`**
+  - Retorna os eventos de reposição mais recentes para disparo de alertas visuais Toast em tempo real no dashboard.
 - **`POST /api/recharges`**
   - Registra manualmente uma recarga de suprimento e atualiza imediatamente o cache de status.
 - **`DELETE /api/recharges/:id`**
@@ -69,19 +71,28 @@ graph LR
 
 ---
 
-## 💾 Persistência de Dados em Disco
+## 💾 Persistência de Dados Relacional (SQLite ACID)
 
-| Arquivo | Descrição |
+Toda a persistência do sistema é gerenciada pelo módulo `server/db.js` utilizando o motor **SQLite Nativo (`node:sqlite`)** no banco de dados `server/data/hefesto.db`:
+
+| Tabela | Descrição & Integridade |
 | :--- | :--- |
-| `server/data/printers.json` | Cadastro de equipamentos, endereços IP, setor e unidade. |
-| `server/data/units.json` | Cadastro de pastas de unidades e filiais (SP e RJ). |
-| `server/data/recharges.json` | Histórico cronológico de trocas de suprimentos. |
-| `server/data/page_history.json` | Snapshots diários de contadores de páginas para análise temporal. |
+| `units` | Cadastro de pastas das unidades e filiais (SP e RJ). |
+| `printers` | Cadastro dos 73 equipamentos, endereços IP únicos, setor e chave estrangeira de unidade. |
+| `printer_status_cache` | Cache de telemetria em disco para boot e carregamento instantâneo do dashboard. |
+| `pending_recharges` | Memória de confirmação rápida (10s) de reposições atômicas, imune a reinicializações. |
+| `recharges` | Histórico permanente e auditável de recargas (oficiais e provisórias). |
+| `page_history` | Snapshots diários de contadores de páginas para análise volumétrica. |
+| `telemetry_snapshots` | Histórico granular de suprimentos e contadores para os algoritmos de predição. |
+
+> **Segurança & Backups:** Rotina diária automática via `VACUUM INTO` mantendo backups atômicos dos últimos 7 dias em `server/data/backups/`.  
+> 🔗 *Documentação detalhada:* [[Banco de Dados e Persistência SQLite]]
 
 ---
 
 ## 🔗 Ligações do Obsidian
 - [[Projeto Hefesto]] — Hub central do projeto
+- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional e backups
 - [[Módulo de Volume e Previsibilidade]] — Regras de negócio de previsão
 - [[Histórico de Recargas e Suprimentos]] — Regras de ciclo e recargas
 - [[Atualizações]] — Roadmap

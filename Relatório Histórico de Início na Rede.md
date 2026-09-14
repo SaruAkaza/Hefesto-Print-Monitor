@@ -1,4 +1,4 @@
-﻿# 📥 Relatório Histórico de Início na Rede & Auditoria Inicial (Modelo Híbrido)
+# 📥 Relatório Histórico de Início na Rede & Auditoria Inicial (Modelo Híbrido)
 
 > **Hub Central:** [[Projeto Hefesto]]  
 > **Tags:** #projeto-hefesto #auditoria #integracao #relatorios #contadores #telemetria #modelo-hibrido
@@ -68,6 +68,7 @@ Permite ajustar individualmente a data de instalação física, contador de ativ
 
 ## 🔗 Ligações do Sistema (Wikilinks)
 - [[Projeto Hefesto]] — Hub central da plataforma.
+- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional e integridade dos contadores.
 - [[Módulo de Volume e Previsibilidade]] — Análise diária, semanal e mensal de produção.
 - [[Histórico de Recargas e Suprimentos]] — Registro de trocas de insumos.
 - [[Arquitetura e Endpoints da API]] — Endpoint `GET /api/reports/initial-integration`.

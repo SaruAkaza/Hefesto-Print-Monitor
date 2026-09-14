@@ -7,6 +7,10 @@
 
 ## 🎯 Status das Demandas e Funcionalidades
 
+- [x] **Banco de Dados Relacional SQLite Nativo & Motor de Assertividade Máxima:**  
+  Migração completa da camada de persistência volátil em JSON para SQLite nativo (`node:sqlite` do Node.js v24, custo zero, sem dependências npm compiladas). Detecção de recargas de suprimentos com assertividade próxima a 100%: baseline $\ge 0\%$ aceito (captura reposições de toners que zeraram totalmente em consultórios), confirmação rápida em 10 segundos via reconsulta SNMP direta, persistência de intenção na tabela `pending_recharges` imune a reboots ou períodos offline, backups diários rotativos atômicos (`VACUUM INTO` retendo 7 dias) e alertas visuais Toast em tempo real no painel.  
+  🔗 *Documentação completa:* [[Banco de Dados e Persistência SQLite]] e [[Histórico de Recargas e Suprimentos]]
+
 - [x] **Contador e Histórico de Recargas de Suprimentos:**  
   Data e hora da última recarga, regra de corte ($\ge 95\%$ vs $< 95\%$), cálculo automático de páginas rodadas no ciclo e formulário manual no Raio-X.  
   🔗 *Documentação completa:* [[Histórico de Recargas e Suprimentos]]
@@ -42,6 +46,7 @@
 
 ## 🔗 Navegação do Cofre (Obsidian)
 - [[Projeto Hefesto]] — Hub principal de arquitetura e documentação
+- [[Banco de Dados e Persistência SQLite]] — Arquitetura de persistência ACID, schema relacional e backups
 - [[Relatório Histórico de Início na Rede]] — Histórico de 1ª conexão e contadores iniciais
 - [[Módulo de Volume e Previsibilidade]] — Motor preditivo e métricas de produção
 - [[Histórico de Recargas e Suprimentos]] — Registro de trocas e auditoria

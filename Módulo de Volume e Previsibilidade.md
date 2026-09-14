@@ -70,6 +70,7 @@ O cockpit superior apresenta 4 cartões executivos equipados com tags de interva
 
 ## 🔗 Ligações do Obsidian
 - [[Projeto Hefesto]] — Hub principal de arquitetura
+- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional alimentando os snapshots de volumetria
 - [[Histórico de Recargas e Suprimentos]] — Registro de trocas e auditoria
 - [[Arquitetura e Endpoints da API]] — Detalhes da rota `/api/analytics/volume-forecast`
 - [[Atualizações]] — Roadmap e progresso

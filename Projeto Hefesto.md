@@ -15,20 +15,23 @@ O sistema oferece visibilidade operacional para os operadores das filiais/unidad
 ```mermaid
 graph TD
     A[Parque de Impressoras Multi-Unidades] -->|SNMP v1/v2c| B[Servidor Backend Node.js]
-    B -->|Persistência JSON| C[(Base de Telemetria & Snapshots)]
+    B -->|Persistência ACID node:sqlite| C[(hefesto.db - SQLite Nativo)]
+    C -.->|Backup Diário Rotativo| CB[(backups/ - 7 dias)]
     B -->|API REST / JSON| D[Frontend Web Dashboard]
     D -->|Perfil Operador| E[Visão Local da Filial]
     D -->|Perfil Administrador| F[Cockpit TI / Auditoria / Previsão]
     F -->|Módulo| G[[Módulo de Volume e Previsibilidade]]
     F -->|Módulo| H[[Histórico de Recargas e Suprimentos]]
+    F -->|Módulo| BD[[Banco de Dados e Persistência SQLite]]
 ```
 
 ---
 
 ## 🧩 Estrutura de Módulos & Ligações
 
+- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional ACID com SQLite nativo, schema de tabelas e rotina de backups de 7 dias.
 - [[Módulo de Volume e Previsibilidade]] — Motor preditivo de esgotamento de tinta/toner, volume diário/semanal/mensal e classificação de carga.
-- [[Histórico de Recargas e Suprimentos]] — Registro de trocas oficiais vs. parciais, telemetria delta SNMP e auditoria com gaveta Raio-X.
+- [[Histórico de Recargas e Suprimentos]] — Registro de trocas oficiais vs. parciais, motor de assertividade máxima (10s, baseline $\ge 0\%$) e auditoria no Raio-X.
 - [[Relatório Histórico de Início na Rede]] — Registro de primeira conexão na rede, contadores iniciais de entrada e páginas sob gestão.
 - [[Arquitetura e Endpoints da API]] — Especificação técnica dos endpoints REST, persistência em disco e ciclo de vida do backend.
 - [[Atualizações]] — Roadmap de implementação e controle de tarefas concluídas e futuras.

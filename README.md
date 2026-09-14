@@ -20,9 +20,12 @@ Sistema corporativo em tempo real para telemetria, diagnóstico de suprimentos, 
 - **Validação de Carga & Capacidade Nominal:** Classificação do equipamento em relação à sua capacidade mensal recomendada (**Sobrecarga**, **Ideal**, **Ociosa**).
 - **KPIs Reativos por Unidade:** Cartões dinâmicos com tags de períodos exatos que se adaptam instantaneamente à filial/setor selecionado.
 
-### 3. 🔄 Histórico de Recargas & Auditoria de Suprimentos
+### 3. 🔄 Histórico de Recargas & Motor de Assertividade Máxima
+- **Detecção com Assertividade Próxima a 100%:** Baseline $\ge 0\%$ aceito, capturando substituições mesmo quando o suprimento anterior atingiu 0% (cenário comum em consultórios).
+- **Confirmação Rápida em 10 Segundos:** Reconsulta SNMP atômica executada após detecção inicial para validar a estabilidade da leitura sem depender de múltiplos ciclos longos.
+- **Persistência de Intenção no SQLite:** Fila de confirmação gravada em `pending_recharges`, imune a quedas de rede e reinicializações.
+- **Alertas Toast em Tempo Real:** Notificação visual imediata na interface quando uma reposição é confirmada.
 - **Regra de Corte Inteligente:** Classificação automática de **Recarga Oficial ($\ge 95\%$)** vs. **Troca Provisória / Usada ($< 95\%$)**.
-- **Detecção Automática SNMP:** Identificação instantânea de reposições quando o nível sobe $\ge +20\%$ em relação à leitura anterior.
 - **Registro Manual no Raio-X:** Modal em camadas com suporte a datas retroativas de substituição.
 - **Cálculo de Ciclo de Páginas:** Quantificação de quantas páginas cada suprimento rendeu entre trocas.
 
@@ -42,6 +45,7 @@ Sistema corporativo em tempo real para telemetria, diagnóstico de suprimentos, 
 ## 🛠️ Tecnologias Utilizadas
 
 - **Backend:** Node.js (ES Modules), Express, `net-snmp` (Protocolo SNMP UDP 161).
+- **Banco de Dados Relacional:** **SQLite Nativo (`node:sqlite`)** embutido no Node.js v24 (Custo R$ 0,00, zero dependências de compilação, transações ACID e backup diário automático via `VACUUM INTO`).
 - **Frontend:** HTML5 Semântico, CSS3 Moderno (Custom Properties / Design Tokens / Flexbox & CSS Grid), JavaScript Vanilla (Zero dependências externas pesadas).
 - **Identidade Visual:** Design System corporativo com suporte nativo a Dark Mode e Light Mode.
 
@@ -92,11 +96,13 @@ Painel de Impressoras/
 │   └── index.html                   # Estrutura HTML e abas de navegação
 │
 ├── server/                          # Backend Node.js
-│   ├── data/                        # Bases JSON (printers, units, recharges, branding)
+│   ├── data/                        # Dados (hefesto.db, backups/, branding.json)
+│   ├── db.js                        # Camada de persistência relacional SQLite (node:sqlite)
 │   ├── snmp-service.js              # Serviço de comunicação SNMP multimarca
 │   └── server.js                    # Servidor Express e rotas de API
 │
 ├── .gitignore                       # Arquivos ignorados no versionamento
+├── Banco de Dados e Persistência SQLite.md # Documentação técnica do banco SQLite (Obsidian)
 └── README.md                        # Documentação do projeto
 ```
 
