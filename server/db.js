@@ -20,6 +20,8 @@ export function initDatabase() {
   if (db) return db;
 
   db = new DatabaseSync(DB_PATH);
+  db.exec('PRAGMA journal_mode = WAL');
+  db.exec('PRAGMA busy_timeout = 5000');
   db.exec('PRAGMA foreign_keys = ON');
 
   createSchema();
@@ -130,6 +132,58 @@ function createSchema() {
       recorded_at TEXT NOT NULL
     );
     CREATE INDEX IF NOT EXISTS idx_telemetry_printer_rec ON telemetry_snapshots(printer_id, recorded_at);
+
+    -- Vistas (Views) com rótulos amigáveis em português para navegação visual no DB Browser:
+    DROP VIEW IF EXISTS Vista_Impressoras_e_Contadores;
+    CREATE VIEW Vista_Impressoras_e_Contadores AS
+    SELECT 
+      p.name AS "Nome da Impressora",
+      p.ip AS "Endereço IP",
+      p.unit_name AS "Unidade / Filial",
+      p.location AS "Setor / Consultório",
+      p.initial_page_count AS "Páginas Iniciais (Marco Zero Hefesto)",
+      COALESCE(c.page_count, p.initial_page_count) AS "Contador Vitalício Atual",
+      (COALESCE(c.page_count, p.initial_page_count) - p.initial_page_count) AS "Páginas Rodadas Sob Gestão",
+      CASE WHEN c.online = 1 THEN '🟢 ONLINE' ELSE '🔴 OFFLINE' END AS "Status de Conexão",
+      p.hefesto_activated_at AS "Data Início no Hefesto",
+      p.installed_at AS "Data Instalação Física"
+    FROM printers p
+    LEFT JOIN printer_status_cache c ON p.id = c.printer_id
+    ORDER BY p.unit_name, p.name;
+
+    DROP VIEW IF EXISTS Vista_Historico_Recargas;
+    CREATE VIEW Vista_Historico_Recargas AS
+    SELECT 
+      r.printer_name AS "Impressora",
+      r.unit_name AS "Unidade / Filial",
+      r.location AS "Setor / Sala",
+      r.supply_name AS "Suprimento Trocado",
+      r.previous_level || '%' AS "Nível Antes",
+      r.new_level || '%' AS "Nível Depois",
+      (r.new_level - r.previous_level) || '%' AS "Salto de Nível",
+      r.pages_since_last_recharge AS "Páginas Rodadas no Ciclo",
+      r.status_tag AS "Tipo de Recarga (Oficial vs Provisória)",
+      r.technician AS "Origem / Técnico",
+      r.timestamp AS "Data e Hora da Troca"
+    FROM recharges r
+    ORDER BY r.timestamp DESC;
+
+    DROP VIEW IF EXISTS Vista_Contadores_Diarios;
+    CREATE VIEW Vista_Contadores_Diarios AS
+    SELECT 
+      h.date AS "Data",
+      p.name AS "Impressora",
+      p.unit_name AS "Unidade",
+      p.location AS "Setor",
+      h.start_page_count AS "Contador Inicial do Dia",
+      h.end_page_count AS "Contador Final do Dia",
+      CASE 
+        WHEN h.end_page_count >= h.start_page_count THEN (h.end_page_count - h.start_page_count)
+        ELSE 0 
+      END AS "Páginas Impressas no Dia"
+    FROM page_history h
+    JOIN printers p ON h.printer_id = p.id
+    ORDER BY h.date DESC, p.unit_name, p.name;
   `);
 }
 
