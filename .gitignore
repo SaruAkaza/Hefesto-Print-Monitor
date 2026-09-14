@@ -37,3 +37,15 @@ $RECYCLE.BIN/
 
 # Customizações locais de marca (White-Label)
 server/data/branding.json
+
+# Banco de dados SQLite e Backups
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+server/data/*.db
+server/data/backups/
+
+# Ambientes e daemons locais
+.daemon_runtime/
+Daemon Tools/

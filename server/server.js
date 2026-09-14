@@ -5,6 +5,16 @@ import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { queryPrinterStatus, testConnection } from './snmp-service.js';
+import * as db from './db.js';
+
+// Inicializa banco de dados relacional SQLite e migração automática dos JSONs existentes
+db.initDatabase();
+
+// Backup diário rotativo do banco SQLite (executa no boot e agenda a cada 24h)
+db.runDailyBackup();
+setInterval(() => {
+  db.runDailyBackup();
+}, 24 * 60 * 60 * 1000);
 
 // Prevenção de crashes globais em background por erros assíncronos ou pacotes SNMP corrompidos
 process.on('uncaughtException', (err) => {
@@ -17,10 +27,6 @@ process.on('unhandledRejection', (reason) => {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DATA_FILE = path.join(__dirname, 'data', 'printers.json');
-const REPLENISHMENTS_FILE = path.join(__dirname, 'data', 'replenishments.json');
-const UNITS_FILE = path.join(__dirname, 'data', 'units.json');
-const RECHARGES_FILE = path.join(__dirname, 'data', 'recharges.json');
-const PAGE_HISTORY_FILE = path.join(__dirname, 'data', 'page_history.json');
 const BRANDING_FILE = path.join(__dirname, 'data', 'branding.json');
 
 const DEFAULT_BRANDING = {
@@ -57,131 +63,49 @@ app.get('/api/config/branding', async (req, res) => {
   res.json(branding);
 });
 
-// Cache em memória para respostas instantâneas
-const STATUS_CACHE = new Map();
+// Cache em memória inicializado com o último estado persistido no SQLite
+const STATUS_CACHE = db.getAllCachedStatuses();
 let lastCacheUpdate = null;
 
-// Memória de confirmação de recargas automáticas (Exige 3 ciclos consecutivos de confirmação)
-const PENDING_RECHARGE_CONFIRMATIONS = new Map();
-const SERVER_BOOT_TIME = Date.now();
-const BOOT_GRACE_PERIOD_MS = 600000; // 10 minutos após inicialização do servidor para evitar falsos positivos
-
-// Helpers de arquivo JSON
+// Helpers de dados conectados ao SQLite (alta performance e integridade ACID)
 async function loadPrinters() {
-  try {
-    const data = await fs.readFile(DATA_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    console.warn('\x1b[33m%s\x1b[0m', 'Arquivo printers.json não encontrado ou inválido, inicializando array vazio.');
-    return [];
-  }
+  return db.getPrinters();
 }
 
 async function savePrinters(printers) {
-  try {
-    await fs.writeFile(DATA_FILE, JSON.stringify(printers, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar o arquivo printers.json:', error);
+  for (const p of printers) {
+    db.savePrinter(p);
   }
 }
 
 async function loadReplenishments() {
-  try {
-    const data = await fs.readFile(REPLENISHMENTS_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    return [];
-  }
+  return [];
 }
 
 async function saveReplenishments(items) {
-  try {
-    await fs.writeFile(REPLENISHMENTS_FILE, JSON.stringify(items, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar o arquivo replenishments.json:', error);
-  }
+  // Legado
 }
 
 async function loadRecharges() {
-  try {
-    const data = await fs.readFile(RECHARGES_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    return [];
-  }
+  return db.getRecharges();
 }
 
 async function saveRecharges(recharges) {
-  try {
-    await fs.writeFile(RECHARGES_FILE, JSON.stringify(recharges, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar o arquivo recharges.json:', error);
-  }
+  // Operações atômicas utilizam db.recordRecharge()
 }
 
-let pageHistoryCache = null;
-let pageHistorySaveTimeout = null;
-
 async function loadPageHistory() {
-  if (pageHistoryCache) return pageHistoryCache;
-  try {
-    const data = await fs.readFile(PAGE_HISTORY_FILE, 'utf-8');
-    const clean = data.replace(/^\uFEFF/, '').trim();
-    pageHistoryCache = JSON.parse(clean);
-    return pageHistoryCache;
-  } catch (error) {
-    pageHistoryCache = [];
-    return pageHistoryCache;
-  }
+  return db.getAllPageHistory();
 }
 
 async function savePageHistory(history) {
-  pageHistoryCache = history;
-  if (pageHistorySaveTimeout) clearTimeout(pageHistorySaveTimeout);
-  pageHistorySaveTimeout = setTimeout(async () => {
-    try {
-      const tmpFile = `${PAGE_HISTORY_FILE}.tmp`;
-      await fs.writeFile(tmpFile, JSON.stringify(pageHistoryCache, null, 2), 'utf-8');
-      await fs.rename(tmpFile, PAGE_HISTORY_FILE);
-    } catch (error) {
-      console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar page_history.json:', error);
-    }
-  }, 1000);
+  // Operações utilizam db.recordPageCount()
 }
 
-// Grava / atualiza o snapshot diário de contadores de páginas
+// Grava / atualiza o snapshot diário de contadores de páginas no SQLite
 async function recordDailyPageSnapshot(printerId, pageCount, supplies = []) {
   if (!printerId || !pageCount) return;
-  try {
-    const history = await loadPageHistory();
-    const today = new Date().toISOString().split('T')[0];
-    const pCount = Number(pageCount);
-    
-    let entry = history.find(h => h.printerId === printerId && h.date === today);
-    if (entry) {
-      entry.endPageCount = pCount;
-      entry.lastUpdatedAt = new Date().toISOString();
-      if (Array.isArray(supplies) && supplies.length > 0) {
-        entry.supplies = supplies.map(s => ({ name: s.name, type: s.type, percentage: s.percentage }));
-      }
-    } else {
-      history.push({
-        printerId,
-        date: today,
-        startPageCount: pCount,
-        endPageCount: pCount,
-        supplies: Array.isArray(supplies) ? supplies.map(s => ({ name: s.name, type: s.type, percentage: s.percentage })) : [],
-        lastUpdatedAt: new Date().toISOString()
-      });
-    }
-
-    // Mantém histórico dos últimos 180 dias
-    const cutoffDate = new Date(Date.now() - 180 * 86400000).toISOString().split('T')[0];
-    const filtered = history.filter(h => h.date >= cutoffDate);
-    await savePageHistory(filtered);
-  } catch (err) {
-    console.error('[PageHistory] Erro ao gravar snapshot:', err);
-  }
+  db.recordPageCount(printerId, pageCount, supplies);
 }
 
 // Capacidades nominais de modelos e suprimentos
@@ -288,39 +212,8 @@ async function registerRechargeEvent({
   timestamp = null
 }) {
   try {
-    const recharges = await loadRecharges();
-    const eventTime = timestamp ? new Date(timestamp).toISOString() : new Date().toISOString();
-    const currPage = pageCount ? Number(pageCount) : 0;
-    const nLevel = Number(newLevel);
-    const pLevel = Number(previousLevel) || 0;
-
-    // Regra de corte Hefesto: Se isFull não foi explicitamente passado, >= 95% é Oficial Completa
-    const isFullRecharge = isFull !== null ? Boolean(isFull) : (nLevel >= 95);
-
-    // Evita duplicações para detecção automática: se já temos recarga recente nesse nível alto, não duplica
-    if (source === 'auto') {
-      const latestRecharge = [...recharges].reverse().find(r => 
-        r.printerId === printerId &&
-        (r.supplyName === supplyName || r.supplyType === supplyType)
-      );
-
-      if (latestRecharge && latestRecharge.newLevel >= 90 && Math.abs(latestRecharge.newLevel - nLevel) <= 5 && Math.abs(currPage - (latestRecharge.pageCount || 0)) < 300) {
-        return latestRecharge;
-      }
-    }
-
-    // Busca a recarga anterior desta mesma impressora para calcular páginas rodadas no ciclo
-    const previousRecharge = [...recharges]
-      .reverse()
-      .find(r => r.printerId === printerId && (r.supplyName === supplyName || r.supplyType === supplyType));
-
-    let pagesSinceLastRecharge = 0;
-    if (previousRecharge && previousRecharge.pageCount && currPage >= previousRecharge.pageCount) {
-      pagesSinceLastRecharge = currPage - previousRecharge.pageCount;
-    }
-
-    const event = {
-      id: 'rec-' + uuidv4().substring(0, 8),
+    const isFullRecharge = isFull !== null ? Boolean(isFull) : (Number(newLevel) >= 95);
+    const event = db.recordRecharge({
       printerId,
       printerName: printerName || 'Impressora',
       ip: ip || '',
@@ -328,21 +221,17 @@ async function registerRechargeEvent({
       location: location || '',
       supplyName: supplyName || 'Toner/Tinta',
       supplyType: supplyType || 'toner',
-      previousLevel: pLevel,
-      newLevel: nLevel,
-      pageCount: currPage,
-      pagesSinceLastRecharge,
-      source, // 'auto' | 'manual'
-      isFullRecharge, // true (>=95% nova) | false (troca parcial/usada)
+      previousLevel: Number(previousLevel) || 0,
+      newLevel: Number(newLevel),
+      pageCount: Number(pageCount) || 0,
+      source,
+      isFullRecharge,
       statusTag: isFullRecharge ? 'Recarga Oficial (Nova)' : 'Troca Provisória / Parcial',
       technician: technician || (source === 'auto' ? 'Sensor Automático SNMP' : 'Técnico'),
-      notes: notes || (isFullRecharge ? `Nível restabelecido para ${nLevel}%` : `Inserida bolsa/toner com ${nLevel}%`),
-      timestamp: eventTime
-    };
-
-    recharges.push(event);
-    await saveRecharges(recharges);
-    console.log('\x1b[32m%s\x1b[0m', `[Hefesto Recharges] ⚡ Nova recarga registrada para ${printerName} (${supplyName}): ${pLevel}% -> ${nLevel}% | Páginas no ciclo: ${pagesSinceLastRecharge}`);
+      notes: notes || (isFullRecharge ? `Nível restabelecido para ${newLevel}%` : `Inserida bolsa/toner com ${newLevel}%`),
+      timestamp: timestamp ? new Date(timestamp).toISOString() : new Date().toISOString()
+    });
+    console.log('\x1b[32m%s\x1b[0m', `[Hefesto Recharges] ⚡ Nova recarga registrada para ${printerName} (${supplyName}): ${previousLevel}% -> ${newLevel}% | Páginas no ciclo: ${event.pagesSinceLastRecharge}`);
     return event;
   } catch (err) {
     console.error('[Hefesto Recharges] Erro ao registrar recarga:', err);
@@ -351,19 +240,12 @@ async function registerRechargeEvent({
 }
 
 async function loadUnits() {
-  try {
-    const data = await fs.readFile(UNITS_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    return [];
-  }
+  return db.getUnits();
 }
 
 async function saveUnits(units) {
-  try {
-    await fs.writeFile(UNITS_FILE, JSON.stringify(units, null, 2), 'utf-8');
-  } catch (error) {
-    console.error('\x1b[31m%s\x1b[0m', 'Erro ao salvar o arquivo units.json:', error);
+  for (const u of units) {
+    db.saveUnit(u);
   }
 }
 
@@ -794,30 +676,17 @@ app.get('/api/recharges', async (req, res) => {
 
 // Resumo rápido da última recarga por impressora (enriquece cards e tabela instantaneamente)
 app.get('/api/recharges/summary', async (req, res) => {
-  const recharges = await loadRecharges();
-  const summary = {};
+  res.json(db.getRechargesSummary());
+});
 
-  // Ordena cronologicamente
-  const sorted = [...recharges].sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-  sorted.forEach(rec => {
-    if (!summary[rec.printerId]) {
-      summary[rec.printerId] = {
-        lastRecharge: null,
-        lastFullRecharge: null,
-        totalRecharges: 0,
-        history: []
-      };
-    }
-    summary[rec.printerId].lastRecharge = rec;
-    if (rec.isFullRecharge) {
-      summary[rec.printerId].lastFullRecharge = rec;
-    }
-    summary[rec.printerId].totalRecharges++;
-    summary[rec.printerId].history.push(rec);
-  });
-
-  res.json(summary);
+// Endpoint de eventos recentes de recarga (usado pelo frontend para alertas Toast em tempo real)
+app.get('/api/recharges/recent-events', async (req, res) => {
+  try {
+    const events = db.getRecentRechargeEvents(10);
+    res.json(events);
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao consultar eventos recentes de recarga.' });
+  }
 });
 
 // Registro manual de recarga (lançado pelo técnico de campo)
@@ -1150,74 +1019,85 @@ async function updateAllPrintersCache() {
           cachedAt: new Date().toISOString()
         };
 
-        // Validação Estrita de Detecção de Recarga (Projeto Hefesto)
-        // Regras de Segurança:
-        // 1. Período de carência de 10 min pós-boot
-        // 2. Equipamento e leitura anterior precisam ter sido 100% online com suprimentos válidos
-        // 3. O nível anterior precisa ter sido >= 5% (nunca dispara a partir de 0% ou glitch)
-        // 4. Exige 3 ciclos de confirmação consecutiva com o mesmo nível elevado
-        const isPastBootGrace = (Date.now() - SERVER_BOOT_TIME) > BOOT_GRACE_PERIOD_MS;
+        // Persiste o cache de status no SQLite
+        db.updateCachedStatus(p.id, entry);
 
-        if (isPastBootGrace && previousEntry && previousEntry.online && isNowOnline && Array.isArray(entry.supplies) && Array.isArray(previousEntry.supplies)) {
+        // Detecção de Recarga com Assertividade Máxima (Projeto Hefesto)
+        // Regras:
+        // 1. Aceita baselines a partir de 0% (elimina o bug de toners esgotados em consultórios)
+        // 2. Compara contra o último estado gravado mesmo que a impressora tenha passado por offline
+        // 3. Validação atômica rápida em 10 segundos para gravação imediata
+        if (isNowOnline && Array.isArray(entry.supplies)) {
+          const prevSupplies = (previousEntry && Array.isArray(previousEntry.supplies) && previousEntry.supplies.length > 0)
+            ? previousEntry.supplies
+            : (db.getCachedStatus(p.id)?.supplies || []);
+
           for (const newSup of entry.supplies) {
-            const oldSup = previousEntry.supplies.find(s => s.name === newSup.name || s.type === newSup.type);
-            
+            const oldSup = prevSupplies.find(s => s.name === newSup.name || s.type === newSup.type);
+
             if (oldSup && typeof oldSup.percentage === 'number' && typeof newSup.percentage === 'number') {
               const diff = newSup.percentage - oldSup.percentage;
-              const isSignificantIncrease = (newSup.percentage >= 95 && diff >= 20) || (newSup.percentage < 95 && diff >= 25);
-              const validBaseline = oldSup.percentage >= 5; // Ignora saltos vindos de 0% ou leituras corrompidas
+
+              // Condições de Salto de Recarga:
+              // - Salto para nível total (≥95%) com aumento de pelo menos 10%
+              // - Salto para nível alto (≥80%) com aumento de pelo menos 15%
+              // - Salto relevante vindo de nível crítico/esgotado (≤15%) para ≥40% com aumento ≥20%
+              const isSignificantIncrease = 
+                (newSup.percentage >= 95 && diff >= 10) ||
+                (newSup.percentage >= 80 && diff >= 15) ||
+                (oldSup.percentage <= 15 && newSup.percentage >= 40 && diff >= 20);
+
+              // ACEITA BASELINE >= 0% (corrige o problema onde toners que zeravam eram descartados)
+              const validBaseline = oldSup.percentage >= 0;
 
               const confKey = `${p.id}:${newSup.name || newSup.type}`;
 
               if (isSignificantIncrease && validBaseline) {
                 const isFull = newSup.percentage >= 95;
-                if (PENDING_RECHARGE_CONFIRMATIONS.has(confKey)) {
-                  const item = PENDING_RECHARGE_CONFIRMATIONS.get(confKey);
-                  // Verifica se o nível elevado se mantém estável
-                  if (Math.abs(newSup.percentage - item.targetLevel) <= 5) {
-                    item.consecutiveCycles += 1;
-                    item.lastSeen = Date.now();
 
-                    // Confirmado em 3 ciclos consecutivos!
-                    if (item.consecutiveCycles >= 3) {
-                      registerRechargeEvent({
-                        printerId: p.id,
-                        printerName: p.name,
-                        ip: p.ip,
-                        unitName: p.unitName || 'Sem Unidade',
-                        location: p.location || '',
-                        supplyName: newSup.name,
-                        supplyType: newSup.type,
-                        previousLevel: item.baselineLevel,
-                        newLevel: newSup.percentage,
-                        pageCount: entry.info?.pageCount || 0,
-                        source: 'auto',
-                        isFull
-                      }).catch(() => {});
+                // Persiste a intenção de confirmação no SQLite
+                db.savePendingRecharge({
+                  id: confKey,
+                  printerId: p.id,
+                  supplyName: newSup.name,
+                  supplyType: newSup.type,
+                  baselineLevel: oldSup.percentage,
+                  targetLevel: newSup.percentage,
+                  consecutiveCycles: 1
+                });
 
-                      PENDING_RECHARGE_CONFIRMATIONS.delete(confKey);
+                // Confirmação rápida em 10 segundos via reconsulta SNMP atômica
+                setTimeout(async () => {
+                  try {
+                    const verifyStatus = await queryPrinterStatus(p.ip, p.community || 'public');
+                    if (verifyStatus && verifyStatus.online && Array.isArray(verifyStatus.supplies)) {
+                      const verifiedSup = verifyStatus.supplies.find(s => s.name === newSup.name || s.type === newSup.type);
+                      if (verifiedSup && Math.abs(verifiedSup.percentage - newSup.percentage) <= 5) {
+                        // Confirmado! Registra no SQLite
+                        await registerRechargeEvent({
+                          printerId: p.id,
+                          printerName: p.name,
+                          ip: p.ip,
+                          unitName: p.unitName || 'Sem Unidade',
+                          location: p.location || '',
+                          supplyName: newSup.name,
+                          supplyType: newSup.type,
+                          previousLevel: oldSup.percentage,
+                          newLevel: verifiedSup.percentage,
+                          pageCount: verifyStatus.info?.pageCount || entry.info?.pageCount || 0,
+                          source: 'auto',
+                          isFull
+                        });
+                        db.deletePendingRecharge(confKey);
+                        console.log('\x1b[32m%s\x1b[0m', `[Hefesto Recharges] ⚡ Recarga confirmada em 10s para ${p.name} (${newSup.name}): ${oldSup.percentage}% -> ${verifiedSup.percentage}%`);
+                      }
                     }
-                  } else {
-                    // Flutuação inconsistente, reinicia contagem
-                    item.targetLevel = newSup.percentage;
-                    item.consecutiveCycles = 1;
-                    item.lastSeen = Date.now();
+                  } catch (err) {
+                    console.warn(`[Recharge Verification] Falha na checagem rápida de ${p.ip}:`, err.message);
                   }
-                } else {
-                  // Inicia monitoramento do ciclo 1
-                  PENDING_RECHARGE_CONFIRMATIONS.set(confKey, {
-                    targetLevel: newSup.percentage,
-                    baselineLevel: oldSup.percentage,
-                    consecutiveCycles: 1,
-                    firstSeen: Date.now(),
-                    lastSeen: Date.now()
-                  });
-                }
-              } else {
-                // Se o nível normalizou ou não há aumento, remove confirmação pendente
-                if (PENDING_RECHARGE_CONFIRMATIONS.has(confKey)) {
-                  PENDING_RECHARGE_CONFIRMATIONS.delete(confKey);
-                }
+                }, 10000);
+              } else if (newSup.percentage <= oldSup.percentage) {
+                db.deletePendingRecharge(confKey);
               }
             }
           }
@@ -1227,7 +1107,7 @@ async function updateAllPrintersCache() {
         return entry;
       })
       .catch(err => {
-        const previousEntry = STATUS_CACHE.get(p.id);
+        const previousEntry = STATUS_CACHE.get(p.id) || db.getCachedStatus(p.id);
         const errorEntry = {
           id: p.id,
           ip: p.ip,
@@ -1241,6 +1121,7 @@ async function updateAllPrintersCache() {
           info: previousEntry?.info || {},
           cachedAt: new Date().toISOString()
         };
+        db.updateCachedStatus(p.id, errorEntry);
         STATUS_CACHE.set(p.id, errorEntry);
         return errorEntry;
       })
@@ -1259,25 +1140,15 @@ async function updateAllPrintersCache() {
   return results;
 }
 
-const TELEMETRY_FILE = path.join(__dirname, 'data', 'telemetry_history.json');
-
 async function loadTelemetryHistory() {
-  try {
-    const data = await fs.readFile(TELEMETRY_FILE, 'utf-8');
-    return JSON.parse(data);
-  } catch (error) {
-    return [];
-  }
+  return db.getTelemetryHistory();
 }
 
 async function recordTelemetrySnapshot(results) {
   try {
-    const history = await loadTelemetryHistory();
-    const timestamp = new Date().toISOString();
-    
     results.forEach(entry => {
       if (entry && entry.online) {
-        history.push({
+        db.recordTelemetrySnapshot({
           printerId: entry.id,
           ip: entry.ip,
           name: entry.name,
@@ -1287,17 +1158,12 @@ async function recordTelemetrySnapshot(results) {
             name: s.name,
             type: s.type,
             percentage: s.percentage
-          })),
-          recordedAt: timestamp
+          }))
         });
       }
     });
-
-    // Mantém os últimos 500 registros para evitar crescimento descontrolado
-    const trimmed = history.slice(-500);
-    await fs.writeFile(TELEMETRY_FILE, JSON.stringify(trimmed, null, 2), 'utf-8');
   } catch (err) {
-    console.error('[Telemetry History] Erro ao gravar histórico:', err.message);
+    console.error('[Telemetry History] Erro ao gravar histórico no SQLite:', err.message);
   }
 }
 

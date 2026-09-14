@@ -36,6 +36,7 @@ const AppState = {
   statusData: new Map(),
   rechargesSummary: {},       // Resumo de última recarga por impressora
   rechargesList: [],          // Histórico completo de recargas
+  seenRechargeIds: new Set(), // IDs de recargas já notificadas via Toast em tempo real
   activeUnitFilter: '',
   overviewFilter: 'all',
   locationFilter: '',
@@ -315,6 +316,10 @@ const API = {
   async getRecharges(params = {}) {
     const query = new URLSearchParams(params).toString();
     const res = await fetch(`/api/recharges${query ? '?' + query : ''}`);
+    return res.ok ? await res.json() : [];
+  },
+  async getRecentRechargeEvents() {
+    const res = await fetch('/api/recharges/recent-events');
     return res.ok ? await res.json() : [];
   },
   async addRecharge(data) {
@@ -649,6 +654,7 @@ async function loadDashboardData(showLoading = true, force = false) {
 
     updateLastUpdatedTimestamp();
     renderAllViews();
+    checkRecentRechargeEvents();
 
     if (force) {
       showToast('Telemetria e histórico de recargas sincronizados!', 'success');
@@ -3007,6 +3013,42 @@ function updateLastUpdatedTimestamp() {
   }
 }
 
+// Verificação proativa de reposição de suprimentos em tempo real (Motor Hefesto)
+async function checkRecentRechargeEvents() {
+  try {
+    const events = await API.getRecentRechargeEvents();
+    if (!Array.isArray(events) || events.length === 0) return;
+
+    if (AppState.seenRechargeIds.size === 0) {
+      // Primeira inicialização: armazena IDs já existentes para evitar disparo em lote
+      events.forEach(ev => AppState.seenRechargeIds.add(ev.id));
+      return;
+    }
+
+    let hasNew = false;
+    for (const ev of events) {
+      if (!AppState.seenRechargeIds.has(ev.id)) {
+        AppState.seenRechargeIds.add(ev.id);
+        hasNew = true;
+        const supply = translateSupplyName(ev.supplyName || 'Toner/Tinta');
+        const printer = ev.printerName || 'Impressora';
+        const loc = ev.location ? ` • ${ev.location}` : '';
+        const prev = (typeof ev.previousLevel === 'number' && ev.previousLevel >= 0) ? `${ev.previousLevel}% ➔ ` : '';
+        showToast(`✨ Suprimento reposto: ${supply} em ${printer}${loc} (${prev}${ev.newLevel}%)`, 'success');
+      }
+    }
+
+    if (hasNew) {
+      const summary = await API.getRechargesSummary();
+      AppState.rechargesSummary = summary || {};
+      renderOverviewTab();
+    }
+  } catch (err) {
+    console.warn('[Recent Recharge Events] Falha ao verificar eventos de recarga:', err.message);
+  }
+}
+
+
 // ==========================================================================
 // 17. EVENT LISTENERS & BOOTSTRAP
 // ==========================================================================
@@ -3864,6 +3906,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   await loadDashboardData(true);
+
+  // Verificação de fundo rápida para recargas detectadas em tempo real (20 segundos)
+  setInterval(() => {
+    checkRecentRechargeEvents();
+  }, 20000);
 
   AppState.autoRefreshInterval = setInterval(() => {
     loadDashboardData(false);

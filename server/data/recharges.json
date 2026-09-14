@@ -138,5 +138,25 @@
     "technician": "Sensor Automático SNMP",
     "notes": "Inserida bolsa/toner com 83%",
     "timestamp": "2026-09-03T18:47:15.051Z"
+  },
+  {
+    "id": "rec-5087f913",
+    "printerId": "p-rs-14",
+    "printerName": "XBJZ029656",
+    "ip": "10.5.104.18",
+    "unitName": "121 - Rio Sul",
+    "location": "Recepção (13º Andar)",
+    "supplyName": "Magenta Ink Supply Unit T11A3",
+    "supplyType": "toner",
+    "previousLevel": 14,
+    "newLevel": 79,
+    "pageCount": 124971,
+    "pagesSinceLastRecharge": 381,
+    "source": "auto",
+    "isFullRecharge": false,
+    "statusTag": "Troca Provisória / Parcial",
+    "technician": "Sensor Automático SNMP",
+    "notes": "Inserida bolsa/toner com 79%",
+    "timestamp": "2026-09-14T10:55:56.986Z"
   }
 ]
