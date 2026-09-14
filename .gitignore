@@ -37,6 +37,3 @@ $RECYCLE.BIN/
 
 # Customizações locais de marca (White-Label)
 server/data/branding.json
-
-# Softwares e instaladores locais
-Daemon Tools/

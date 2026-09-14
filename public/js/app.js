@@ -43,22 +43,12 @@ const AppState = {
   searchQuery: '',
   testedPrinterIp: '',
   // Módulo de Volume e Previsibilidade (Projeto Hefesto)
-  activeAdminTab: 'printers', // 'printers' | 'forecast' | 'history'
+  activeAdminTab: 'printers', // 'printers' | 'forecast'
   forecastData: [],
   forecastSearch: '',
   forecastUnitFilter: '',
   forecastWorkloadFilter: '',
   forecastTimeFilter: '',
-  // Módulo de Histórico & Auditoria (Trocas e Volume Coletivo/Individual)
-  activeHistorySubtab: 'recharges', // 'recharges' | 'volume'
-  historyRechargesList: [],
-  historyRechargesTimeRange: 'all',
-  historyRechargesUnitFilter: '',
-  historyRechargesSearch: '',
-  volumeHistoryData: null,
-  volumeHistoryUnitFilter: '',
-  volumeHistorySectorFilter: '',
-  volumeHistorySearch: '',
   isRefreshing: false,
   autoRefreshInterval: null,
   lastUpdated: null,
@@ -237,35 +227,6 @@ const DOM = {
   forecastTimeFilter: document.getElementById('forecast-time-filter'),
   forecastTableBody: document.getElementById('forecast-table-body'),
 
-  // Aba Histórico & Auditoria
-  btnTabHistory: document.getElementById('btn-tab-history'),
-  tabViewHistory: document.getElementById('tab-view-history'),
-  btnSubtabRecharges: document.getElementById('btn-subtab-recharges'),
-  btnSubtabVolume: document.getElementById('btn-subtab-volume'),
-  historyPanelRecharges: document.getElementById('history-panel-recharges'),
-  historyPanelVolume: document.getElementById('history-panel-volume'),
-  badgeRechargesCount: document.getElementById('badge-recharges-count'),
-  btnExportRechargesHistoryCsv: document.getElementById('btn-export-recharges-history-csv'),
-  btnOpenManualRechargeFromHistory: document.getElementById('btn-open-manual-recharge-from-history'),
-  rechargesSearchInput: document.getElementById('recharges-search-input'),
-  rechargesUnitFilter: document.getElementById('recharges-unit-filter'),
-  rechargesTimeFilterPills: document.getElementById('recharges-time-filter-pills'),
-  rechargesHistoryTableBody: document.getElementById('recharges-history-table-body'),
-
-  // Volume Coletivo e Individual
-  volKpiToday: document.getElementById('vol-kpi-today'),
-  volKpiWeek: document.getElementById('vol-kpi-week'),
-  volKpiMonth: document.getElementById('vol-kpi-month'),
-  volKpiManagement: document.getElementById('vol-kpi-management'),
-  collectiveUnitsList: document.getElementById('collective-units-list'),
-  collectiveSectorsList: document.getElementById('collective-sectors-list'),
-  btnExportVolumeHistoryCsv: document.getElementById('btn-export-volume-history-csv'),
-  btnExportVolumeCsvHeader: document.getElementById('btn-export-volume-csv-header'),
-  volumeSearchInput: document.getElementById('volume-search-input'),
-  volumeUnitSelect: document.getElementById('volume-unit-select'),
-  volumeSectorSelect: document.getElementById('volume-sector-select'),
-  volumeHistoryTableBody: document.getElementById('volume-history-table-body'),
-
   // Botão Voltar ao Topo
   btnScrollTop: document.getElementById('btn-scroll-top'),
 
@@ -377,13 +338,6 @@ const API = {
   async getVolumeForecast() {
     const res = await fetch('/api/analytics/volume-forecast');
     return res.ok ? await res.json() : [];
-  },
-
-  // Módulo de Histórico & Auditoria de Volume (Coletivo e Individual)
-  async getVolumeHistory(params = {}) {
-    const query = new URLSearchParams(params).toString();
-    const res = await fetch(`/api/analytics/volume-history${query ? '?' + query : ''}`);
-    return res.ok ? await res.json() : { totals: {}, byUnit: [], bySector: [], printers: [] };
   },
 
   // Relatório Histórico de Início na Rede & Integração
@@ -724,8 +678,6 @@ function renderAllViews() {
   renderOverviewTab();
   if (AppState.activeAdminTab === 'forecast') {
     loadAndRenderForecastTab();
-  } else if (AppState.activeAdminTab === 'history') {
-    loadAndRenderHistoryTab();
   }
 }
 
@@ -781,20 +733,15 @@ function updateHeaderRoleAndUnit() {
 
   // Gerencia visibilidade das abas (comutável tanto para Administrador quanto para Visualizador de Unidade)
   const isForecastTab = AppState.activeAdminTab === 'forecast';
-  const isHistoryTab = AppState.activeAdminTab === 'history';
-  const isPrintersTab = !isForecastTab && !isHistoryTab;
-
-  if (DOM.btnTabPrinters) DOM.btnTabPrinters.classList.toggle('active', isPrintersTab);
+  if (DOM.btnTabPrinters) DOM.btnTabPrinters.classList.toggle('active', !isForecastTab);
   if (DOM.btnTabForecast) DOM.btnTabForecast.classList.toggle('active', isForecastTab);
-  if (DOM.btnTabHistory) DOM.btnTabHistory.classList.toggle('active', isHistoryTab);
 
-  if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = isPrintersTab ? 'block' : 'none';
+  if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = !isForecastTab ? 'block' : 'none';
   if (DOM.tabViewForecast) DOM.tabViewForecast.style.display = isForecastTab ? 'block' : 'none';
-  if (DOM.tabViewHistory) DOM.tabViewHistory.style.display = isHistoryTab ? 'block' : 'none';
 
   const operationalContainer = document.getElementById('operational-status-cards-container');
   if (operationalContainer) {
-    operationalContainer.style.display = isPrintersTab ? 'block' : 'none';
+    operationalContainer.style.display = !isForecastTab ? 'block' : 'none';
   }
 }
 
@@ -926,8 +873,8 @@ function renderOverviewTab() {
 async function renderUnitRecentRecharges() {
   if (!DOM.unitRecentRechargesSection || !DOM.unitRecentRechargesList) return;
 
-  // Oculta se estiver na aba de volume/previsibilidade ou histórico
-  if (AppState.activeAdminTab === 'forecast' || AppState.activeAdminTab === 'history') {
+  // Oculta apenas se estiver na aba de volume/previsibilidade
+  if (AppState.activeAdminTab === 'forecast') {
     DOM.unitRecentRechargesSection.style.display = 'none';
     return;
   }
@@ -2526,19 +2473,17 @@ function switchAdminTab(tabName) {
 
   if (DOM.btnTabPrinters) DOM.btnTabPrinters.classList.toggle('active', tabName === 'printers');
   if (DOM.btnTabForecast) DOM.btnTabForecast.classList.toggle('active', tabName === 'forecast');
-  if (DOM.btnTabHistory) DOM.btnTabHistory.classList.toggle('active', tabName === 'history');
 
   if (DOM.tabViewPrinters) DOM.tabViewPrinters.style.display = tabName === 'printers' ? 'block' : 'none';
   if (DOM.tabViewForecast) DOM.tabViewForecast.style.display = tabName === 'forecast' ? 'block' : 'none';
-  if (DOM.tabViewHistory) DOM.tabViewHistory.style.display = tabName === 'history' ? 'block' : 'none';
 
-  // Oculta automaticamente os cards operacionais de status na aba de Previsibilidade e Histórico
+  // Oculta automaticamente os cards operacionais de status (Conectadas, Crítico, Atenção, Sem Conexão e Reposições Recentes) na aba de Previsibilidade
   const operationalContainer = document.getElementById('operational-status-cards-container');
   if (operationalContainer) {
     operationalContainer.style.display = tabName === 'printers' ? 'block' : 'none';
   }
   if (DOM.unitRecentRechargesSection) {
-    if (tabName === 'forecast' || tabName === 'history') {
+    if (tabName === 'forecast') {
       DOM.unitRecentRechargesSection.style.display = 'none';
     } else if (AppState.userRole === 'admin') {
       renderUnitRecentRecharges();
@@ -2547,8 +2492,6 @@ function switchAdminTab(tabName) {
 
   if (tabName === 'forecast') {
     loadAndRenderForecastTab();
-  } else if (tabName === 'history') {
-    loadAndRenderHistoryTab();
   }
 }
 
@@ -3022,464 +2965,6 @@ async function exportInitialIntegrationReportCsv() {
   }
 }
 
-// ==========================================================================
-// 18. MÓDULO DE HISTÓRICO & AUDITORIA (TROCAS E VOLUME COLETIVO/INDIVIDUAL)
-// ==========================================================================
-function switchHistorySubtab(subtab) {
-  AppState.activeHistorySubtab = subtab;
-
-  if (DOM.btnSubtabRecharges) DOM.btnSubtabRecharges.classList.toggle('active', subtab === 'recharges');
-  if (DOM.btnSubtabVolume) DOM.btnSubtabVolume.classList.toggle('active', subtab === 'volume');
-
-  if (DOM.historyPanelRecharges) DOM.historyPanelRecharges.style.display = subtab === 'recharges' ? 'block' : 'none';
-  if (DOM.historyPanelVolume) DOM.historyPanelVolume.style.display = subtab === 'volume' ? 'block' : 'none';
-
-  if (subtab === 'recharges') {
-    loadAndRenderRechargesHistory();
-  } else if (subtab === 'volume') {
-    loadAndRenderVolumeHistory();
-  }
-}
-
-async function loadAndRenderHistoryTab() {
-  if (!DOM.tabViewHistory) return;
-
-  populateHistoryFilters();
-
-  if (AppState.activeHistorySubtab === 'volume') {
-    await loadAndRenderVolumeHistory();
-  } else {
-    await loadAndRenderRechargesHistory();
-  }
-}
-
-function populateHistoryFilters() {
-  // Se for operador, restringe à unidade do operador
-  if (AppState.userRole !== 'admin' && AppState.activeUnitFilter) {
-    const u = AppState.units.find(x => x.id === AppState.activeUnitFilter);
-    const unitName = u ? u.name : '';
-    AppState.historyRechargesUnitFilter = unitName;
-    AppState.volumeHistoryUnitFilter = unitName;
-  }
-
-  // Preenche select de filiais na aba de trocas (quando em modo admin)
-  if (DOM.rechargesUnitFilter) {
-    const cur = AppState.historyRechargesUnitFilter || '';
-    DOM.rechargesUnitFilter.innerHTML = '<option value="">Todas as Filiais</option>' +
-      AppState.units.map(u => `<option value="${escapeHtml(u.name)}" ${cur === u.name ? 'selected' : ''}>${escapeHtml(u.name)}</option>`).join('');
-  }
-
-  // Preenche select de filiais na aba de volume individual
-  if (DOM.volumeUnitSelect) {
-    const cur = AppState.volumeHistoryUnitFilter || '';
-    DOM.volumeUnitSelect.innerHTML = '<option value="">Todas as Filiais</option>' +
-      AppState.units.map(u => `<option value="${escapeHtml(u.name)}" ${cur === u.name ? 'selected' : ''}>${escapeHtml(u.name)}</option>`).join('');
-  }
-}
-
-async function loadAndRenderRechargesHistory() {
-  if (!DOM.rechargesHistoryTableBody) return;
-
-  try {
-    const params = {};
-    if (AppState.historyRechargesTimeRange && AppState.historyRechargesTimeRange !== 'all') {
-      params.timeRange = AppState.historyRechargesTimeRange;
-    }
-    if (AppState.historyRechargesSearch) {
-      params.q = AppState.historyRechargesSearch;
-    }
-    if (AppState.historyRechargesUnitFilter) {
-      params.unitName = AppState.historyRechargesUnitFilter;
-    } else if (AppState.userRole !== 'admin' && AppState.activeUnitFilter) {
-      const u = AppState.units.find(x => x.id === AppState.activeUnitFilter);
-      if (u) params.unitName = u.name;
-    }
-
-    const recharges = await API.getRecharges(params);
-    AppState.historyRechargesList = recharges;
-
-    if (DOM.badgeRechargesCount) {
-      DOM.badgeRechargesCount.textContent = recharges.length;
-    }
-
-    if (recharges.length === 0) {
-      DOM.rechargesHistoryTableBody.innerHTML = `
-        <tr>
-          <td colspan="9" style="text-align: center; color: var(--text-muted); padding: 2.5rem 1rem;">
-            <div style="display: flex; flex-direction: column; align-items: center; gap: 0.5rem;">
-              <svg class="icon icon-md" viewBox="0 0 24 24" style="color: var(--text-muted); width: 32px; height: 32px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span style="font-weight: 600;">Nenhum registro de troca localizado para os filtros selecionados.</span>
-              <span style="font-size: 0.75rem; color: var(--text-muted);">Tente alterar o período de busca ou limpar o termo digitado.</span>
-            </div>
-          </td>
-        </tr>
-      `;
-      return;
-    }
-
-    DOM.rechargesHistoryTableBody.innerHTML = recharges.map(r => {
-      const dt = formatFullDateTime(r.timestamp);
-      const isFull = r.isFullRecharge === true;
-      const jumpBadgeClass = isFull ? 'official' : 'partial';
-      const jumpBadgeText = `${r.previousLevel ?? 0}% ➔ ${r.newLevel ?? 0}%`;
-
-      const supColor = getSupplyColorByName(r.supplyName);
-      const translatedSupply = translateSupplyName(r.supplyName, r.supplyType);
-
-      let originBadgeHtml = '';
-      if (r.source === 'auto' || (r.technician && r.technician.includes('Sensor'))) {
-        originBadgeHtml = `
-          <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 700; color: #38bdf8; background: rgba(56, 189, 248, 0.1); border: 1px solid rgba(56, 189, 248, 0.3); padding: 2px 7px; border-radius: 4px;">
-            <svg class="icon icon-xs" viewBox="0 0 24 24" style="width: 12px; height: 12px;"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-            Sensor SNMP
-          </span>
-        `;
-      } else {
-        originBadgeHtml = `
-          <span style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 700; color: var(--color-success); background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 2px 7px; border-radius: 4px;">
-            <svg class="icon icon-xs" viewBox="0 0 24 24" style="width: 12px; height: 12px;"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-            ${escapeHtml(r.technician || 'Técnico')}
-          </span>
-        `;
-      }
-
-      const cyclePages = r.pagesSinceLastRecharge && Number(r.pagesSinceLastRecharge) > 0 
-        ? `${Number(r.pagesSinceLastRecharge).toLocaleString('pt-BR')} pág.`
-        : '<span style="color: var(--text-muted);">—</span>';
-
-      const totalPages = r.pageCount && Number(r.pageCount) > 0 
-        ? `${Number(r.pageCount).toLocaleString('pt-BR')} pág.`
-        : '<span style="color: var(--text-muted);">—</span>';
-
-      return `
-        <tr>
-          <td>
-            <div style="font-family: var(--font-mono); font-size: 0.8rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.35rem;">
-              <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-primary); width: 14px; height: 14px;"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>${dt}</span>
-            </div>
-            ${r.statusTag ? `<span style="font-size: 0.65rem; color: var(--text-muted);">${escapeHtml(r.statusTag)}</span>` : ''}
-          </td>
-
-          <td>
-            <span style="font-weight: 700; color: var(--text-primary); font-size: 0.82rem;">
-              ${escapeHtml(r.unitName || 'Sem Filial')}
-            </span>
-          </td>
-
-          <td>
-            <div style="font-size: 0.82rem; color: var(--text-secondary); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeHtml(r.location || '')}">
-              ${escapeHtml(r.location || 'Sem Local')}
-            </div>
-          </td>
-
-          <td>
-            <div style="font-weight: 700; font-size: 0.82rem; color: var(--text-primary);">
-              ${escapeHtml(r.printerName || 'Impressora')}
-            </div>
-            <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">
-              ${escapeHtml(r.ip || '')}
-            </div>
-          </td>
-
-          <td>
-            <div style="display: flex; align-items: center; gap: 0.45rem;">
-              <span style="width: 9px; height: 9px; border-radius: 50%; background-color: ${supColor}; display: inline-block; flex-shrink: 0; box-shadow: 0 0 4px ${supColor};"></span>
-              <span style="font-weight: 700; font-size: 0.82rem; color: var(--text-primary);">
-                ${escapeHtml(translatedSupply)}
-              </span>
-            </div>
-            ${r.notes ? `<div style="font-size: 0.68rem; color: var(--text-muted); margin-top: 0.15rem;">${escapeHtml(r.notes)}</div>` : ''}
-          </td>
-
-          <td style="text-align: center;">
-            <span class="recharge-jump-badge ${jumpBadgeClass}" title="${isFull ? 'Reposição Completa (≥95%)' : 'Substituição Parcial ou Provisória (<95%)'}">
-              ${jumpBadgeText}
-            </span>
-          </td>
-
-          <td style="text-align: center; font-family: var(--font-mono); font-weight: 700; font-size: 0.8rem; color: var(--text-primary);">
-            ${cyclePages}
-          </td>
-
-          <td style="text-align: center; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary);">
-            ${totalPages}
-          </td>
-
-          <td>
-            ${originBadgeHtml}
-          </td>
-        </tr>
-      `;
-    }).join('');
-
-  } catch (err) {
-    console.error('[History] Erro ao carregar linha do tempo de trocas:', err);
-    DOM.rechargesHistoryTableBody.innerHTML = `
-      <tr>
-        <td colspan="9" style="text-align: center; color: var(--color-danger); padding: 2rem;">
-          Erro ao carregar histórico de trocas. Recarregue a página ou tente novamente.
-        </td>
-      </tr>
-    `;
-  }
-}
-
-async function loadAndRenderVolumeHistory() {
-  if (!DOM.volumeHistoryTableBody) return;
-
-  try {
-    const params = {};
-    if (AppState.volumeHistoryUnitFilter) {
-      params.unitName = AppState.volumeHistoryUnitFilter;
-    } else if (AppState.userRole !== 'admin' && AppState.activeUnitFilter) {
-      const u = AppState.units.find(x => x.id === AppState.activeUnitFilter);
-      if (u) params.unitName = u.name;
-    }
-    if (AppState.volumeHistorySearch) {
-      params.q = AppState.volumeHistorySearch;
-    }
-
-    const data = await API.getVolumeHistory(params);
-    AppState.volumeHistoryData = data;
-
-    // Atualiza KPIs do topo
-    const totals = data.totals || {};
-    if (DOM.volKpiToday) DOM.volKpiToday.textContent = Number(totals.pagesToday || 0).toLocaleString('pt-BR');
-    if (DOM.volKpiWeek) DOM.volKpiWeek.textContent = Number(totals.pagesThisWeek || 0).toLocaleString('pt-BR');
-    if (DOM.volKpiMonth) DOM.volKpiMonth.textContent = Number(totals.pagesThisMonth || 0).toLocaleString('pt-BR');
-    if (DOM.volKpiManagement) DOM.volKpiManagement.textContent = Number(totals.pagesUnderManagement || 0).toLocaleString('pt-BR');
-
-    // Popula select de setores dinamicamente com base nos dados recebidos
-    if (DOM.volumeSectorSelect) {
-      const currentSector = AppState.volumeHistorySectorFilter || '';
-      const sectorsSet = new Set();
-      (data.printers || []).forEach(p => {
-        if (p.sector) sectorsSet.add(p.sector);
-      });
-      const sortedSectors = Array.from(sectorsSet).sort((a, b) => a.localeCompare(b, 'pt-BR'));
-      DOM.volumeSectorSelect.innerHTML = '<option value="">Todos os Setores</option>' +
-        sortedSectors.map(s => `<option value="${escapeHtml(s)}" ${currentSector === s ? 'selected' : ''}>${escapeHtml(s)}</option>`).join('');
-    }
-
-    // Renderiza Nível 1: Quadros de Produção Coletiva (Por Filial e Por Setor)
-    renderCollectiveRankings(data.byUnit || [], data.bySector || []);
-
-    // Renderiza Nível 2: Tabela Individual de Equipamentos
-    renderIndividualVolumeTable();
-
-  } catch (err) {
-    console.error('[Volume History] Erro ao carregar volume de impressão:', err);
-    DOM.volumeHistoryTableBody.innerHTML = `
-      <tr>
-        <td colspan="9" style="text-align: center; color: var(--color-danger); padding: 2rem;">
-          Erro ao carregar dados de volume de impressão. Tente novamente.
-        </td>
-      </tr>
-    `;
-  }
-}
-
-function renderCollectiveRankings(byUnit, bySector) {
-  // 1. Ranking Coletivo por Filial
-  if (DOM.collectiveUnitsList) {
-    if (!byUnit || byUnit.length === 0) {
-      DOM.collectiveUnitsList.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">Nenhuma unidade encontrada.</div>';
-    } else {
-      const maxUnitMonth = Math.max(...byUnit.map(u => u.pagesThisMonth || 1));
-      DOM.collectiveUnitsList.innerHTML = byUnit.map((u, idx) => {
-        const pct = Math.min(100, Math.round(((u.pagesThisMonth || 0) / maxUnitMonth) * 100));
-        return `
-          <div class="collective-rank-row">
-            <div class="collective-rank-top">
-              <div class="collective-rank-name">
-                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); width: 18px;">#${idx + 1}</span>
-                <span>${escapeHtml(u.unitName)}</span>
-                <span class="collective-rank-badge">${u.printerCount} impr.</span>
-              </div>
-              <div class="collective-rank-val">
-                ${Number(u.pagesThisMonth || 0).toLocaleString('pt-BR')} <span style="font-size: 0.68rem; font-weight: normal; color: var(--text-muted);">pág</span>
-              </div>
-            </div>
-            <div class="collective-rank-bar-wrap">
-              <div class="collective-rank-bar-fill" style="width: ${pct}%;"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono);">
-              <span>Hoje: <strong>${Number(u.pagesToday || 0).toLocaleString('pt-BR')}</strong></span>
-              <span>7 dias: <strong>${Number(u.pagesThisWeek || 0).toLocaleString('pt-BR')}</strong></span>
-              <span>Gestão: <strong>${Number(u.pagesUnderManagement || 0).toLocaleString('pt-BR')}</strong></span>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-  }
-
-  // 2. Ranking Coletivo por Setor / Departamento
-  if (DOM.collectiveSectorsList) {
-    if (!bySector || bySector.length === 0) {
-      DOM.collectiveSectorsList.innerHTML = '<div style="text-align: center; color: var(--text-muted); padding: 1rem;">Nenhum setor encontrado.</div>';
-    } else {
-      const maxSectorMonth = Math.max(...bySector.map(s => s.pagesThisMonth || 1));
-      DOM.collectiveSectorsList.innerHTML = bySector.map((s, idx) => {
-        const pct = Math.min(100, Math.round(((s.pagesThisMonth || 0) / maxSectorMonth) * 100));
-        return `
-          <div class="collective-rank-row">
-            <div class="collective-rank-top">
-              <div class="collective-rank-name">
-                <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); width: 18px;">#${idx + 1}</span>
-                <span>${escapeHtml(s.sectorName)}</span>
-                <span class="collective-rank-badge">${s.printerCount} impr.</span>
-              </div>
-              <div class="collective-rank-val" style="color: var(--color-success);">
-                ${Number(s.pagesThisMonth || 0).toLocaleString('pt-BR')} <span style="font-size: 0.68rem; font-weight: normal; color: var(--text-muted);">pág</span>
-              </div>
-            </div>
-            <div class="collective-rank-bar-wrap">
-              <div class="collective-rank-bar-fill" style="width: ${pct}%; background: linear-gradient(90deg, var(--color-success), #34d399);"></div>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.68rem; color: var(--text-muted); font-family: var(--font-mono);">
-              <span>Hoje: <strong>${Number(s.pagesToday || 0).toLocaleString('pt-BR')}</strong></span>
-              <span>7 dias: <strong>${Number(s.pagesThisWeek || 0).toLocaleString('pt-BR')}</strong></span>
-              <span>Gestão: <strong>${Number(s.pagesUnderManagement || 0).toLocaleString('pt-BR')}</strong></span>
-            </div>
-          </div>
-        `;
-      }).join('');
-    }
-  }
-}
-
-function renderIndividualVolumeTable() {
-  if (!DOM.volumeHistoryTableBody) return;
-
-  const data = AppState.volumeHistoryData;
-  if (!data || !data.printers) return;
-
-  let list = [...data.printers];
-
-  // Filtro por setor
-  if (AppState.volumeHistorySectorFilter) {
-    list = list.filter(p => p.sector === AppState.volumeHistorySectorFilter);
-  }
-
-  // Filtro por busca textual
-  if (AppState.volumeHistorySearch) {
-    const q = AppState.volumeHistorySearch.toLowerCase().trim();
-    list = list.filter(p =>
-      (p.printerName || '').toLowerCase().includes(q) ||
-      (p.location || '').toLowerCase().includes(q) ||
-      (p.ip || '').toLowerCase().includes(q) ||
-      (p.sector || '').toLowerCase().includes(q) ||
-      (p.model || '').toLowerCase().includes(q)
-    );
-  }
-
-  // Ordena por produção no mês decrescente
-  list.sort((a, b) => (b.pagesThisMonth || 0) - (a.pagesThisMonth || 0));
-
-  if (list.length === 0) {
-    DOM.volumeHistoryTableBody.innerHTML = `
-      <tr>
-        <td colspan="9" style="text-align: center; color: var(--text-muted); padding: 2rem;">
-          Nenhum equipamento localizado com os filtros selecionados.
-        </td>
-      </tr>
-    `;
-    return;
-  }
-
-  DOM.volumeHistoryTableBody.innerHTML = list.map(item => {
-    return `
-      <tr>
-        <td>
-          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.85rem;">
-            ${escapeHtml(item.location || item.printerName)}
-          </div>
-          <div style="font-size: 0.725rem; color: var(--text-muted); display: flex; gap: 0.4rem; align-items: center; margin-top: 0.15rem;">
-            <span style="font-family: var(--font-mono);">${escapeHtml(item.ip)}</span>
-            <span>•</span>
-            <span style="color: var(--color-primary); font-weight: 600;">${escapeHtml(item.sector || 'Geral')}</span>
-          </div>
-        </td>
-
-        <td>
-          <span style="font-weight: 600; font-size: 0.82rem; color: var(--text-secondary);">
-            ${escapeHtml(item.unitName || 'Sem Filial')}
-          </span>
-        </td>
-
-        <td>
-          <div style="font-size: 0.82rem; color: var(--text-primary); font-weight: 600;">
-            ${escapeHtml(item.model || 'Laser')}
-          </div>
-          <div style="font-size: 0.7rem; color: var(--text-muted);">
-            Total: ${Number(item.currentTotalPages || 0).toLocaleString('pt-BR')} pág.
-          </div>
-        </td>
-
-        <td style="text-align: center; font-family: var(--font-mono); font-weight: 700; color: var(--text-primary);">
-          ${Number(item.pagesToday || 0).toLocaleString('pt-BR')}
-        </td>
-
-        <td style="text-align: center; font-family: var(--font-mono); font-weight: 700; color: var(--text-primary);">
-          ${Number(item.pagesThisWeek || 0).toLocaleString('pt-BR')}
-        </td>
-
-        <td style="text-align: center; font-family: var(--font-mono); font-weight: 800; color: var(--color-primary); font-size: 0.9rem;">
-          ${Number(item.pagesThisMonth || 0).toLocaleString('pt-BR')}
-        </td>
-
-        <td style="text-align: center; font-family: var(--font-mono); font-size: 0.82rem; color: var(--text-secondary);">
-          ~${Number(item.avgPagesPerDay || 0).toLocaleString('pt-BR')}
-        </td>
-
-        <td style="text-align: center; font-family: var(--font-mono); font-weight: 700; color: var(--color-success); font-size: 0.85rem;">
-          ${Number(item.pagesUnderManagement || 0).toLocaleString('pt-BR')} pág.
-        </td>
-
-        <td style="text-align: center;">
-          <button 
-            type="button" 
-            class="deck-action-pill cta" 
-            onclick="openPrinterDetailDrawer('${item.printerId}')"
-            title="Abrir Raio-X detalhado 360°"
-          >
-            ${Icons.eye}
-            <span>Raio-X</span>
-          </button>
-        </td>
-      </tr>
-    `;
-  }).join('');
-}
-
-async function exportVolumeHistoryCsv() {
-  try {
-    showToast('Gerando relatório de histórico de volume...', 'info');
-    let unitParam = AppState.volumeHistoryUnitFilter;
-    if (!unitParam && AppState.userRole !== 'admin' && AppState.activeUnitFilter) {
-      const u = AppState.units.find(x => x.id === AppState.activeUnitFilter);
-      if (u) unitParam = u.name;
-    }
-
-    const url = `/api/reports/volume-history-csv${unitParam ? '?unitName=' + encodeURIComponent(unitParam) : ''}`;
-    
-    const link = document.createElement('a');
-    link.href = url;
-    const dateStr = new Date().toISOString().split('T')[0];
-    const compSlug = (AppState.branding?.companyName || 'corporativo').toLowerCase().replace(/[^a-z0-9]/g, '_');
-    link.setAttribute('download', `Historico_Volume_Producao_${compSlug}_${dateStr}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    showToast('Relatório de volume baixado com sucesso!', 'success');
-  } catch (err) {
-    showToast('Erro ao exportar relatório: ' + err.message, 'error');
-  }
-}
-
 window.openPrinterDetailDrawer = openPrinterDetailDrawer;
 window.openManualRechargeModal = openManualRechargeModal;
 window.exportRechargesReportCsv = exportRechargesReportCsv;
@@ -3487,8 +2972,6 @@ window.exportInkReportCsv = exportInkReportCsv;
 window.exportInitialIntegrationReportCsv = exportInitialIntegrationReportCsv;
 window.switchAdminTab = switchAdminTab;
 window.exportForecastReportCsv = exportForecastReportCsv;
-window.switchHistorySubtab = switchHistorySubtab;
-window.exportVolumeHistoryCsv = exportVolumeHistoryCsv;
 
 function showToast(message, type = 'info') {
   const toast = document.createElement('div');
@@ -3688,13 +3171,6 @@ function setupEventListeners() {
       if (AppState.userRole === 'admin' && AppState.activeAdminTab === 'forecast') {
         updateForecastKPIs(AppState.forecastUnitFilter);
         renderForecastTable();
-      } else if (AppState.activeAdminTab === 'history') {
-        populateHistoryFilters();
-        if (AppState.activeHistorySubtab === 'volume') {
-          loadAndRenderVolumeHistory();
-        } else {
-          loadAndRenderRechargesHistory();
-        }
       }
     });
   }
@@ -3894,9 +3370,6 @@ function setupEventListeners() {
   if (DOM.btnTabForecast) {
     DOM.btnTabForecast.addEventListener('click', () => switchAdminTab('forecast'));
   }
-  if (DOM.btnTabHistory) {
-    DOM.btnTabHistory.addEventListener('click', () => switchAdminTab('history'));
-  }
 
   // Filtros da aba de Previsibilidade
   if (DOM.forecastSearchInput) {
@@ -3925,79 +3398,6 @@ function setupEventListeners() {
   }
   if (DOM.btnExportForecastCsv) {
     DOM.btnExportForecastCsv.addEventListener('click', exportForecastReportCsv);
-  }
-
-  // Sub-abas de Histórico & Auditoria
-  if (DOM.btnSubtabRecharges) {
-    DOM.btnSubtabRecharges.addEventListener('click', () => switchHistorySubtab('recharges'));
-  }
-  if (DOM.btnSubtabVolume) {
-    DOM.btnSubtabVolume.addEventListener('click', () => switchHistorySubtab('volume'));
-  }
-
-  // Filtros de Linha do Tempo de Trocas
-  if (DOM.rechargesSearchInput) {
-    DOM.rechargesSearchInput.addEventListener('input', (e) => {
-      AppState.historyRechargesSearch = e.target.value;
-      loadAndRenderRechargesHistory();
-    });
-  }
-  if (DOM.rechargesUnitFilter) {
-    DOM.rechargesUnitFilter.addEventListener('change', (e) => {
-      AppState.historyRechargesUnitFilter = e.target.value;
-      loadAndRenderRechargesHistory();
-    });
-  }
-  if (DOM.rechargesTimeFilterPills) {
-    DOM.rechargesTimeFilterPills.querySelectorAll('.time-filter-pill').forEach(btn => {
-      btn.addEventListener('click', () => {
-        DOM.rechargesTimeFilterPills.querySelectorAll('.time-filter-pill').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        AppState.historyRechargesTimeRange = btn.dataset.range || 'all';
-        loadAndRenderRechargesHistory();
-      });
-    });
-  }
-  if (DOM.btnOpenManualRechargeFromHistory) {
-    DOM.btnOpenManualRechargeFromHistory.addEventListener('click', () => {
-      const scoped = getScopedPrinters();
-      if (scoped.length > 0) {
-        openManualRechargeModal(scoped[0].id);
-      } else if (AppState.printers.length > 0) {
-        openManualRechargeModal(AppState.printers[0].id);
-      } else {
-        showToast('Nenhuma impressora disponível para registrar troca.', 'warning');
-      }
-    });
-  }
-  if (DOM.btnExportRechargesHistoryCsv) {
-    DOM.btnExportRechargesHistoryCsv.addEventListener('click', exportRechargesReportCsv);
-  }
-
-  // Filtros de Produção & Volume de Impressão
-  if (DOM.volumeSearchInput) {
-    DOM.volumeSearchInput.addEventListener('input', (e) => {
-      AppState.volumeHistorySearch = e.target.value;
-      renderIndividualVolumeTable();
-    });
-  }
-  if (DOM.volumeUnitSelect) {
-    DOM.volumeUnitSelect.addEventListener('change', (e) => {
-      AppState.volumeHistoryUnitFilter = e.target.value;
-      loadAndRenderVolumeHistory();
-    });
-  }
-  if (DOM.volumeSectorSelect) {
-    DOM.volumeSectorSelect.addEventListener('change', (e) => {
-      AppState.volumeHistorySectorFilter = e.target.value;
-      renderIndividualVolumeTable();
-    });
-  }
-  if (DOM.btnExportVolumeHistoryCsv) {
-    DOM.btnExportVolumeHistoryCsv.addEventListener('click', exportVolumeHistoryCsv);
-  }
-  if (DOM.btnExportVolumeCsvHeader) {
-    DOM.btnExportVolumeCsvHeader.addEventListener('click', exportVolumeHistoryCsv);
   }
 
   DOM.btnCloseDrawerDetail.addEventListener('click', closePrinterDetailDrawer);
