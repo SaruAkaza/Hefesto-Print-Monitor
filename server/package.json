@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node --no-warnings server.js",
-    "dev": "node --watch --no-warnings server.js"
+    "dev": "node --watch --no-warnings server.js",
+    "query": "node --no-warnings query.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
