@@ -286,7 +286,7 @@ async function querySnmpWithVersion(ip, community, version) {
       } else if (currentLevel === -2) {
         percentage = -2; // Desconhecido (tanques contínuos)
       } else if (currentLevel === -3) {
-        percentage = 50; // Parcial — há suprimento mas valor indeterminado
+        percentage = -3; // Indeterminado / Residual (não atribuir percentual artificial)
       } else if (maxLevel > 0 && currentLevel >= 0) {
         percentage = Math.max(0, Math.min(100, Math.round((currentLevel / maxLevel) * 100)));
       } else if (currentLevel > 0 && maxLevel <= 0) {
@@ -307,15 +307,28 @@ async function querySnmpWithVersion(ip, community, version) {
       });
     }
 
-    // Fallback Brother: Se a tabela padrão RFC 3805 estiver vazia (ex: HL-L5212DW / HL-L6202DW)
-    if (supplies.length === 0) {
+    // Prioridade Brother: Em impressoras Brother (ex: HL-L5212DW, HL-L6202DW, MFCs),
+    // a MIB proprietária (BROTHER_OID_SUPPLIES) fornece a calibração real e precisa
+    // (Toner Preto, Cilindro, Fusor, Laser, Kit PF).
+    // A tabela genérica RFC 3805 retorna apenas descrições brutas com nível -3 (someRemaining).
+    const sysDescrStr = String(infoData[OIDs.sysDescr] || '').toLowerCase();
+    const hrDevDescrStr = String(infoData[OIDs.hrDeviceDescr] || '').toLowerCase();
+    const sysNameStr = String(infoData[OIDs.sysName] || '').toLowerCase();
+    const serialStr = String(infoData[OIDs.serialNumber] || '');
+    const isBrother = sysDescrStr.includes('brother') || 
+                      hrDevDescrStr.includes('brother') || 
+                      sysNameStr.includes('brother') || 
+                      serialStr.startsWith('U670');
+
+    if (isBrother || supplies.length === 0) {
       try {
-        const brotherData = await getOids(session, [BROTHER_OID_SUPPLIES]);
+        const brotherData = await getOids(session, [BROTHER_OID_SUPPLIES]).catch(() => null);
         const brotherBuf = brotherData ? brotherData[BROTHER_OID_SUPPLIES] : null;
         if (brotherBuf) {
           const tlvMap = parseBrotherTlv(brotherBuf);
           const bSupplies = extractBrotherSupplies(tlvMap);
           if (bSupplies.length > 0) {
+            supplies.length = 0;
             supplies.push(...bSupplies);
           }
         }

@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 const dbPath = path.join(__dirname, 'data', 'hefesto.db');
 
 const db = new DatabaseSync(dbPath);
+db.exec('PRAGMA busy_timeout = 5000');
 const inputQuery = process.argv.slice(2).join(' ').trim();
 
 if (!inputQuery || inputQuery.toLowerCase() === 'tables' || inputQuery.toLowerCase() === 'tabelas') {
