@@ -26,6 +26,11 @@ export function initDatabase() {
 
   createSchema();
   migrateFromJsonIfNeeded();
+  try {
+    cleanSpuriousRecharges();
+  } catch (err) {
+    console.warn('[SQLite] Erro ao executar limpeza inicial:', err.message);
+  }
   return db;
 }
 
@@ -705,25 +710,110 @@ export function getRecharges(filterOptions = {}) {
   }));
 }
 
+export function normalizeSupplySlot(supplyName) {
+  if (!supplyName || typeof supplyName !== 'string') return '';
+  // Remove serial number suffix like ';SN...', ';sn...', ' [SN...]' or ' (SN...)'
+  let clean = supplyName.split(/;sn/i)[0].trim();
+  clean = clean.replace(/\[\s*sn[^\]]+\]/i, '').trim();
+  return clean.toLowerCase().replace(/\s+/g, ' ');
+}
+
+export function extractSupplySerial(supplyName) {
+  if (!supplyName || typeof supplyName !== 'string') return null;
+  const match = supplyName.match(/;SN([A-Za-z0-9]+)/i) || 
+                supplyName.match(/\bSN[:=]?\s*([A-Za-z0-9]+)/i) ||
+                supplyName.match(/\[SN[:=]?\s*([A-Za-z0-9]+)\]/i);
+  return match ? match[1].trim() : null;
+}
+
 export function recordRecharge(event) {
+  const db = getDb();
+  const eventSlot = normalizeSupplySlot(event.supplyName);
+  const eventSerial = extractSupplySerial(event.supplyName);
+  const eventPages = Number(event.pageCount) || 0;
+  const newLevel = Number(event.newLevel);
+
+  // ---------------------------------------------------------------------------
+  // MOTOR AUTÔNOMO DE VALIDAÇÃO PRÉ-INSERT (Hefesto Antifalhas)
+  // ---------------------------------------------------------------------------
+  // 1. Verificação de Duplicata Imediata (mesmo slot e mesmo contador de páginas)
+  if (event.printerId && eventPages > 0) {
+    const existing = db.prepare(`
+      SELECT id, supply_name, timestamp FROM recharges
+      WHERE printer_id = ? AND page_count = ?
+      ORDER BY timestamp DESC
+    `).all(event.printerId, eventPages);
+
+    for (const dup of existing) {
+      if (normalizeSupplySlot(dup.supply_name) === eventSlot) {
+        console.warn(`[SQLite Anti-Duplicação] 🛑 Descartada recarga duplicada para ${event.printerName || event.printerId} (${event.supplyName}) no contador ${eventPages}. Já existe registro ${dup.id}.`);
+        return null;
+      }
+    }
+  }
+
+  // 2. Verificação de Serial Idêntico (Chips RFID/CRUM):
+  // Se o insumo reporta serial, uma reposição para 100% com serial idêntico ao ciclo anterior
+  // sem impressão relevante (< 50 páginas) é um falso positivo de leitura.
+  if (event.printerId && eventSerial) {
+    const history = db.prepare(`
+      SELECT id, supply_name, page_count, timestamp FROM recharges
+      WHERE printer_id = ?
+      ORDER BY timestamp DESC
+    `).all(event.printerId);
+
+    const lastForSlot = history.find(r => normalizeSupplySlot(r.supply_name) === eventSlot);
+    if (lastForSlot) {
+      const lastSerial = extractSupplySerial(lastForSlot.supply_name);
+      if (lastSerial && lastSerial.toUpperCase() === eventSerial.toUpperCase()) {
+        const pageDelta = eventPages - (lastForSlot.page_count || 0);
+        if (pageDelta < 50) {
+          console.warn(`[SQLite Anti-Glitch] 🛑 Descartada recarga com serial idêntico ao ciclo anterior (${event.printerName || event.printerId} - ${event.supplyName}). Serial: ${eventSerial} | Delta de páginas: ${pageDelta} (< 50).`);
+          return null;
+        }
+      }
+    }
+  }
+
+  // 3. Verificação de Plausibilidade de Ciclo:
+  // Se novo nível >= 90%, mas delta de páginas é insignificante (< 30) em relação à última recarga cheia deste slot sem mudança de serial
+  if (event.printerId && newLevel >= 90) {
+    const history = db.prepare(`
+      SELECT id, supply_name, page_count, new_level, timestamp FROM recharges
+      WHERE printer_id = ?
+      ORDER BY timestamp DESC
+    `).all(event.printerId);
+
+    const lastFullSlot = history.find(r => normalizeSupplySlot(r.supply_name) === eventSlot && r.new_level >= 90);
+    if (lastFullSlot) {
+      const lastSerial = extractSupplySerial(lastFullSlot.supply_name);
+      const hasDifferentSerial = Boolean(eventSerial && lastSerial && eventSerial.toUpperCase() !== lastSerial.toUpperCase());
+      const pageDelta = eventPages - (lastFullSlot.page_count || 0);
+      if (!hasDifferentSerial && pageDelta < 30 && pageDelta >= 0) {
+        console.warn(`[SQLite Anti-Glitch] 🛑 Descartada recarga sem impressão plausível (${event.printerName || event.printerId} - ${event.supplyName}): apenas ${pageDelta} páginas desde a recarga anterior.`);
+        return null;
+      }
+    }
+  }
+
   const id = event.id || `rec-${Math.random().toString(36).substring(2, 10)}`;
   const now = event.timestamp || new Date().toISOString();
-  const isFull = event.isFullRecharge !== undefined ? (event.isFullRecharge ? 1 : 0) : ((event.newLevel >= 95) ? 1 : 0);
+  const isFull = event.isFullRecharge !== undefined ? (event.isFullRecharge ? 1 : 0) : ((newLevel >= 95) ? 1 : 0);
 
   // Calcula páginas rodadas desde a última recarga caso não informado
   let pagesCycle = event.pagesSinceLastRecharge || 0;
-  if (!pagesCycle && event.pageCount && event.printerId) {
-    const last = getDb().prepare(`
+  if (!pagesCycle && eventPages && event.printerId) {
+    const last = db.prepare(`
       SELECT page_count FROM recharges 
       WHERE printer_id = ? AND page_count > 0 
       ORDER BY timestamp DESC LIMIT 1
     `).get(event.printerId);
-    if (last && event.pageCount >= last.page_count) {
-      pagesCycle = event.pageCount - last.page_count;
+    if (last && eventPages >= last.page_count) {
+      pagesCycle = eventPages - last.page_count;
     }
   }
 
-  getDb().prepare(`
+  db.prepare(`
     INSERT INTO recharges (id, printer_id, printer_name, ip, unit_name, location, supply_name, supply_type, previous_level, new_level, page_count, pages_since_last_recharge, source, is_full_recharge, status_tag, technician, notes, timestamp)
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
   `).run(
@@ -736,8 +826,8 @@ export function recordRecharge(event) {
     event.supplyName,
     event.supplyType || 'toner',
     event.previousLevel || 0,
-    event.newLevel,
-    event.pageCount || 0,
+    newLevel,
+    eventPages,
     pagesCycle,
     event.source || 'auto',
     isFull,
@@ -759,6 +849,88 @@ export function recordRecharge(event) {
 export function deleteRecharge(id) {
   const res = getDb().prepare('DELETE FROM recharges WHERE id = ?').run(id);
   return res.changes > 0;
+}
+
+export function cleanSpuriousRecharges() {
+  const db = getDb();
+  const allRecharges = db.prepare('SELECT * FROM recharges ORDER BY printer_id ASC, timestamp ASC').all();
+  const deletedIds = [];
+  const details = [];
+
+  // Agrupa por impressora e slot de suprimento normalizado
+  const byPrinterAndSlot = new Map();
+  for (const r of allRecharges) {
+    const slot = normalizeSupplySlot(r.supply_name);
+    const key = `${r.printer_id}:::${slot}`;
+    if (!byPrinterAndSlot.has(key)) byPrinterAndSlot.set(key, []);
+    byPrinterAndSlot.get(key).push(r);
+  }
+
+  for (const [key, records] of byPrinterAndSlot.entries()) {
+    for (let i = 0; i < records.length; i++) {
+      const current = records[i];
+      if (deletedIds.includes(current.id)) continue;
+
+      const currentSerial = extractSupplySerial(current.supply_name);
+
+      for (let j = i + 1; j < records.length; j++) {
+        const next = records[j];
+        if (deletedIds.includes(next.id)) continue;
+
+        const nextSerial = extractSupplySerial(next.supply_name);
+        const pageDelta = (next.page_count || 0) - (current.page_count || 0);
+        const timeDiffMs = Math.abs(new Date(next.timestamp).getTime() - new Date(current.timestamp).getTime());
+
+        // Caso 1: Mesma contagem de páginas e mesmo nível -> duplicata exata
+        if (next.page_count === current.page_count && next.new_level === current.new_level && next.page_count > 0) {
+          deletedIds.push(next.id);
+          details.push(`Duplicata exata removida: ${next.id} (${next.printer_name} - ${next.supply_name}, páginas: ${next.page_count})`);
+          continue;
+        }
+
+        // Caso 2: Serial idêntico com menos de 50 páginas rodadas -> falso positivo de leitura
+        if (currentSerial && nextSerial && currentSerial.toUpperCase() === nextSerial.toUpperCase() && pageDelta < 50) {
+          deletedIds.push(next.id);
+          details.push(`Falso positivo removido (serial idêntico ${currentSerial} com delta de ${pageDelta} páginas): ${next.id} (${next.printer_name} - ${next.supply_name})`);
+          continue;
+        }
+
+        // Caso 3: Inserção múltipla em intervalo curto (< 10 minutos) com delta zero de páginas
+        if (timeDiffMs < 600000 && pageDelta === 0) {
+          deletedIds.push(next.id);
+          details.push(`Duplicata temporal (< 10min) removida: ${next.id} (${next.printer_name} - ${next.supply_name})`);
+          continue;
+        }
+      }
+    }
+  }
+
+  // Executa as exclusões no SQLite dentro de uma transação atômica
+  if (deletedIds.length > 0) {
+    const deleteStmt = db.prepare('DELETE FROM recharges WHERE id = ?');
+    db.exec('BEGIN');
+    try {
+      for (const id of deletedIds) {
+        deleteStmt.run(id);
+      }
+      db.exec('COMMIT');
+      console.log(`\x1b[32m%s\x1b[0m`, `[SQLite Saneamento] 🧹 Limpeza concluída: ${deletedIds.length} registros espúrios/duplicados removidos.`);
+      for (const d of details) {
+        console.log(`  - ${d}`);
+      }
+    } catch (err) {
+      db.exec('ROLLBACK');
+      console.error('[SQLite Saneamento] Erro ao remover registros:', err);
+    }
+  } else {
+    console.log('\x1b[32m%s\x1b[0m', '[SQLite Saneamento] 🛡️ Base de recargas auditada: 100% íntegra, nenhum registro espúrio encontrado.');
+  }
+
+  return {
+    deletedCount: deletedIds.length,
+    deletedIds,
+    details
+  };
 }
 
 export function getRechargesSummary() {

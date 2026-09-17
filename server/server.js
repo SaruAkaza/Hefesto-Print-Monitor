@@ -193,6 +193,34 @@ function formatCleanModel(modelStr) {
   return String(modelStr).split(/\r?\n/).map(l => l.trim()).filter(Boolean)[0] || '';
 }
 
+// Localizador Inteligente de Suprimento (Isola slots físicos e previne contaminação cruzada)
+function findMatchingSupply(targetSup, candidateList) {
+  if (!targetSup || !Array.isArray(candidateList) || candidateList.length === 0) return null;
+
+  // 1. Match por nome exato (incluindo eventual serial idêntico)
+  let found = candidateList.find(s => s && s.name && s.name.trim().toLowerCase() === targetSup.name?.trim().toLowerCase());
+  if (found) return found;
+
+  // 2. Match por slot físico normalizado (remove sufixos como ';SN...')
+  const targetSlot = db.normalizeSupplySlot(targetSup.name);
+  if (targetSlot) {
+    found = candidateList.find(s => s && db.normalizeSupplySlot(s.name) === targetSlot);
+    if (found) return found;
+  }
+
+  // 3. FALLBACK POR TIPO: Permitido ESTRITAMENTE quando existe apenas 1 suprimento desse tipo na impressora!
+  // Se a impressora possui 4 toners (C, M, Y, K) ou 4 tambores, NUNCA faz fallback por tipo
+  // para impedir contaminação cruzada (ex: Ciano ser comparado contra o Amarelo).
+  if (targetSup.type) {
+    const sameTypeCandidates = candidateList.filter(s => s && s.type === targetSup.type);
+    if (sameTypeCandidates.length === 1) {
+      return sameTypeCandidates[0];
+    }
+  }
+
+  return null;
+}
+
 // Motor de Registro de Recargas (Projeto Hefesto)
 async function registerRechargeEvent({
   printerId,
@@ -236,6 +264,12 @@ async function registerRechargeEvent({
             : `Inserido(a) ${supplyName} provisório(a) com ${newLevel}%`)),
       timestamp: timestamp ? new Date(timestamp).toISOString() : new Date().toISOString()
     });
+
+    if (!event) {
+      // Rejeitado pelo motor autônomo de regras do SQLite
+      return null;
+    }
+
     console.log('\x1b[32m%s\x1b[0m', `[Hefesto Recharges] ⚡ Nova recarga registrada para ${printerName} (${supplyName}): ${previousLevel}% -> ${newLevel}% | Páginas no ciclo: ${event.pagesSinceLastRecharge}`);
     return event;
   } catch (err) {
@@ -694,6 +728,20 @@ app.get('/api/recharges/recent-events', async (req, res) => {
   }
 });
 
+// Endpoint de Saneamento e Auditoria Autônoma de Recargas (Hefesto Antifalhas)
+app.post('/api/recharges/clean', (req, res) => {
+  try {
+    const result = db.cleanSpuriousRecharges();
+    res.json({
+      success: true,
+      message: `Auditoria concluída: ${result.deletedCount} registros espúrios/duplicados removidos.`,
+      ...result
+    });
+  } catch (err) {
+    res.status(500).json({ error: 'Erro ao executar auditoria de recargas: ' + err.message });
+  }
+});
+
 // Registro manual de recarga (lançado pelo técnico de campo)
 app.post('/api/recharges', async (req, res) => {
   const { printerId, printerName, ip, unitName, location, supplyName, supplyType, previousLevel, newLevel, pageCount, isFull, technician, notes, timestamp } = req.body;
@@ -1005,12 +1053,20 @@ async function updateAllPrintersCache() {
     queryPrinterStatus(p.ip, p.community)
       .then(async data => {
         const previousEntry = STATUS_CACHE.get(p.id);
+        const cachedDb = db.getCachedStatus(p.id);
         const isNowOnline = Boolean(data && data.online);
         
         // Preserva suprimentos válidos anteriores caso uma leitura pontual da rede venha vazia
         let suppliesToUse = Array.isArray(data?.supplies) && data.supplies.length > 0
           ? data.supplies
-          : (previousEntry?.supplies && previousEntry.supplies.length > 0 ? previousEntry.supplies : []);
+          : (previousEntry?.supplies && previousEntry.supplies.length > 0 
+              ? previousEntry.supplies 
+              : (cachedDb?.supplies && cachedDb.supplies.length > 0 ? cachedDb.supplies : []));
+
+        // Obtém o estado anterior de suprimentos ANTES de atualizar o cache no DB
+        const prevSupplies = (previousEntry && Array.isArray(previousEntry.supplies) && previousEntry.supplies.length > 0)
+          ? previousEntry.supplies
+          : (cachedDb?.supplies || []);
 
         const entry = {
           id: p.id,
@@ -1027,52 +1083,60 @@ async function updateAllPrintersCache() {
         // Persiste o cache de status no SQLite
         db.updateCachedStatus(p.id, entry);
 
-        // Detecção de Recarga com Assertividade Máxima (Projeto Hefesto)
+        // =====================================================================
+        // MOTOR AUTÔNOMO DE DETECÇÃO & AUDITORIA DE RECARGAS (Projeto Hefesto)
         // Regras:
-        // 1. Aceita baselines a partir de 0% (elimina o bug de toners esgotados em consultórios)
-        // 2. Compara contra o último estado gravado mesmo que a impressora tenha passado por offline
-        // 3. Validação atômica rápida em 10 segundos para gravação imediata
+        // 1. Correspondência estrita por slot físico (elimina contaminação cruzada)
+        // 2. Validação física por número de série do chip RFID/CRUM (Xerox/OEM)
+        // 3. Filtro Anti-Bounce / Glitch de reinício com busca precisa em snapshots
+        // 4. Confirmação atômica em 10 segundos com busca isolada por slot
+        // =====================================================================
         if (isNowOnline && Array.isArray(entry.supplies)) {
-          const prevSupplies = (previousEntry && Array.isArray(previousEntry.supplies) && previousEntry.supplies.length > 0)
-            ? previousEntry.supplies
-            : (db.getCachedStatus(p.id)?.supplies || []);
-
           for (const newSup of entry.supplies) {
-            const oldSup = prevSupplies.find(s => s.name === newSup.name || s.type === newSup.type);
+            const oldSup = findMatchingSupply(newSup, prevSupplies);
 
             if (oldSup && typeof oldSup.percentage === 'number' && typeof newSup.percentage === 'number') {
               const diff = newSup.percentage - oldSup.percentage;
+              const newSerial = db.extractSupplySerial(newSup.name);
+              const oldSerial = db.extractSupplySerial(oldSup.name);
 
               // REGRA ESPECÍFICA PARA CAIXA DE MANUTENÇÃO / RESÍDUOS (waste_toner, maintenance_kit):
-              // Ninguém instala caixa de manutenção usada. Só aceita recarga se for peça nova (≥90%).
+              // Ninguém instala caixa de manutenção usada. Só aceita se for peça nova (≥90%).
               const isMaintenanceSupply = newSup.type === 'waste_toner' || 
                                           newSup.type === 'maintenance_kit' || 
                                           (newSup.name && newSup.name.toLowerCase().includes('manuten'));
 
               if (isMaintenanceSupply && newSup.percentage < 90) {
-                // Descarta oscilações ou falsos aumentos parciais para caixa de manutenção
                 continue;
               }
 
+              // CAMADA 1: VALIDAÇÃO DE CHIP FÍSICO / SERIAL (ex: Xerox)
+              if (newSerial && oldSerial) {
+                if (newSerial.toUpperCase() === oldSerial.toUpperCase()) {
+                  // O serial no chip é idêntico. Não houve substituição de cartucho.
+                  if (diff > 0) {
+                    console.log('\x1b[33m%s\x1b[0m', `[Hefesto Anti-Glitch] 🛡️ Ignorado salto com serial idêntico em ${p.name} (${newSup.name}): Serial ${newSerial} permanece o mesmo.`);
+                  }
+                  continue;
+                }
+              }
+
               // Condições de Salto de Recarga:
-              // - Salto para nível total (≥95%) com aumento de pelo menos 10%
-              // - Salto para nível alto (≥80%) com aumento de pelo menos 15%
-              // - Salto relevante vindo de nível crítico/esgotado (≤15%) para ≥40% com aumento ≥20%
               let isSignificantIncrease = 
+                (newSerial && oldSerial && newSerial.toUpperCase() !== oldSerial.toUpperCase()) || // Troca física comprovada de chip/serial
                 (newSup.percentage >= 95 && diff >= 10) ||
                 (newSup.percentage >= 80 && diff >= 15) ||
                 (!isMaintenanceSupply && oldSup.percentage <= 15 && newSup.percentage >= 40 && diff >= 20) ||
                 (isMaintenanceSupply && newSup.percentage >= 90 && diff >= 20);
 
-              // FILTRO ANTI-GLITCH / ANTI-BOUNCE:
-              // Se o nível atual saltou vindo de uma leitura crítica/zerada (<=15%),
-              // verifica se nos snapshots recentes (últimos 5 ciclos) o suprimento já estava nesse mesmo nível (+-5%).
-              // Se já estava, trata-se de um glitch transitório de leitura SNMP que apenas se normalizou, e NÃO de uma troca real.
+              // CAMADA 2: FILTRO ANTI-BOUNCE / REBOOT GLITCH
+              // Se o nível saltou vindo de leitura zerada/crítica (<=15%),
+              // verifica nos snapshots recentes se o suprimento já estava nesse mesmo nível (+-8%).
               if (isSignificantIncrease && oldSup.percentage <= 15) {
-                const recentSnaps = db.getRecentSnapshotsForPrinter(p.id, 5);
+                const recentSnaps = db.getRecentSnapshotsForPrinter(p.id, 8);
                 const wasAlreadyAtThisLevel = recentSnaps.some(snap => {
-                  const pastSup = (snap.supplies || []).find(s => s.name === newSup.name || s.type === newSup.type);
-                  return pastSup && typeof pastSup.percentage === 'number' && pastSup.percentage > 15 && Math.abs(pastSup.percentage - newSup.percentage) <= 5;
+                  const pastSup = findMatchingSupply(newSup, snap.supplies || []);
+                  return pastSup && typeof pastSup.percentage === 'number' && pastSup.percentage > 20 && Math.abs(pastSup.percentage - newSup.percentage) <= 8;
                 });
 
                 if (wasAlreadyAtThisLevel) {
@@ -1081,10 +1145,9 @@ async function updateAllPrintersCache() {
                 }
               }
 
-              // ACEITA BASELINE >= 0% (corrige o problema onde toners que zeravam eram descartados)
               const validBaseline = oldSup.percentage >= 0;
-
-              const confKey = `${p.id}:${newSup.name || newSup.type}`;
+              const slotKey = db.normalizeSupplySlot(newSup.name) || newSup.type;
+              const confKey = `${p.id}:${slotKey}`;
 
               if (isSignificantIncrease && validBaseline) {
                 const isFull = newSup.percentage >= 95 || (isMaintenanceSupply && newSup.percentage >= 90);
@@ -1100,21 +1163,20 @@ async function updateAllPrintersCache() {
                   consecutiveCycles: 1
                 });
 
-                // Confirmação rápida em 10 segundos via reconsulta SNMP atômica
+                // CAMADA 3 & 4: Confirmação rápida em 10s via reconsulta atômica com isolamento de slot
                 setTimeout(async () => {
                   try {
                     const verifyStatus = await queryPrinterStatus(p.ip, p.community || 'public');
                     if (verifyStatus && verifyStatus.online && Array.isArray(verifyStatus.supplies)) {
-                      const verifiedSup = verifyStatus.supplies.find(s => s.name === newSup.name || s.type === newSup.type);
+                      const verifiedSup = findMatchingSupply(newSup, verifyStatus.supplies);
                       if (verifiedSup && Math.abs(verifiedSup.percentage - newSup.percentage) <= 5) {
-                        // Confirmado! Registra no SQLite
                         await registerRechargeEvent({
                           printerId: p.id,
                           printerName: p.name,
                           ip: p.ip,
                           unitName: p.unitName || 'Sem Unidade',
                           location: p.location || '',
-                          supplyName: newSup.name,
+                          supplyName: verifiedSup.name || newSup.name,
                           supplyType: newSup.type,
                           previousLevel: oldSup.percentage,
                           newLevel: verifiedSup.percentage,
@@ -1123,7 +1185,6 @@ async function updateAllPrintersCache() {
                           isFull
                         });
                         db.deletePendingRecharge(confKey);
-                        console.log('\x1b[32m%s\x1b[0m', `[Hefesto Recharges] ⚡ Recarga confirmada em 10s para ${p.name} (${newSup.name}): ${oldSup.percentage}% -> ${verifiedSup.percentage}%`);
                       }
                     }
                   } catch (err) {
