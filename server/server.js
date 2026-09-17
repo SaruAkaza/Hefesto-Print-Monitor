@@ -225,10 +225,15 @@ async function registerRechargeEvent({
       newLevel: Number(newLevel),
       pageCount: Number(pageCount) || 0,
       source,
-      isFullRecharge,
-      statusTag: isFullRecharge ? 'Recarga Oficial (Nova)' : 'Troca Provisória / Parcial',
+      statusTag: isFullRecharge 
+        ? 'Recarga Oficial (Nova)' 
+        : ((supplyType === 'waste_toner' || supplyType === 'maintenance_kit') ? 'Substituição' : 'Troca Provisória / Parcial'),
       technician: technician || (source === 'auto' ? 'Sensor Automático SNMP' : 'Técnico'),
-      notes: notes || (isFullRecharge ? `Nível restabelecido para ${newLevel}%` : `Inserida bolsa/toner com ${newLevel}%`),
+      notes: notes || (isFullRecharge 
+        ? `${supplyName} novo(a) instalado(a) (${newLevel}%)` 
+        : ((supplyType === 'waste_toner' || supplyType === 'maintenance_kit')
+            ? `${supplyName} substituído(a) com ${newLevel}%`
+            : `Inserido(a) ${supplyName} provisório(a) com ${newLevel}%`)),
       timestamp: timestamp ? new Date(timestamp).toISOString() : new Date().toISOString()
     });
     console.log('\x1b[32m%s\x1b[0m', `[Hefesto Recharges] ⚡ Nova recarga registrada para ${printerName} (${supplyName}): ${previousLevel}% -> ${newLevel}% | Páginas no ciclo: ${event.pagesSinceLastRecharge}`);
@@ -749,16 +754,16 @@ app.post('/api/recharges', async (req, res) => {
 // Remover registro de recarga
 app.delete('/api/recharges/:id', async (req, res) => {
   const { id } = req.params;
-  let recharges = await loadRecharges();
-  const initialLen = recharges.length;
-  recharges = recharges.filter(r => r.id !== id);
-
-  if (recharges.length === initialLen) {
-    return res.status(404).json({ error: 'Registro de recarga não encontrado.' });
+  try {
+    const deleted = db.deleteRecharge(id);
+    if (!deleted) {
+      return res.status(404).json({ error: 'Registro de recarga não encontrado.' });
+    }
+    res.status(204).send();
+  } catch (err) {
+    console.error('[Hefesto Recharges] Erro ao deletar recarga:', err);
+    res.status(500).json({ error: 'Erro ao remover registro de recarga.' });
   }
-
-  await saveRecharges(recharges);
-  res.status(204).send();
 });
 
 // ==========================================================================
@@ -1038,14 +1043,43 @@ async function updateAllPrintersCache() {
             if (oldSup && typeof oldSup.percentage === 'number' && typeof newSup.percentage === 'number') {
               const diff = newSup.percentage - oldSup.percentage;
 
+              // REGRA ESPECÍFICA PARA CAIXA DE MANUTENÇÃO / RESÍDUOS (waste_toner, maintenance_kit):
+              // Ninguém instala caixa de manutenção usada. Só aceita recarga se for peça nova (≥90%).
+              const isMaintenanceSupply = newSup.type === 'waste_toner' || 
+                                          newSup.type === 'maintenance_kit' || 
+                                          (newSup.name && newSup.name.toLowerCase().includes('manuten'));
+
+              if (isMaintenanceSupply && newSup.percentage < 90) {
+                // Descarta oscilações ou falsos aumentos parciais para caixa de manutenção
+                continue;
+              }
+
               // Condições de Salto de Recarga:
               // - Salto para nível total (≥95%) com aumento de pelo menos 10%
               // - Salto para nível alto (≥80%) com aumento de pelo menos 15%
               // - Salto relevante vindo de nível crítico/esgotado (≤15%) para ≥40% com aumento ≥20%
-              const isSignificantIncrease = 
+              let isSignificantIncrease = 
                 (newSup.percentage >= 95 && diff >= 10) ||
                 (newSup.percentage >= 80 && diff >= 15) ||
-                (oldSup.percentage <= 15 && newSup.percentage >= 40 && diff >= 20);
+                (!isMaintenanceSupply && oldSup.percentage <= 15 && newSup.percentage >= 40 && diff >= 20) ||
+                (isMaintenanceSupply && newSup.percentage >= 90 && diff >= 20);
+
+              // FILTRO ANTI-GLITCH / ANTI-BOUNCE:
+              // Se o nível atual saltou vindo de uma leitura crítica/zerada (<=15%),
+              // verifica se nos snapshots recentes (últimos 5 ciclos) o suprimento já estava nesse mesmo nível (+-5%).
+              // Se já estava, trata-se de um glitch transitório de leitura SNMP que apenas se normalizou, e NÃO de uma troca real.
+              if (isSignificantIncrease && oldSup.percentage <= 15) {
+                const recentSnaps = db.getRecentSnapshotsForPrinter(p.id, 5);
+                const wasAlreadyAtThisLevel = recentSnaps.some(snap => {
+                  const pastSup = (snap.supplies || []).find(s => s.name === newSup.name || s.type === newSup.type);
+                  return pastSup && typeof pastSup.percentage === 'number' && pastSup.percentage > 15 && Math.abs(pastSup.percentage - newSup.percentage) <= 5;
+                });
+
+                if (wasAlreadyAtThisLevel) {
+                  console.log('\x1b[33m%s\x1b[0m', `[Hefesto Anti-Glitch] 🛡️ Descartado salto espúrio em ${p.name} (${newSup.name}): nível retornou para ${newSup.percentage}% (mesmo patamar anterior à oscilação transitória para ${oldSup.percentage}%).`);
+                  isSignificantIncrease = false;
+                }
+              }
 
               // ACEITA BASELINE >= 0% (corrige o problema onde toners que zeravam eram descartados)
               const validBaseline = oldSup.percentage >= 0;
@@ -1053,7 +1087,7 @@ async function updateAllPrintersCache() {
               const confKey = `${p.id}:${newSup.name || newSup.type}`;
 
               if (isSignificantIncrease && validBaseline) {
-                const isFull = newSup.percentage >= 95;
+                const isFull = newSup.percentage >= 95 || (isMaintenanceSupply && newSup.percentage >= 90);
 
                 // Persiste a intenção de confirmação no SQLite
                 db.savePendingRecharge({

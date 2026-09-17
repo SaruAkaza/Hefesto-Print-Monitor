@@ -890,6 +890,23 @@ export function getTelemetryHistory(limit = 500) {
   }));
 }
 
+export function getRecentSnapshotsForPrinter(printerId, limit = 5) {
+  if (!printerId) return [];
+  const rows = getDb().prepare(`
+    SELECT id, page_count, supplies_json, recorded_at 
+    FROM telemetry_snapshots 
+    WHERE printer_id = ? 
+    ORDER BY recorded_at DESC 
+    LIMIT ?
+  `).all(printerId, limit);
+  return rows.map(r => ({
+    pageCount: r.page_count,
+    supplies: r.supplies_json ? JSON.parse(r.supplies_json) : [],
+    recordedAt: r.recorded_at
+  }));
+}
+
+
 // ============================================================================
 // OPERAÇÕES: BACKUP AUTOMÁTICO ROTATIVO (ÚLTIMOS 7 DIAS)
 // ============================================================================
