@@ -1,79 +1,79 @@
 /**
  * ==========================================================================
- * HEFESTO 3.0 — TELEMETRIA INDUSTRIAL & CENTRO DE COMANDO
- * Estética de Centro de Missão Aeroespacial & Console de Instrumentação
- * Design System de Alta Densidade, Física CMYK e Micro-Interações
+ * PREVENT SENIOR — CENTRO DE MONITORAMENTO E TELEMETRIA
+ * Identidade Visual Cirúrgica e Operacional de Alta Precisão
+ * Design System Hospitalar, Física CMYK e Micro-Interações
  * ==========================================================================
  */
 
 /* ==========================================================================
-   1. TOKENS DO DESIGN SYSTEM (TEMA DARK INDUSTRIAL PADRÃO)
+   1. TOKENS DO DESIGN SYSTEM (TEMA DARK SLATE CLÍNICO PADRÃO)
    ========================================================================== */
 :root {
-  /* Fundo Carbono & Painéis */
-  --bg-app: #06090e;
-  --bg-surface: #0b111e;
-  --bg-surface-elevated: #111a2d;
-  --bg-surface-hover: #17243e;
-  --bg-card: #0b111e;
-  --bg-card-hover: #131e33;
-  --bg-input: #070c16;
-  --bg-input-focus: #0c1424;
-  --bg-glass: rgba(11, 17, 30, 0.82);
+  /* Fundo Ardósia & Superfícies Clínicas */
+  --bg-app: #0c1017;
+  --bg-surface: #131923;
+  --bg-surface-elevated: #1a2230;
+  --bg-surface-hover: #222d40;
+  --bg-card: #131923;
+  --bg-card-hover: #18202d;
+  --bg-input: #0e141d;
+  --bg-input-focus: #141c28;
+  --bg-glass: rgba(19, 25, 35, 0.88);
 
   /* Tipografia & Contrastes Rigorosos */
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-muted: #64748b;
   --text-dim: #475569;
-  --text-inverse: #020617;
+  --text-inverse: #0f172a;
 
   /* Bordas Sub-Milimétricas */
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-medium: rgba(255, 255, 255, 0.12);
-  --border-card: rgba(255, 255, 255, 0.1);
-  --border-focus: #00e5ff;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.14);
+  --border-card: rgba(255, 255, 255, 0.10);
+  --border-focus: #0284c7;
 
-  /* Sistema de Iluminação & Brilho */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
-  --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  --shadow-lg: 0 16px 40px -4px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  --shadow-drawer: -16px 0 50px rgba(0, 0, 0, 0.85);
+  /* Sistema de Iluminação & Elevação */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 16px -2px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 12px 32px -4px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  --shadow-drawer: -16px 0 48px rgba(0, 0, 0, 0.7);
 
-  /* Cores de Destaque & Phosphor */
-  --color-primary: #00b4d8;
-  --color-primary-hover: #0096c7;
-  --color-primary-glow: #00e5ff;
-  --color-primary-light: rgba(0, 180, 216, 0.12);
-  --color-primary-border: rgba(0, 180, 216, 0.35);
+  /* Cores de Destaque Cirúrgico (Prevent Senior) */
+  --color-primary: #0284c7;
+  --color-primary-hover: #0369a1;
+  --color-primary-glow: #38bdf8;
+  --color-primary-light: rgba(2, 132, 199, 0.12);
+  --color-primary-border: rgba(2, 132, 199, 0.28);
 
   --color-success: #10b981;
   --color-success-glow: #34d399;
   --color-success-bg: rgba(16, 185, 129, 0.12);
-  --color-success-border: rgba(16, 185, 129, 0.35);
+  --color-success-border: rgba(16, 185, 129, 0.28);
 
   --color-warning: #f59e0b;
   --color-warning-glow: #fbbf24;
   --color-warning-bg: rgba(245, 158, 11, 0.12);
-  --color-warning-border: rgba(245, 158, 11, 0.35);
+  --color-warning-border: rgba(245, 158, 11, 0.28);
 
   --color-danger: #f43f5e;
   --color-danger-glow: #fb7185;
   --color-danger-bg: rgba(244, 63, 94, 0.14);
-  --color-danger-border: rgba(244, 63, 94, 0.4);
+  --color-danger-border: rgba(244, 63, 94, 0.32);
 
   --color-offline: #64748b;
   --color-offline-bg: rgba(100, 116, 139, 0.12);
-  --color-offline-border: rgba(100, 116, 139, 0.3);
+  --color-offline-border: rgba(100, 116, 139, 0.24);
 
   --color-indigo: #818cf8;
   --color-indigo-bg: rgba(129, 140, 248, 0.12);
 
   /* Paleta CMYK Física Pura */
-  --cmyk-k: #475569;
-  --cmyk-c: #00e5ff;
-  --cmyk-m: #ff007f;
-  --cmyk-y: #ffd600;
+  --cmyk-k: #334155;
+  --cmyk-c: #0284c7;
+  --cmyk-m: #db2777;
+  --cmyk-y: #eab308;
 
   /* Fontes */
   --font-display: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
@@ -95,34 +95,34 @@
 }
 
 /* ==========================================================================
-   2. LIGHT THEME (ALUMÍNIO TÉCNICO & ALTO CONTRASTE)
+   2. LIGHT THEME (ALUMÍNIO CLÍNICO & ALTO CONTRASTE)
    ========================================================================== */
 [data-theme="light"] {
-  --bg-app: #eef2f6;
+  --bg-app: #f8fafc;
   --bg-surface: #ffffff;
-  --bg-surface-elevated: #f8fafc;
-  --bg-surface-hover: #f1f5f9;
+  --bg-surface-elevated: #f1f5f9;
+  --bg-surface-hover: #e2e8f0;
   --bg-card: #ffffff;
   --bg-card-hover: #f8fafc;
   --bg-input: #f1f5f9;
   --bg-input-focus: #ffffff;
-  --bg-glass: rgba(255, 255, 255, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.92);
 
-  --text-primary: #090e17;
+  --text-primary: #0f172a;
   --text-secondary: #334155;
   --text-muted: #64748b;
   --text-dim: #94a3b8;
   --text-inverse: #ffffff;
 
-  --border-subtle: rgba(15, 23, 42, 0.08);
-  --border-medium: rgba(15, 23, 42, 0.15);
-  --border-card: rgba(15, 23, 42, 0.12);
+  --border-subtle: #e2e8f0;
+  --border-medium: #cbd5e1;
+  --border-card: #e2e8f0;
   --border-focus: #0284c7;
 
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 20px -2px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-  --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  --shadow-drawer: -16px 0 40px rgba(0, 0, 0, 0.2);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 12px 28px -4px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+  --shadow-drawer: -12px 0 36px rgba(15, 23, 42, 0.12);
 
   --color-primary: #0284c7;
   --color-primary-hover: #0369a1;
@@ -141,6 +141,11 @@
 
   --color-offline-bg: #f1f5f9;
   --color-offline-border: #cbd5e1;
+
+  --cmyk-k: #1e293b;
+  --cmyk-c: #0284c7;
+  --cmyk-m: #db2777;
+  --cmyk-y: #ca8a04;
 }
 
 /* ==========================================================================
@@ -260,12 +265,7 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 }
 
 .login-background-canvas {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  opacity: 0.5;
+  display: none;
 }
 
 .login-terminal-frame {
@@ -276,25 +276,14 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 }
 
 .terminal-decor-corner {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: var(--color-primary);
-  border-style: solid;
-  pointer-events: none;
-  z-index: 20;
+  display: none;
 }
-
-.terminal-decor-corner.top-left { top: -2px; left: -2px; border-width: 2px 0 0 2px; }
-.terminal-decor-corner.top-right { top: -2px; right: -2px; border-width: 2px 2px 0 0; }
-.terminal-decor-corner.bottom-left { bottom: -2px; left: -2px; border-width: 0 0 2px 2px; }
-.terminal-decor-corner.bottom-right { bottom: -2px; right: -2px; border-width: 0 2px 2px 0; }
 
 .login-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-card);
   border-radius: var(--radius-xl);
-  box-shadow: var(--shadow-lg), 0 0 60px rgba(0, 180, 216, 0.15);
+  box-shadow: var(--shadow-lg);
   backdrop-filter: blur(20px);
   overflow: hidden;
   padding: 1.75rem;
@@ -320,7 +309,7 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
   height: 7px;
   border-radius: 50%;
   background: var(--color-success);
-  box-shadow: 0 0 8px var(--color-success);
+  box-shadow: 0 0 6px var(--color-success);
   animation: beaconPulse 2s infinite ease-in-out;
 }
 
@@ -330,11 +319,10 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 }
 
 .beacon-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
   color: var(--color-success);
-  letter-spacing: 0.04em;
 }
 
 .system-version-tag {
@@ -355,27 +343,22 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 
 .brand-monogram {
   position: relative;
-  width: 52px;
-  height: 52px;
+  width: 54px;
+  height: 54px;
   margin: 0 auto 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-md);
   background: var(--bg-surface-elevated);
-  border: 1px solid var(--color-primary-border);
-  color: var(--color-primary-glow);
+  border: 1px solid var(--border-medium);
   padding: 6px;
   overflow: hidden;
-  box-shadow: 0 0 20px rgba(0, 180, 216, 0.25);
+  box-shadow: var(--shadow-sm);
 }
 
 .brand-monogram-glow {
-  position: absolute;
-  inset: -4px;
-  border-radius: var(--radius-md);
-  background: radial-gradient(circle, rgba(0, 229, 255, 0.3) 0%, transparent 70%);
-  pointer-events: none;
+  display: none;
 }
 
 .brand-logo-source {
@@ -480,11 +463,11 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 }
 
 .cyber-label {
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 0.74rem;
+  font-weight: 600;
   color: var(--text-secondary);
-  letter-spacing: 0.04em;
+  letter-spacing: -0.01em;
   display: flex;
   justify-content: space-between;
 }
@@ -534,7 +517,7 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 .cyber-select:focus {
   background: var(--bg-input-focus);
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
 }
 
 .cyber-select {
@@ -558,28 +541,28 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
   gap: 0.5rem;
   font-family: var(--font-sans);
   font-size: 0.85rem;
-  font-weight: 700;
-  padding: 0.65rem 1rem;
+  font-weight: 600;
+  padding: 0.65rem 1.15rem;
   border-radius: var(--radius-md);
   border: 1px solid transparent;
   cursor: pointer;
   transition: var(--transition-fast);
   outline: none;
   width: 100%;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+  text-transform: none;
+  letter-spacing: -0.01em;
 }
 
 .cyber-button.primary {
-  background: linear-gradient(135deg, #00b4d8 0%, #0077b6 100%);
+  background: var(--color-primary);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 14px rgba(0, 180, 216, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .cyber-button.primary:hover {
-  background: linear-gradient(135deg, #00e5ff 0%, #0096c7 100%);
-  box-shadow: 0 0 24px rgba(0, 229, 255, 0.5);
+  background: var(--color-primary-hover);
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
   transform: translateY(-1px);
 }
 
@@ -749,13 +732,13 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 .deck-action-pill.cta {
   background: var(--color-primary);
   color: #ffffff;
-  border-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 2px 8px rgba(0, 180, 216, 0.35);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.25);
 }
 
 .deck-action-pill.cta:hover {
   background: var(--color-primary-hover);
-  box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
+  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
 }
 
 .deck-action-pill.danger {
@@ -801,26 +784,26 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
   background: var(--color-primary);
   color: #ffffff;
   border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 2px 10px rgba(0, 180, 216, 0.3);
+  box-shadow: 0 1px 3px rgba(2, 132, 199, 0.25);
 }
 
 .btn-primary:hover {
   background: var(--color-primary-hover);
-  box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
+  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.3);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
-  background: var(--bg-surface-elevated, #161f30);
-  color: var(--text-primary, #f1f5f9);
-  border: 1px solid var(--border-medium, #2a374d);
+  background: var(--bg-surface-elevated);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
 }
 
 .btn-secondary:hover {
-  background: var(--bg-surface-hover, #1e2c44);
+  background: var(--bg-surface-hover);
   color: #ffffff;
-  border-color: var(--color-primary, #00b4d8);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-danger {
@@ -1011,7 +994,7 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 
 .operational-radar-hud:hover {
   border-color: var(--color-success);
-  box-shadow: 0 0 20px rgba(16, 185, 129, 0.25);
+  box-shadow: var(--shadow-md);
   transform: translateY(-1px);
 }
 
@@ -1031,7 +1014,6 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
 }
 
 .hud-title {
@@ -1088,16 +1070,15 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 
 .tactical-card:hover {
   transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .tactical-card.critical:hover {
   border-color: var(--color-danger);
-  box-shadow: 0 0 20px rgba(244, 63, 94, 0.25);
 }
 
 .tactical-card.warning:hover {
   border-color: var(--color-warning);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
 }
 
 .tactical-card.offline:hover {
@@ -1268,7 +1249,7 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 .cyber-search-box input:focus {
   background: var(--bg-input-focus);
   border-color: var(--border-focus);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.18);
 }
 
 .cyber-search-box .keycap {
@@ -1325,11 +1306,11 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 .telemetry-data-table th {
   background: var(--bg-surface-elevated);
   color: var(--text-secondary);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  text-transform: none;
+  letter-spacing: -0.01em;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--border-medium);
   white-space: nowrap;
@@ -1402,18 +1383,15 @@ p, .matrix-subtitle, .login-description, .modal-intro-text {
 }
 
 .cmyk-fluid-fill.critical {
-  background: linear-gradient(90deg, #e11d48, #f43f5e);
-  box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+  background: linear-gradient(90deg, #be123c, #f43f5e);
 }
 
 .cmyk-fluid-fill.warning {
-  background: linear-gradient(90deg, #d97706, #f59e0b);
-  box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+  background: linear-gradient(90deg, #b45309, #f59e0b);
 }
 
 .cmyk-fluid-fill.success {
-  background: linear-gradient(90deg, #059669, #10b981);
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  background: linear-gradient(90deg, #047857, #10b981);
 }
 
 .cmyk-fluid-chips {
@@ -2189,27 +2167,26 @@ html.modal-open {
 /* Cards táticos no estado ativo (selecionado como filtro) */
 .tactical-card.active-card {
   border-width: 2px;
-  box-shadow: 0 0 0 3px rgba(244, 63, 94, 0.1);
 }
 
 .tactical-card.critical.active-card {
   border-color: var(--color-danger);
-  box-shadow: 0 0 20px rgba(244, 63, 94, 0.3);
+  box-shadow: 0 0 0 3px var(--color-danger-bg);
 }
 
 .tactical-card.warning.active-card {
   border-color: var(--color-warning);
-  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25);
+  box-shadow: 0 0 0 3px var(--color-warning-bg);
 }
 
 .tactical-card.offline.active-card {
   border-color: var(--color-offline);
-  box-shadow: 0 0 20px rgba(100, 116, 139, 0.2);
+  box-shadow: 0 0 0 3px var(--color-offline-bg);
 }
 
 .operational-radar-hud.active-card {
   border-color: var(--color-success);
-  box-shadow: 0 0 24px rgba(16, 185, 129, 0.35);
+  box-shadow: 0 0 0 3px var(--color-success-bg);
 }
 
 /* ==========================================================================
@@ -2396,11 +2373,9 @@ html.modal-open {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-family: var(--font-sans);
+  font-size: 0.76rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
   color: var(--text-muted);
   margin-right: 0.35rem;
   padding-right: 0.5rem;
@@ -2432,10 +2407,10 @@ html.modal-open {
 
 .floor-nav-pill.active {
   background: var(--color-primary-light);
-  color: var(--color-primary-glow);
+  color: var(--color-primary);
   border-color: var(--color-primary-border);
   font-weight: 700;
-  box-shadow: 0 0 12px rgba(0, 229, 255, 0.15);
+  box-shadow: var(--shadow-sm);
 }
 
 .floor-nav-count {
@@ -2450,8 +2425,8 @@ html.modal-open {
 }
 
 .floor-nav-pill.active .floor-nav-count {
-  background: rgba(0, 229, 255, 0.2);
-  color: var(--color-primary-glow);
+  background: var(--color-primary-light);
+  color: var(--color-primary);
   border-color: var(--color-primary-border);
 }
 
@@ -2460,7 +2435,6 @@ html.modal-open {
   height: 7px;
   border-radius: 50%;
   background: var(--color-danger);
-  box-shadow: 0 0 6px var(--color-danger);
 }
 
 .floor-nav-warning-dot {
@@ -2468,7 +2442,6 @@ html.modal-open {
   height: 7px;
   border-radius: 50%;
   background: var(--color-warning);
-  box-shadow: 0 0 6px var(--color-warning);
 }
 
 /* Linha de Cabeçalho de Andar na Tabela */
