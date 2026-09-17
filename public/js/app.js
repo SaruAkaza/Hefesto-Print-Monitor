@@ -38,6 +38,8 @@ const AppState = {
   rechargesList: [],          // Histórico completo de recargas
   seenRechargeIds: new Set(), // IDs de recargas já notificadas via Toast em tempo real
   activeUnitFilter: '',
+  activeFloorFilter: '',      // Filtro de andar ativo (ex: '1º Andar', 'Térreo' ou '' para todos)
+  collapsedFloors: new Set(), // Andares recolhidos na visão agrupada
   overviewFilter: 'all',
   locationFilter: '',
   sortBy: 'lowest-supply',
@@ -107,6 +109,7 @@ const DOM = {
   searchInput: document.getElementById('search-input'),
   filterLocationSelect: document.getElementById('filter-location-select'),
   sortFleetSelect: document.getElementById('sort-fleet-select'),
+  fleetFloorNav: document.getElementById('fleet-floor-nav'),
   myPrintersListBody: document.getElementById('my-printers-list-body'),
 
   // Exportar Relatórios (Cabeçalho ADM)
@@ -771,14 +774,190 @@ function populateDropdownFilters() {
       AppState.units.map(u => `<option value="${u.id}" ${activeSelected === u.id ? 'selected' : ''}>${escapeHtml(u.name)}</option>`).join('');
   }
 
-  const locations = new Set();
-  getScopedPrinters().forEach(p => {
-    if (p.location?.trim()) locations.add(p.location.trim());
+  updateLocationFilterOptions();
+}
+
+function updateLocationFilterOptions() {
+  if (!DOM.filterLocationSelect) return;
+  const scoped = getScopedPrinters();
+  const curLoc = AppState.locationFilter || DOM.filterLocationSelect.value || '';
+
+  if (AppState.activeFloorFilter) {
+    // Se um andar específico estiver selecionado nas pílulas:
+    // Exibe apenas os setores daquele andar
+    const floorLocations = new Set();
+    scoped.forEach(p => {
+      if (p.location?.trim() && parseFloorFromLocation(p.location) === AppState.activeFloorFilter) {
+        floorLocations.add(p.location.trim());
+      }
+    });
+
+    const sortedLocs = Array.from(floorLocations).sort();
+    let opts = `<option value="">Todos os Setores (${escapeHtml(AppState.activeFloorFilter)})</option>`;
+    sortedLocs.forEach(loc => {
+      const cleanName = getCleanSectorName(loc);
+      opts += `<option value="${escapeHtml(loc)}" ${curLoc === loc ? 'selected' : ''}>${escapeHtml(cleanName)}</option>`;
+    });
+    DOM.filterLocationSelect.innerHTML = opts;
+  } else {
+    // Modo "Todos os Andares": Organiza os setores com <optgroup> por andar
+    const floorMap = new Map();
+    scoped.forEach(p => {
+      const loc = p.location?.trim();
+      if (loc) {
+        const floor = parseFloorFromLocation(loc);
+        if (!floorMap.has(floor)) floorMap.set(floor, new Set());
+        floorMap.get(floor).add(loc);
+      }
+    });
+
+    const sortedFloors = getSortedFloors(Array.from(floorMap.keys()));
+
+    if (sortedFloors.length <= 1) {
+      // Se a unidade só tiver 1 andar, lista direta normal
+      const allLocs = new Set();
+      scoped.forEach(p => { if (p.location?.trim()) allLocs.add(p.location.trim()); });
+      DOM.filterLocationSelect.innerHTML = '<option value="">Todos os Setores</option>' + 
+        Array.from(allLocs).sort().map(loc => `<option value="${escapeHtml(loc)}" ${curLoc === loc ? 'selected' : ''}>${escapeHtml(loc)}</option>`).join('');
+    } else {
+      // Múltiplos andares: Agrupa por <optgroup>
+      let opts = '<option value="">Todos os Setores (Todos os Andares)</option>';
+      sortedFloors.forEach(floor => {
+        const locs = Array.from(floorMap.get(floor) || []).sort();
+        opts += `<optgroup label="📍 ${escapeHtml(floor)}">`;
+        locs.forEach(loc => {
+          const cleanName = getCleanSectorName(loc);
+          opts += `<option value="${escapeHtml(loc)}" ${curLoc === loc ? 'selected' : ''}>${escapeHtml(cleanName)}</option>`;
+        });
+        opts += `</optgroup>`;
+      });
+      DOM.filterLocationSelect.innerHTML = opts;
+    }
+  }
+}
+
+// ==========================================================================
+// FUNÇÕES AUXILIARES DE ANDAR & AGRUPAMENTO NATURAL (FLOOR MATRIX)
+// ==========================================================================
+function parseFloorFromLocation(location) {
+  if (!location || typeof location !== 'string') return 'Geral';
+  const match = location.match(/\(([^)]+)\)\s*$/);
+  if (match && match[1]) {
+    return match[1].trim();
+  }
+  return 'Geral';
+}
+
+function getCleanSectorName(location) {
+  if (!location || typeof location !== 'string') return 'Setor Geral';
+  return location.replace(/\s*\([^)]*\)\s*$/, '').trim() || location;
+}
+
+function getFloorNumericWeight(floorName) {
+  if (!floorName) return 999;
+  const lower = floorName.toLowerCase();
+  if (lower.includes('subsolo') || lower === 'ss') return -1;
+  if (lower.includes('térreo') || lower.includes('terreo')) return 0;
+  const numMatch = lower.match(/(\d+)/);
+  if (numMatch) {
+    return parseInt(numMatch[1], 10);
+  }
+  return 999;
+}
+
+function getSortedFloors(floorList) {
+  return Array.from(new Set(floorList)).sort((a, b) => {
+    const weightA = getFloorNumericWeight(a);
+    const weightB = getFloorNumericWeight(b);
+    if (weightA !== weightB) return weightA - weightB;
+    return a.localeCompare(b, undefined, { numeric: true });
+  });
+}
+
+function renderFloorNavPills(scopedPrinters) {
+  if (!DOM.fleetFloorNav) return;
+
+  const floors = new Set();
+  scopedPrinters.forEach(p => {
+    const floor = parseFloorFromLocation(p.location);
+    if (floor) floors.add(floor);
   });
 
-  const curLoc = DOM.filterLocationSelect.value;
-  DOM.filterLocationSelect.innerHTML = '<option value="">Todos os Setores</option>' + 
-    Array.from(locations).sort().map(loc => `<option value="${escapeHtml(loc)}" ${curLoc === loc ? 'selected' : ''}>${escapeHtml(loc)}</option>`).join('');
+  const sortedFloors = getSortedFloors(Array.from(floors));
+
+  // Se a unidade possuir apenas 1 andar (ex: Rio Sul no 13º Andar), oculta a barra
+  if (sortedFloors.length <= 1) {
+    DOM.fleetFloorNav.style.display = 'none';
+    AppState.activeFloorFilter = '';
+    return;
+  }
+
+  DOM.fleetFloorNav.style.display = 'flex';
+
+  const totalPrinters = scopedPrinters.length;
+  const isAllActive = !AppState.activeFloorFilter;
+
+  let html = `
+    <span class="floor-nav-label">
+      <svg class="icon icon-xs" viewBox="0 0 24 24" style="width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2.2;"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+      Andares
+    </span>
+    <button type="button" class="floor-nav-pill ${isAllActive ? 'active' : ''}" data-floor="">
+      <span>Todos</span>
+      <span class="floor-nav-count">${totalPrinters}</span>
+    </button>
+  `;
+
+  sortedFloors.forEach(floor => {
+    const floorPrinters = scopedPrinters.filter(p => parseFloorFromLocation(p.location) === floor);
+    const count = floorPrinters.length;
+    const isActive = AppState.activeFloorFilter === floor;
+
+    let hasCritical = false;
+    let hasWarning = false;
+    floorPrinters.forEach(p => {
+      const st = AppState.statusData.get(p.id);
+      if (st && st.online) {
+        const supplies = getOperationalSupplies(st.supplies || []);
+        if (supplies.some(s => normalizeSupplyPercentage(s) < 10)) hasCritical = true;
+        else if (supplies.some(s => normalizeSupplyPercentage(s) >= 10 && normalizeSupplyPercentage(s) <= 30)) hasWarning = true;
+      }
+    });
+
+    const alertDot = hasCritical 
+      ? '<span class="floor-nav-alert-dot" title="Há suprimento em nível crítico neste andar"></span>' 
+      : (hasWarning ? '<span class="floor-nav-warning-dot" title="Há suprimento em nível de atenção neste andar"></span>' : '');
+
+    html += `
+      <button type="button" class="floor-nav-pill ${isActive ? 'active' : ''}" data-floor="${escapeHtml(floor)}">
+        ${alertDot}
+        <span>${escapeHtml(floor)}</span>
+        <span class="floor-nav-count">${count}</span>
+      </button>
+    `;
+  });
+
+  DOM.fleetFloorNav.innerHTML = html;
+
+  DOM.fleetFloorNav.querySelectorAll('.floor-nav-pill').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedFloor = btn.dataset.floor || '';
+      AppState.activeFloorFilter = selectedFloor;
+
+      // Se o setor selecionado não pertencer ao novo andar ativo, reseta o setor
+      if (AppState.locationFilter && selectedFloor) {
+        const match = scopedPrinters.some(p => (p.location || '').trim() === AppState.locationFilter && parseFloorFromLocation(p.location) === selectedFloor);
+        if (!match) {
+          AppState.locationFilter = '';
+          if (DOM.filterLocationSelect) DOM.filterLocationSelect.value = '';
+        }
+      }
+
+      renderFloorNavPills(scopedPrinters);
+      updateLocationFilterOptions();
+      renderMyPrinters(scopedPrinters);
+    });
+  });
 }
 
 function getScopedPrinters() {
@@ -871,6 +1050,7 @@ function renderOverviewTab() {
     c.classList.toggle('active-card', c.dataset.filter === AppState.overviewFilter);
   });
 
+  renderFloorNavPills(scopedPrinters);
   renderMyPrinters(scopedPrinters);
   renderUnitRecentRecharges();
 }
@@ -976,6 +1156,10 @@ function renderMyPrinters(scopedPrinters) {
       return false;
     }
 
+    if (AppState.activeFloorFilter && parseFloorFromLocation(printer.location) !== AppState.activeFloorFilter) {
+      return false;
+    }
+
     if (AppState.overviewFilter === 'critical') {
       const opSupplies = getOperationalSupplies(supplies);
       return isOnline && opSupplies.some(s => normalizeSupplyPercentage(s) < 10);
@@ -1036,193 +1220,275 @@ function renderMyPrinters(scopedPrinters) {
     return;
   }
 
-  DOM.myPrintersListBody.innerHTML = filtered.map(printer => {
-    const status = AppState.statusData.get(printer.id);
-    const isOnline = status && status.online;
-    const supplies = (status && status.supplies) || [];
+  const isAdmin = AppState.userRole === 'admin';
 
-    // Normalizar suprimentos: tanques recarregáveis (-2) viram ~85%, waste é tratado separadamente
-    const normalizedSupplies = supplies.map(s => ({
-      ...s,
-      _normalizedPct: normalizeSupplyPercentage(s),
-      _isWaste: isWasteSupply(s)
-    }));
-    const validSupplies = normalizedSupplies.filter(s => s._normalizedPct >= 0 && !s._isWaste).sort((a, b) => a._normalizedPct - b._normalizedPct);
-    
-    // Insumos operacionais considerando redundância de toner duplo (K1 / K2)
-    const opSupplies = getOperationalSupplies(supplies).map(s => ({
-      ...s,
-      _normalizedPct: normalizeSupplyPercentage(s),
-      _isWaste: isWasteSupply(s)
-    })).sort((a, b) => a._normalizedPct - b._normalizedPct);
+  // Verifica se há múltiplos andares na unidade para ativar a visão agrupada
+  const unitFloors = new Set();
+  scopedPrinters.forEach(p => {
+    const f = parseFloorFromLocation(p.location);
+    if (f) unitFloors.add(f);
+  });
+  const sortedUnitFloors = getSortedFloors(Array.from(unitFloors));
+  const shouldGroupFloors = !AppState.activeFloorFilter && sortedUnitFloors.length > 1;
 
-    const lowest = opSupplies[0] || validSupplies[0];
+  if (!shouldGroupFloors) {
+    // Renderização direta sem cabeçalhos de andar (ex: andar específico selecionado ou unidade de 1 andar)
+    DOM.myPrintersListBody.innerHTML = filtered.map(printer => {
+      const f = parseFloorFromLocation(printer.location);
+      return renderPrinterRowHtml(printer, isAdmin, f);
+    }).join('');
+    return;
+  }
 
-    // Detecta se há toner duplo preto (ex: Xerox C60/C70)
-    const blackTonersList = validSupplies.filter(s => (s.type === 'toner' || !s.type) && /black|preto|k1|k2/i.test(s.name || ''));
-    const hasDualBlack = blackTonersList.length > 1;
-    const maxBlackPct = hasDualBlack ? Math.max(...blackTonersList.map(b => b._normalizedPct)) : 0;
+  // Renderização Agrupada por Andar (Seções Retráteis por Andar)
+  const printersByFloor = new Map();
+  sortedUnitFloors.forEach(f => printersByFloor.set(f, []));
+  filtered.forEach(p => {
+    const f = parseFloorFromLocation(p.location);
+    if (!printersByFloor.has(f)) printersByFloor.set(f, []);
+    printersByFloor.get(f).push(p);
+  });
 
-    // Filtra apenas os toners e tintas principais de consumo para a visualização resumida
-    const mainToners = normalizedSupplies.filter(s => 
-      s._normalizedPct >= 0 && 
-      !s._isWaste && 
-      (s.type === 'toner' || !s.type) &&
-      !s.name.toLowerCase().includes('drum') && 
-      !s.name.toLowerCase().includes('fuser') && 
-      !s.name.toLowerCase().includes('transfer')
-    );
+  let fullTableHTML = '';
+  sortedUnitFloors.forEach(floor => {
+    const floorPrinters = printersByFloor.get(floor) || [];
+    if (floorPrinters.length === 0) return;
 
-    const locationTitle = getPrinterLocationTitle(printer);
-    const modelSubtitle = getPrinterModelSubtitle(printer, status);
+    let floorOnline = 0;
+    let floorCrit = 0;
+    let floorWarn = 0;
+    let floorOff = 0;
 
-    let statusClass = 'offline';
-    let statusIcon = Icons.wifiOff;
-    let statusText = 'Sem conexão';
-
-    if (isOnline) {
-      if (lowest && lowest._normalizedPct < 10) {
-        statusClass = 'critical';
-        statusIcon = Icons.alertOctagon;
-        statusText = lowest._normalizedPct === 0 ? 'Toner Esgotado' : 'Nível Crítico';
-      } else if (lowest && lowest._normalizedPct <= 30) {
-        statusClass = 'warning';
-        statusIcon = Icons.alertTriangle;
-        statusText = 'Nível Atenção';
+    floorPrinters.forEach(p => {
+      const st = AppState.statusData.get(p.id);
+      if (!st || !st.online) {
+        floorOff++;
       } else {
-        statusClass = 'online';
-        statusIcon = Icons.checkCircle;
-        statusText = 'Operacional';
+        floorOnline++;
+        const supplies = getOperationalSupplies(st.supplies || []);
+        if (supplies.some(s => normalizeSupplyPercentage(s) < 10)) floorCrit++;
+        else if (supplies.some(s => normalizeSupplyPercentage(s) >= 10 && normalizeSupplyPercentage(s) <= 30)) floorWarn++;
       }
-    }
+    });
 
-    let supplyCellHTML = '';
-    if (!isOnline) {
-      supplyCellHTML = `<span style="font-size: 0.8rem; color: var(--text-muted);">Inacessível na rede</span>`;
-    } else if (lowest) {
-      const pct = lowest._normalizedPct;
-      const isRefillable = isRefillableTank(lowest);
-      const isZero = pct === 0;
-      const displayVal = isZero ? '0% (Esgotado)' : isRefillable ? `~${pct}% (Estimado)` : `${pct}%`;
-      const fillWidth = isZero ? 100 : pct;
-      const supplyColorStatus = getSupplyStatusByPercentage(pct, isRefillable);
+    const isCollapsed = AppState.collapsedFloors.has(floor);
 
-      // Mini-paleta limpa exclusivamente com os toners/tintas principais (sem poluir com cilindros/fusores)
-      let allSuppliesDotsHTML = '';
-      if (mainToners.length > 1) {
-        allSuppliesDotsHTML = `
-          <div class="cmyk-fluid-chips" title="Níveis dos toners e tintas">
-            ${mainToners.map(s => {
-              const dotColor = getSupplyColorByName(s.name);
-              const statusClr = getSupplyStatusByPercentage(s._normalizedPct, isRefillableTank(s));
-              const translatedShort = translateSupplyName(s.name, s.type)
-                .replace('Toner / Tinta ', '')
-                .replace('Cartucho / Toner ', '')
-                .replace('Bolsa de Tinta ', '');
-
-              const isDualK = hasDualBlack && /k1|k2/i.test(s.name || '');
-              let statusTextSuffix = '';
-              let chipClass = statusClr === 'critical' ? 'chip-critical' : (statusClr === 'warning' ? 'chip-warning' : 'chip-success');
-
-              if (isDualK) {
-                if (s._normalizedPct > 10) {
-                  statusTextSuffix = ' (Ativo)';
-                } else if (maxBlackPct > 10) {
-                  statusTextSuffix = ' (Reserva vazia)';
-                  chipClass = 'chip-warning';
-                }
-              }
-
-              return `
-                <span class="cmyk-micro-pill ${chipClass}" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%${statusTextSuffix}">
-                  <span class="cmyk-micro-dot" style="background-color: ${dotColor};"></span>
-                  <span>${translatedShort}: ${s._normalizedPct}%${statusTextSuffix}</span>
-                </span>
-              `;
-            }).join('')}
-          </div>
-        `;
-      }
-
-      // Tag de última recarga recente se houver
-      const rechargeInfo = AppState.rechargesSummary && AppState.rechargesSummary[printer.id];
-      let recentRechargeHTML = '';
-      if (rechargeInfo && rechargeInfo.lastRecharge) {
-        const rec = rechargeInfo.lastRecharge;
-        const isRecent = (Date.now() - new Date(rec.timestamp).getTime()) < (7 * 86400000);
-        if (isRecent) {
-          const recName = translateSupplyName(rec.supplyName).replace('Cartucho / Toner ', '').replace('Bolsa de Tinta ', '');
-          recentRechargeHTML = `
-            <div style="margin-top: 0.35rem; font-size: 0.7rem; color: var(--color-success); font-weight: 700; display: flex; align-items: center; gap: 0.25rem;" title="Última reposição: ${escapeHtml(rec.supplyName)} (${rec.newLevel}%) em ${formatFullDateTime(rec.timestamp)}">
-              <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-success);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-              <span>Troca Recente: ${escapeHtml(recName)} (${rec.newLevel}%)</span>
+    fullTableHTML += `
+      <tr class="floor-section-header ${isCollapsed ? 'collapsed' : ''}" data-floor="${escapeHtml(floor)}">
+        <td colspan="6">
+          <div class="floor-header-content">
+            <div class="floor-header-left">
+              <svg class="floor-chevron-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"/></svg>
+              <span class="floor-title">${escapeHtml(floor)}</span>
+              <span class="floor-badge-count">${floorPrinters.length} ${floorPrinters.length === 1 ? 'equipamento' : 'equipamentos'}</span>
             </div>
-          `;
-        }
-      }
-
-      supplyCellHTML = `
-        <div class="cmyk-reservoir-cell">
-          <div class="cmyk-reservoir-top">
-            <span class="cmyk-supply-title">${escapeHtml(translateSupplyName(lowest.name))}</span>
-            <strong class="cmyk-percentage-tag ${supplyColorStatus}">${displayVal}</strong>
-          </div>
-          <div class="cmyk-capillary-tube">
-            <div class="cmyk-fluid-fill ${supplyColorStatus}" style="width: ${Math.max(5, fillWidth)}%"></div>
-          </div>
-          ${allSuppliesDotsHTML}
-          ${recentRechargeHTML}
-        </div>
-      `;
-    } else {
-      supplyCellHTML = `<span style="font-size: 0.8rem; color: var(--text-muted);">Suprimentos: N/D</span>`;
-    }
-
-    const isAdmin = AppState.userRole === 'admin';
-
-    return `
-      <tr>
-        <td>
-          <div style="font-weight: 700; color: var(--text-primary); font-size: 0.88rem;">${escapeHtml(locationTitle)}</div>
-          ${isAdmin && printer.unitName ? `<span class="deck-status-capsule" style="font-size: 0.65rem; margin-top: 0.25rem; display: inline-block;">${escapeHtml(printer.unitName)}</span>` : ''}
-        </td>
-        <td style="color: var(--text-secondary); font-size: 0.84rem;">
-          ${escapeHtml(modelSubtitle)}
-        </td>
-        <td>
-          <code style="font-family: var(--font-mono); color: var(--color-primary-glow); font-weight: 700; font-size: 0.84rem;">${printer.ip}</code>
-        </td>
-        <td>
-          ${supplyCellHTML}
-        </td>
-        <td style="text-align: center;">
-          <span class="operational-state-badge ${statusClass}">
-            ${statusIcon}
-            <span>${statusText}</span>
-          </span>
-        </td>
-        <td style="text-align: center;">
-          <div style="display: flex; justify-content: center; gap: 0.35rem;">
-            <button class="deck-action-pill" onclick="openPrinterDetailDrawer('${printer.id}')" title="Visualizar Raio-X Diagnóstico">
-              ${Icons.eye}
-              <span>Raio-X</span>
-            </button>
-            <button class="deck-action-pill" id="btn-refresh-row-${printer.id}" onclick="refreshSinglePrinter('${printer.id}', this)" title="Reconsultar esta impressora">
-              ${Icons.refresh}
-            </button>
-            ${isAdmin ? `
-              <button class="deck-action-pill" onclick="openEditPrinterModal('${printer.id}')" title="Editar dados cadastrais">
-                ${Icons.edit}
-              </button>
-              <button class="deck-action-pill danger" onclick="confirmDeletePrinter('${printer.id}', '${escapeHtml(locationTitle)}')" title="Excluir impressora">
-                ${Icons.trash}
-              </button>
-            ` : ''}
+            <div class="floor-header-status-summary">
+              <span class="floor-status-badge ok">${floorOnline} Online</span>
+              ${floorCrit > 0 ? `<span class="floor-status-badge danger">${floorCrit} Crítica</span>` : ''}
+              ${floorWarn > 0 ? `<span class="floor-status-badge warn">${floorWarn} Atenção</span>` : ''}
+              ${floorOff > 0 ? `<span class="floor-status-badge off">${floorOff} Offline</span>` : ''}
+            </div>
           </div>
         </td>
       </tr>
     `;
-  }).join('');
+
+    floorPrinters.forEach(printer => {
+      fullTableHTML += renderPrinterRowHtml(printer, isAdmin, floor);
+    });
+  });
+
+  DOM.myPrintersListBody.innerHTML = fullTableHTML;
+}
+
+function renderPrinterRowHtml(printer, isAdmin, floor = '') {
+  const status = AppState.statusData.get(printer.id);
+  const isOnline = status && status.online;
+  const supplies = (status && status.supplies) || [];
+
+  // Normalizar suprimentos: tanques recarregáveis (-2) viram ~85%, waste é tratado separadamente
+  const normalizedSupplies = supplies.map(s => ({
+    ...s,
+    _normalizedPct: normalizeSupplyPercentage(s),
+    _isWaste: isWasteSupply(s)
+  }));
+  const validSupplies = normalizedSupplies.filter(s => s._normalizedPct >= 0 && !s._isWaste).sort((a, b) => a._normalizedPct - b._normalizedPct);
+  
+  // Insumos operacionais considerando redundância de toner duplo (K1 / K2)
+  const opSupplies = getOperationalSupplies(supplies).map(s => ({
+    ...s,
+    _normalizedPct: normalizeSupplyPercentage(s),
+    _isWaste: isWasteSupply(s)
+  })).sort((a, b) => a._normalizedPct - b._normalizedPct);
+
+  const lowest = opSupplies[0] || validSupplies[0];
+
+  // Detecta se há toner duplo preto (ex: Xerox C60/C70)
+  const blackTonersList = validSupplies.filter(s => (s.type === 'toner' || !s.type) && /black|preto|k1|k2/i.test(s.name || ''));
+  const hasDualBlack = blackTonersList.length > 1;
+  const maxBlackPct = hasDualBlack ? Math.max(...blackTonersList.map(b => b._normalizedPct)) : 0;
+
+  // Filtra apenas os toners e tintas principais de consumo para a visualização resumida
+  const mainToners = normalizedSupplies.filter(s => 
+    s._normalizedPct >= 0 && 
+    !s._isWaste && 
+    (s.type === 'toner' || !s.type) &&
+    !s.name.toLowerCase().includes('drum') && 
+    !s.name.toLowerCase().includes('fuser') && 
+    !s.name.toLowerCase().includes('transfer')
+  );
+
+  const locationTitle = getPrinterLocationTitle(printer);
+  const modelSubtitle = getPrinterModelSubtitle(printer, status);
+
+  let statusClass = 'offline';
+  let statusIcon = Icons.wifiOff;
+  let statusText = 'Sem conexão';
+
+  if (isOnline) {
+    if (lowest && lowest._normalizedPct < 10) {
+      statusClass = 'critical';
+      statusIcon = Icons.alertOctagon;
+      statusText = lowest._normalizedPct === 0 ? 'Toner Esgotado' : 'Nível Crítico';
+    } else if (lowest && lowest._normalizedPct <= 30) {
+      statusClass = 'warning';
+      statusIcon = Icons.alertTriangle;
+      statusText = 'Nível Atenção';
+    } else {
+      statusClass = 'online';
+      statusIcon = Icons.checkCircle;
+      statusText = 'Operacional';
+    }
+  }
+
+  let supplyCellHTML = '';
+  if (!isOnline) {
+    supplyCellHTML = `<span style="font-size: 0.8rem; color: var(--text-muted);">Inacessível na rede</span>`;
+  } else if (lowest) {
+    const pct = lowest._normalizedPct;
+    const isRefillable = isRefillableTank(lowest);
+    const isZero = pct === 0;
+    const displayVal = isZero ? '0% (Esgotado)' : isRefillable ? `~${pct}% (Estimado)` : `${pct}%`;
+    const fillWidth = isZero ? 100 : pct;
+    const supplyColorStatus = getSupplyStatusByPercentage(pct, isRefillable);
+
+    // Mini-paleta limpa exclusivamente com os toners/tintas principais (sem poluir com cilindros/fusores)
+    let allSuppliesDotsHTML = '';
+    if (mainToners.length > 1) {
+      allSuppliesDotsHTML = `
+        <div class="cmyk-fluid-chips" title="Níveis dos toners e tintas">
+          ${mainToners.map(s => {
+            const dotColor = getSupplyColorByName(s.name);
+            const statusClr = getSupplyStatusByPercentage(s._normalizedPct, isRefillableTank(s));
+            const translatedShort = translateSupplyName(s.name, s.type)
+              .replace('Toner / Tinta ', '')
+              .replace('Cartucho / Toner ', '')
+              .replace('Bolsa de Tinta ', '');
+
+            const isDualK = hasDualBlack && /k1|k2/i.test(s.name || '');
+            let statusTextSuffix = '';
+            let chipClass = statusClr === 'critical' ? 'chip-critical' : (statusClr === 'warning' ? 'chip-warning' : 'chip-success');
+
+            if (isDualK) {
+              if (s._normalizedPct > 10) {
+                statusTextSuffix = ' (Ativo)';
+              } else if (maxBlackPct > 10) {
+                statusTextSuffix = ' (Reserva vazia)';
+                chipClass = 'chip-warning';
+              }
+            }
+
+            return `
+              <span class="cmyk-micro-pill ${chipClass}" title="${escapeHtml(translateSupplyName(s.name, s.type))}: ${s._normalizedPct}%${statusTextSuffix}">
+                <span class="cmyk-micro-dot" style="background-color: ${dotColor};"></span>
+                <span>${translatedShort}: ${s._normalizedPct}%${statusTextSuffix}</span>
+              </span>
+            `;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    // Tag de última recarga recente se houver
+    const rechargeInfo = AppState.rechargesSummary && AppState.rechargesSummary[printer.id];
+    let recentRechargeHTML = '';
+    if (rechargeInfo && rechargeInfo.lastRecharge) {
+      const rec = rechargeInfo.lastRecharge;
+      const isRecent = (Date.now() - new Date(rec.timestamp).getTime()) < (7 * 86400000);
+      if (isRecent) {
+        const recName = translateSupplyName(rec.supplyName).replace('Cartucho / Toner ', '').replace('Bolsa de Tinta ', '');
+        recentRechargeHTML = `
+          <div style="margin-top: 0.35rem; font-size: 0.7rem; color: var(--color-success); font-weight: 700; display: flex; align-items: center; gap: 0.25rem;" title="Última reposição: ${escapeHtml(rec.supplyName)} (${rec.newLevel}%) em ${formatFullDateTime(rec.timestamp)}">
+            <svg class="icon icon-xs" viewBox="0 0 24 24" style="color: var(--color-success);"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Troca Recente: ${escapeHtml(recName)} (${rec.newLevel}%)</span>
+          </div>
+        `;
+      }
+    }
+
+    supplyCellHTML = `
+      <div class="cmyk-reservoir-cell">
+        <div class="cmyk-reservoir-top">
+          <span class="cmyk-supply-title">${escapeHtml(translateSupplyName(lowest.name))}</span>
+          <strong class="cmyk-percentage-tag ${supplyColorStatus}">${displayVal}</strong>
+        </div>
+        <div class="cmyk-capillary-tube">
+          <div class="cmyk-fluid-fill ${supplyColorStatus}" style="width: ${Math.max(5, fillWidth)}%"></div>
+        </div>
+        ${allSuppliesDotsHTML}
+        ${recentRechargeHTML}
+      </div>
+    `;
+  } else {
+    supplyCellHTML = `<span style="font-size: 0.8rem; color: var(--text-muted);">Suprimentos: N/D</span>`;
+  }
+
+  const isCollapsed = floor ? AppState.collapsedFloors.has(floor) : false;
+  const floorAttr = floor ? `data-floor-row="${escapeHtml(floor)}"` : '';
+  const collapseClass = isCollapsed ? 'floor-row-collapsed' : '';
+
+  return `
+    <tr class="printer-telemetry-row ${collapseClass}" ${floorAttr}>
+      <td>
+        <div style="font-weight: 700; color: var(--text-primary); font-size: 0.88rem;">${escapeHtml(locationTitle)}</div>
+        ${isAdmin && printer.unitName ? `<span class="deck-status-capsule" style="font-size: 0.65rem; margin-top: 0.25rem; display: inline-block;">${escapeHtml(printer.unitName)}</span>` : ''}
+      </td>
+      <td style="color: var(--text-secondary); font-size: 0.84rem;">
+        ${escapeHtml(modelSubtitle)}
+      </td>
+      <td>
+        <code style="font-family: var(--font-mono); color: var(--color-primary-glow); font-weight: 700; font-size: 0.84rem;">${printer.ip}</code>
+      </td>
+      <td>
+        ${supplyCellHTML}
+      </td>
+      <td style="text-align: center;">
+        <span class="operational-state-badge ${statusClass}">
+          ${statusIcon}
+          <span>${statusText}</span>
+        </span>
+      </td>
+      <td style="text-align: center;">
+        <div style="display: flex; justify-content: center; gap: 0.35rem;">
+          <button class="deck-action-pill" onclick="openPrinterDetailDrawer('${printer.id}')" title="Visualizar Raio-X Diagnóstico">
+            ${Icons.eye}
+            <span>Raio-X</span>
+          </button>
+          <button class="deck-action-pill" id="btn-refresh-row-${printer.id}" onclick="refreshSinglePrinter('${printer.id}', this)" title="Reconsultar esta impressora">
+            ${Icons.refresh}
+          </button>
+          ${isAdmin ? `
+            <button class="deck-action-pill" onclick="openEditPrinterModal('${printer.id}')" title="Editar dados cadastrais">
+              ${Icons.edit}
+            </button>
+            <button class="deck-action-pill danger" onclick="confirmDeletePrinter('${printer.id}', '${escapeHtml(locationTitle)}')" title="Excluir impressora">
+              ${Icons.trash}
+            </button>
+          ` : ''}
+        </div>
+      </td>
+    </tr>
+  `;
 }
 
 // ==========================================================================
@@ -3105,6 +3371,9 @@ function setupEventListeners() {
 
     AppState.userRole = 'operator';
     AppState.activeUnitFilter = selectedUnit;
+    AppState.activeFloorFilter = '';
+    AppState.locationFilter = '';
+    AppState.collapsedFloors.clear();
     sessionStorage.setItem('auth_role', 'operator');
     sessionStorage.setItem('printer_monitor_unit', selectedUnit);
     
@@ -3123,6 +3392,9 @@ function setupEventListeners() {
     if (user === 'admin' && pass === 'admin') {
       AppState.userRole = 'admin';
       AppState.activeUnitFilter = '';
+      AppState.activeFloorFilter = '';
+      AppState.locationFilter = '';
+      AppState.collapsedFloors.clear();
       sessionStorage.setItem('auth_role', 'admin');
       sessionStorage.removeItem('printer_monitor_unit');
       
@@ -3145,6 +3417,9 @@ function setupEventListeners() {
     sessionStorage.clear();
     AppState.userRole = 'operator';
     AppState.activeUnitFilter = '';
+    AppState.activeFloorFilter = '';
+    AppState.locationFilter = '';
+    AppState.collapsedFloors.clear();
     if (DOM.adminUserInput) DOM.adminUserInput.value = '';
     if (DOM.adminPasswordInput) DOM.adminPasswordInput.value = '';
     if (DOM.tabLoginOperator) DOM.tabLoginOperator.classList.add('active');
@@ -3204,6 +3479,9 @@ function setupEventListeners() {
   if (DOM.overviewUnitFilter) {
     DOM.overviewUnitFilter.addEventListener('change', (e) => {
       AppState.activeUnitFilter = e.target.value;
+      AppState.activeFloorFilter = '';
+      AppState.locationFilter = '';
+      AppState.collapsedFloors.clear();
       const u = AppState.units.find(x => x.id === e.target.value);
       AppState.forecastUnitFilter = u ? u.name : '';
       if (DOM.forecastUnitSelect) DOM.forecastUnitSelect.value = AppState.forecastUnitFilter;
@@ -3220,6 +3498,8 @@ function setupEventListeners() {
   function resetAllFilters() {
     AppState.searchQuery = '';
     AppState.locationFilter = '';
+    AppState.activeFloorFilter = '';
+    AppState.collapsedFloors.clear();
     AppState.overviewFilter = 'all';
     if (DOM.searchInput) DOM.searchInput.value = '';
     if (DOM.searchClearBtn) DOM.searchClearBtn.style.display = 'none';
@@ -3234,7 +3514,10 @@ function setupEventListeners() {
       c.classList.remove('active-card');
     });
     showToast('Filtros redefinidos para visualização completa', 'info');
-    renderMyPrinters(getScopedPrinters());
+    const scoped = getScopedPrinters();
+    renderFloorNavPills(scoped);
+    updateLocationFilterOptions();
+    renderMyPrinters(scoped);
   }
 
   document.querySelectorAll('.tactical-card.clickable[data-action], .operational-radar-hud.clickable[data-action]').forEach(card => {
@@ -3322,6 +3605,24 @@ function setupEventListeners() {
       const btnClear = e.target.closest('#btn-clear-empty-filters');
       if (btnClear) {
         resetAllFilters();
+        return;
+      }
+
+      const floorHeader = e.target.closest('.floor-section-header');
+      if (floorHeader) {
+        const floor = floorHeader.dataset.floor;
+        if (floor) {
+          if (AppState.collapsedFloors.has(floor)) {
+            AppState.collapsedFloors.delete(floor);
+          } else {
+            AppState.collapsedFloors.add(floor);
+          }
+          const isCollapsed = AppState.collapsedFloors.has(floor);
+          floorHeader.classList.toggle('collapsed', isCollapsed);
+          document.querySelectorAll(`tr[data-floor-row="${floor}"]`).forEach(row => {
+            row.classList.toggle('floor-row-collapsed', isCollapsed);
+          });
+        }
       }
     });
   }
