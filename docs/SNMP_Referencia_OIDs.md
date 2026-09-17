@@ -1,119 +1,84 @@
-# Referência SNMP - OIDs para Monitoramento de Impressoras
+# Referência SNMP: OIDs para monitoramento de impressoras
 
-> Documento de referência técnica para o Painel de Impressoras.
-> Baseado na **Printer MIB (RFC 3805)** e **Host-Resources MIB**.
+> Referência técnica de OIDs baseada na Printer MIB (RFC 3805) e Host-Resources MIB.
 
----
+## 1. Informações gerais do equipamento
 
-## 1. Informações Gerais da Impressora
+| Informação | OID | Descrição |
+| :--- | :--- | :--- |
+| Nome do sistema | `1.3.6.1.2.1.1.5.0` | Nome de rede (sysName) |
+| Descrição | `1.3.6.1.2.1.1.1.0` | Descrição do dispositivo (sysDescr) |
+| Uptime | `1.3.6.1.2.1.1.3.0` | Tempo de atividade desde o último reinício |
+| Localização | `1.3.6.1.2.1.1.6.0` | Localização configurada no equipamento |
+| Contato | `1.3.6.1.2.1.1.4.0` | Contato configurado no equipamento |
+| Modelo | `1.3.6.1.2.1.25.3.2.1.3.1` | Modelo do hardware |
+| Número de série | `1.3.6.1.2.1.43.5.1.1.17.1` | Número de série de fábrica |
 
-| Informação         | OID                              | Descrição                                      |
-| :----------------- | :------------------------------- | :--------------------------------------------- |
-| **Nome do Sistema** | `1.3.6.1.2.1.1.5.0`            | Nome de rede da impressora (sysName)           |
-| **Descrição**       | `1.3.6.1.2.1.1.1.0`            | Descrição do dispositivo (sysDescr)            |
-| **Uptime**          | `1.3.6.1.2.1.1.3.0`            | Tempo ligado desde último reinício             |
-| **Localização**     | `1.3.6.1.2.1.1.6.0`            | Localização configurada no dispositivo         |
-| **Contato**         | `1.3.6.1.2.1.1.4.0`            | Contato configurado no dispositivo             |
-| **Modelo**          | `1.3.6.1.2.1.25.3.2.1.3.1`     | Modelo/descrição do hardware                   |
-| **Número de Série** | `1.3.6.1.2.1.43.5.1.1.17.1`    | Número de série da impressora                  |
+## 2. Contadores de páginas
 
----
+| Informação | OID | Descrição |
+| :--- | :--- | :--- |
+| Total de páginas | `1.3.6.1.2.1.43.10.2.1.4.1.1` | Contador total vitalício |
 
-## 2. Contadores de Páginas
+## 3. Status do dispositivo
 
-| Informação               | OID                               | Descrição                        |
-| :----------------------- | :-------------------------------- | :------------------------------- |
-| **Total de Páginas**      | `1.3.6.1.2.1.43.10.2.1.4.1.1`   | Contador total de páginas        |
+| Informação | OID | Descrição |
+| :--- | :--- | :--- |
+| Status geral | `1.3.6.1.2.1.25.3.2.1.5.1` | Status do equipamento (hrDeviceStatus) |
+| Status de impressão | `1.3.6.1.2.1.25.3.5.1.2.1` | Estado do motor de impressão (hrPrinterStatus) |
 
----
+### Códigos de hrDeviceStatus
+- 1: Desconhecido
+- 2: Operando (normal)
+- 3: Atenção (warning)
+- 4: Em teste
+- 5: Desligado
 
-## 3. Status do Dispositivo
+### Códigos de hrPrinterStatus
+- 1: Outro
+- 2: Desconhecido
+- 3: Ociosa
+- 4: Imprimindo
+- 5: Aquecendo
 
-| Informação         | OID                              | Descrição                              |
-| :----------------- | :------------------------------- | :------------------------------------- |
-| **Status**          | `1.3.6.1.2.1.25.3.2.1.5.1`     | Status do dispositivo (hrDeviceStatus) |
-| **Status Detalhado**| `1.3.6.1.2.1.25.3.5.1.2.1`     | Status detalhado da impressora         |
-
-### Valores de hrDeviceStatus:
-- `1` = Desconhecido
-- `2` = Rodando (OK)
-- `3` = Atenção (Warning)
-- `4` = Testando
-- `5` = Desligado
-
-### Valores de hrPrinterStatus:
-- `1` = Outro
-- `2` = Desconhecido
-- `3` = Ociosa (Idle)
-- `4` = Imprimindo
-- `5` = Aquecendo (Warmup)
-
----
-
-## 4. Suprimentos (Tabela prtMarkerSupplies) ⭐ PRINCIPAL
+## 4. Tabela de suprimentos (prtMarkerSupplies)
 
 Base OID: `1.3.6.1.2.1.43.11.1.1`
 
-| Informação              | OID                            | Descrição                                        |
-| :---------------------- | :----------------------------- | :----------------------------------------------- |
-| **Descrição do Suprimento** | `.6.1.{index}`             | Nome: "Black Toner", "Cyan Ink", "Fuser Kit", etc. |
-| **Unidade de Medida**    | `.7.1.{index}`                | Tipo de unidade (ver tabela abaixo)              |
-| **Capacidade Máxima**    | `.8.1.{index}`                | Capacidade total do suprimento                   |
-| **Nível Atual**          | `.9.1.{index}`                | Nível restante do suprimento                     |
+| Informação | OID | Descrição |
+| :--- | :--- | :--- |
+| Descrição do suprimento | `.6.1.{index}` | Nome reportado pelo firmware |
+| Unidade de medida | `.7.1.{index}` | Tipo de unidade da medição |
+| Capacidade máxima | `.8.1.{index}` | Capacidade total do suprimento |
+| Nível atual | `.9.1.{index}` | Quantidade restante |
 
-### OIDs Completos:
-- **Descrição:** `1.3.6.1.2.1.43.11.1.1.6`
-- **Unidade:** `1.3.6.1.2.1.43.11.1.1.7`
-- **Máximo:** `1.3.6.1.2.1.43.11.1.1.8`
-- **Atual:** `1.3.6.1.2.1.43.11.1.1.9`
+### Unidades de medida (prtMarkerSuppliesSupplyUnit)
+- 7: Impressões
+- 12: Milímetros
+- 13: Décimos de gramas
+- 15: Porcentagem (%)
+- 19: Porcentagem alternativo
 
-### Unidades de Medida (prtMarkerSuppliesSupplyUnit):
-- `7` = Impressões
-- `12` = Milímetros
-- `13` = Décimos de gramas
-- `15` = Porcentagem (%)
-- `19` = Porcentagem (%) - alternativo
+### Códigos especiais de nível
+- -1: Outro (informação indisponível)
+- -2: Desconhecido (usado em tanques de abastecimento contínuo)
+- -3: Parcial (suprimento presente, mas sem percentual discreto)
 
-### Valores Especiais de Nível:
-- `-1` = Outro (informação indisponível)
-- `-2` = Desconhecido
-- `-3` = Parcial (há suprimento, mas quantidade indeterminada)
-
----
-
-## 5. Bandejas de Papel (Tabela prtInputTable)
+## 5. Bandejas de papel (prtInputTable)
 
 Base OID: `1.3.6.1.2.1.43.8.2.1`
 
-| Informação              | OID                            | Descrição                          |
-| :---------------------- | :----------------------------- | :--------------------------------- |
-| **Nome da Bandeja**      | `.13.1.{index}`               | Ex: "Bandeja 1", "Bandeja Manual" |
-| **Capacidade Máxima**    | `.9.1.{index}`                | Capacidade total de folhas         |
-| **Nível Atual**          | `.10.1.{index}`               | Quantidade atual de folhas         |
-| **Tamanho do Papel**     | `.12.1.{index}`               | Tamanho configurado (A4, Carta)    |
+| Informação | OID | Descrição |
+| :--- | :--- | :--- |
+| Nome da bandeja | `.13.1.{index}` | Identificação da gaveta |
+| Capacidade máxima | `.9.1.{index}` | Total de folhas suportadas |
+| Nível atual | `.10.1.{index}` | Quantidade estimada de folhas |
+| Tamanho do papel | `.12.1.{index}` | Formato configurado (A4, Carta) |
 
----
+## 6. Orientações de implementação
 
-## 6. Tipos Comuns de Suprimentos Retornados
+1. Consultar a tabela RFC 3805 via SNMP walk para mapear os índices de cada fabricante.
+2. Fabricantes como Brother possuem OIDs proprietárias para leitura calibrada de percentual de consumíveis.
+3. Para suprimentos com medição numérica, o percentual é calculado por: `(nível_atual / capacidade_máxima) * 100`.
+4. Manter timeout de leitura entre 3 e 5 segundos por equipamento para evitar retenção da fila de varredura.
 
-Quando fazemos um SNMP Walk na tabela de suprimentos, tipicamente encontramos:
-
-| Tipo de Suprimento    | Descrição Comum Retornada             |
-| :-------------------- | :------------------------------------ |
-| **Toner/Tinta**        | "Black Toner", "Cyan Ink", "Yellow Toner" |
-| **Kit de Manutenção**  | "Maintenance Kit", "Fuser Kit"        |
-| **Kit de Imagem**      | "Imaging Unit", "Drum Unit", "Photo Conductor" |
-| **Recipiente de Resíduos** | "Waste Toner Box", "Waste Container" |
-| **Fusor**              | "Fuser Unit", "Fuser Assembly"        |
-| **Rolo de Transferência** | "Transfer Belt", "Transfer Roller"  |
-
----
-
-## 7. Dicas Importantes
-
-1. **Sempre fazer SNMP Walk primeiro** em cada modelo de impressora para descobrir quais OIDs estão disponíveis
-2. **Community String padrão** é geralmente `public` (SNMP v1/v2c)
-3. **Implementação varia por fabricante** - HP, Lexmark, Brother, etc. podem ter MIBs proprietárias
-4. **Para calcular percentual**: `(nível_atual / capacidade_máxima) * 100`
-5. **Timeout recomendado**: 5-10 segundos por consulta SNMP
-6. **Porta SNMP padrão**: UDP 161

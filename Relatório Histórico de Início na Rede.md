@@ -1,75 +1,68 @@
-# 📥 Relatório Histórico de Início na Rede & Auditoria Inicial (Modelo Híbrido)
+# Relatório de início na rede e contadores iniciais
 
-> **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #projeto-hefesto #auditoria #integracao #relatorios #contadores #telemetria #modelo-hibrido
+> Hub central: [[Projeto Hefesto]]  
+> Tags: #projeto-hefesto #auditoria #integracao #relatorios #contadores #telemetria
 
----
+## Objetivo e referências de contagem
 
-## 🎯 Objetivo & Conceito: O Modelo Híbrido de Contadores
+Para impressoras que já operavam antes da implantação do sistema, o monitoramento organiza os números em dois marcos de referência:
 
-Em parques de impressão corporativos onde as impressoras já estão operando há meses antes da implantação da plataforma de software, o sistema resolve a falta de contadores legados dividindo a auditoria em dois pilares complementares e transparentes:
-
-1. 🏭 **Total Vitalício da Máquina (Hardware):** O contador absoluto acumulado na memória da impressora desde a sua fabricação de fábrica.
-2. 🚀 **Contador na Ativação Hefesto (Baseline de Monitoramento):** O marco zero capturado no dia em que o monitoramento passou a acompanhar o equipamento na unidade (19/08/2026).
-3. 📈 **Produção sob Gestão Hefesto:** O saldo efetivo de páginas impressas sob o controle da plataforma ($\text{Delta} = \text{Contador Atual} - \text{Contador na Ativação}$).
-4. 🏢 **Dupla Rastreabilidade de Datas:**
-   - **Data de Início do Monitoramento:** Registro automático da 1ª telemetria SNMP.
-   - **Data de Instalação Física / Contrato (Opcional):** Campo editável no cadastro para quando a TI resgatar a data de entrega física ou termo de locação do fornecedor de outsourcing.
+1. Total vitalício da máquina: contador absoluto acumulado no hardware desde a fabricação.
+2. Contador na ativação do monitoramento: leitura registrada no primeiro dia em que o equipamento foi catalogado no sistema (19/08/2026).
+3. Páginas produzidas sob monitoramento: diferença entre a leitura atual e a leitura de ativação ($\text{Delta} = \text{Contador Atual} - \text{Contador na Ativação}$).
+4. Datas de referência:
+   - Data de início do monitoramento: registro automático da primeira leitura SNMP.
+   - Data de instalação física ou contrato: campo opcional no cadastro para registrar a entrega do equipamento pelo contrato de locação.
 
 ```mermaid
 flowchart TD
-    A[Entrega Física da Impressora] -->|Data de Instalação / Contrato| B[Operação Legada na Filial]
-    B -->|Ativação do Painel Hefesto| C[Marco Zero: Contador na Ativação]
-    C -->|Telemetria SNMP Contínua| D[Contador Atual Vitalício]
-    D --> E[Produção sob Gestão = Atual - Ativação]
-    E --> F[Raio-X: 4 Indicadores Transparentes]
-    E --> G[Exportação CSV: Relatório Executivo Completo]
+    A[Entrega da impressora] -->|Data de instalação| B[Operação na filial]
+    B -->|Início do monitoramento| C[Contador na ativação]
+    C -->|Leituras SNMP periódicas| D[Contador atual da impressora]
+    D --> E[Páginas sob gestão = Atual - Ativação]
+    E --> F[Exibição nos detalhes da impressora]
+    E --> G[Exportação em planilha CSV]
 ```
 
----
+## Regras de cálculo
 
-## 📐 Fórmulas & Regras de Cálculo
-
-### 1. Páginas Produzidas sob Gestão Hefesto
+### 1. Páginas produzidas sob monitoramento
 $$\text{Produção sob Gestão} = \max(0, \, \text{Contador Atual Vitalício} - \text{Contador na Ativação})$$
 
-### 2. Média Diária & Volume Semanal / Mensal
-Calculada a partir da taxa de produção real da máquina ao longo dos dias monitorados, prevenindo distorções causadas por contadores de vida útil acumulados.
+### 2. Média diária de produção
+Calculada a partir do volume gerado nos dias monitorados, evitando distorções causadas pelo total vitalício acumulado antes da implantação.
 
----
+## Onde o recurso está disponível
 
-## 🏛️ Onde o Recurso Está Disponível
+### 1. Nos detalhes da impressora
+Painel com quatro indicadores:
+- Total vitalício: contagem acumulada do hardware.
+- Contador na ativação: leitura no início do monitoramento.
+- Páginas sob gestão: total impresso após a entrada no sistema.
+- Data de instalação: data informada pelo contrato de locação.
 
-### 1. 🔬 No Raio-X 360° da Impressora
-Card em destaque: **"Rastreamento Histórico & Produção sob Gestão"** com 4 blocos:
-* **Total Vitalício (Hardware):** Total acumulado desde a fabricação.
-* **Contador na Ativação:** Total no dia de início do monitoramento.
-* **Produção sob Gestão:** Saldo de páginas impressas sob controle do sistema (+X pág.).
-* **Instalação Física:** Data de entrega pelo contrato de outsourcing.
+### 2. Exportação de planilha (CSV)
+Botão no cabeçalho com 11 colunas de auditoria:
+1. Unidade ou filial
+2. Local ou setor
+3. Endereço IP
+4. Modelo do equipamento
+5. Número de série
+6. Data de instalação física
+7. Data de início do monitoramento
+8. Contador na ativação
+9. Contador atual da máquina
+10. Páginas impressas sob monitoramento
+11. Status de conexão
 
-### 2. 📊 No Cabeçalho Administrativo (Exportação CSV)
-Botão **`📥 Histórico Inicial CSV`** com 11 colunas de auditoria:
-1. `Unidade / Filial`
-2. `Local / Setor`
-3. `Endereço IP`
-4. `Modelo da Impressora`
-5. `Número de Série`
-6. `Data de Instalação Física (Contrato)`
-7. `Data de Início do Monitoramento (Hefesto)`
-8. `Contador na Ativação Hefesto (Páginas)`
-9. `Contador Atual Vitalício (Páginas)`
-10. `Páginas Rodadas sob Gestão Hefesto (Delta)`
-11. `Status Operacional Atual`
+### 3. Edição do cadastro
+Permite ajustar manualmente a data de instalação física e o contador inicial caso os dados de contrato sejam recuperados posteriormente.
 
-### 3. ⚙️ No Modal de Cadastro / Edição da Impressora
-Permite ajustar individualmente a data de instalação física, contador de ativação e data de início do monitoramento.
+## Links relacionados
 
----
-
-## 🔗 Ligações do Sistema (Wikilinks)
-- [[Projeto Hefesto]] — Hub central da plataforma.
-- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional e integridade dos contadores.
-- [[Módulo de Volume e Previsibilidade]] — Análise diária, semanal e mensal de produção.
-- [[Histórico de Recargas e Suprimentos]] — Registro de trocas de insumos.
-- [[Arquitetura e Endpoints da API]] — Endpoint `GET /api/reports/initial-integration`.
-- [[Atualizações]] — Registro de roadmap e entregas.
+- [[Projeto Hefesto]]: visão geral do sistema
+- [[Banco de Dados e Persistência SQLite]]: persistência dos contadores e snapshots
+- [[Módulo de Volume e Previsibilidade]]: acompanhamento diário, semanal e mensal
+- [[Histórico de Recargas e Suprimentos]]: histórico de substituição de cartuchos
+- [[Arquitetura e Endpoints da API]]: rota `GET /api/reports/initial-integration`
+- [[Atualizações]]: registro de entregas e tarefas pendentes

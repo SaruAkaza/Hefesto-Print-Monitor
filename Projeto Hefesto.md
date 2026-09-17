@@ -1,60 +1,50 @@
-# 🏛️ Projeto Hefesto — Sistema de Monitoramento & Telemetria Corporativo
+# Projeto Hefesto: monitoramento de impressoras
 
-> **Ambiente:** Produção / Intranet Corporativa  
-> **Status:** 🟢 Operacional (Porta 80)  
-> **Tags:** #projeto-hefesto #impressoras #telemetria #dashboard #snmp #white-label
+> Ambiente: produção (intranet)  
+> Status: operacional (porta 80)  
+> Tags: #projeto-hefesto #impressoras #telemetria #dashboard #snmp
 
----
+## Visão geral
 
-## 🧭 Visão Geral & Propósito
-
-O **Projeto Hefesto** é a plataforma corporativa de observabilidade, telemetria SNMP em tempo real e inteligência preditiva de suprimentos para parques de impressão corporativos e multifuncionais.
-
-O sistema oferece visibilidade operacional para os operadores das filiais/unidades locais e ferramentas avançadas de auditoria, volumetria e previsão de trocas para a equipe de Tecnologia da Informação e Gestão de Contratos de Outsourcing.
+O Projeto Hefesto monitora o parque de impressoras corporativo via SNMP em tempo real. O sistema atende a dois grupos: os operadores nas filiais, que acompanham os suprimentos da sua unidade, e a equipe de TI, que gerencia contadores, previsão de consumo e histórico de trocas.
 
 ```mermaid
 graph TD
-    A[Parque de Impressoras Multi-Unidades] -->|SNMP v1/v2c| B[Servidor Backend Node.js]
-    B -->|Persistência ACID node:sqlite| C[(hefesto.db - SQLite Nativo)]
-    C -.->|Backup Diário Rotativo| CB[(backups/ - 7 dias)]
-    B -->|API REST / JSON| D[Frontend Web Dashboard]
-    D -->|Perfil Operador| E[Visão Local da Filial]
-    D -->|Perfil Administrador| F[Cockpit TI / Auditoria / Previsão]
-    F -->|Módulo| G[[Módulo de Volume e Previsibilidade]]
-    F -->|Módulo| H[[Histórico de Recargas e Suprimentos]]
-    F -->|Módulo| BD[[Banco de Dados e Persistência SQLite]]
+    A[Parque de Impressoras] -->|SNMP v1/v2c| B[Servidor Node.js]
+    B -->|Persistência SQLite| C[(hefesto.db)]
+    C -.->|Backup diário| CB[(backups/ - 7 dias)]
+    B -->|API REST / JSON| D[Painel Web]
+    D -->|Operador| E[Visão da Filial]
+    D -->|Administrador| F[Painel de TI: auditoria e previsão]
+    F --> G[[Módulo de Volume e Previsibilidade]]
+    F --> H[[Histórico de Recargas e Suprimentos]]
+    F --> BD[[Banco de Dados e Persistência SQLite]]
 ```
 
----
+## Módulos do sistema
 
-## 🧩 Estrutura de Módulos & Ligações
+- [[Banco de Dados e Persistência SQLite]]: armazenamento em SQLite local com rotina de backup diário para os últimos 7 dias.
+- [[Módulo de Volume e Previsibilidade]]: estimativa de esgotamento de suprimentos, contagem de páginas por período e taxa de uso do equipamento.
+- [[Histórico de Recargas e Suprimentos]]: registro de trocas de cartuchos com confirmação rápida e cálculo de rendimento por ciclo.
+- [[Relatório Histórico de Início na Rede]]: registro de entrada do equipamento no monitoramento e contadores iniciais.
+- [[Arquitetura e Endpoints da API]]: referência técnica das rotas HTTP e estrutura do serviço.
+- [[Atualizações]]: histórico de entregas e tarefas planejadas.
 
-- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional ACID com SQLite nativo, schema de tabelas e rotina de backups de 7 dias.
-- [[Módulo de Volume e Previsibilidade]] — Motor preditivo de esgotamento de tinta/toner, volume diário/semanal/mensal e classificação de carga.
-- [[Histórico de Recargas e Suprimentos]] — Registro de trocas oficiais vs. parciais, motor de assertividade máxima (10s, baseline $\ge 0\%$) e auditoria no Raio-X.
-- [[Relatório Histórico de Início na Rede]] — Registro de primeira conexão na rede, contadores iniciais de entrada e páginas sob gestão.
-- [[Arquitetura e Endpoints da API]] — Especificação técnica dos endpoints REST, persistência em disco e ciclo de vida do backend.
-- [[Atualizações]] — Roadmap de implementação e controle de tarefas concluídas e futuras.
+## Perfis de acesso
 
----
-
-## 👥 Isolamento de Perfis de Acesso
-
-| Recurso / Visão | Perfil Operador (Unidade) | Perfil Administrador (TI) |
+| Recurso | Operador (Unidade) | Administrador (TI) |
 | :--- | :---: | :---: |
-| **Escopo de Visualização** | Apenas a Unidade selecionada no login | Visão Global de todas as filiais |
-| **Status Operacional em Tempo Real** | ✅ Sim | ✅ Sim |
-| **Gaveta de Raio-X com Diagnóstico** | ✅ Sim | ✅ Sim |
-| **Aba "Volume & Previsibilidade"** | ❌ Oculto | ✅ Acesso Completo |
-| **Histórico de Recargas & Auditoria** | ❌ Oculto | ✅ Acesso Completo |
-| **Exportação de Relatórios (CSV/Excel)** | ❌ Oculto | ✅ Acesso Completo |
-| **Gerenciamento de Pastas & Equipamentos**| ❌ Oculto | ✅ Acesso Completo |
+| Escopo de visualização | Apenas a unidade selecionada | Todas as unidades |
+| Status operacional | Sim | Sim |
+| Detalhes da impressora (Raio-X) | Sim | Sim |
+| Volume e previsibilidade | Não | Sim |
+| Histórico de recargas | Não | Sim |
+| Exportação de relatórios (CSV) | Não | Sim |
+| Gerenciamento de equipamentos | Não | Sim |
 
----
+## Conectividade e acesso
 
-## 🌐 Conectividade & Acesso
-
-- **URL Local:** `http://localhost/`
-- **URL Intranet:** `http://10.1.159.240/`
-- **Porta:** `80 (HTTP Padrão)`
-- **Sincronização Periódica:** Leitura SNMP automática a cada 30 minutos com atualização forçada sob demanda.
+- Acesso local: `http://localhost/`
+- Acesso na intranet: `http://10.1.159.240/`
+- Porta: 80 (HTTP padrão)
+- Frequência de leitura: consulta automática a cada 30 minutos, com opção de atualização manual na interface.

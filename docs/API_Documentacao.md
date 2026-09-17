@@ -1,31 +1,27 @@
-# Documentação da API - Painel de Impressoras
+# Documentação da API: painel de impressoras
 
-> Use este documento como referência para construir o frontend do painel.
-> O backend está em Node.js/Express e roda na porta **3000**.
+> Referência técnica para consumo das rotas pelo frontend.  
+> O backend em Node.js e Express opera na porta 80.
 
----
-
-## Base URL
+## Endereço base
 
 ```
-http://localhost:3000
+http://localhost/
 ```
 
----
+## Rotas disponíveis
 
-## Endpoints
-
-### 1. Listar Impressoras Cadastradas
+### 1. Listar impressoras cadastradas
 
 ```
 GET /api/printers
 ```
 
-**Resposta:** `200 OK`
+Resposta: `200 OK`
 ```json
 [
   {
-    "id": "uuid-gerado-automaticamente",
+    "id": "uuid",
     "name": "Impressora Recepção",
     "ip": "192.168.1.100",
     "location": "Recepção - 1º andar",
@@ -35,29 +31,27 @@ GET /api/printers
 ]
 ```
 
----
-
-### 2. Cadastrar Nova Impressora
+### 2. Cadastrar nova impressora
 
 ```
 POST /api/printers
 Content-Type: application/json
 ```
 
-**Body:**
+Corpo da requisição:
 ```json
 {
-  "name": "Impressora Recepção",     // obrigatório
-  "ip": "192.168.1.100",              // obrigatório
-  "location": "Recepção - 1º andar", // opcional
-  "community": "public"               // opcional (padrão: "public")
+  "name": "Impressora Recepção",
+  "ip": "192.168.1.100",
+  "location": "Recepção - 1º andar",
+  "community": "public"
 }
 ```
 
-**Resposta:** `201 Created`
+Resposta: `201 Created`
 ```json
 {
-  "id": "f691aa2e-ef7f-4494-8263-9be072dd8cc0",
+  "id": "uuid",
   "name": "Impressora Recepção",
   "ip": "192.168.1.100",
   "location": "Recepção - 1º andar",
@@ -66,51 +60,45 @@ Content-Type: application/json
 }
 ```
 
-**Erros:**
-- `400` — Nome e IP são obrigatórios
+Erros:
+- `400`: nome e IP são obrigatórios
 
----
-
-### 3. Atualizar Impressora
+### 3. Atualizar impressora
 
 ```
 PUT /api/printers/:id
 Content-Type: application/json
 ```
 
-**Body:** (mesmos campos do POST)
+Corpo da requisição: mesmos campos do `POST`.
 
-**Resposta:** `200 OK` — Impressora atualizada
+Resposta: `200 OK`
 
-**Erros:**
-- `404` — Impressora não encontrada
+Erros:
+- `404`: impressora não encontrada
 
----
-
-### 4. Remover Impressora
+### 4. Remover impressora
 
 ```
 DELETE /api/printers/:id
 ```
 
-**Resposta:** `204 No Content`
+Resposta: `204 No Content`
 
-**Erros:**
-- `404` — Impressora não encontrada
+Erros:
+- `404`: impressora não encontrada
 
----
-
-### 5. Consultar Status SNMP de Uma Impressora
+### 5. Consultar status SNMP de uma impressora
 
 ```
 GET /api/printers/:id/status
 ```
 
-**Resposta:** `200 OK`
+Resposta: `200 OK`
 ```json
 {
   "printer": {
-    "id": "f691aa2e-...",
+    "id": "uuid",
     "name": "Impressora Recepção",
     "ip": "192.168.1.100",
     "location": "Recepção",
@@ -122,7 +110,7 @@ GET /api/printers/:id/status
       "model": "Lexmark MS622de",
       "serialNumber": "ABC123456",
       "name": "IMPRESSORA-RECEPCAO",
-      "description": "Lexmark MS622de LPR...",
+      "description": "Lexmark MS622de",
       "location": "",
       "pageCount": 15420
     },
@@ -139,35 +127,7 @@ GET /api/printers/:id/status
         "level": 2500,
         "maxLevel": 10000,
         "percentage": 25,
-        "status": "warning",
-        "icon": "🎨"
-      },
-      {
-        "name": "Imaging Unit",
-        "type": "imaging_kit",
-        "level": 45000,
-        "maxLevel": 60000,
-        "percentage": 75,
-        "status": "ok",
-        "icon": "📷"
-      },
-      {
-        "name": "Maintenance Kit",
-        "type": "maintenance_kit",
-        "level": 180000,
-        "maxLevel": 200000,
-        "percentage": 90,
-        "status": "ok",
-        "icon": "🔧"
-      },
-      {
-        "name": "Waste Toner Bottle",
-        "type": "waste_toner",
-        "level": 5000,
-        "maxLevel": 50000,
-        "percentage": 10,
-        "status": "warning",
-        "icon": "🗑️"
+        "status": "warning"
       }
     ],
     "trays": [
@@ -176,19 +136,13 @@ GET /api/printers/:id/status
         "currentLevel": 200,
         "maxLevel": 250,
         "percentage": 80
-      },
-      {
-        "name": "Tray 2",
-        "currentLevel": 0,
-        "maxLevel": 500,
-        "percentage": 0
       }
     ]
   }
 }
 ```
 
-**Quando a impressora está offline:**
+Quando a impressora não responde:
 ```json
 {
   "printer": { "..." },
@@ -199,15 +153,13 @@ GET /api/printers/:id/status
 }
 ```
 
----
-
-### 6. Testar Conexão SNMP
+### 6. Testar conexão SNMP
 
 ```
 GET /api/printers/:id/test
 ```
 
-**Resposta (sucesso):**
+Resposta com sucesso:
 ```json
 {
   "success": true,
@@ -216,7 +168,7 @@ GET /api/printers/:id/test
 }
 ```
 
-**Resposta (falha):**
+Resposta com falha:
 ```json
 {
   "success": false,
@@ -224,96 +176,51 @@ GET /api/printers/:id/test
 }
 ```
 
----
-
-### 7. Consultar Status de TODAS as Impressoras
+### 7. Consultar status de todas as impressoras
 
 ```
 GET /api/status/all
 ```
 
-**Resposta:** `200 OK` — Array com o status de cada impressora
-```json
-[
-  {
-    "id": "uuid-1",
-    "ip": "192.168.1.100",
-    "name": "Impressora Recepção",
-    "online": true,
-    "info": { "..." },
-    "status": { "..." },
-    "supplies": [ "..." ],
-    "trays": [ "..." ]
-  },
-  {
-    "id": "uuid-2",
-    "ip": "192.168.1.101",
-    "name": "Impressora Diretoria",
-    "online": false,
-    "error": "RequestTimedOutError: Request timed out"
-  }
-]
-```
+Resposta: `200 OK` (retorna o array de status das impressoras cadastradas).  
+Parâmetro opcional: `?force=true` ignora o cache em memória e dispara leitura direta na rede.
 
-> **Nota:** Este endpoint consulta TODAS as impressoras em paralelo. O tempo de resposta depende da impressora mais lenta (timeout máximo: ~5 segundos por impressora).
+## Tipos de suprimentos
 
----
+Valores possíveis no campo `type`:
 
-## Tipos de Suprimentos
+| Tipo | Descrição | Termos associados |
+| :--- | :--- | :--- |
+| `toner` | Toner ou cartucho de tinta | toner, cartucho, ink, tinta |
+| `maintenance_kit` | Kit de manutenção | maintenance, manutenção |
+| `imaging_kit` | Unidade de cilindro ou fotocondutor | imaging, drum, cilindro, photo |
+| `waste_toner` | Caixa de descarte de resíduos | waste, resíduo, coletor |
+| `fuser` | Unidade fusora | fuser, fusor |
+| `transfer` | Correia ou rolo de transferência | transfer, belt |
+| `other` | Outro componente | não identificado |
 
-O campo `type` nos suprimentos pode ter os seguintes valores:
+## Faixas de percentual de suprimento
 
-| Tipo | Descrição | Ícone | Palavras-chave detectadas |
-| :--- | :-------- | :---: | :------------------------ |
-| `toner` | Toner / Cartucho de tinta | 🎨 | toner, cartucho, ink, tinta |
-| `maintenance_kit` | Kit de Manutenção | 🔧 | maintenance, manutenção |
-| `imaging_kit` | Kit de Imagem / Cilindro | 📷 | imaging, imagem, drum, cilindro, photo, conductor |
-| `waste_toner` | Recipiente de Resíduos | 🗑️ | waste, resíduo, coletor |
-| `fuser` | Fusor | 🔥 | fuser, fusor |
-| `transfer` | Rolo/Correia de Transferência | ↔️ | transfer, transferência, belt |
-| `other` | Outro suprimento | 📦 | (não identificado) |
+| Status | Faixa | Condição operacional |
+| :--- | :--- | :--- |
+| `ok` | Acima de 30% | Nível adequado para uso |
+| `warning` | 10% a 30% | Nível baixo, planejar reposição |
+| `critical` | Abaixo de 10% | Nível crítico, substituição necessária |
+| `unknown` | Negativo | Valor não reportado numericamente pelo fabricante |
 
----
+## Códigos de status do dispositivo (hrDeviceStatus)
 
-## Status dos Suprimentos
+- 1: Desconhecido
+- 2: Operando
+- 3: Atenção
+- 4: Em teste
+- 5: Desligado
 
-| Status | Percentual | Cor Sugerida | Ação |
-| :----- | :--------- | :----------- | :--- |
-| `ok` | > 30% | 🟢 Verde | Nível normal |
-| `warning` | 10%–30% | 🟡 Amarelo | Preparar pedido |
-| `critical` | < 10% | 🔴 Vermelho | Pedir imediatamente! |
-| `unknown` | Negativo | ⚪ Cinza | Sem dados precisos |
+## Códigos de status de impressão (hrPrinterStatus)
 
----
+- 1: Outro
+- 2: Desconhecido
+- 3: Ociosa
+- 4: Imprimindo
+- 5: Aquecendo
 
-## Status do Dispositivo (hrDeviceStatus)
-
-| Código | Descrição |
-| :----- | :-------- |
-| 1 | Desconhecido |
-| 2 | Operando |
-| 3 | Atenção |
-| 4 | Testando |
-| 5 | Desligado |
-
-## Status da Impressora (hrPrinterStatus)
-
-| Código | Descrição |
-| :----- | :-------- |
-| 1 | Outro |
-| 2 | Desconhecido |
-| 3 | Ociosa |
-| 4 | Imprimindo |
-| 5 | Aquecendo |
-
----
-
-## Notas para o Frontend
-
-1. **Auto-refresh:** Recomendado a cada 5 minutos usando `GET /api/status/all`
-2. **Barras de progresso:** Usar o campo `percentage` para largura da barra
-3. **Cores:** Baseiar no campo `status` (ok→verde, warning→amarelo, critical→vermelho)
-4. **Offline:** Quando `online: false`, mostrar card com opacidade reduzida
-5. **Valores negativos:** Percentual negativo = valor especial SNMP, tratar como "indisponível"
-6. **Ícones:** Campo `icon` já contém emoji pronto para uso
-7. **CORS:** Já habilitado no backend, pode chamar de qualquer origem

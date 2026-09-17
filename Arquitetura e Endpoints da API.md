@@ -1,13 +1,11 @@
-# ⚙️ Arquitetura Técnica & Endpoints da API
+# Arquitetura e rotas da API
 
-> **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #projeto-hefesto #api #arquitetura #node #express #snmp
+> Hub central: [[Projeto Hefesto]]  
+> Tags: #projeto-hefesto #api #arquitetura #node #express #snmp
 
----
+## Visão da arquitetura
 
-## 🏗️ Visão da Arquitetura
-
-O sistema é construído sobre uma arquitetura orientada a serviços leves em **Node.js (Express)**, com polling SNMP não-bloqueante (`net-snmp`) e frontend Vanilla JavaScript sem dependências pesadas de compilação.
+O sistema opera com backend em Node.js (Express), consultas SNMP via biblioteca `net-snmp`, persistência em SQLite local (`node:sqlite`) e interface em JavaScript vanilla sem etapa de build.
 
 ```mermaid
 graph LR
@@ -21,78 +19,61 @@ graph LR
         E[snmp-service.js]
         F[db.js]
     end
-    subgraph Persistencia Relacional
-        G[(hefesto.db - SQLite Nativo)]
-        H[(backups/ - VACUUM INTO 7d)]
+    subgraph Persistencia
+        G[(hefesto.db - SQLite)]
+        H[(backups/ - 7 dias)]
     end
     Frontend <-->|HTTP REST / JSON| Backend
-    Backend <-->|Transações ACID node:sqlite| G
-    G -.->|Backup Diário Rotativo| H
-    Backend <-->|SNMP v1/v2c UDP 161| Impressoras[Parque de 73 Impressoras]
+    Backend <-->|Transações SQLite| G
+    G -.->|Backup diário| H
+    Backend <-->|SNMP v1/v2c UDP 161| Impressoras[Parque de 73 impressoras]
 ```
 
----
+## Rotas da API
 
-## 📡 Catálogo de Endpoints REST
+### Volume e previsão
+- `GET /api/analytics/volume-forecast`: lista impressoras com contadores diários, semanais e mensais, média diária, suprimento crítico e data estimada de esgotamento.
 
-### 1. Volume & Previsibilidade
-- **`GET /api/analytics/volume-forecast`**
-  - Retorna a lista de todas as impressoras com contadores diários, semanais, mensais, média/dia, capacidade/workload, suprimento crítico e data projetada de esgotamento.
+### Recargas e suprimentos
+- `GET /api/recharges`: lista o histórico de recargas cadastradas (filtros opcionais por `printerId`, `unitName` ou `fullOnly`).
+- `GET /api/recharges/summary`: mapa com dados da última recarga por impressora.
+- `GET /api/recharges/recent-events`: eventos recentes de troca para notificação em tela.
+- `POST /api/recharges`: registra substituição manual de suprimento e atualiza o cache.
+- `DELETE /api/recharges/:id`: remove um registro de recarga.
 
-### 2. Recargas & Suprimentos
-- **`GET /api/recharges`**
-  - Lista o histórico de recargas registradas (com filtros opcionais por `printerId`, `unitName` ou `fullOnly`).
-- **`GET /api/recharges/summary`**
-  - Retorna um mapa indexado por `printerId` contendo os dados da última recarga de cada equipamento.
-- **`GET /api/recharges/recent-events`**
-  - Retorna os eventos de reposição mais recentes para disparo de alertas visuais Toast em tempo real no dashboard.
-- **`POST /api/recharges`**
-  - Registra manualmente uma recarga de suprimento e atualiza imediatamente o cache de status.
-- **`DELETE /api/recharges/:id`**
-  - Remove um registro de recarga do histórico.
+### Relatórios e integração
+- `GET /api/reports/initial-integration`: relatório de primeira conexão à rede, contadores na ativação, leitura atual e páginas impressas sob monitoramento.
+- `GET /api/config/branding`: dados de identidade visual ativa.
 
-### 3. Relatórios & Auditoria de Entrada
-- **`GET /api/reports/initial-integration`**
-  - Retorna o relatório consolidado de primeira conexão à rede, contadores iniciais de entrada, contadores atuais e total produzido sob gestão.
-- **`GET /api/config/branding`**
-  - Retorna a configuração ativa de identidade visual e marca da aplicação (White-Label).
+### Telemetria e status
+- `GET /api/status/all`: status SNMP de todas as impressoras (suporta `?force=true`).
+- `GET /api/printers/:id/status`: leitura SNMP detalhada de uma impressora.
+- `GET /api/test-ip?ip=...`: teste de conectividade SNMP direto em um IP.
 
-### 4. Telemetria & Status Operacional
-- **`GET /api/status/all`**
-  - Retorna o status SNMP em tempo real de todas as impressoras (suporta `?force=true`).
-- **`GET /api/printers/:id/status`**
-  - Consulta o status detalhado de uma impressora específica.
-- **`GET /api/test-ip?ip=...`**
-  - Executa um teste de conectividade SNMP direto contra qualquer endereço IP.
+### Cadastro de impressoras e unidades
+- `GET /api/printers`, `POST /api/printers`, `PUT /api/printers/:id`, `DELETE /api/printers/:id`
+- `GET /api/units`, `POST /api/units`, `PUT /api/units/:id`, `DELETE /api/units/:id`
 
-### 5. Inventário & Pastas (Unidades)
-- **`GET /api/printers`** | **`POST /api/printers`** | **`PUT /api/printers/:id`** | **`DELETE /api/printers/:id`**
-- **`GET /api/units`** | **`POST /api/units`** | **`PUT /api/units/:id`** | **`DELETE /api/units/:id`**
+## Estrutura de tabelas (SQLite)
 
----
+As tabelas ficam no arquivo `server/data/hefesto.db`, gerenciado por `server/db.js`:
 
-## 💾 Persistência de Dados Relacional (SQLite ACID)
-
-Toda a persistência do sistema é gerenciada pelo módulo `server/db.js` utilizando o motor **SQLite Nativo (`node:sqlite`)** no banco de dados `server/data/hefesto.db`:
-
-| Tabela | Descrição & Integridade |
+| Tabela | Descrição |
 | :--- | :--- |
-| `units` | Cadastro de pastas das unidades e filiais (SP e RJ). |
-| `printers` | Cadastro dos 73 equipamentos, endereços IP únicos, setor e chave estrangeira de unidade. |
-| `printer_status_cache` | Cache de telemetria em disco para boot e carregamento instantâneo do dashboard. |
-| `pending_recharges` | Memória de confirmação rápida (10s) de reposições atômicas, imune a reinicializações. |
-| `recharges` | Histórico permanente e auditável de recargas (oficiais e provisórias). |
-| `page_history` | Snapshots diários de contadores de páginas para análise volumétrica. |
-| `telemetry_snapshots` | Histórico granular de suprimentos e contadores para os algoritmos de predição. |
+| `units` | Unidades e filiais cadastradas. |
+| `printers` | Cadastro das impressoras com IP, localização e unidade. |
+| `printer_status_cache` | Cache da última telemetria lida via SNMP para inicialização rápida do painel. |
+| `pending_recharges` | Trocas aguardando a leitura de confirmação de 10 segundos. |
+| `recharges` | Histórico permanente de recargas e substituições. |
+| `page_history` | Registros diários de contadores para cálculo de volume. |
+| `telemetry_snapshots` | Histórico de leituras para cálculo de consumo e previsão. |
 
-> **Segurança & Backups:** Rotina diária automática via `VACUUM INTO` mantendo backups atômicos dos últimos 7 dias em `server/data/backups/`.  
-> 🔗 *Documentação detalhada:* [[Banco de Dados e Persistência SQLite]]
+O servidor executa backup diário usando `VACUUM INTO` e retém os arquivos dos últimos 7 dias na pasta `server/data/backups/`.
 
----
+## Links relacionados
 
-## 🔗 Ligações do Obsidian
-- [[Projeto Hefesto]] — Hub central do projeto
-- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional e backups
-- [[Módulo de Volume e Previsibilidade]] — Regras de negócio de previsão
-- [[Histórico de Recargas e Suprimentos]] — Regras de ciclo e recargas
-- [[Atualizações]] — Roadmap
+- [[Projeto Hefesto]]: visão geral do projeto
+- [[Banco de Dados e Persistência SQLite]]: detalhamento do schema e backups
+- [[Módulo de Volume e Previsibilidade]]: fórmulas de consumo
+- [[Histórico de Recargas e Suprimentos]]: regras de ciclo e recargas
+- [[Atualizações]]: histórico de alterações

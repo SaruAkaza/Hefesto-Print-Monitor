@@ -1,23 +1,15 @@
-# 🗄️ Banco de Dados Relacional & Persistência SQLite Nativo
+# Banco de dados e persistência SQLite
 
-> **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #projeto-hefesto #banco-de-dados #sqlite #persistencia #acid #backup #node24
+> Hub central: [[Projeto Hefesto]]  
+> Tags: #projeto-hefesto #banco-de-dados #sqlite #persistencia #acid #backup #node24
 
----
+## Visão geral
 
-## 🎯 Visão Geral & Motivação
+O armazenamento do Projeto Hefesto utiliza SQLite local com a biblioteca embutida `node:sqlite` do Node.js v24 (`DatabaseSync`). Essa abordagem dispensa serviços externos de banco em nuvem, não exige ferramentas de compilação em C++ como `node-gyp` e mantém garantias de transação ACID com gravação direta em disco.
 
-O **Projeto Hefesto** migrou sua camada de armazenamento de arquivos JSON voláteis em disco para uma arquitetura de **Banco de Dados Relacional SQLite Nativo** (`node:sqlite`), embutido nativamente no binário do **Node.js v24**.
+O uso do banco local resolve problemas de concorrência e assegura que dados de telemetria, contadores e filas de confirmação de recarga sobrevivam a reinicializações do servidor.
 
-### Por que esta solução foi escolhida?
-1. **Custo R$ 0,00 (100% Gratuito e Local):** Não requer contratação de servidores em nuvem (AWS RDS, Supabase, etc.) nem portas de rede adicionais.
-2. **Zero Dependências de Compilação:** Como utiliza a API oficial `DatabaseSync` do Node.js v24 (`import { DatabaseSync } from 'node:sqlite'`), dispensa compiladores C++ (`node-gyp`, Visual Studio Build Tools ou Python).
-3. **Integridade Transacional ACID:** Garante escritas atômicas e isoladas, eliminando o risco de corrupção de arquivos em caso de desligamento abrupto ou concorrência.
-4. **Resiliência e Continuidade:** O status das impressoras e as confirmações de recarga pendentes sobrevivem a reinicializações do servidor.
-
----
-
-## 🏗️ Modelo Entidade-Relacionamento (ER)
+## Modelo entidade-relacionamento
 
 ```mermaid
 erDiagram
@@ -120,44 +112,35 @@ erDiagram
     }
 ```
 
----
+## Dicionário de tabelas
 
-## 📋 Dicionário de Tabelas
-
-| Tabela | Finalidade | Regras & Chaves Estrangeiras |
+| Tabela | Finalidade | Regras e chaves |
 | :--- | :--- | :--- |
-| `units` | Pastas das filiais/unidades (Sede, Taiti, Leblon, etc.). | `id` chave primária. |
-| `printers` | Cadastro das 73 impressoras ativas. | `ip` único. `unit_id` com `ON DELETE SET NULL`. |
-| `printer_status_cache` | Última telemetria válida lida via SNMP. | `printer_id` com `ON DELETE CASCADE`. Permite boot instantâneo. |
-| `pending_recharges` | Memória de intenção para trocas em processo de validação. | `printer_id` com `ON DELETE CASCADE`. Elimina perdas por reboot. |
-| `recharges` | Histórico permanente e auditável de recargas. | Registro de páginas rodadas no ciclo e tipo (Oficial vs Provisória). |
-| `page_history` | Snapshots diários para volumetria (Hoje, 7d, 30d). | Desacoplado de deleção de impressoras para preservar histórico contábil. |
-| `telemetry_snapshots` | Histórico granular de níveis de suprimentos. | Base para o motor analítico e predição de esgotamento. |
+| `units` | Unidades e filiais cadastradas. | `id` chave primária. |
+| `printers` | Cadastro das impressoras monitoradas. | `ip` único. `unit_id` com `ON DELETE SET NULL`. |
+| `printer_status_cache` | Última telemetria válida lida via SNMP. | `printer_id` com `ON DELETE CASCADE`. Acelera o carregamento inicial. |
+| `pending_recharges` | Fila de confirmação para trocas em processo de validação. | `printer_id` com `ON DELETE CASCADE`. Mantém o estado durante reinicializações. |
+| `recharges` | Histórico permanente de recargas e substituições. | Registra páginas rodadas no ciclo e classificação da troca. |
+| `page_history` | Registros diários de contadores para volumetria (hoje, 7 dias, 30 dias). | Independente da exclusão de impressoras para preservar o histórico. |
+| `telemetry_snapshots` | Histórico de leituras de níveis de suprimentos. | Base de dados para cálculo de consumo e previsão de término. |
 
----
+## Backup diário rotativo
 
-## ⚡ Rotina de Backup Diário Rotativo (`VACUUM INTO`)
+O arquivo `server/db.js` executa uma rotina de backup no início do servidor e a cada 24 horas:
+- Método: executa `VACUUM INTO 'data/backups/hefesto_backup_YYYY-MM-DD.db'`, gerando uma cópia compacta e consistente enquanto a aplicação segue ativa.
+- Retenção: mantém os últimos 7 dias de backups na pasta `server/data/backups/` e remove os arquivos mais antigos automaticamente.
 
-Para garantir segurança total contra falhas de hardware ou exclusões acidentais, o módulo `server/db.js` executa uma rotina automática de backup:
-- **Método Atômico:** Executa `VACUUM INTO 'data/backups/hefesto_backup_YYYY-MM-DD.db'`, gerando uma cópia compacta e 100% consistente mesmo enquanto o banco está em uso.
-- **Frequência:** Executado no arranque do servidor e agendado a cada 24 horas via `setInterval`.
-- **Janela de Retenção:** Mantém os últimos **7 dias de backups**, expurgando automaticamente os arquivos mais antigos para não consumir espaço desnecessário.
+## Migração inicial a partir dos arquivos JSON
 
----
+Se o arquivo `server/data/hefesto.db` não existir na inicialização:
+1. O sistema executa `createSchema()`, criando tabelas e índices.
+2. Cria uma cópia de segurança dos arquivos JSON em `server/data/backups/json_pre_sqlite_[timestamp]`.
+3. Importa os registros de `units.json`, `printers.json`, `recharges.json`, `page_history.json` e `telemetry_history.json`.
 
-## 🔄 Migração Automática a partir dos JSONs
+## Links relacionados
 
-Ao iniciar pela primeira vez em um ambiente novo, o sistema verifica a existência do arquivo `server/data/hefesto.db`. Se não existir:
-1. Executa o script de DDL (`createSchema()`) gerando todas as tabelas e índices.
-2. Faz backup preventivo dos arquivos JSON existentes em `server/data/backups/json_pre_sqlite_[timestamp]`.
-3. Popula as tabelas a partir de `units.json`, `printers.json`, `recharges.json`, `page_history.json` e `telemetry_history.json`.
-4. Sanitiza os dados, garantindo que o painel continue operacional sem interrupções.
-
----
-
-## 🔗 Ligações do Obsidian
-- [[Projeto Hefesto]] — Hub principal de arquitetura
-- [[Histórico de Recargas e Suprimentos]] — Motor de assertividade e confirmação em 10s
-- [[Módulo de Volume e Previsibilidade]] — Motor analítico alimentado pelo SQLite
-- [[Arquitetura e Endpoints da API]] — Catálogo de serviços REST e camada de dados
-- [[Atualizações]] — Registro de versões e roadmap
+- [[Projeto Hefesto]]: visão geral do sistema
+- [[Histórico de Recargas e Suprimentos]]: regras de detecção e confirmação
+- [[Módulo de Volume e Previsibilidade]]: fórmulas de previsão e métricas de uso
+- [[Arquitetura e Endpoints da API]]: catálogo de rotas e persistência
+- [[Atualizações]]: histórico de versões e tarefas planejadas

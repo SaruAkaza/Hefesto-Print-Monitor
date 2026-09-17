@@ -1,53 +1,41 @@
-# 📋 Roadmap & Registro de Atualizações — Projeto Hefesto
+# Histórico de atualizações e tarefas
 
-> **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #projeto-hefesto #roadmap #atualizacoes
+> Hub central: [[Projeto Hefesto]]  
+> Tags: #projeto-hefesto #roadmap #atualizacoes
 
----
+## Funcionalidades implementadas e pendências
 
-## 🎯 Status das Demandas e Funcionalidades
+- [x] Persistência em SQLite local e confirmação rápida de trocas:  
+  Armazenamento em banco local SQLite (`node:sqlite` do Node.js v24). Detecção de substituições com baseline a partir de 0%, confirmação em 10 segundos via SNMP, gravação intermediária na tabela `pending_recharges`, backups diários via `VACUUM INTO` com retenção de 7 dias e aviso de nova recarga na interface.  
+  Documentação: [[Banco de Dados e Persistência SQLite]] e [[Histórico de Recargas e Suprimentos]].
 
-- [x] **Banco de Dados Relacional SQLite Nativo & Motor de Assertividade Máxima:**  
-  Migração completa da camada de persistência volátil em JSON para SQLite nativo (`node:sqlite` do Node.js v24, custo zero, sem dependências npm compiladas). Detecção de recargas de suprimentos com assertividade próxima a 100%: baseline $\ge 0\%$ aceito (captura reposições de toners que zeraram totalmente em consultórios), confirmação rápida em 10 segundos via reconsulta SNMP direta, persistência de intenção na tabela `pending_recharges` imune a reboots ou períodos offline, backups diários rotativos atômicos (`VACUUM INTO` retendo 7 dias) e alertas visuais Toast em tempo real no painel.  
-  🔗 *Documentação completa:* [[Banco de Dados e Persistência SQLite]] e [[Histórico de Recargas e Suprimentos]]
+- [x] Histórico de recargas de suprimentos:  
+  Registro de data e hora da última recarga, separação entre insumo novo e usado ($\ge 95\%$ vs $< 95\%$), contagem de páginas por ciclo e formulário manual de registro.  
+  Documentação: [[Histórico de Recargas e Suprimentos]].
 
-- [x] **Contador e Histórico de Recargas de Suprimentos:**  
-  Data e hora da última recarga, regra de corte ($\ge 95\%$ vs $< 95\%$), cálculo automático de páginas rodadas no ciclo e formulário manual no Raio-X.  
-  🔗 *Documentação completa:* [[Histórico de Recargas e Suprimentos]]
+- [x] Volume de páginas e estimativa de término de suprimentos:  
+  Contagem de impressões no dia, últimos 7 dias e últimos 30 dias. Projeção da data aproximada de término do suprimento e validação de carga mensal. Cartões com filtros por unidade.  
+  Documentação: [[Módulo de Volume e Previsibilidade]].
 
-- [x] **Relatório de Volume & Motor Preditivo de Troca de Tinta:**  
-  Contabilização de páginas impressas no dia, semana (7d), mês (30d) e média diária. Cálculo inteligente de quantas impressões ainda restam e data projetada de esgotamento/troca de suprimentos, validando capacidade máxima (Alta Carga, Ideal, Ociosa). Cards de indicadores reativos por unidade com exibição do período exato contabilizado.  
-  🔗 *Documentação completa:* [[Módulo de Volume e Previsibilidade]]
+- [x] Perfis de acesso:  
+  Perfil Administrador com visão de todas as unidades e gestão do sistema. Perfil Operador restrito à unidade selecionada.  
+  Documentação: [[Projeto Hefesto]].
 
-- [x] **Isolamento de Perfis de Acesso e Privacidade:**  
-  Perfil Administrador com visão analítica e gestão completa. Perfil Operador focado estritamente no status operacional da unidade, sem exibição de históricos de auditoria internos.  
-  🔗 *Documentação completa:* [[Projeto Hefesto]]
+- [x] Relatório de início na rede:  
+  Registro da primeira leitura da impressora no sistema e contadores iniciais de entrada. Exportação em planilha CSV.  
+  Documentação: [[Relatório Histórico de Início na Rede]].
 
-- [x] **Relatório Histórico de Início na Rede:**  
-  Relatório histórico de quando a impressora foi conectada pela primeira vez à rede e quantas impressões totais ela possuía no momento da integração inicial. Card no Raio-X com total produzido sob gestão e exportação executiva em CSV.  
-  🔗 *Documentação completa:* [[Relatório Histórico de Início na Rede]]
+- [ ] Coleta de dados de impressoras USB via agente local instalado na estação.
+- [ ] Envio automático de solicitação de insumo para o fornecedor ao confirmar substituição.
+- [ ] Aba de controle de pedidos para baixa de insumos recebidos nas unidades.
+- [ ] Registro de auditoria para alterações manuais de equipamentos e contadores.
+- [ ] Identificação de usuário e volume por impressão, com alerta para trabalhos acima de 40 páginas.
 
-- [ ] **Integração de Impressoras Locais USB via Agente Host:**  
-  Mecanismo para capturar telemetria e contadores de impressoras conectadas via cabo USB em computadores locais na rede.
+## Navegação do cofre
 
-- [ ] **Automação de Pedidos de Insumos (Forms GOMAQ):**  
-  Disparo automático de formulário/webhook para solicitação de novas bolsas/toners à GOMAQ no momento em que um suprimento for substituído na impressora.
-
-- [ ] **Módulo "Insumos & Pedidos":**  
-  Aba de controle logístico rastreando pedidos emitidos para cada impressora, permitindo ao Auxiliar Administrativo dar baixa quando o insumo chegar à unidade.
-
-- [ ] **Auditoria & Trilha de Registro de Modificações:**  
-  Log imutável de qualquer alteração de suprimento, entrada manual de insumo, ajuste na lista de equipamentos ou formatação de quantidades.
-
-- [ ] **Quem imprimiu?**  
-  Log de qual CPF/usuário imprimiu e a quantidade que imprimiu. Gerar um alerta se em uma única impressão passou de 40 folhas.
-
----
-
-## 🔗 Navegação do Cofre (Obsidian)
-- [[Projeto Hefesto]] — Hub principal de arquitetura e documentação
-- [[Banco de Dados e Persistência SQLite]] — Arquitetura de persistência ACID, schema relacional e backups
-- [[Relatório Histórico de Início na Rede]] — Histórico de 1ª conexão e contadores iniciais
-- [[Módulo de Volume e Previsibilidade]] — Motor preditivo e métricas de produção
-- [[Histórico de Recargas e Suprimentos]] — Registro de trocas e auditoria
-- [[Arquitetura e Endpoints da API]] — Especificação técnica dos serviços REST e banco de dados
+- [[Projeto Hefesto]]: visão geral do sistema
+- [[Banco de Dados e Persistência SQLite]]: schema do banco e backups
+- [[Relatório Histórico de Início na Rede]]: primeira leitura e contadores iniciais
+- [[Módulo de Volume e Previsibilidade]]: métricas de volume e fórmulas de previsão
+- [[Histórico de Recargas e Suprimentos]]: registros de trocas e auditoria
+- [[Arquitetura e Endpoints da API]]: referência das rotas HTTP e persistência

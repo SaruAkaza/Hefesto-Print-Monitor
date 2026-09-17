@@ -1,72 +1,58 @@
-# 🔄 Histórico de Recargas & Auditoria de Suprimentos
+# Histórico de recargas e suprimentos
 
-> **Hub Central:** [[Projeto Hefesto]]  
-> **Tags:** #projeto-hefesto #recargas #suprimentos #auditoria #raiox
+> Hub central: [[Projeto Hefesto]]  
+> Tags: #projeto-hefesto #recargas #suprimentos #auditoria #raiox
 
----
+## Objetivo e ciclos de troca
 
-## 🎯 Objetivo & Conceito de Ciclos
+O módulo de recargas registra as substituições de toners, bolsas de tinta e garrafas de abastecimento nas impressoras monitoradas. A rotina atende a três finalidades:
+1. Auditar as substituições feitas por técnicos ou operadores.
+2. Calcular o total de páginas impressas durante a vida útil de cada cartucho ou bolsa.
+3. Separar trocas com insumos novos de trocas com insumos reaproveitados.
 
-O módulo de histórico de recargas foi projetado para registrar com precisão cada troca de bolsa de tinta, toner ou garrafa de abastecimento no parque corporativo de impressoras, garantindo:
-1. **Auditoria completa de trocas** realizadas por técnicos ou operadores.
-2. **Cálculo exato de rendimento de páginas** obtidas com cada cartucho/bolsa.
-3. **Identificação de trocas provisórias ou cartuchos usados** que não devem distorcer a média histórica.
-
----
-
-## ⚖️ Regra de Corte: Recarga Oficial vs. Troca Provisória
+## Classificação das trocas
 
 ```mermaid
 flowchart TD
-    A[Evento de Substituição de Suprimento] --> B{Nível Instalado ≥ 95%?}
-    B -->|Sim| C[Recarga Oficial / Nova - 100%]
-    C --> D[Define novo marco inicial de ciclo de páginas]
-    C --> E[Alimenta base de cálculo de durabilidade]
-    B -->|Não| F[Troca Provisória / Usada < 95%]
-    F --> G[Registra auditoria de campo sem quebrar o ciclo principal]
+    A[Substituição de suprimento] --> B{Nível instalado ≥ 95%?}
+    B -->|Sim| C[Recarga oficial: novo]
+    C --> D[Inicia novo ciclo de contagem de páginas]
+    C --> E[Alimenta média de durabilidade]
+    B -->|Não| F[Troca provisória: usado]
+    F --> G[Registra no histórico sem reiniciar o ciclo]
 ```
 
-- **Recarga Oficial (Nova / Cheia $\ge 95\%$):**  
-  Quando uma nova bolsa ou toner lacrado é instalado. O sistema define a data como novo marco zero para contagem de durabilidade do suprimento.
-- **Troca Provisória (Usada $< 95\%$):**  
-  Instalação emergencial de um cartucho parcialmente usado. O evento fica registrado no histórico para auditoria, mas não contamina o ciclo oficial.
+- Recarga oficial ($\ge 95\%$): instalação de insumo novo. O sistema usa a data da troca como ponto inicial para o cálculo de rendimento do ciclo.
+- Troca provisória ($< 95\%$): uso emergencial de insumo parcialmente consumido. O registro é mantido para consulta, mas não reinicia o cálculo do ciclo principal.
 
----
+## Modos de registro
 
-## 🤖 Modos de Registro: Automático vs. Manual
+### Detecção automática via SNMP
 
-### 1. Detecção Automática & Motor de Assertividade Máxima (SNMP)
-Para atingir precisão máxima e eliminar perdas históricas (como recargas realizadas após esgotamento total em consultórios), o sistema implementa um pipeline de detecção inteligente em 3 etapas:
+O servidor acompanha as leituras de rede para identificar alterações de suprimento:
 
-1. **Aceitação de Baseline $\ge 0\%$:**  
-   Diferente de heurísticas frágeis que descartavam níveis inferiores a 5%, o motor agora aceita que um suprimento estivesse em **0%** e tenha sido substituído por uma bolsa/toner novo (salto de $0\% \rightarrow 100\%$).
-2. **Confirmação Atômica Rápida em 10 Segundos:**  
-   Assim que um salto positivo consistente é detectado no ciclo regular de varredura, o servidor agenda uma reconsulta SNMP atômica para dali a **10 segundos**. Se a leitura se mantiver estável ($\pm 5\%$), a recarga é **confirmada e gravada imediatamente**. Isso elimina a dependência de 3 ciclos longos de polling (30 a 90 minutos).
-3. **Persistência de Intenção no SQLite (`pending_recharges`):**  
-   A intenção de validação é gravada no banco relacional [[Banco de Dados e Persistência SQLite]]. Mesmo que o servidor seja reiniciado ou que a impressora fique temporariamente offline durante a troca física do cartucho, a transação não se perde.
-4. **Alertas Toast em Tempo Real:**  
-   O frontend monitora a rota `/api/recharges/recent-events` a cada 20 segundos. Ao confirmar a recarga, exibe instantaneamente um alerta Toast visual na tela com equipamento, setor e salto de percentual.
+1. Leituras a partir de 0%: o sistema registra a troca mesmo quando o nível anterior do suprimento estava zerado, frequente em impressoras de consultórios.
+2. Confirmação em 10 segundos: ao detectar aumento de nível, o servidor agenda uma consulta direta após 10 segundos. Se o valor permanecer estável ($\pm 5\%$), a recarga é gravada no banco.
+3. Fila persistente (`pending_recharges`): a validação intermediária fica gravada no SQLite, mantendo o acompanhamento mesmo se o servidor for reiniciado durante o procedimento físico.
+4. Notificação na interface: o painel consulta `/api/recharges/recent-events` a cada 20 segundos e exibe aviso em tela quando uma substituição for confirmada.
 
-### 2. Registro Manual no Raio-X
-Técnicos e gestores podem registrar uma troca sob demanda diretamente pela interface:
-* Acessível pelo botão **`+ Registrar Recarga`** no cabeçalho ou dentro da gaveta **Raio-X**.
-* Formulário com seleção de impressora, suprimento, tipo de carga (Oficial 100% vs Parcial), técnico responsável e notas explicativas.
-* Gravação imediata na tabela `recharges` do SQLite com recálculo automático de páginas no ciclo.
+### Registro manual
 
----
+Técnicos e gestores podem registrar trocas manualmente pelo botão no cabeçalho ou na gaveta de detalhes da impressora:
+- Formulário com seleção de equipamento, suprimento, tipo de carga, técnico e observações.
+- Gravação direta na tabela `recharges` do SQLite com recálculo das páginas do ciclo.
 
-## 🪟 Interface em Camadas (Layered Modals)
+## Modais sobrepostos
 
-Para máxima agilidade operacional, o modal de registro manual abre em uma camada superior (`z-index: 200`) sobre a gaveta do **Raio-X** (`z-index: 100`):
-* O técnico não perde o contexto da impressora que está inspecionando.
-* Ao salvar, a gaveta do Raio-X atualiza a linha do tempo instantaneamente sem recarregar a página.
-* Pressionar `ESC` ou clicar fora fecha apenas o modal de recarga, preservando a gaveta aberta.
+O modal de cadastro manual abre sobre a gaveta de detalhes da impressora (`z-index` superior):
+- O operador mantém a visão dos dados da máquina durante o preenchimento.
+- Ao salvar, o histórico do equipamento é recarregado sem necessidade de atualizar a página inteira.
+- Fechar o modal (com tecla Esc ou clique fora) mantém a gaveta aberta.
 
----
+## Links relacionados
 
-## 🔗 Ligações do Obsidian
-- [[Projeto Hefesto]] — Hub principal de arquitetura
-- [[Banco de Dados e Persistência SQLite]] — Camada de persistência relacional e backups
-- [[Módulo de Volume e Previsibilidade]] — Motor preditivo e capacidade
-- [[Arquitetura e Endpoints da API]] — Rotas `/api/recharges`, `/api/recharges/summary` e `/api/recharges/recent-events`
-- [[Atualizações]] — Checklist e roadmap
+- [[Projeto Hefesto]]: visão geral do sistema
+- [[Banco de Dados e Persistência SQLite]]: estrutura de tabelas e persistência
+- [[Módulo de Volume e Previsibilidade]]: estimativa de esgotamento e capacidade
+- [[Arquitetura e Endpoints da API]]: rotas da API de recargas
+- [[Atualizações]]: histórico de entregas e pendências

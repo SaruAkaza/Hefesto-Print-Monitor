@@ -1,103 +1,86 @@
-# 📖 Manual de Uso, Perfis e Acesso em Rede
+# Manual de uso e perfis de acesso
 
-> **Documento Operacional e de Governança do Painel de Impressoras**  
-> **Compatibilidade:** Obsidian Vault / Markdown  
-> **Última Atualização:** Agosto / 2026  
+> Equipe de Tecnologia e Infraestrutura  
+> Atualizado em agosto de 2026  
 
----
+## Acesso em rede e execução
 
-## 1. 🌐 Acesso em Rede Local e Hospedagem
+O painel roda como serviço web na rede interna e pode ser acessado pelo navegador sem necessidade de instalar aplicativos nas estações.
 
-O Painel de Monitoramento de Impressoras é executado como uma aplicação web centralizada na infraestrutura local, permitindo que múltiplos usuários e setores acessem simultaneamente sem necessidade de instalar softwares nas máquinas clientes.
+### Endereços de acesso
+- Neste computador (servidor): `http://localhost/`
+- Na rede corporativa: `http://10.1.159.240/`
+- Porta padrão: 80 (HTTP)
 
-### Links Oficiais de Acesso:
-- **Nesta Máquina (Host):** `http://localhost:3000/`
-- **Acesso na Rede Corporativa (Cabo Ethernet):** `http://10.1.159.240:3000/`
-- **Acesso na Rede Corporativa (Wi-Fi):** `http://10.1.148.114:3000/`
+### Unidades atendidas
+1. Unidade São Francisco: impressoras do subsolo, térreo e andares 1 a 4 (rede `10.1.152.x`).
+2. Unidade Rio Sul: consultórios e atendimento no 13º andar (rede `10.5.104.x`).
+3. Unidade Havaí: consultórios e procedimentos no térreo e 1º andar (rede `10.1.176.x`).
+4. Sede Leblon: impressoras corporativas no 7º andar (rede `10.5.16.x`).
 
-### 🏢 Unidades Cadastradas (72 Impressoras):
-1. **Unidade São Francisco:** 41 impressoras (Subsolo, Térreo, 1º ao 4º Andar - Faixa `10.1.152.x`).
-2. **Unidade Rio Sul:** 16 impressoras (Consultórios e Atendimento 13º Andar - Faixa `10.5.104.x`).
-3. **Unidade Havaí:** 12 impressoras (Consultórios e Procedimentos Térreo e 1º Andar - Faixa `10.1.176.x`).
-4. **Sede Leblon:** 3 impressoras (Sede Corporativa 7º Andar - Faixa `10.5.16.x`).
+### Inicialização do serviço
+Para iniciar o servidor, execute o arquivo `INICIAR_PAINEL.bat` na raiz da pasta do projeto.
 
-### Como Iniciar o Servidor:
-1. Localize o arquivo executável na raiz do projeto: `INICIAR_PAINEL.bat`.
-2. Dê **dois cliques** sobre o arquivo.
-3. O servidor Node.js iniciará automaticamente e ficará ouvindo na porta `3000 (0.0.0.0)` para toda a rede local.
+## Perfis de usuário
 
----
-
-## 2. 🛡️ Controle de Acesso e Perfis de Usuário
-
-O sistema implementa **segregação estrita de funções e permissões** entre a equipe de campo/postos de atendimento e a gestão de TI:
+O sistema possui dois níveis de acesso:
 
 ```
                   ┌─────────────────────────────────────┐
-                  │          TELA DE ACESSO             │
+                  │           TELA INICIAL              │
                   └──────────────┬──────────────────────┘
                                  │
                  ┌───────────────┴───────────────┐
                  ▼                               ▼
     ┌──────────────────────────┐    ┌──────────────────────────┐
-    │    👤 OPERADOR LOCAL     │    │     👑 ADMINISTRADOR     │
-    │  (Seleção Obrigatória)   │    │     (Usuário e Senha)    │
+    │     OPERADOR LOCAL       │    │      ADMINISTRADOR       │
+    │  (Seleção da filial)     │    │    (Usuário e senha)     │
     └────────────┬─────────────┘    └────────────┬─────────────┘
                  ▼                               ▼
-    • Apenas a filial escolhida     • Visão Global (Todas Filiais)
-    • Somente Leitura (Read-Only)   • Cadastrar / Editar / Excluir
-    • Status Agora e Alertas        • Testar Conexão de Qualquer IP
-    • Raio-X 360° e Atualizar       • Relatório Consolidado de Tintas
-                                    • Exportação de Planilha (CSV)
+    • Visão restrita à filial       • Visão de todas as filiais
+    • Modo leitura                  • Cadastro, edição e exclusão
+    • Status e fila de atenção      • Teste de conectividade por IP
+    • Detalhes da impressora        • Volume, previsão e histórico
+                                    • Exportação de dados em CSV
 ```
 
----
+## Perfil: Operador de unidade
 
-## 3. 👤 Perfil: Operador de Unidade
+Indicado para recepcionistas, assistentes administrativos e técnicos locais:
+- Login: seleção direta da filial no formulário inicial.
+- Escopo: exibe apenas os equipamentos da unidade escolhida.
+- Modo leitura: formulários de edição, exclusão e ferramentas de teste não aparecem para este perfil.
 
-Destinado aos recepcionistas, técnicos locais e operadores de cada filial/posto de atendimento.
+### Recursos disponíveis ao operador
+1. Painel de status: contagem de impressoras em estado normal, em atenção (10% a 30%), críticas (<10%) e sem comunicação.
+2. Fila de atenção: lista ordenada com os suprimentos mais próximos do término e orientação de troca.
+3. Lista de impressoras:
+   - Identificação do setor e localização física.
+   - Modelo identificado e endereço IP.
+   - Barra visual de nível do suprimento principal.
+   - Detalhes (Raio-X): gaveta lateral com todos os consumíveis (CMYK), bandejas e contadores.
+   - Atualização sob demanda: botão para disparar leitura imediata via rede.
+4. Troca de tema: alternância entre os modos escuro e claro.
 
-### Características:
-- **Login:** O operador é obrigado a selecionar a sua unidade/filial na lista.
-- **Escopo Travado:** Visualiza **apenas** os equipamentos cadastrados na sua filial (ex: *Unidade São Francisco*).
-- **Sem poluição:** Não visualiza nem acessa formulários de cadastro, testes de rede ou botões de exclusão.
+## Perfil: Administrador de TI
 
-### Funcionalidades Disponíveis para o Operador:
-1. **Status Agora:** Visualização rápida da quantidade de impressoras *Críticas* (<10%), em *Atenção* (10% a 30%) e *Sem Conexão*.
-2. **Requer Ação Imediata:** Fila de prioridade com o suprimento mais esgotado e recomendação clara (*Trocar imediatamente* / *Pedir estoque*).
-3. **Lista de Minhas Impressoras:**
-   - **Local / Setor em destaque** (ex: `Recepção`, `Oncologia`).
-   - **Modelo detectado** (ex: `Lexmark CX522ade`, `M1180 Series`).
-   - **IP na rede** e **barra visual do suprimento principal**.
-   - Botão 👁️ **Raio-X:** Abre gaveta lateral com todas as tintas, bandejas e contagem total de páginas.
-   - Botão 🔄 **Atualizar:** Consulta instantânea do status na rede.
-4. **Alternador de Tema:** Botão para comutar entre modo Dark e Light.
+Indicado para a equipe de infraestrutura e suporte:
+- Login: requer autenticação com usuário e senha.
+- Usuário padrão: `admin`
+- Senha padrão: `admin`
 
----
+### Recursos exclusivos do administrador
+1. Visão geral: acompanhamento simultâneo de todas as unidades com filtro rápido por filial.
+2. Gerenciamento de pastas: criação e remoção de unidades no sistema.
+3. Cadastro de impressoras: inclusão de novos equipamentos informando filial, setor e endereço IP.
+4. Edição e exclusão: alteração de parâmetros cadastrais ou remoção de máquinas do parque.
+5. Diagnóstico de IP: teste direto de portas SNMP (UDP 161) e HTTP (TCP 80) para equipamentos ainda não cadastrados.
+6. Módulo de volume e previsão: dados de consumo diário, semanal e mensal, taxa de uso e projeção de término dos suprimentos.
+7. Auditoria de recargas: histórico de trocas de cartuchos com registro manual e cálculo de páginas do ciclo.
+8. Exportação: download de planilhas formatadas em CSV (UTF-8 BOM).
 
-## 4. 👑 Perfil: Administrador de TI
+## Padrão de identificação visual
 
-Destinado exclusivamente à equipe de infraestrutura, suporte corporativo e gestores de compras.
-
-### Segurança e Credenciais:
-- **Campos Limpos e Sem Preenchimento Automático:** Por segurança, os campos de usuário e senha nunca vêm pré-preenchidos e bloqueiam o autocompletar do navegador.
-- **Digitação Obrigatória:** O acesso administrativo exige a digitação manual das credenciais a cada acesso.
-- **Usuário Padrão:** `admin`
-- **Senha Padrão:** `admin`
-
-### Recursos Exclusivos do Administrador:
-1. **Visão Global:** Acesso irrestrito a todas as unidades corporativas e postos com seletor dinâmico.
-2. **📁 Gerenciar & Excluir Pastas de Unidades:** Botão no cabeçalho que abre a central de filiais, permitindo criar novas pastas e **excluir pastas existentes** com total segurança.
-3. **Cadastro de Impressoras:** Botão **`+ Nova Impressora`** no cabeçalho com vinculação de Pasta/Unidade, Local/Setor e Endereço IP.
-4. **Edição e Exclusão de Equipamentos:** Botões ✏️ **Editar** e 🗑️ **Excluir** presentes em cada linha da lista e dentro do Raio-X.
-5. **Diagnóstico Rápido de IP:** Botão **`⚡ Testar Conexão (IP)`** para validar equipamentos não cadastrados na rede local via portas SNMP (UDP 161) e Web (HTTP 80).
-6. **Relatório Consolidado de Tintas:** Tabela com 1 linha por impressora exibindo o percentual exato das 4 cores (*Preto*, *Ciano*, *Magenta*, *Amarelo*).
-7. **Exportação de CSV para Compras:** Botão **`📥 Exportar Relatório (CSV)`** que gera planilha compatível com Excel já formatada para o departamento de suprimentos.
-
----
-
-## 5. 🖨️ Nomenclatura e Visualização Padronizada
-
-- **Título Principal nos Cards/Lista:** Sempre o **Local / Setor** onde a impressora está alocada (ex: `Recepção`, `Oncologia`, `Faturamento`).
-- **Subtítulo:** **Modelo Detectado** limpo via SNMP/HTTP + **Endereço IP** (ex: `Lexmark CX522ade • 10.5.128.41`).
-- **Número de Série:** Isolado exclusivamente dentro do **Raio-X (Side Drawer)** para não poluir a visualização operacional do dia a dia.
+- Título principal no cartão: setor ou sala onde o equipamento está instalado (ex: Recepção, Consultório 3).
+- Linha secundária: modelo do equipamento e endereço IP na rede interna.
+- Dados complementares: número de série, contadores e suprimentos secundários exibidos no painel de detalhes.
