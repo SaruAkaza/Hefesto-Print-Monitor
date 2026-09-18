@@ -408,6 +408,17 @@ async function querySnmpWithVersion(ip, community, version) {
  * para obter o nível real da caixa de manutenção (não disponível via SNMP).
  */
 export const queryPrinterStatus = async (ip, community = 'public') => {
+  if (!ip || ip === '-' || ip === 'N/D' || ip.trim() === '') {
+    return {
+      online: false,
+      error: 'IP pendente / impressora desconectada',
+      supplies: [],
+      trays: [],
+      info: { location: '', pageCount: 0 },
+      status: { deviceCode: 5, deviceDescription: 'Offline (IP Pendente)', printerCode: 1, printerDescription: 'Desconectada' }
+    };
+  }
+
   // 1. Tentar SNMP v2c
   try {
     const resultV2 = await querySnmpWithVersion(ip, community, snmp.Version2c);
