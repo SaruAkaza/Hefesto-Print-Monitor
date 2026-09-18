@@ -1113,3 +1113,63 @@ export function runDailyBackup() {
     return null;
   }
 }
+
+// ============================================================================
+// OPERAÇÕES: EXPURGO AUTOMÁTICO DE TELEMETRIA (DATA RETENTION & PRUNING)
+// Mantém teto fixo de armazenamento (< 200 MB), preservando permanentemente
+// recharges e page_history.
+// ============================================================================
+export function pruneOldTelemetrySnapshots(daysToKeep = 30) {
+  try {
+    const cutoffDate = new Date();
+    cutoffDate.setDate(cutoffDate.getDate() - daysToKeep);
+    const cutoffIso = cutoffDate.toISOString();
+
+    const db = getDb();
+    const countBefore = db.prepare('SELECT COUNT(*) as total FROM telemetry_snapshots WHERE recorded_at < ?').get(cutoffIso);
+
+    if (countBefore && countBefore.total > 0) {
+      db.prepare('DELETE FROM telemetry_snapshots WHERE recorded_at < ?').run(cutoffIso);
+      console.log('\x1b[32m%s\x1b[0m', `[Data Retention] 🧹 Expurgo concluído: ${countBefore.total} snapshots antigos (> ${daysToKeep} dias) removidos.`);
+      db.exec('PRAGMA optimize');
+    } else {
+      console.log('\x1b[32m%s\x1b[0m', `[Data Retention] 🛡️ Base de telemetria enxuta: nenhum snapshot anterior a ${daysToKeep} dias encontrado.`);
+    }
+
+    return {
+      deletedCount: countBefore ? countBefore.total : 0,
+      daysToKeep,
+      cutoffDate: cutoffIso
+    };
+  } catch (err) {
+    console.error('[Data Retention] Erro ao realizar expurgo de telemetria:', err);
+    return { error: err.message };
+  }
+}
+
+export function getDatabaseStats() {
+  try {
+    const stats = fs.statSync(DB_PATH);
+    const sizeInMB = (stats.size / (1024 * 1024)).toFixed(2);
+
+    const db = getDb();
+    const totalPrinters = db.prepare('SELECT COUNT(*) as total FROM printers').get().total;
+    const totalRecharges = db.prepare('SELECT COUNT(*) as total FROM recharges').get().total;
+    const totalSnapshots = db.prepare('SELECT COUNT(*) as total FROM telemetry_snapshots').get().total;
+    const totalPageHistory = db.prepare('SELECT COUNT(*) as total FROM page_history').get().total;
+    const dateRange = db.prepare('SELECT MIN(recorded_at) as oldest, MAX(recorded_at) as newest FROM telemetry_snapshots').get();
+
+    return {
+      dbSizeBytes: stats.size,
+      dbSizeMB: Number(sizeInMB),
+      totalPrinters,
+      totalRecharges,
+      totalSnapshots,
+      totalPageHistory,
+      oldestSnapshot: dateRange?.oldest || null,
+      newestSnapshot: dateRange?.newest || null
+    };
+  } catch (err) {
+    return { error: err.message };
+  }
+}

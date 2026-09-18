@@ -10,10 +10,12 @@ import * as db from './db.js';
 // Inicializa banco de dados relacional SQLite e migração automática dos JSONs existentes
 db.initDatabase();
 
-// Backup diário rotativo do banco SQLite (executa no boot e agenda a cada 24h)
+// Backup diário rotativo e rotina de expurgo de retenção de dados (> 30 dias)
 db.runDailyBackup();
+db.pruneOldTelemetrySnapshots(30);
 setInterval(() => {
   db.runDailyBackup();
+  db.pruneOldTelemetrySnapshots(30);
 }, 24 * 60 * 60 * 1000);
 
 // Prevenção de crashes globais em background por erros assíncronos ou pacotes SNMP corrompidos
@@ -1276,6 +1278,24 @@ setInterval(async () => {
 app.get('/api/telemetry/history', async (req, res) => {
   const history = await loadTelemetryHistory();
   res.json(history);
+});
+
+// Endpoints de Manutenção, Diagnóstico de Armazenamento e Expurgo
+app.get('/api/system/stats', (req, res) => {
+  const stats = db.getDatabaseStats();
+  res.json(stats);
+});
+
+app.post('/api/maintenance/prune', (req, res) => {
+  const days = req.body?.days ? parseInt(req.body.days, 10) : 30;
+  const result = db.pruneOldTelemetrySnapshots(days);
+  const currentStats = db.getDatabaseStats();
+  res.json({
+    success: true,
+    message: `Rotina de expurgo executada com sucesso para registros com mais de ${days} dias.`,
+    pruned: result,
+    stats: currentStats
+  });
 });
 
 // Consulta otimizada com Cache e suporte a ?force=true
